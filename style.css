@@ -1,0 +1,117 @@
+/* 기본 초기화 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 카드 컨테이너 */
+.container {
+    position: relative;
+    background-color: #ffffff; 
+    width: 484px;
+    height: 678px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+/* 상단 뒤로가기 */
+.back-btn {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 20px;
+    width: 20px;
+    pointer-events:fill;
+    cursor: pointer;
+}
+
+/* 로고 박스 */
+.logo-placeholder {
+    width: 120px;
+    height: 75px;
+    margin: 30px auto 15px;
+    background-color: #dbdbdb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #333;
+}
+
+h1 {
+    font-size: 46px;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+/* 입력창 스타일 */
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.input-group input::placeholder {
+    color: #ccc;
+}
+
+/* 안내 박스 (비밀번호 찾기용) */
+.info-box {
+    background-color: #dbdbdb;
+    padding: 20px;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: left;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+/* 하단 링크 영역 */
+.links {
+    color: #666;
+    margin: 20px 0 40px;
+}
+
+.links span {
+    cursor: pointer;
+}
+
+
+
+/* 메인 버튼 */
+.btn-primary {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    padding: 15px 0;
+    background-color: #03a94d; 
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #028a3f;
+}
