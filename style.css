@@ -1,21 +1,7 @@
-/* 기본 초기화 */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Pretendard', sans-serif;
-}
 
-body {
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
 
 /* 카드 컨테이너 */
-.container {
+#login .container {
     position: relative;
     background-color: #ffffff; 
     width: 484px;
@@ -27,7 +13,7 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 /* 상단 뒤로가기 */
-.back-btn {
+#login .back-btn {
     position: absolute;
     top: 10px;
     left: 20px;
@@ -38,7 +24,7 @@ body {
 }
 
 /* 로고 박스 */
-.logo-placeholder {
+#login .logo-placeholder {
     width: 120px;
     height: 75px;
     margin: 30px auto 15px;
@@ -50,14 +36,14 @@ body {
     color: #333;
 }
 
-h1 {
+#login h1 {
     font-size: 46px;
     margin-bottom: 40px;
     font-weight: 500;
 }
 
 /* 입력창 스타일 */
-.input-group input {
+#login .input-group input {
     width: 100%;
     padding: 15px;
     margin-bottom: 10px;
@@ -67,12 +53,12 @@ h1 {
     font-size: 14px;
 }
 
-.input-group input::placeholder {
+#login .input-group input::placeholder {
     color: #ccc;
 }
 
 /* 안내 박스 (비밀번호 찾기용) */
-.info-box {
+#login .info-box {
     background-color: #dbdbdb;
     padding: 20px;
     font-size: 12px;
@@ -83,19 +69,19 @@ h1 {
 }
 
 /* 하단 링크 영역 */
-.links {
+#login .links {
     color: #666;
     margin: 20px 0 40px;
 }
 
-.links span {
+#login .links span {
     cursor: pointer;
 }
 
 
 
 /* 메인 버튼 */
-.btn-primary {
+#login .btn-primary {
     position: absolute;
     bottom: 70px;
     left: 50%;
@@ -112,6 +98,6 @@ h1 {
     transition: background 0.3s;
 }
 
-.btn-primary:hover {
+#login .btn-primary:hover {
     background-color: #028a3f;
 }
