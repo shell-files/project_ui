@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semicolon ESG Admin - 통합 관리</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        :root {
+            --naver-green: #03a94d;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --border-color: #eeeeee;
+        }
+
+        body { 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+            padding: 0; 
+            background-color: #fff; 
+            margin: 0; /* 기본 마진 제거 */
+        }
+
+        /* 사이드바 */
+        .sidebar { 
+            width: 260px; 
+            background-color: var(--white); 
+            border-right: 1px solid var(--border-color); 
+            display: flex; 
+            flex-direction: column; 
+            padding: 20px; 
+            z-index: 10; 
+        }
+        .sidebar .logo-placeholder { 
+            margin-bottom: 30px; 
+            height: 50px; 
+            background: #eee; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .nav-group { margin-bottom: 25px; }
+        .nav-title { font-size: 12px; color: #999; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-item { 
+            padding: 12px 15px; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            margin-bottom: 4px; 
+            font-size: 14px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: all 0.2s;
+        }
+        .nav-item:hover { background-color: #f0fdf4; color: var(--naver-green); }
+        .sub-item { padding-left: 30px; font-size: 13px; color: var(--text-sub); }
+
+        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
+        .company-select, .company-search { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 10px; font-size: 13px; outline: none; }
+
+        /* 우측 메인 영역 */
+        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .header { 
+            height: 70px; 
+            background: var(--white); 
+            border-bottom: 1px solid var(--border-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-end; 
+            padding: 0 40px; 
+            gap: 25px; 
+        }
+        .user-link { cursor: pointer; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
+        .user-link span { color: var(--naver-green); font-size: 12px; margin-left: 6px; font-weight: normal; }
+        .header-action { cursor: pointer; font-size: 14px; color: var(--text-sub); }
+        .header-action:hover { color: var(--naver-green); }
+
+        /* 메인 컨테이너 */
+        .main-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .header { height: 70px; background: var(--white); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; gap: 20px; }
+
+        /* 컨텐츠 */
+        .content-body { padding: 40px; flex: 1; overflow-y: auto; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        
+        /* 검색 및 필터링 (DB 스키마 반영) */
+        .filter-section { background: var(--white); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 10px; }
+        .filter-section input, .filter-section select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; outline: none; font-size: 13px; }
+
+        /* 테이블 */
+        .table-container { background: var(--white); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { background: #f8f9fa; padding: 15px; border-bottom: 2px solid var(--border-color); color: var(--text-sub); text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+
+        /* 배지 및 태그 스타일 */
+        .badge { padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .role-consultant { background: #673AB7; color: white; }
+        .role-esg { background: var(--naver-green); color: white; }
+        
+        .depth-tag { background: #f1f3f5; color: #495057; border: 1px solid #dee2e6; font-size: 11px; padding: 2px 5px; border-radius: 4px; }
+        
+        /* 이슈/그룹 태그 (이전 버전의 태그 UI) */
+        .issue-container { display: flex; flex-wrap: wrap; gap: 4px; max-width: 300px; }
+        .issue-tag { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 2px 8px; border-radius: 12px; font-size: 11px; }
+        .industry-info { font-size: 11px; color: #888; margin-top: 4px; }
+
+        .btn-action { padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 12px; }
+        .btn-action:hover { border-color: var(--naver-green); color: var(--naver-green); }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-placeholder" onclick="location.href='main.html'">로고</div>
+        
+        <nav class="nav-group">
+            <div class="nav-title">프로젝트 목록</div>
+            <div class="nav-item">1팀 (SKM)</div>
+            <div class="nav-item">2팀 (HG)</div>
+            <div class="nav-item">3팀 (TV)</div>
+        </nav>
+
+        <nav class="nav-group">
+            <div class="nav-title">시스템 및 운영</div>
+            <div class="nav-item active" onclick="location.href='log.html'">로그 확인</div>
+            <div class="nav-item" onclick="location.href='manager.html'">ESG 담당자 페이지</div>
+            <div class="nav-item sub-item" onclick="location.href='manager.html'">└ 관리페이지</div>
+            <div class="nav-item sub-item" onclick="location.href='invite.html'">└ 초대페이지</div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <select class="company-select">
+                <option>SKM</option>
+                <option>HG</option>
+                <option>TV</option>
+            </select>
+            <input type="text" class="company-search" placeholder="회사 검색...">
+        </div>
+    </aside>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="user-link" onclick="location.href='my_page.html'">
+                이채훈 <span>(SKM)</span>
+            </div>
+            <div class="header-action">로그아웃</div>
+            <div class="header-action" style="position:relative;">
+                알림
+                <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
+            </div>
+        </header>
+
+        <main class="content-body">
+            <div class="page-header">
+                <h2 style="font-size: 24px;">통합 유저 관리</h2>
+            </div>
+
+            <div class="filter-section">
+                <input type="text" placeholder="회사명, 사업자번호, 이름 검색">
+                <select>
+                    <option>전체 권한</option>
+                    <option>컨설턴트</option>
+                    <option>ESG 담당자</option>
+                </select>
+                <select>
+                    <option>협력사 Depth</option>
+                    <option>1 Tier (원청)</option>
+                    <option>2 Tier (협력)</option>
+                </select>
+                <select>
+                    <option>업종 대분류</option>
+                    <option>C: 제조업</option>
+                    <option>F: 건설업</option>
+                </select>
+                <button class="btn-action" style="background: var(--naver-green); color: white; border: none; font-weight: bold; padding: 0 20px;">조회</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>사용자 정보</th>
+                            <th>소속 회사</th>
+                            <th>권한/관계</th>
+                            <th>참여 이슈 (그룹)</th>
+                            <th>가입 상태</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>이정빈</strong><br>
+                                <span style="color:#999; font-size:11px;">leeej9801@gmail.com</span>
+                            </td>
+                            <td>
+                                SKM <span class="depth-tag">1 Tier</span><br>
+                                <span style="color:#999; font-size:11px;">123-45-67890</span>
+                            </td>
+                            <td>
+                                <span class="badge role-consultant">Consultant</span>
+                            </td>
+                            <td>
+                                <div class="issue-container">
+                                    <span class="issue-tag">탄소배출_2026</span>
+                                    <span class="issue-tag">에너지_절감</span>
+                                </div>
+                                <div class="industry-info">업종: C101 (식료품)</div>
+                            </td>
+                            <td><span style="color: var(--naver-green); font-weight: bold;">승인완료</span></td>
+                            <td><button class="btn-action">설정</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>이나라</strong><br>
+                                <span style="color:#999; font-size:11px;">nara1743@gmail.com</span>
+                            </td>
+                            <td>
+                                TV <span class="depth-tag">2 Tier</span><br>
+                                <span style="color:#999; font-size:11px;">987-65-43210</span>
+                            </td>
+                            <td>
+                                <span class="badge role-esg">ESG Admin</span>
+                            </td>
+                            <td>
+                                <div class="issue-container">
+                                    <span class="issue-tag">공급망_실사</span>
+                                </div>
+                                <div class="industry-info">업종: C262 (전자부품)</div>
+                            </td>
+                            <td><span style="color: #ef6c00; font-weight: bold;">초대대기</span></td>
+                            <td><button class="btn-action">설정</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

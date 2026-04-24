@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시스템 로그 확인</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* 대시보드 공통 레이아웃 유지 및 변수 설정 */
+        :root {
+            --naver-green: #03a94d;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --border-color: #eeee;
+        }
+
+        body { 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+            padding: 0; 
+            background-color: #fff; 
+            margin: 0; /* 기본 마진 제거 */
+        }
+
+        
+        /* 사이드바 */
+        .sidebar { 
+            width: 260px; 
+            background-color: var(--white); 
+            border-right: 1px solid var(--border-color); 
+            display: flex; 
+            flex-direction: column; 
+            padding: 20px; 
+            z-index: 10; 
+        }
+        .sidebar .logo-placeholder { 
+            margin-bottom: 30px; 
+            height: 50px; 
+            background: #eee; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .nav-group { margin-bottom: 25px; }
+        .nav-title { font-size: 12px; color: #999; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-item { 
+            padding: 12px 15px; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            margin-bottom: 4px; 
+            font-size: 14px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: all 0.2s;
+        }
+        .nav-item:hover { background-color: #f0fdf4; color: var(--naver-green); }
+        .sub-item { padding-left: 30px; font-size: 13px; color: var(--text-sub); }
+
+        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
+        .company-select, .company-search { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 10px; font-size: 13px; outline: none; }
+
+        /* 우측 메인 영역 */
+        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .header { 
+            height: 70px; 
+            background: var(--white); 
+            border-bottom: 1px solid var(--border-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-end; 
+            padding: 0 40px; 
+            gap: 25px; 
+        }
+        .user-link { cursor: pointer; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
+        .user-link span { color: var(--naver-green); font-size: 12px; margin-left: 6px; font-weight: normal; }
+        .header-action { cursor: pointer; font-size: 14px; color: var(--text-sub); }
+        .header-action:hover { color: var(--naver-green); }
+
+        /* 로그 페이지 전용 스타일 */
+        .content-body { padding: 40px; flex: 1; overflow-y: auto; }
+        .page-title { font-size: 24px; font-weight: bold; margin-bottom: 25px; color: var(--text-main); }
+
+        /* 로그 테이블 */
+        .log-table-container { 
+            background: var(--white); 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+        th { background: #f8f9fa; padding: 15px; border-bottom: 2px solid var(--border-color); color: var(--text-sub); font-weight: 600; }
+        td { padding: 14px 15px; border-bottom: 1px solid var(--border-color); vertical-align: middle; white-space: nowrap; }
+        tr:hover { background-color: #fafafa; }
+
+        /* 로그 레벨 배지 */
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; color: white; display: inline-block; min-width: 50px; text-align: center; }
+        .info { background-color: #2196F3; }
+        .warning { background-color: #FF9800; }
+        .error { background-color: #F44336; }
+        
+        /* 상태 코드 및 기타 텍스트 스타일 */
+        .status-200 { color: var(--naver-green); font-weight: bold; }
+        .status-400, .status-500 { color: #F44336; font-weight: bold; }
+        .latency { color: #888; font-style: italic; font-family: monospace; }
+        .method-tag { font-weight: bold; margin-right: 5px; }
+
+        /* 알림용 빨간 점 */
+        .noti-dot { width: 8px; height: 8px; background-color: #ff4d4d; border-radius: 50%; border: 1.5px solid #fff; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-placeholder" onclick="location.href='main.html'">로고</div>
+        
+        <nav class="nav-group">
+            <div class="nav-title">프로젝트 목록</div>
+            <div class="nav-item">1팀 (SKM)</div>
+            <div class="nav-item">2팀 (HG)</div>
+            <div class="nav-item">3팀 (TV)</div>
+        </nav>
+
+        <nav class="nav-group">
+            <div class="nav-title">시스템 및 운영</div>
+            <div class="nav-item active" onclick="location.href='log.html'">로그 확인</div>
+            <div class="nav-item" onclick="location.href='manager.html'">ESG 담당자 페이지</div>
+            <div class="nav-item sub-item" onclick="location.href='manager.html'">└ 관리페이지</div>
+            <div class="nav-item sub-item" onclick="location.href='invite.html'">└ 초대페이지</div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <select class="company-select">
+                <option>SKM</option>
+                <option>HG</option>
+                <option>TV</option>
+            </select>
+            <input type="text" class="company-search" placeholder="회사 검색...">
+        </div>
+    </aside>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="user-link" onclick="location.href='my_page.html'">
+                이채훈 <span>(SKM)</span>
+            </div>
+            <div class="header-action">로그아웃</div>
+            <div class="header-action" style="position:relative;">
+                알림
+                <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
+            </div>
+        </header>
+
+        <main class="content-body">
+            <h2 class="page-title">시스템 실시간 로그</h2>
+            
+            <div class="log-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Level</th>
+                            <th>Method/Path</th>
+                            <th>Status</th>
+                            <th>User ID</th>
+                            <th>Client IP</th>
+                            <th>Latency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2026-04-23T23:45:01</td>
+                            <td><span class="badge info">INFO</span></td>
+                            <td><span class="method-tag">GET</span> /api/v1/esg/report</td>
+                            <td><span class="status-200">200</span></td>
+                            <td>user</td>
+                            <td>192.168.0.15</td>
+                            <td class="latency">45ms</td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-23T23:44:50</td>
+                            <td><span class="badge error">ERROR</span></td>
+                            <td><span class="method-tag">POST</span> /api/v1/auth/login</td>
+                            <td><span class="status-400">401</span></td>
+                            <td>unknown</td>
+                            <td>211.234.12.55</td>
+                            <td class="latency">12ms</td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-23T23:44:32</td>
+                            <td><span class="badge warning">WARN</span></td>
+                            <td><span class="method-tag">GET</span> /api/v1/admin/users</td>
+                            <td><span class="status-200">200</span></td>
+                            <td>user</td>
+                            <td>192.168.0.15</td>
+                            <td class="latency">120ms</td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-23T23:40:15</td>
+                            <td><span class="badge info">INFO</span></td>
+                            <td><span class="method-tag">PUT</span> /api/v1/user/profile</td>
+                            <td><span class="status-200">200</span></td>
+                            <td>user</td>
+                            <td>192.168.0.15</td>
+                            <td class="latency">88ms</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
