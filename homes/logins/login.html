@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 및 비밀번호 찾기</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body id="login">
 
     <div class="container" id="login-section">
         <div class="header-nav">
-            <span class="back-btn">←</span>
+            <span class="back-btn" onclick="location.href='../gates/index.html'">←</span>
         </div>
         <div class="logo-placeholder">로고 추가 예정</div>
         <h1>Login</h1>
@@ -24,7 +24,7 @@
             <a href="signup.html">회사 등록</a> / <span onclick="alert('아이디 찾기 커스텀 알럿')">이메일 찾기</span> / <span class="active-link" onclick="toggleView()">비밀번호 찾기</span>
         </div>
 
-        <button class="btn-primary"onclick="location.href='main.html'">로그인</button>
+        <button class="btn-primary"onclick="location.href='../mains/main.html'">로그인</button>
     </div>
 
     <div class="container" id="forgot-section" style="display: none;">
