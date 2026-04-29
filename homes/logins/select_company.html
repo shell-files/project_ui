@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 선택</title>
+    <style>
+        #select_company { background-color: #f4f7f6; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Pretendard', sans-serif;}
+        #select_company .select-container { text-align: center; background: #fff; padding: 50px 40px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; width: 100%; max-width: 400px; }
+        #select_company .select-code { font-size: 28px; font-weight: bold; color: #03a94d; margin-bottom: 20px; }
+        
+        /* 입력 창 스타일 */
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-size: 14px; color: #666; margin-bottom: 5px; margin-left: 5px; }
+        .search-input, .company-select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; font-size: 16px; outline: none; }
+        .search-input:focus, .company-select:focus { border-color: #03a94d; }
+
+        .btn-submit { display: block; background-color: #03a94d; color: white; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 25px; transition: opacity 0.2s; border: none; width: 100%; cursor: pointer; font-size: 16px; }
+        .btn-submit:hover { opacity: 0.8; }
+        .info-text { font-size: 13px; color: #888; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div id="select_company">
+        <div class="select-container">
+            <div class="select-code">회사 선택</div>
+            
+            <div class="input-group">
+                <label for="search">회사명 검색</label>
+                <input type="text" id="search" class="search-input" placeholder="회사 이름을 입력하세요" onkeyup="filterCompanies()">
+            </div>
+
+            <div class="input-group">
+                <label for="companyList">회사 선택</label>
+                <select id="companyList" class="company-select">
+                    <option value="">회사를 선택해주세요</option>
+                    <option value="google">구글 (Google)</option>
+                    <option value="naver">네이버 (Naver)</option>
+                    <option value="kakao">카카오 (Kakao)</option>
+                    <option value="samsung">삼성전자 (Samsung)</option>
+                    <option value="toss">토스 (Toss)</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="submitSelection()">선택 완료</button>
+            <p class="info-text">목록에 회사가 없다면 관리자에게 문의하세요.</p>
+        </div>
+    </div>
+
+    <script>
+        // 검색 필터링 함수
+        function filterCompanies() {
+            const input = document.getElementById('search').value.toLowerCase();
+            const select = document.getElementById('companyList');
+            const options = select.getElementsByTagName('option');
+
+            for (let i = 1; i < options.length; i++) { // 첫 번째 '선택해주세요' 제외
+                const txtValue = options[i].textContent || options[i].innerText;
+                if (txtValue.toLowerCase().indexOf(input) > -1) {
+                    options[i].style.display = "";
+                } else {
+                    options[i].style.display = "none";
+                }
+            }
+        }
+
+        // 선택 완료 버튼 클릭 시
+        function submitSelection() {
+            const select = document.getElementById('companyList');
+            const selectedValue = select.value;
+            
+            if (!selectedValue) {
+                alert("회사를 먼저 선택해주세요!");
+                return;
+            }
+            
+            alert(select.options[select.selectedIndex].text + "이(가) 선택되었습니다.");
+            location.href = "./main.html"; // 메인으로 이동
+        }
+    </script>
+</body>
+</html>
