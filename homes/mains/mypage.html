@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>마이페이지 - ESG 시스템</title>
+      <link rel="stylesheet" href="../../styles/mypage.css">
+  </head>
+  <body class="standalone-body">
+      <div class="mypage-wrapper">
+        <main class="mypage-container">
+          <div class="mypage-header">
+            <h2>마이페이지</h2>
+            <p>개인 정보 및 계정 설정을 관리하세요.</p>
+          </div>
+
+          <div class="mypage-content">
+            <!-- 프로필 상단 배너 -->
+            <section class="profile-banner">
+                <div class="profile-banner-content">
+                  <h1 id="displayUserName">이나라</h1>
+                  <div class="profile-banner-details">
+                    <span class="team-tag">WITH</span>
+                    <span class="divider">·</span>
+                    <span class="user-email">weareithero@example.com</span>
+                  </div>
+                </div>
+            </section>
+
+            <!-- 프로필 상세 영역 -->
+            <section class="info-section">
+                <div class="info-grid">
+                  <div class="info-item">
+                    <label>이메일</label>
+                    <div class="info-box">weareithero@example.com</div>
+                  </div>
+                  <div class="info-item">
+                    <label>소속</label>
+                    <div class="info-box">WITH</div>
+                  </div>
+                  <div class="info-item">
+                    <label>역할</label>
+                    <div class="info-box">ESG 담당자</div>
+                  </div>
+                  <div class="info-item">
+                    <label>가입일</label>
+                    <div class="info-box">2026-06-25</div>
+                  </div>
+                </div>
+            </section>
+
+            <div class="mypage-footer">
+              <button class="btn-edit" onclick="openModal()">정보 수정</button>
+              <button class="btn-delete" onclick="deleteAccount()">회원 탈퇴</button>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- 정보 수정 모달 -->
+      <div id="infoModal" class="modal-overlay">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 id="modalTitle">본인 확인</h3>
+                  <p id="modalDesc">정보 수정을 위해 현재 비밀번호를 입력해주세요.</p>
+              </div>
+              
+              <div class="modal-body">
+                  <div id="step1">
+                      <input type="password" id="currentPassword" placeholder="현재 비밀번호 입력" class="modal-input">
+                      <div class="modal-btns">
+                          <button onclick="verifyPassword()" class="btn-edit">확인</button>
+                          <button onclick="closeModal()" class="btn-password">취소</button>
+                      </div>
+                  </div>
+                  
+                  <div id="step2" style="display: none;">
+                      <div class="input-group">
+                        <label class="modal-label">사용자 이름 변경</label>
+                        <input type="text" id="newUserName" placeholder="변경할 이름 입력" class="modal-input">
+                      </div>
+                      <div class="input-group">
+                        <label class="modal-label">비밀번호 변경 (필요 시)</label>
+                        <input type="password" id="newPassword" placeholder="새 비밀번호 입력" class="modal-input">
+                        <input type="password" id="confirmPassword" placeholder="새 비밀번호 확인" class="modal-input">
+                      </div>
+                      <div class="modal-btns">
+                          <button onclick="updateUserInfo()" class="btn-edit">수정 완료</button>
+                          <button onclick="closeModal()" class="btn-password">취소</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <script>
+        const modal = document.getElementById('infoModal');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const title = document.getElementById('modalTitle');
+        const desc = document.getElementById('modalDesc');
+
+        let currentUserData = { name: "이나라", pw: "1234" };
+
+        function openModal() {
+          modal.style.display = 'flex';
+          document.getElementById('newUserName').value = currentUserData.name;
+        }
+
+        function closeModal() {
+          modal.style.display = 'none';
+          resetModal();
+        }
+
+        function verifyPassword() {
+          if(document.getElementById('currentPassword').value === currentUserData.pw) {
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+            title.innerText = "정보 수정";
+            desc.innerText = "변경할 정보를 입력해주세요.";
+          } else {
+            alert("비밀번호가 일치하지 않습니다.");
+          }
+        }
+
+        function updateUserInfo() {
+          const newName = document.getElementById('newUserName').value;
+          const newPw = document.getElementById('newPassword').value;
+          const cfPw = document.getElementById('confirmPassword').value;
+
+          if (!newName) { alert("이름은 필수 항목입니다."); return; }
+
+          if (newPw !== "") {
+              if (newPw === currentUserData.pw) {
+                  alert("기존 비밀번호와 동일합니다."); return;
+              }
+              if (newPw !== cfPw) {
+                  alert("새 비밀번호 확인이 일치하지 않습니다."); return;
+              }
+              currentUserData.pw = newPw;
+          }
+
+          currentUserData.name = newName;
+          document.getElementById('displayUserName').innerText = newName;
+
+          alert("정보 수정이 완료되었습니다.");
+          closeModal();
+        }
+
+        function resetModal() {
+          step1.style.display = 'block';
+          step2.style.display = 'none';
+          title.innerText = "본인 확인";
+          desc.innerText = "정보 수정을 위해 현재 비밀번호를 입력해주세요.";
+          document.querySelectorAll('.modal-input').forEach(input => input.value = "");
+        }
+
+        function deleteAccount() {
+          if (confirm("정말로 탈퇴하시겠습니까?")) {
+            alert("탈퇴 완료. 로그인 페이지로 이동합니다.");
+            window.location.href = "../auth/login.html";
+          }
+        }
+      </script>
+  </body>
+</html>
