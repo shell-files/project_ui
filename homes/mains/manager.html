@@ -3,36 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semicolon ESG Admin - 통합 관리</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>ESG 통합 관리 시스템</title>
     <style>
-        :root {
-            --naver-green: #03a94d;
-            --text-main: #333333;
-            --text-sub: #666666;
-            --bg-light: #f4f7f6;
-            --white: #ffffff;
-            --border-color: #eeeeee;
-        }
-
+         /* 메인 레이아웃 전용 스타일 확장 */
         body { 
             display: flex; 
             height: 100vh; 
             overflow: hidden; 
             padding: 0; 
-            background-color: #fff; 
-            margin: 0; /* 기본 마진 제거 */
+            background-color: #f4f7f6; 
+            margin: 0;
         }
-
-        /* 사이드바 */
-        .sidebar { 
-            width: 260px; 
-            background-color: var(--white); 
-            border-right: 1px solid var(--border-color); 
-            display: flex; 
-            flex-direction: column; 
-            padding: 20px; 
-            z-index: 10; 
+        
+        /* 좌측 사이드바 */
+        .sidebar {
+            width: 260px;
+            background-color: #fff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 10;
         }
         .sidebar .logo-placeholder { 
             margin-bottom: 30px; 
@@ -43,7 +34,6 @@
             justify-content: center;
             font-weight: bold;
             border-radius: 8px;
-            cursor: pointer;
         }
         .nav-group { margin-bottom: 25px; }
         .nav-title { font-size: 12px; color: #999; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
@@ -55,83 +45,123 @@
             font-size: 14px; 
             display: flex; 
             justify-content: space-between; 
-            align-items: center; 
-            transition: all 0.2s;
+            align-items: center;
+            transition: background 0.2s;
         }
-        .nav-item:hover { background-color: #f0fdf4; color: var(--naver-green); }
-        .sub-item { padding-left: 30px; font-size: 13px; color: var(--text-sub); }
+        .nav-item:hover { background-color: #f0fdf4; color: #03a94d; }
+        .sub-item { padding-left: 30px; font-size: 13px; color: #666; }
 
-        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
-        .company-select, .company-search { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 10px; font-size: 13px; outline: none; }
+        /* 알림용 빨간 점 */
+        .noti-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+        }
+
+        /* 사이드바 하단: 회사 선택 및 검색 */
+        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid #eee; }
+        .company-select { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border: 1px solid #ddd; 
+            margin-bottom: 10px; 
+            font-size: 13px;
+            outline: none;
+        }
+        .company-search { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border: 1px solid #ddd; 
+            font-size: 13px; 
+            outline: none;
+        }
 
         /* 우측 메인 영역 */
-        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-        .header { 
-            height: 70px; 
-            background: var(--white); 
-            border-bottom: 1px solid var(--border-color); 
+        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; }
+        
+        /* 상단 헤더 */
+        .header {
+            height: 70px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 40px;
+            gap: 25px;
+        }
+        .user-link { 
+            cursor: pointer; 
+            font-size: 15px; 
+            font-weight: 600; 
             display: flex; 
             align-items: center; 
-            justify-content: flex-end; 
-            padding: 0 40px; 
-            gap: 25px; 
         }
-        .user-link { cursor: pointer; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
-        .user-link span { color: var(--naver-green); font-size: 12px; margin-left: 6px; font-weight: normal; }
-        .header-action { cursor: pointer; font-size: 14px; color: var(--text-sub); }
-        .header-action:hover { color: var(--naver-green); }
-
-        /* 메인 컨테이너 */
-        .main-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .header { height: 70px; background: var(--white); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; gap: 20px; }
-
-        /* 컨텐츠 */
-        .content-body { padding: 40px; flex: 1; overflow-y: auto; }
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        
-        /* 검색 및 필터링 (DB 스키마 반영) */
-        .filter-section { background: var(--white); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 10px; }
-        .filter-section input, .filter-section select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; outline: none; font-size: 13px; }
-
-        /* 테이블 */
-
-        .table-container { background: var(--white); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { background: #f8f9fa; padding: 15px; border-bottom: 2px solid var(--border-color); color: var(--text-sub); text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
-
-        /* 배지 및 태그 스타일 */
-        .badge { padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
-        .role-consultant { background: #673AB7; color: white; }
-        .role-esg { background: var(--naver-green); color: white; }
-        
-        .depth-tag { background: #f1f3f5; color: #495057; border: 1px solid #dee2e6; font-size: 11px; padding: 2px 5px; border-radius: 4px; }
-        
-        /* 이슈/그룹 태그 (이전 버전의 태그 UI) */
-        .issue-container { display: flex; flex-wrap: wrap; gap: 4px; max-width: 300px; }
-        .issue-tag { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 2px 8px; border-radius: 12px; font-size: 11px; }
-        .industry-info { font-size: 11px; color: #888; margin-top: 4px; }
-
-        .btn-action { padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 12px; }
-        .btn-action:hover { border-color: var(--naver-green); color: var(--naver-green); }
+        .user-link span { 
+            color: var(--#03a94d);
+            font-size: 12px; 
+            font-weight: normal; 
+            margin-left: 6px; 
+        }
+        .header-action { cursor: pointer; 
+            font-size: 14px; color: #555; 
+            position: relative; 
+        }
+        #manager_page {
+             padding: 20px; font-family: sans-serif; background: #f8f9fa;
+            overflow-y: auto; }
+        .manager-content-container { 
+            max-width: 1200px; margin: 0 auto; }
+        .kpi-container { display: flex; gap: 15px; margin-bottom: 25px; }
+        .kpi-card { flex: 1; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
+        .kpi-card.active { border: 2px solid #03a94d; }
+        .kpi-label { font-size: 14px; color: #666; }
+        .kpi-value { font-size: 24px; font-weight: bold; margin-top: 5px; }
+        .tab-group { display: flex; gap: 10px; margin-top: 15px; }
+        .tab-item { padding: 10px 20px; border: none; background: #eee; cursor: pointer; border-radius: 6px; }
+        .tab-item.active { background: #03a94d; color: #fff; }
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 15px; }
+        .search-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .table-wrapper { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f4f6f8; font-weight: 600; }
+        .tag-item { display: inline-block; padding: 2px 8px; background: #e9ecef; border-radius: 4px; font-size: 12px; margin-right: 4px; }
+        .btn-primary { background: #03a94d; color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+        .btn-outline { border: 1px solid #ddd; background: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:1000; }
+        .modal-window { background:#fff; padding:20px; border-radius:12px; width:500px; max-width:90%; }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; margin-bottom:15px; }
+        .modal-tag { padding:5px 10px; border-radius:20px; border:1px solid #ddd; background:#fff; cursor:pointer; margin:3px; }
+        .modal-tag.assigned { background:#e8f5e9; color:#2e7d32; border-color:#c8e6c9; }
+        .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 20px; }
+        .page-btn { padding: 5px 10px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
+        .hidden { display: none; }
+        .role-badge { padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+        .role-badge.green { background: #e8f5e9; color: #2e7d32; }
+        .role-badge.purple { background: #f3e5f5; color: #7b1fa2; }
     </style>
 </head>
 <body>
-
     <aside class="sidebar">
-        <div class="logo-placeholder" onclick="location.href='main.html'">로고</div>
+        <div class="logo-placeholder">로고</div>
         
         <nav class="nav-group">
             <div class="nav-title">프로젝트 목록</div>
+            <div class="nav-item" onclick="location.href='onboarding.html'">데이터입력</div>
             <div class="nav-item">1팀 (SKM)</div>
             <div class="nav-item">2팀 (HG)</div>
             <div class="nav-item">3팀 (TV)</div>
         </nav>
 
         <nav class="nav-group">
-            <div class="nav-title">시스템 및 운영</div>
-            <div class="nav-item active" onclick="location.href='log.html'">로그 확인</div>
-            <div class="nav-item" onclick="location.href='manager.html'">ESG 담당자 페이지</div>
+            <div class="nav-item" onclick="location.href='404.html'">404</div>
+            <div class="nav-item" onclick="location.href='log.html'">로그 확인</div>
+            <div class="nav-item">ESG 담당자 페이지</div>
             <div class="nav-item sub-item" onclick="location.href='manager.html'">└ 관리페이지</div>
             <div class="nav-item sub-item" onclick="location.href='invite.html'">└ 초대페이지</div>
         </nav>
@@ -151,99 +181,423 @@
             <div class="user-link" onclick="location.href='my_page.html'">
                 이채훈 <span>(SKM)</span>
             </div>
-            <div class="header-action">로그아웃</div>
-            <div class="header-action" style="position:relative;">
+            <div class="header-action" onclick="location.href='../../index.html'">로그아웃</div>
+            <div class="header-action" onclick="toggleNoti()">
                 알림
                 <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
             </div>
         </header>
 
-        <main class="content-body">
-            <div class="page-header">
-                <h2 style="font-size: 24px;">통합 유저 관리</h2>
-            </div>
+<div id="manager_page">
+    <div class="manager-content-container">
+        
+        <!-- 1. KPI 영역 -->
+        <div class="kpi-container" id="kpi-container">
+            <!-- JS에서 동적 렌더링 -->
+        </div>
 
-            <div class="filter-section">
-                <input type="text" placeholder="회사명, 사업자번호, 이름 검색">
-                <select>
-                    <option>전체 권한</option>
-                    <option>컨설턴트</option>
-                    <option>ESG 담당자</option>
-                </select>
-                <select>
-                    <option>협력사 Depth</option>
-                    <option>1 Tier (원청)</option>
-                    <option>2 Tier (협력)</option>
-                </select>
-                <select>
-                    <option>업종 대분류</option>
-                    <option>C: 제조업</option>
-                    <option>F: 건설업</option>
-                </select>
-                <button class="btn-action" style="background: var(--naver-green); color: white; border: none; font-weight: bold; padding: 0 20px;">조회</button>
+        <!-- 2. 헤더 및 탭 -->
+        <div class="page-header">
+            <h2 class="page-title">ESG 통합 관리 시스템</h2>
+            <div class="tab-group">
+                <button id="tab-user" class="tab-item active" onclick="switchTab('user')">유저 관리</button>
+                <button id="tab-data" class="tab-item" onclick="switchTab('data')">데이터 승인</button>
             </div>
+        </div>
 
-            <div class="table-container">
-                <table>
-                    <thead style="background-color: #03a94d;">
+        <!-- 유저 관리 섹션 -->
+        <section id="section-user" class="fade-in">
+            <div class="filter-bar">
+                <input id="user-search" class="search-input" placeholder="사용자명 또는 회사명 / 이슈그룹 검색" oninput="handleUserSearch()">
+                <button class="btn-primary" onclick="init()">조회</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="user-table">
+                    <thead>
                         <tr>
                             <th>사용자 정보</th>
                             <th>소속 회사</th>
-                            <th>권한/관계</th>
-                            <th>참여 이슈 (그룹)</th>
-                            <th>가입 상태</th>
+                            <th>할당 이슈 그룹</th>
                             <th>관리</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>이정빈</strong><br>
-                                <span style="color:#999; font-size:11px;">leeej9801@gmail.com</span>
-                            </td>
-                            <td>
-                                SKM <span class="depth-tag">1 Tier</span><br>
-                                <span style="color:#999; font-size:11px;">123-45-67890</span>
-                            </td>
-                            <td>
-                                <span class="badge role-consultant">Consultant</span>
-                            </td>
-                            <td>
-                                <div class="issue-container">
-                                    <span class="issue-tag">탄소배출_2026</span>
-                                    <span class="issue-tag">에너지_절감</span>
-                                </div>
-                                <div class="industry-info">업종: C101 (식료품)</div>
-                            </td>
-                            <td><span style="color: var(--naver-green); font-weight: bold;">승인완료</span></td>
-                            <td><button class="btn-action">설정</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>이나라</strong><br>
-                                <span style="color:#999; font-size:11px;">nara1743@gmail.com</span>
-                            </td>
-                            <td>
-                                TV <span class="depth-tag">2 Tier</span><br>
-                                <span style="color:#999; font-size:11px;">987-65-43210</span>
-                            </td>
-                            <td>
-                                <span class="badge role-esg">ESG Admin</span>
-                            </td>
-                            <td>
-                                <div class="issue-container">
-                                    <span class="issue-tag">공급망_실사</span>
-                                </div>
-                                <div class="industry-info">업종: C262 (전자부품)</div>
-                            </td>
-                            <td><span style="color: #ef6c00; font-weight: bold;">초대대기</span></td>
-                            <td><button class="btn-action">설정</button></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="user-list"></tbody>
                 </table>
             </div>
-        </main>
-    </div>
+            <div id="user-pagination" class="pagination"></div>
+        </section>
 
+        <!-- 데이터 승인 섹션 -->
+        <section id="section-data" class="fade-in hidden">
+            <div class="data-control-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <div class="category-tabs" id="main-category-tabs">
+                    <!-- JS에서 동적 생성 -->
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-outline" onclick="handleBulkAction('approved')">선택 승인</button>
+                    <button class="btn-outline" onclick="handleBulkAction('rejected')" style="color: #dc3545;">선택 반려</button>
+                    <button class="btn-primary" onclick="init()">데이터 새로고침</button>
+                </div>
+            </div>
+
+            <div id="sub-category-container" class="sub-category-tabs"></div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all" onclick="toggleSelectAll()"></th>
+                            <th>ID</th><th>이슈 그룹</th><th>지표 항목</th><th>값</th><th>첨부파일</th><th>작성자</th><th>상태</th><th>액션</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-list"></tbody>
+                </table>
+            </div>
+            <div id="data-pagination" class="pagination"></div>
+        </section>
+
+    </div>
+</div>
+
+<!-- 모달: 이슈 그룹 수정 -->
+<div id="modal-user-group" class="modal-overlay hidden">
+    <div class="modal-window">
+        <div class="modal-header">
+            <h3 id="modal-user-name">권한 설정</h3>
+            <button onclick="closeModal('modal-user-group')">×</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-label">현재 할당된 그룹 (클릭 시 제거)</p>
+            <div id="assigned-groups" class="modal-tag-group"></div>
+            <p class="section-label" style="margin-top:20px;">추가 가능한 그룹 (클릭 시 추가)</p>
+            <div id="unassigned-groups" class="modal-tag-group"></div>
+        </div>
+        <div class="modal-footer" style="margin-top:20px;">
+            <button class="btn-primary" style="width:100%" onclick="saveUserGroups()">설정 완료</button>
+        </div>
+    </div>
+</div>
+
+<!-- 모달: 반려 사유 -->
+<div id="modal-reject" class="modal-overlay hidden">
+    <div class="modal-window">
+        <div class="modal-header">
+            <h3>반려 사유 입력</h3>
+            <button onclick="closeModal('modal-reject')">×</button>
+        </div>
+        <div class="modal-body">
+            <textarea id="reject-reason" style="width:100%; height:120px; padding:10px; border:1px solid #ddd; border-radius:6px;" placeholder="반려 사유를 입력해주세요"></textarea>
+        </div>
+        <div class="modal-footer" style="margin-top:15px;">
+            <button class="btn-primary" style="width:100%; background:#dc3545;" onclick="confirmReject()">반려 확정</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    /** [CONSTANTS & MOCK DATA] - 원본 코드 데이터 유지 **/
+    const CATEGORY_MAP = {
+        general: ["기업개요", "ESG Strategy", "Tax", "Anti-Corruption"],
+        environmental: ["Climate", "Waste", "Water", "Energy", "Biodiversity", "Greenhouse Gas", "Air Quality", "Circular Economy"],
+        social: ["Social", "Labor", "Human Rights", "Community", "Product Safety", "Diversity", "Safety", "Data Privacy"],
+        governance: ["Governance", "Ethics"]
+    };
+    const AllIssueGroups = ["기업개요", "Climate", "Social", "Governance", "Ethics", "Waste", "Water", "Energy", "Labor", "Human Rights", "Community", "Product Safety", "Tax", "Biodiversity", "Supply Chain", "Diversity", "Data Privacy", "Anti-Corruption", "Safety", "Circular Economy", "Greenhouse Gas", "Air Quality", "ESG Strategy"];
+    
+    let users = [
+        { id: 1, name: '이채훈', email: 'chaehoon@skm.com', company: 'SKM', role: '관리자', groups: [...AllIssueGroups] },
+        { id: 2, name: '김하영', email: 'hayoung@skm.com', company: 'SKM', role: '부서 담당자', groups: ['Water', 'Waste'] },
+        { id: 3, name: '이정빈', email: 'jungbin@skm.com', company: 'SKM', role: '관리자', groups: [...AllIssueGroups] },
+        { id: 4, name: '최수아', email: 'sua@skm.com', company: 'SKM', role: 'ESG 담당자', groups: ['Governance', 'Tax'] },
+        { id: 5, name: '김지환', email: 'jihwan@hg.com', company: 'HG', role: '관리자', groups: [...AllIssueGroups] },
+        { id: 6, name: '조윤주', email: 'yunju@hg.com', company: 'HG', role: '부서 담당자', groups: ['Social', 'Community'] },
+        { id: 7, name: '최가영', email: 'gayoung@hg.com', company: 'HG', role: 'ESG 담당자', groups: ['Biodiversity', 'Circular Economy'] },
+        { id: 8, name: '최윤우', email: 'yunu@hg.com', company: 'HG', role: '컨설턴트', groups: ['Waste', 'Greenhouse Gas'] },
+        { id: 9, name: '남영준', email: 'youngjun@tv.com', company: 'TV', role: '부서 담당자', groups: ['Human Rights', 'Diversity'] },
+        { id: 10, name: '이나라', email: 'nara@tv.com', company: 'TV', role: '관리자', groups: [...AllIssueGroups] },
+        { id: 11, name: '이현서', email: 'hyunseo@tv.com', company: 'TV', role: 'ESG 담당자', groups: ['Supply Chain', 'Data Privacy'] },
+        { id: 12, name: '강사님', email: 'mentor@mt.com', company: 'MT', role: '관리자', groups: [...AllIssueGroups] }
+    ];
+
+    let inputs = [
+        { id: 101, issueGroup: 'Climate', questionName: '온실가스 배출량 (Scope 1&2)', value: '450 tCO2eq', userName: '이채훈', status: 'pending', attachmentFile: 'skm_env_01.pdf' },
+        { id: 102, issueGroup: 'Energy', questionName: '전력 사용 효율성 지수', value: '0.85', userName: '이채훈', status: 'approved', attachmentFile: null },
+        { id: 103, issueGroup: 'Water', questionName: '용수 취수량 및 재이용률', value: '1,200톤 / 15%', userName: '김하영', status: 'pending', attachmentFile: 'water_usage.xlsx' },
+        { id: 104, issueGroup: 'Waste', questionName: '지정폐기물 처리 현황', value: '25.4톤', userName: '김하영', status: 'rejected', attachmentFile: 'waste_error.png' },
+        { id: 105, issueGroup: 'Ethics', questionName: '임직원 윤리강령 서약률', value: '100%', userName: '이정빈', status: 'approved', attachmentFile: null },
+        { id: 106, issueGroup: 'Anti-Corruption', questionName: '부패방지 교육 이수 현황', value: '95%', userName: '이정빈', status: 'pending', attachmentFile: 'edu_report.pdf' },
+        { id: 107, issueGroup: 'Governance', questionName: '사외이사 이사회 참석률', value: '92%', userName: '최수아', status: 'approved', attachmentFile: 'board_min.pdf' },
+        { id: 108, issueGroup: 'Tax', questionName: '국가별 조세 납부 내역', value: '공시 완료', userName: '최수아', status: 'pending', attachmentFile: null },
+        { id: 111, issueGroup: 'Social', questionName: '지역사회 기부금 총액', value: '1.2억원', userName: '조윤주', status: 'approved', attachmentFile: 'donation_receipt.zip' },
+        { id: 112, issueGroup: 'Community', questionName: '봉사활동 참여 인원', value: '340명', userName: '조윤주', status: 'pending', attachmentFile: null },
+        { id: 119, issueGroup: 'Labor', questionName: '산업재해율 (LTIFR)', value: '0.02', userName: '이나라', status: 'approved', attachmentFile: 'safety_stat.xlsx' },
+        { id: 122, issueGroup: 'Data Privacy', questionName: '개인정보 보호 위반 건수', value: '0건', userName: '이현서', status: 'approved', attachmentFile: null }
+    ];
+
+    /** [STATE] **/
+    let activeTab = 'user';
+    let statusFilter = 'all';
+    let userSearch = '';
+    let userPage = 1;
+    let dataPage = 1;
+    const PAGE_SIZE = 10;
+    let activeDataCategory = 'all';
+    let activeSubCategory = 'all';
+    let selectedIds = [];
+    let currentUser = null;
+    let rejectTargetId = null;
+
+    /** [CORE FUNCTIONS] **/
+    function init() {
+        renderKPI();
+        renderUserList();
+        renderDataList();
+        renderCategoryTabs();
+    }
+
+    function renderKPI() {
+        const kpi = {
+            approved: inputs.filter(i => i.status === 'approved').length,
+            pending: inputs.filter(i => i.status === 'pending').length,
+            rejected: inputs.filter(i => i.status === 'rejected').length
+        };
+        const items = [
+            { key: 'approved', label: '승인 완료', count: kpi.approved },
+            { key: 'pending', label: '승인 대기', count: kpi.pending },
+            { key: 'rejected', label: '반려됨', count: kpi.rejected }
+        ];
+        
+        document.getElementById('kpi-container').innerHTML = items.map(item => `
+            <div class="kpi-card ${statusFilter === item.key ? 'active' : ''}" onclick="setStatusFilter('${item.key}')">
+                <div class="kpi-label">${item.label}</div>
+                <div class="kpi-value">${item.count}</div>
+            </div>
+        `).join('');
+    }
+
+    function setStatusFilter(key) {
+        statusFilter = (statusFilter === key) ? 'all' : key;
+        init();
+    }
+
+    function switchTab(tab) {
+        activeTab = tab;
+        document.getElementById('tab-user').classList.toggle('active', tab === 'user');
+        document.getElementById('tab-data').classList.toggle('active', tab === 'data');
+        document.getElementById('section-user').classList.toggle('hidden', tab !== 'user');
+        document.getElementById('section-data').classList.toggle('hidden', tab !== 'data');
+    }
+
+    /* 유저 관리 로직 */
+    function renderUserList() {
+        const filtered = users.filter(u => {
+            const kw = userSearch.toLowerCase();
+            return u.name.toLowerCase().includes(kw) || u.company.toLowerCase().includes(kw) || u.groups.some(g => g.toLowerCase().includes(kw));
+        });
+
+        const start = (userPage - 1) * PAGE_SIZE;
+        const paged = filtered.slice(start, start + PAGE_SIZE);
+
+        const tbody = document.getElementById('user-list');
+        tbody.innerHTML = paged.map(u => `
+            <tr>
+                <td><strong>${u.name}</strong><br><small>${u.email}</small></td>
+                <td>${u.company} <span class="role-badge">${u.role}</span></td>
+                <td>
+                    <div class="tag-container">
+                        ${u.groups.slice(0, 3).map(g => `<span class="tag-item">${g}</span>`).join('')}
+                        ${u.groups.length > 3 ? `<span class="tag-item">+${u.groups.length - 3}</span>` : ''}
+                    </div>
+                </td>
+                <td><button class="btn-outline" onclick="openUserModal(${u.id})">이슈 그룹 수정</button></td>
+            </tr>
+        `).join('');
+
+        renderPagination('user-pagination', filtered.length, userPage, (p) => { userPage = p; renderUserList(); });
+    }
+
+    function handleUserSearch() {
+        userSearch = document.getElementById('user-search').value;
+        userPage = 1;
+        renderUserList();
+    }
+
+    /* 데이터 승인 로직 */
+    function renderCategoryTabs() {
+        const cats = ['all', 'general', 'environmental', 'social', 'governance'];
+        const container = document.getElementById('main-category-tabs');
+        container.innerHTML = cats.map(cat => `
+            <button class="btn-outline ${activeDataCategory === cat ? 'active' : ''}" onclick="changeMainCategory('${cat}')">
+                ${cat === 'all' ? '전체' : cat === 'general' ? '경영일반' : cat.toUpperCase()}
+            </button>
+        `).join('');
+
+        const subContainer = document.getElementById('sub-category-container');
+        if(activeDataCategory !== 'all') {
+            subContainer.innerHTML = `<button class="tag-item ${activeSubCategory === 'all' ? 'active' : ''}" onclick="changeSubCategory('all')">전체 그룹</button>` +
+                CATEGORY_MAP[activeDataCategory].map(g => `
+                    <button class="tag-item ${activeSubCategory === g ? 'active' : ''}" onclick="changeSubCategory('${g}')">${g}</button>
+                `).join('');
+            subContainer.classList.remove('hidden');
+        } else {
+            subContainer.innerHTML = '';
+        }
+    }
+
+    function renderDataList() {
+        let list = inputs.filter(item => {
+            const catMatch = activeDataCategory === 'all' || CATEGORY_MAP[activeDataCategory].includes(item.issueGroup);
+            const subMatch = activeSubCategory === 'all' || item.issueGroup === activeSubCategory;
+            const statusMatch = statusFilter === 'all' || item.status === statusFilter;
+            return catMatch && subMatch && statusMatch;
+        });
+
+        const start = (dataPage - 1) * PAGE_SIZE;
+        const paged = list.slice(start, start + PAGE_SIZE);
+
+        const tbody = document.getElementById('data-list');
+        tbody.innerHTML = paged.map(item => `
+            <tr>
+                <td><input type="checkbox" ${selectedIds.includes(item.id) ? 'checked' : ''} onclick="toggleSelect(${item.id})"></td>
+                <td>${item.id}</td>
+                <td><span class="tag-item">${item.issueGroup}</span></td>
+                <td>${item.questionName}</td>
+                <td><strong>${item.value}</strong></td>
+                <td>${item.attachmentFile ? '📎 파일' : '-'}</td>
+                <td>${item.userName}</td>
+                <td><span class="role-badge ${item.status === 'approved' ? 'green' : 'purple'}">${item.status}</span></td>
+                <td>
+                    <div style="display:flex; gap:4px;">
+                        ${item.status === 'pending' ? `
+                            <button class="btn-outline" onclick="updateStatus(${item.id}, 'approved')">승인</button>
+                            <button class="btn-outline" style="color:red" onclick="openRejectModal(${item.id})">반려</button>
+                        ` : `
+                            <button class="btn-outline" onclick="updateStatus(${item.id}, 'pending')">취소</button>
+                        `}
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        renderPagination('data-pagination', list.length, dataPage, (p) => { dataPage = p; renderDataList(); });
+    }
+
+    /* 공통 유틸리티 */
+    function renderPagination(id, total, current, onChange) {
+        const totalPages = Math.ceil(total / PAGE_SIZE);
+        const container = document.getElementById(id);
+        if(totalPages <= 1) { container.innerHTML = ''; return; }
+        
+        let html = '';
+        for(let i=1; i<=totalPages; i++) {
+            html += `<button class="page-btn ${current === i ? 'active' : ''}" onclick="(${onChange})(${i})">${i}</button>`;
+        }
+        container.innerHTML = html;
+    }
+
+    function updateStatus(id, status) {
+        if(!confirm(`정말로 ${status === 'approved' ? '승인' : '변경'}하시겠습니까?`)) return;
+        const idx = inputs.findIndex(i => i.id === id);
+        inputs[idx].status = status;
+        init();
+    }
+
+    function toggleSelect(id) {
+        if(selectedIds.includes(id)) selectedIds = selectedIds.filter(v => v !== id);
+        else selectedIds.push(id);
+        renderDataList();
+    }
+
+    function toggleSelectAll() {
+        // 간이 구현
+        const checkAll = document.getElementById('select-all').checked;
+        if(checkAll) selectedIds = inputs.map(i => i.id);
+        else selectedIds = [];
+        renderDataList();
+    }
+
+    function handleBulkAction(status) {
+        if(selectedIds.length === 0) return alert('항목을 선택하세요.');
+        if(!confirm(`${selectedIds.length}개 항목을 일괄 처리하시겠습니까?`)) return;
+        inputs.forEach(i => {
+            if(selectedIds.includes(i.id)) i.status = status;
+        });
+        selectedIds = [];
+        init();
+    }
+
+    /* 모달 제어 */
+    function openUserModal(id) {
+        currentUser = users.find(u => u.id === id);
+        document.getElementById('modal-user-name').innerText = `${currentUser.name} 권한 설정`;
+        renderUserGroups();
+        document.getElementById('modal-user-group').classList.remove('hidden');
+    }
+
+    function renderUserGroups() {
+        const assigned = document.getElementById('assigned-groups');
+        const unassigned = document.getElementById('unassigned-groups');
+        
+        assigned.innerHTML = currentUser.groups.map(g => `
+            <button class="modal-tag assigned" onclick="toggleGroup('${g}')">${g} ×</button>
+        `).join('');
+        
+        unassigned.innerHTML = AllIssueGroups.filter(g => !currentUser.groups.includes(g)).map(g => `
+            <button class="modal-tag" onclick="toggleGroup('${g}')">+ ${g}</button>
+        `).join('');
+    }
+
+    function toggleGroup(group) {
+        if(currentUser.groups.includes(group)) {
+            if(currentUser.groups.length <= 1) return alert('최소 하나는 필요합니다.');
+            currentUser.groups = currentUser.groups.filter(g => g !== group);
+        } else {
+            currentUser.groups.push(group);
+        }
+        renderUserGroups();
+    }
+
+    function saveUserGroups() {
+        alert('권한 설정이 저장되었습니다.');
+        closeModal('modal-user-group');
+        renderUserList();
+    }
+
+    function openRejectModal(id) {
+        rejectTargetId = id;
+        document.getElementById('modal-reject').classList.remove('hidden');
+    }
+
+    function confirmReject() {
+        const reason = document.getElementById('reject-reason').value;
+        if(!reason.trim()) return alert('사유를 입력하세요.');
+        const idx = inputs.findIndex(i => i.id === rejectTargetId);
+        inputs[idx].status = 'rejected';
+        inputs[idx].reason = reason;
+        closeModal('modal-reject');
+        init();
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+    }
+
+    function changeMainCategory(cat) {
+        activeDataCategory = cat;
+        activeSubCategory = 'all';
+        dataPage = 1;
+        renderCategoryTabs();
+        renderDataList();
+    }
+
+    function changeSubCategory(sub) {
+        activeSubCategory = sub;
+        dataPage = 1;
+        renderCategoryTabs();
+        renderDataList();
+    }
+    init();
+
+</script>
 </body>
 </html>
