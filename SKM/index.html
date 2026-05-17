@@ -3,532 +3,596 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESG 지속가능경영보고서 AI 시스템</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <title>메인 대시보드</title>
+    <link rel="stylesheet" href="./style.css">
     <style>
-        :root {
-            --sr-primary: #03A94D;
-            --sr-primary-vibrant: linear-gradient(135deg, #03A94D, #017E3F);
-            --sr-bg: #f8fafc;
-            --sr-border: #e2e8f0;
-            --sr-text: #334155;
-            --sr-sub: #64748b;
-            --sr-radius: 24px;
+        /* 메인 레이아웃 전용 스타일 확장 */
+        body { 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+            padding: 0; 
+            background-color: #f4f7f6; 
+            
         }
-
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; font-family: 'Pretendard', sans-serif; background: var(--sr-bg); overflow: hidden; color: var(--sr-text); }
-        .sr-container { display: flex; flex-direction: column; height: 100vh; position: relative; }
         
-        /* 헤더 & 스태퍼 */
-        .sr-header { background: #fff; padding: 30px 40px; border-bottom: 1px solid var(--sr-border); z-index: 10; }
-        .sr-title { font-size: 1.4rem; font-weight: 850; margin: 0 0 30px 0; color: #1e293b; }
-        .sr-stepper-row { display: flex; align-items: center; justify-content: space-between; max-width: 900px; margin: 0 auto; position: relative; }
-        .step-box { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; opacity: 0.35; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2; }
-        .step-box.active { opacity: 1; transform: translateY(-2px); }
-        .step-icon-circle { width: 48px; height: 48px; background: #fff; border: 2px solid #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: 0.3s; }
-        .step-box.active .step-icon-circle { background: var(--sr-primary-vibrant); color: #fff; border: none; box-shadow: 0 4px 12px rgba(3, 169, 77, 0.25); }
-        .step-line { flex: 1; height: 2px; background: #e2e8f0; margin: -28px 15px 0; }
-
-        /* 메인 패널 */
-        .main-content { flex: 1; display: flex; justify-content: center; align-items: center; padding-bottom: 80px; }
-        .input-card { background: #fff; padding: 50px; border-radius: var(--sr-radius); border: 1px solid var(--sr-border); box-shadow: 0 10px 30px rgba(0,0,0,0.03); width: 100%; max-width: 550px; text-align: center; }
-
-        /* 결과 대시보드 (하단 슬라이드) */
-        .sr-result-dashboard {
-            position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--sr-border);
-            height: 55px; transition: height 0.6s cubic-bezier(0.19, 1, 0.22, 1); display: flex; flex-direction: column; z-index: 100;
-            box-shadow: 0 -10px 50px rgba(0,0,0,0.08);
+        /* 좌측 사이드바 */
+        .sidebar {
+            width: 260px;
+            background-color: #fff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 10;
         }
-        .sr-result-dashboard.open { height: 500px; }
-        .dashboard-handle { height: 55px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-bottom: 1px solid #f1f5f9; flex-shrink: 0; }
-        .handle-pill { padding: 8px 24px; background: #f1f5f9; border-radius: 30px; font-weight: 700; font-size: 0.85rem; color: #64748b; }
+        .sidebar .logo-placeholder { 
+            margin-bottom: 30px; 
+            height: 50px; 
+            background: #eee; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        .nav-group { margin-bottom: 25px; }
+        .nav-title { font-size: 12px; color: #999; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-item { 
+            padding: 12px 15px; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            margin-bottom: 4px; 
+            font-size: 14px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .nav-item:hover { background-color: #f0fdf4; color: #03a94d; }
+        .sub-item { padding-left: 30px; font-size: 13px; color: #666; }
 
-        /* 로봇 및 파티클 영역 */
-        .robot-view-container { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 100%); }
-        .particle-field { position: absolute; inset: 0; pointer-events: none; }
-        .particle { position: absolute; background: var(--sr-primary); border-radius: 50%; opacity: 0; }
-        .analyzing .particle { opacity: 0.3; animation: particleFloat 3s infinite linear; }
-        @keyframes particleFloat { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.3); } 100% { transform: translateY(0) scale(1); } }
+        /* 알림용 빨간 점 */
+        .noti-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+        }
 
-        .robot-stage { position: relative; z-index: 2; margin-bottom: 20px; }
-        .robot-main-img { width: 220px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05)); }
-        .robot-float-wrap { animation: float 3.5s ease-in-out infinite; }
-        .analyzing .robot-float-wrap { animation: float 1.5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        /* 사이드바 하단: 회사 선택 및 검색 */
+        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid #eee; }
+        .company-select { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border: 1px solid #ddd; 
+            margin-bottom: 10px; 
+            font-size: 13px;
+            outline: none;
+        }
+        .company-search { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 6px; 
+            border: 1px solid #ddd; 
+            font-size: 13px; 
+            outline: none;
+        }
+
+        /* 우측 메인 영역 */
+        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; }
         
-        .mascot-entrance-pop { animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        /* 상단 헤더 */
+        .header {
+            height: 70px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 40px;
+            gap: 25px;
+        }
+        .user-link { 
+            cursor: pointer; 
+            font-size: 15px; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+        }
+        .user-link span { 
+            color: var(--#03a94d);
+            font-size: 12px; 
+            font-weight: normal; 
+            margin-left: 6px; 
+        }
+        .header-action { cursor: pointer; font-size: 14px; color: #555; position: relative; }
+        .header-action:hover { color: #03a94d; }
 
-        /* 상태바 */
-        .progress-section { width: 320px; margin-top: 25px; }
-        .progress-bar-wrap { width: 100%; height: 10px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; width: 0%; background: var(--sr-primary-vibrant); transition: width 0.3s; }
+        /* 알림 레이어 (슬라이드 애니메이션) */
+        #noti-layer {
+            position: absolute;
+            top: 0;
+            right: -380px;
+            width: 380px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+            transition: right 0.3s ease-in-out;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+        #noti-layer.open { right: 0; }
+        .noti-top { 
+            padding: 25px; 
+            border-bottom: 1px solid #eee; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .noti-list { flex: 1; overflow-y: auto; padding: 10px 0; }
+        .noti-card { 
+            padding: 20px 25px; 
+            border-bottom: 1px solid #f9f9f9; 
+            position: relative; 
+            font-size: 14px; 
+            line-height: 1.4;
+        }
+        .noti-card:hover { background-color: #fcfcfc; }
+        .noti-close-btn { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background: none; 
+            border: none; 
+            color: #ccc; 
+            cursor: pointer; 
+            font-size: 16px;
+        }
+        .noti-close-btn:hover { color: #ff4d4d; }
 
-        /* 결과 카드 */
-        .result-layout { max-width: 800px; width: 100%; padding: 0 40px; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px; }
-        .summary-card { background: #fff; padding: 25px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 4px 15px rgba(0,0,0,0.02); text-align: center; }
-        .summary-card .label { font-size: 0.8rem; color: #94a3b8; font-weight: 700; margin-bottom: 10px; display: block; }
-        .summary-card .value { font-size: 1.3rem; font-weight: 850; color: #1e293b; }
-        .summary-card .value span { font-size: 0.85rem; color: #64748b; font-weight: 500; margin-left: 4px; }
+        /* 중앙 컨텐츠 영역 */
+        .content-body { padding: 40px; flex: 1; overflow-y: auto; }
 
-        .ai-message-box { background: #f8fafc; border-radius: 18px; padding: 25px; border: 1px solid #f1f5f9; line-height: 1.7; }
-        .sr-btn { padding: 18px 36px; border-radius: 16px; border: none; font-weight: 850; cursor: pointer; background: var(--sr-primary-vibrant); color: #fff; transition: 0.3s; box-shadow: 0 4px 15px rgba(3, 169, 77, 0.2); }
-        .sr-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(3, 169, 77, 0.3); }
-
-        .hidden { display: none !important; }
-
-        /* =========================
-        SR BODY LAYOUT
-        ========================= */
-        
-        .sr-body{
-            flex:1;
-            display:flex;
-            gap:24px;
-            padding:24px;
-            overflow:hidden;
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .sr-input-panel{
-            flex:1;
-            background:#fff;
-            border:1px solid #e2e8f0;
-            border-radius:24px;
-            display:flex;
-            flex-direction:column;
-            overflow:hidden;
-            box-shadow:0 10px 30px rgba(0,0,0,0.03);
+        .dashboard-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
         }
 
-        .panel-header{
-            padding:24px 30px;
-            border-bottom:1px solid #f1f5f9;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+        .dashboard-header p {
+            color: #777;
+            font-size: 14px;
         }
 
-        .panel-header h2{
-            margin:0;
-            font-size:1.3rem;
-            font-weight:850;
+        .dashboard-filter-group {
+            display: flex;
+            gap: 10px;
         }
 
-        .panel-content{
-            flex:1;
-            overflow:auto;
-            padding:30px;
-            background:#f8fafc;
+        .dashboard-filter-group select {
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
         }
 
-        .panel-actions{
-            border-top:1px solid #f1f5f9;
-            padding:18px 24px;
-            display:flex;
-            justify-content:space-between;
-            background:#fff;
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        /* =========================
-        BENCHMARK GRID
-        ========================= */
-
-        .benchmarking-grid{
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:20px;
+        .kpi-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
-        .bench-card{
-            background:#fff;
-            border-radius:20px;
-            border:1px solid #e2e8f0;
-            padding:24px;
-            box-shadow:0 4px 15px rgba(0,0,0,0.02);
+        .kpi-title {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 14px;
         }
 
-        .bench-card h3{
-            margin:0 0 20px;
-            font-size:1rem;
-            font-weight:800;
-            color:#1e293b;
+        .kpi-value {
+            font-size: 34px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        .form-group{
-            margin-bottom:14px;
+        .kpi-desc {
+            font-size: 13px;
         }
 
-        .form-group label{
-            display:block;
-            font-size:0.82rem;
-            font-weight:700;
-            color:#64748b;
-            margin-bottom:8px;
+        .kpi-desc.up {
+            color: #03a94d;
         }
 
-        .premium-input{
-            width:100%;
-            box-sizing:border-box;
-            border:1px solid #cbd5e1;
-            border-radius:12px;
-            padding:12px 14px;
-            font-size:0.92rem;
-            background:#fff;
-            transition:0.2s;
+        .kpi-desc.down {
+            color: #ff4d4d;
         }
 
-        .premium-input:focus{
-            outline:none;
-            border-color:#03A94D;
-            box-shadow:0 0 0 4px rgba(3,169,77,0.08);
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        /* =========================
-        TABLE
-        ========================= */
-
-        .esg-table-wrap{
-            margin-top:24px;
-            background:#fff;
-            border-radius:20px;
-            border:1px solid #e2e8f0;
-            overflow:hidden;
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        .esg-table-header{
-            padding:18px 24px;
-            border-bottom:1px solid #f1f5f9;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+        .dashboard-card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
-        .esg-table-header h3{
-            margin:0;
-            font-size:1rem;
-            font-weight:850;
+        .large-card {
+            min-height: 420px;
         }
 
-        .esg-table{
-            width:100%;
-            border-collapse:collapse;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .esg-table thead{
-            background:#f8fafc;
+        .card-header h3 {
+            font-size: 18px;
         }
 
-        .esg-table th{
-            padding:16px;
-            font-size:0.82rem;
-            text-align:left;
-            color:#64748b;
-            font-weight:800;
-            border-bottom:1px solid #e2e8f0;
+        .card-header button {
+            border: none;
+            background: #f2f4f5;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
-        .esg-table td{
-            padding:18px 16px;
-            font-size:0.92rem;
-            border-bottom:1px solid #f8fafc;
-            color:#334155;
+        .chart-placeholder {
+            height: 320px;
+            border-radius: 14px;
+            background: #f7f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            text-align: center;
+            font-size: 15px;
         }
 
-        .esg-table tr:last-child td{
-            border-bottom:none;
+        .regulation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .badge-positive{
-            display:inline-flex;
-            align-items:center;
-            padding:6px 12px;
-            border-radius:999px;
-            background:#dcfce7;
-            color:#15803d;
-            font-size:0.75rem;
-            font-weight:800;
+        .regulation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f8faf9;
         }
 
-        .badge-warning{
-            display:inline-flex;
-            align-items:center;
-            padding:6px 12px;
-            border-radius:999px;
-            background:#fef3c7;
-            color:#b45309;
-            font-size:0.75rem;
-            font-weight:800;
+        .regulation-item p {
+            margin-top: 4px;
+            color: #888;
+            font-size: 12px;
         }
 
-        .badge-danger{
-            display:inline-flex;
-            align-items:center;
-            padding:6px 12px;
-            border-radius:999px;
-            background:#fee2e2;
-            color:#b91c1c;
-            font-size:0.75rem;
-            font-weight:800;
+        .regulation-item span {
+            font-weight: bold;
+            font-size: 20px;
+            color: #03a94d;
         }
 
-        /* =========================
-        KPI
-        ========================= */
-
-        .kpi-grid{
-            display:grid;
-            grid-template-columns:repeat(4,1fr);
-            gap:18px;
-            margin-top:24px;
+        .issue-rank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .kpi-card{
-            background:#fff;
-            border:1px solid #e2e8f0;
-            border-radius:18px;
-            padding:20px;
+        .issue-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 50px;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #f8faf9;
         }
 
-        .kpi-label{
-            font-size:0.8rem;
-            color:#64748b;
-            font-weight:700;
-            margin-bottom:10px;
+        .issue-item span {
+            font-weight: bold;
+            color: #03a94d;
         }
 
-        .kpi-value{
-            font-size:1.6rem;
-            font-weight:900;
-            color:#1e293b;
+        .issue-item p {
+            font-size: 14px;
         }
 
-        .kpi-sub{
-            margin-top:8px;
-            font-size:0.8rem;
-            color:#94a3b8;
+        .issue-item strong {
+            text-align: right;
         }
-
-        /* =========================
-SUB STEP NAV
-========================= */
-
-.sub-step-nav{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    margin-bottom:20px;
-    padding-bottom:12px;
-    border-bottom:1px solid #e2e8f0;
-}
-
-.sub-btn{
-    border:none;
-    background:transparent;
-    border-radius:10px;
-    padding:10px 16px;
-    font-size:0.85rem;
-    font-weight:800;
-    color:#64748b;
-    cursor:pointer;
-    transition:0.2s;
-    white-space:nowrap;
-}
-
-.sub-btn.active{
-    background:#03A94D;
-    color:#fff;
-}
-
-.sub-step-content{
-    height:520px;
-    border-radius:16px;
-    border:1px solid #e2e8f0;
-    overflow:hidden;
-    background:#fff;
-}
-
-.sub-step-content iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-</style>
     </style>
 </head>
 <body>
 
-<div class="sr-container">
-    <header class="sr-header">
-        <h1 class="sr-title">지속가능경영보고서 AI 자동 생성</h1>
-        <div class="sr-stepper-row" id="stepper"></div>
-    </header>
-
-    <main class="main-content">
-        <div class="input-card">
-            <h2 id="step-title-display" style="font-size:1.8rem; font-weight:850; margin-bottom:15px;">벤치마킹 분석</h2>
-            <p id="step-desc-display" style="color:#64748b; font-size:1.05rem; margin-bottom:40px; line-height:1.6;">
-                산업군 리더 기업들의 공시 지표를 수집하고<br>우리 기업과의 격차 분석을 시작합니다.
-            </p>
-            <button class="sr-btn" onclick="runAnalysis()">⚡ 실시간 AI 분석 시작</button>
-        </div>
-    </main>
-
-    <div class="sr-result-dashboard" id="dashboard">
-        <div class="dashboard-handle" onclick="toggleDashboard()">
-            <div class="handle-pill" id="handle-status">실시간 분석 대기 중</div>
-        </div>
+    <aside class="sidebar">
+        <div class="logo-placeholder">로고</div>
         
-        <div class="robot-view-container" id="analysis-view">
-            <div id="particle-field" class="particle-field"></div>
-            
-            <div id="loading-content" style="display:flex; flex-direction:column; align-items:center;">
-                <div class="robot-stage">
-                    <div class="robot-float-wrap">
-                        <img id="robot-img" src="img/robot_repoting_transparent.png" class="robot-main-img mascot-entrance-pop">
-                    </div>
-                </div>
-                <h3 id="status-label" style="font-size:1.4rem; font-weight:850; margin:0 0 8px 0;">분석 준비가 완료되었습니다</h3>
-                <p id="status-sub" style="font-size:0.95rem; color:#64748b; margin:0;">상단의 분석 시작 버튼을 눌러주세요.</p>
-                
-                <div id="progress-container" class="progress-section hidden">
-                    <div class="progress-bar-wrap">
-                        <div id="progress-fill" class="progress-bar-fill"></div>
-                    </div>
-                    <div style="margin-top:10px; font-weight:900; color:var(--sr-primary);">
-                        <span id="progress-text">0</span>% 분석 중
-                    </div>
-                </div>
-            </div>
+        <nav class="nav-group">
+            <div class="nav-title">프로젝트 목록</div>
+            <div class="nav-item" onclick="location.href='onboarding.html'">데이터입력</div>
+            <div class="nav-item">1팀 (SKM)</div>
 
-            <div id="result-content" class="result-layout hidden">
-                <div class="summary-grid">
-                    <div class="summary-card">
-                        <span class="label">분석 단계</span>
-                        <div class="value" id="res-step-name">벤치마킹</div>
+        </nav>
+
+        <nav class="nav-group">
+            <div class="nav-item">ESG 담당자 페이지</div>
+            <div class="nav-item sub-item" onclick="location.href='manager.html'">└ 관리페이지</div>
+            <div class="nav-item sub-item" onclick="location.href='invite.html'">└ 초대페이지</div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <select class="company-select">
+                <option>SKM</option>
+                <option>HG</option>
+                <option>TV</option>
+            </select>
+            <input type="text" class="company-search" placeholder="회사 검색...">
+        </div>
+    </aside>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="user-link" onclick="location.href='my_page.html'">
+                이채훈 <span>(SKM)</span>
+            </div>
+            <div class="header-action" onclick="location.href='../../index.html'">로그아웃</div>
+            <div class="header-action" onclick="toggleNoti()">
+                알림
+                <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
+            </div>
+        </header>
+
+        <main class="content-body">
+
+            <!-- 상단 타이틀 -->
+            <section class="dashboard-header">
+                <div>
+                    <h1>ESG 공시 대시보드</h1>
+                    <p>기업 ESG 공시 진행 현황 및 규제 대응 상태 모니터링</p>
+                </div>
+
+                <div class="dashboard-filter-group">
+                    <select>
+                        <option>2026</option>
+                        <option>2025</option>
+                    </select>
+
+                    <select>
+                        <option>전체 도메인</option>
+                        <option>E (환경)</option>
+                        <option>S (사회)</option>
+                        <option>G (지배구조)</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- 규제대응 필터 (DASH_03 대응) -->
+            <div style="margin-bottom: 25px; display: flex; gap: 10px; align-items: center;">
+                <span style="font-size: 14px; font-weight: bold; color: #555;">규제 표준:</span>
+                <select class="company-select" style="width: auto; margin-bottom: 0;">
+                    <option>전체 보기</option>
+                    <option>ISSB</option>
+                    <option>GRI</option>
+                    <option>ESRS</option>
+                    <option>SASB</option>
+                </select>
+                <button style="padding: 8px 16px; background: #03a94d; color: #fff; border: none; border-radius: 6px; cursor: pointer;">조회</button>
+            </div>
+            <!-- KPI 카드 영역 -->
+            <section class="kpi-grid">
+
+                <div class="kpi-card">
+                    <div class="kpi-title">전체 진행률</div>
+                    <div class="kpi-value">78%</div>
+                    <div class="kpi-desc up">+12% 증가</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-title">완료 이슈 수</div>
+                    <div class="kpi-value">128</div>
+                    <div class="kpi-desc up">지난달 대비 +8</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-title">미대응 규제</div>
+                    <div class="kpi-value">14</div>
+                    <div class="kpi-desc down">우선 대응 필요</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-title">보고서 완성도</div>
+                    <div class="kpi-value">84점</div>
+                    <div class="kpi-desc up">품질 안정화 단계</div>
+                </div>
+
+            </section>
+
+
+            <!-- 메인 차트 레이아웃 -->
+            <section class="dashboard-grid">
+
+                <!-- 좌측 : 진행률 차트 -->
+                <div class="dashboard-card large-card">
+                    <div class="card-header">
+                        <h3>이슈 그룹 대응률</h3>
+                        <button>상세보기</button>
                     </div>
-                    <div class="summary-card">
-                        <span class="label">AI 인사이트</span>
-                        <div class="value">우수 <span>(Positive)</span></div>
-                    </div>
-                    <div class="summary-card">
-                        <span class="label">리스크 지수</span>
-                        <div class="value" style="color:var(--sr-primary)">Low <span>(12.5)</span></div>
+
+                    <div class="chart-placeholder">
+                        Bar Chart 영역
+                        <br>
+                        (React Recharts 예정)
                     </div>
                 </div>
-                <div class="ai-message-box">
-                    <strong style="color:var(--sr-primary); font-weight:850;">[AI 인사이트 요약]</strong>
-                    <p style="margin:12px 0 0; color:#334155; font-weight:500;">
-                        현재 단계를 분석한 결과, 업계 평균 대비 환경(E) 부문에서 12% 높은 성과를 기록하고 있습니다. 특히 에너지 효율화 전략에 대한 공시가 구체적이므로 보고서 초안 생성 시 이 부분을 강조할 것을 제안합니다.
-                    </p>
+
+
+                <!-- 우측 : 규제 대응 -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>규제 대응 현황</h3>
+                    </div>
+
+                    <div class="regulation-list">
+
+                        <div class="regulation-item">
+                            <div>
+                                <strong>ISSB</strong>
+                                <p>국제 지속가능성 공시</p>
+                            </div>
+                            <span>82%</span>
+                        </div>
+
+                        <div class="regulation-item">
+                            <div>
+                                <strong>GRI</strong>
+                                <p>글로벌 보고 기준</p>
+                            </div>
+                            <span>76%</span>
+                        </div>
+
+                        <div class="regulation-item">
+                            <div>
+                                <strong>ESRS</strong>
+                                <p>유럽 지속가능성 기준</p>
+                            </div>
+                            <span>61%</span>
+                        </div>
+
+                        <div class="regulation-item">
+                            <div>
+                                <strong>SASB</strong>
+                                <p>산업별 회계 기준</p>
+                            </div>
+                            <span>88%</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- 하단 영역 -->
+            <section class="bottom-grid">
+
+                <!-- TOP ISSUE -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>TOP ISSUE</h3>
+                    </div>
+
+                    <div class="issue-rank-list">
+
+                        <div class="issue-item">
+                            <span>#1</span>
+                            <p>GHG 배출량 관리</p>
+                            <strong>92</strong>
+                        </div>
+
+                        <div class="issue-item">
+                            <span>#2</span>
+                            <p>산업 안전 대응</p>
+                            <strong>81</strong>
+                        </div>
+
+                        <div class="issue-item">
+                            <span>#3</span>
+                            <p>협력사 ESG 평가</p>
+                            <strong>74</strong>
+                        </div>
+
+                        <div class="issue-item">
+                            <span>#4</span>
+                            <p>정보보안 체계</p>
+                            <strong>63</strong>
+                        </div>
+
+                        <div class="issue-item">
+                            <span>#5</span>
+                            <p>이사회 독립성</p>
+                            <strong>58</strong>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- 툴팁 인터랙션 차트 -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>KPI 변화 추이</h3>
+                    </div>
+
+                    <div class="chart-placeholder">
+                        Line Chart + Tooltip 영역
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+        <div id="noti-layer">
+            <div class="noti-top">
+                <h3>알림 목록</h3>
+                <span style="cursor:pointer; font-size: 20px;" onclick="toggleNoti()">×</span>
+            </div>
+            <div class="noti-list">
+                <div class="noti-card">
+                    신규 팀원 초대 요청이 승인되었습니다.
+                    <button class="noti-close-btn" onclick="this.parentElement.remove()">×</button>
+                </div>
+                <div class="noti-card">
+                    ESG 담당자 관리 페이지에 새로운 로그가 기록되었습니다.
+                    <button class="noti-close-btn" onclick="this.parentElement.remove()">×</button>
+                </div>
+                <div class="noti-card">
+                    비밀번호 변경 권장 알림입니다.
+                    <button class="noti-close-btn" onclick="this.parentElement.remove()">×</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const steps = [
-        { id: 1, title: "벤치마킹 분석", icon: "🎯", img: "img/robot_repoting_transparent.png", label: "벤치마킹 데이터를 분석하고 있습니다", sub: "리더 기업 공시 자료를 정밀 비교하고 있습니다." },
-        { id: 2, title: "이해관계자 설문", icon: "👥", img: "img/robot_servey_t.png", label: "이해관계자 설문 결과를 집계하고 있습니다", sub: "응답 데이터를 자동 분류하고 있습니다." },
-        { id: 3, title: "미디어 분석", icon: "📺", img: "img/robot_media_t.png", label: "미디어 데이터를 수집·분석하고 있습니다", sub: "뉴스·규제 정보를 ESG 지표와 매핑하고 있습니다." },
-        { id: 4, title: "전체 결과", icon: "📊", img: "img/robot_final_t.png", label: "전체 결과를 종합하고 있습니다", sub: "E·S·G 부문별 최종 점수를 산출 중입니다." },
-        { id: 5, title: "보고서 초안", icon: "📄", img: "img/robot_SR_t.png", label: "보고서 초안을 자동 생성 중입니다", sub: "공시 기준에 맞춰 최적화된 문서를 작성합니다." }
-    ];
-
-    let activeIndex = 0;
-    let isAnalyzing = false;
-
-    function init() {
-        const stepper = document.getElementById('stepper');
-        steps.forEach((s, i) => {
-            stepper.insertAdjacentHTML('beforeend', `
-                <div class="step-box ${i === 0 ? 'active' : ''}" onclick="changeStep(${i})">
-                    <div class="step-icon-circle">${s.icon}</div>
-                    <div style="font-size:0.85rem; font-weight:850;">${s.title}</div>
-                </div>
-                ${i < steps.length - 1 ? '<div class="step-line"></div>' : ''}
-            `);
-        });
-        createParticles();
-    }
-
-    function createParticles() {
-        const field = document.getElementById('particle-field');
-        for(let i=0; i<15; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const size = Math.random() * 6 + 4;
-            p.style.width = size + 'px';
-            p.style.height = size + 'px';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.top = Math.random() * 100 + '%';
-            p.style.animationDelay = Math.random() * 2 + 's';
-            field.appendChild(p);
+    <script>
+        // 알림 레이어 열고 닫기
+        function toggleNoti() {
+            const layer = document.getElementById('noti-layer');
+            layer.classList.toggle('open');
         }
-    }
-
-    function changeStep(index) {
-        if (isAnalyzing) return;
-        activeIndex = index;
-        
-        document.querySelectorAll('.step-box').forEach((box, i) => box.classList.toggle('active', i === index));
-        document.getElementById('step-title-display').innerText = steps[index].title;
-        
-        const img = document.getElementById('robot-img');
-        img.src = steps[index].img;
-        img.classList.remove('mascot-entrance-pop');
-        void img.offsetWidth; // 리플로우 강제 트리거
-        img.classList.add('mascot-entrance-pop');
-
-        // 상태 리셋
-        document.getElementById('loading-content').classList.remove('hidden');
-        document.getElementById('result-content').classList.add('hidden');
-        document.getElementById('progress-container').classList.add('hidden');
-        document.getElementById('status-label').innerText = "분석 준비가 완료되었습니다";
-        document.getElementById('handle-status').innerText = "실시간 분석 대기 중";
-    }
-
-    function toggleDashboard() { document.getElementById('dashboard').classList.toggle('open'); }
-
-    function runAnalysis() {
-        if (isAnalyzing) return;
-        isAnalyzing = true;
-
-        const view = document.getElementById('analysis-view');
-        view.classList.add('analyzing');
-        document.getElementById('dashboard').classList.add('open');
-        document.getElementById('progress-container').classList.remove('hidden');
-        
-        const step = steps[activeIndex];
-        document.getElementById('status-label').innerText = step.label;
-        document.getElementById('status-sub').innerText = step.sub;
-        document.getElementById('handle-status').innerText = "AI 분석 진행 중...";
-
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 2;
-            document.getElementById('progress-fill').style.width = progress + '%';
-            document.getElementById('progress-text').innerText = progress;
-
-            if (progress >= 100) {
-                clearInterval(interval);
-                isAnalyzing = false;
-                view.classList.remove('analyzing');
-                showResult();
-            }
-        }, 50);
-    }
-
-    const showResult = ()=> {
-        document.getElementById('handle-status').innerText = "분석 완료 - 결과 요약 확인";
-        document.getElementById('loading-content').classList.add('hidden');
-        document.getElementById('result-content').classList.remove('hidden');
-        document.getElementById('res-step-name').innerText = steps[activeIndex].title;
-    }
-
-    init();
-</script>
+    </script>
 </body>
 </html>
