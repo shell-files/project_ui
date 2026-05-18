@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 지속가능경영보고서 AI 시스템 - 이해관계자 설문</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="./styles/mains.css">
+    <link rel="stylesheet" href="./styles/alarm.css">
+    <link rel="stylesheet" href="./styles/App.css">
+    <style>
+        :root {
+            --sr-primary: #03A94D;
+            --sr-primary-vibrant: linear-gradient(135deg, #03A94D, #017E3F);
+            --sr-bg: #f4f7f6;
+            --sr-border: #e2e8f0;
+            --sr-text: #334155;
+            --sr-sub: #64748b;
+            --sr-radius: 20px;
+        }
+
+
+        /* 우측 메인 영역 */
+        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
+        
+        .user-link { 
+            cursor: pointer; 
+            font-size: 14px; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+        }
+        .user-link span { 
+            color: #03a94d;
+            font-size: 12px; 
+            font-weight: normal; 
+            margin-left: 6px; 
+        }
+        .header-action { cursor: pointer; font-size: 13px; color: #555; position: relative; }
+        .header-action:hover { color: #03a94d; }
+
+        /* 중앙 컨텐츠 영역 */
+        .sr-container { display: flex; flex-direction: column; height: calc(100vh - 60px); position: relative; overflow: hidden; }
+        .sr-header {
+            background: #fff;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--sr-border);
+            flex-shrink: 0;
+            width: 100%; /* 좌우로 무조건 꽉 차게 */
+        }
+        .sr-title { font-size: 1.3rem; font-weight: 850; margin: 0 0 15px 0; color: #1e293b; }
+        .sr-stepper-row { display: flex; align-items: center; justify-content: space-between; max-width: 900px; margin: 0 auto; position: relative; }
+        .step-box { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; opacity: 0.35; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2; }
+        .step-box.active { opacity: 1; transform: translateY(-1px); }
+        .step-icon-circle { width: 38px; height: 38px; background: #fff; border: 2px solid #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: 0.3s; }
+        .step-box.active .step-icon-circle { background: var(--sr-primary-vibrant); color: #fff; border: none; box-shadow: 0 4px 10px rgba(3, 169, 77, 0.2); }
+        .step-line { flex: 1; height: 2px; background: #e2e8f0; margin: -20px 15px 0; }
+        .main-container, .sr-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* background-color: #fff; */
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 1400px; /* 대형 화면에서도 빈 공간이 적어 보이도록 넓힘 */
+            margin: 0 auto;
+        }
+        
+         /* 메인 패널 */
+        .main-content { 
+            flex: 1; 
+            display: flex; 
+            justify-content: center; 
+            overflow-y: auto; /* 내부 요소가 종으로 길어질 때 카드가 깨지지 않도록 스크롤 허용 */
+        }
+        
+        .input-card { 
+            background: #fff; 
+            padding: 25px 30px; 
+            border-radius: var(--sr-radius); 
+            width: 100%; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* 메인 중앙 그리드 */
+        .survey-section-grid {
+            padding: 0 10%;
+            display: flex;
+            gap: 50px;
+            margin: 20px 0;
+            text-align: left;
+            min-height: 0;
+            /* width: 100%;          좌우 화면 꽉 채우기 */
+        }
+
+        .survey-wrapper {
+            position: relative;
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .survey-badge {
+            position: absolute;
+            top: -4px;
+            left: 14px;
+            background: #fff;
+            border: 2px solid #03A94D;
+            border-bottom: none;
+            padding: 2px 16px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            z-index: 5;
+        }
+        .white-badge { background: #fff; color: #03A94D; }
+
+        .survey-panel {
+            border: 2px solid #03A94D;
+            border-radius: 14px;
+            padding: 20px;
+            background: #fff;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 15px;
+        }
+
+        .survey-group-list { display: flex; flex-direction: column; gap: 12px; }
+        .survey-row-box { background-color: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .survey-row-box label { display: block; font-size: 0.88rem; font-weight: 800; color: #1e293b; margin-bottom: 6px; }
+        
+        .url-input-line { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+        .url-input-line input[type="text"] {
+            flex: 1;
+            padding: 4px 0;
+            border: none;
+            border-bottom: 1px solid #cbd5e1;
+            background-color: transparent;
+            font-size: 0.82rem;
+            color: #475569;
+            outline: none;
+        }
+        .btn-url-copy {
+            background: #03A94D;
+            color: #fff;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .kpi-input-line { display: flex; align-items: center; justify-content: flex-end; gap: 6px; font-size: 0.78rem; color: #64748b; font-weight: 600; }
+        .kpi-input-line input[type="number"] { width: 65px; padding: 3px 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; outline: none; }
+
+        /* 실시간 통계 집계 영역 */
+        .sheets-dashboard-grid { display: flex; flex-direction: column; gap: 10px; }
+        .chart-status-card { background: #fff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .chart-status-card .label { font-size: 0.8rem; color: #475569; font-weight: 700; }
+        .chart-status-card .value { font-size: 0.95rem; font-weight: 850; color: #1e293b; }
+        .chart-status-card .value span { font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
+        .api-progress-container { background-color: #f1f5f9; border-radius: 10px; height: 6px; width: 100%; overflow: hidden; }
+        .api-progress-bar { background: var(--sr-primary-vibrant); height: 100%; border-radius: 10px; }
+        .ai-message-box { background: #f8fafc; border-radius: 10px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.8rem; line-height: 1.5; text-align: left; }
+
+        /* 메인 작업 버튼 그룹 */
+        .action-btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
+        .sr-btn { 
+            padding: 12px 35px; border-radius: 10px; border: none; font-weight: 850; font-size: 0.95rem; cursor: pointer; 
+            background: var(--sr-primary-vibrant); color: #fff; transition: 0.3s; box-shadow: 0 4px 12px rgba(3, 169, 77, 0.15); 
+        }
+        .sr-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(3, 169, 77, 0.25); }
+        .sr-btn.secondary { background: #334155; box-shadow: 0 4px 12px rgba(51, 65, 85, 0.15); }
+
+        /* ========================================================
+           [UI 통일] 벤치마킹 대시보드 구조 동기화 (클래스명 및 핸들 알약 스타일 고도화)
+        ======================================================== */
+        .sr-result-dashboard {
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: #fff; 
+            border-top: 1px solid var(--sr-border);
+            height: 45px; /* 초기 높이 benchmarking과 동일하게 고정 */
+            transition: height 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* 트랜스폼 제거하고 높이 애니메이션 적용 */
+            display: flex; 
+            flex-direction: column; 
+            z-index: 100;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+        }
+        .sr-result-dashboard.open { 
+            height: 400px; 
+        }
+
+        /* 벤치마킹 스타일 핸들 적용 */
+        .dashboard-handle { 
+            height: 45px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            border-bottom: 1px solid #f1f5f9; 
+            flex-shrink: 0; 
+        }
+        .handle-pill { 
+            padding: 6px 20px; 
+            background: #f1f5f9; 
+            border-radius: 30px; 
+            font-weight: 700; 
+            font-size: 0.8rem; 
+            color: #64748b; 
+            letter-spacing: normal;
+        }
+        .sr-result-dashboard.open .handle-pill { background: #f1f5f9; }
+        .robot-view-container { 
+            flex: 1; 
+            padding: 30px 50px; /* 여백 크기를 benchmarking의 오리지널 값으로 수정 */
+            display: grid; 
+            gap: 40px; /* 내부 간격을 넓혀 시원한 레이아웃으로 변경 */
+            overflow: hidden; 
+            background: #fff; 
+            position: relative; 
+        }
+
+        /* 파티클 효과 무대 */
+        .particle-field { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; opacity:0; transition: opacity 0.4s; }
+        .analyzing .particle-field { opacity: 1; }
+        .particle { position: absolute; background: rgba(3, 169, 77, 0.2); border-radius: 50%; animation: floatUp 3s infinite linear; }
+        @keyframes floatUp {
+            0% { transform: translateY(20px) scale(0.8); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+        }
+
+        /* 대시보드 내부 좌측: 마스코트 무대 */
+        .robot-stage { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            width: 100%;
+        }
+        .robot-float-wrap { animation: floatMascot 3.5s ease-in-out infinite; }
+        .analyzing .robot-float-wrap { animation: floatMascot 1.5s ease-in-out infinite; }
+        @keyframes floatMascot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        
+        /* 이미지 크기를 고정 수치 대신 max-height로 변환하여 비율 일치화 */
+        .robot-main-img { 
+            max-height: 140px; 
+            width: auto; 
+            object-fit: contain;
+        }
+        
+        /* 프로그레스 영역 너비를 200px로 복구 및 상단 여백 보정 */
+        .progress-section { 
+            width: 200px; 
+            margin-top: 15px; 
+            text-align: center; 
+        }
+        .progress-bar-wrap { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 0%; background: var(--sr-primary-vibrant); transition: width 0.05s linear; }
+
+        /* 대시보드 내부 우측: 설문 분석 대시보드 레이아웃 */
+        .result-layout { display: flex; flex-direction: column; gap: 14px; width: 100%; animation: fadeIn 0.4s ease-out; overflow-y: auto; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 필터 바 */
+        .filter-bar { display: flex; gap: 8px; }
+        .filter-select { padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 700; color: #475569; outline: none; }
+        .filter-select:focus { border-color: #03A94D; }
+
+        /* 중대성 점수화 부문 시각화 */
+        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .summary-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; text-align: left; }
+        .summary-card .label { font-size: 0.78rem; color: #1e293b; font-weight: 800; display: block; margin-bottom: 6px; }
+        .score-flex { display: flex; justify-content: space-between; align-items: baseline; }
+        .summary-card .value { font-size: 1.25rem; font-weight: 900; color: #03A94D; }
+        .summary-card .value span { font-size: 0.72rem; color: #64748b; font-weight: 500; }
+
+        /* 설문 유형별 종합 결과 카드 */
+        .type-result-box { background-color: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: left; }
+        .type-title { font-size: 0.78rem; font-weight: 800; color: #334155; margin-bottom: 8px; display: flex; justify-content: space-between; }
+        .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .type-mini-card { background: #f1f5f9; padding: 6px; border-radius: 6px; text-align: center; }
+        .type-mini-card span { font-size: 0.68rem; color: #64748b; font-weight: 700; display: block; }
+        .type-mini-card strong { font-size: 0.82rem; color: #334155; font-weight: 850; }
+
+        /* 이슈 데이터 리스트 뷰 */
+        .issue-list-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; max-height: 105px; overflow-y: auto; padding: 4px; text-align: left; }
+        .issue-item { font-size: 0.76rem; padding: 5px 8px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+        .issue-item:last-child { border-bottom: none; }
+        .badge-risk { background: #fee2e2; color: #ef4444; padding: 1px 5px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; }
+
+        .hidden { display: none !important; }
+        
+    </style>
+</head>
+<body>
+    
+  <div id="main_page">
+    
+    <header class="header">
+      <div class="header-left-group">
+        <div class="logo-placeholder" onclick="loadSubPage('dashboard')" style="cursor: pointer; font-weight:800; color:#03A94D; font-size:18px;">
+          SKM
+        </div>
+        <button class="mobile-hamburger" onclick="toggleSidebarMobile()" aria-label="메뉴 열기">☰</button>
+      </div>
+      <div class="header-right-group">
+        <div class="user-link" onclick="loadSubPage('mypage')" style="cursor: pointer;">
+          이채훈 <span id="current-company-badge" style="font-weight:400; color:#64748b; font-size:12px;">(SKM)</span>
+        </div>
+        <button class="header-action" onclick="handleLogout()" style="cursor: pointer; border:none; background:none; font-size:14px;">로그아웃</button>
+        <div class="header-action" onclick="openAlarmCenter()" style="cursor: pointer; position: relative;">
+          알림
+          <div class="noti-dot" id="header-noti-dot"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content_box">
+      
+      <aside class="sidebar" id="globalSidebar">
+        <div class="nav-scroll-wrapper">
+          <div class="nav-scroll-area">
+            <div class="nav-item" onclick="location.href='index.html'">
+                        <span style="margin-bottom: 10px;">대시보드</span>
+                    </div>
+                    <div class="nav-item" onclick="location.href='onboarding.html'">
+                        <span style="margin-bottom: 10px;">데이터 입력</span>
+                    </div>
+            <div class="nav-group">
+                <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                    <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                    <span>지속가능경영보고서</span>
+
+                    <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    </div>
+                </div>
+
+                <div class="nav-accordion-content">
+                    <div class="inner-wrapper">
+
+                    
+
+                    <div class="nav-item sub-item" onclick="location.href='benchmarking.html'">
+                        <span>벤치마킹</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('media')">
+                        <span>미디어 분석</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="location.href='survey.html'">
+                        <span>이해관계자 설문</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('result')">
+                        <span>분석 결과</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('generate')">
+                        <span>보고서 생성</span>
+                    </div>
+
+                    </div>
+                </div>
+                </div>
+
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>ESG 담당자 통합 관리</span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
+                </div>
+              </div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>환경 설정 </span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="location.href='mypage.html'">내 계정 설정</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="search-container" style="position: relative; width: 100%;">
+            <input type="text" class="company-search" id="companySearchInput" placeholder="회사 검색..." oninput="filterCompanyList()">
+            <button id="searchResetX" onclick="resetCompanySearch()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; display:none; color:#94a3b8;">✕</button>
+          </div>
+          <select class="company-select" id="sidebarCompanySelect" onchange="syncHeaderCompany(this)">
+            <option value="SKM">SKM</option>
+            <option value="HG">HG</option>
+            <option value="TV">TV</option>
+          </select>
+        </div>
+      </aside>
+
+        <div class="sr-container">
+            <header class="sr-header">
+                <h1 class="sr-title">지속가능경영보고서 AI 자동 생성</h1>
+                <div class="sr-stepper-row" id="stepper"></div>
+            </header>
+
+            <main class="main-content">
+                
+            </main>
+
+            <div class="sr-result-dashboard" id="dashboard">
+                <div class="dashboard-handle" onclick="toggleDashboard()">
+                    <div class="handle-pill" id="handle-status">실시간 분석 대기 중</div>
+                </div>
+                
+                <div class="robot-view-container" id="analysis-view">
+                    <div id="particle-field" class="particle-field"></div>
+                    
+                    <div id="loading-content" style="display:flex; flex-direction:column; align-items:center; justify-content: center; width: 100%;">
+                        <div class="robot-stage">
+                            <div class="robot-float-wrap">
+                                <img id="robot-img" src="img/robot_media_t.png" class="robot-main-img" alt="robot">
+                            </div>
+                        </div>
+                        <h3 id="status-label" style="font-size:1.2rem; font-weight:800; margin:0 0 4px 0;">분석 미실행 상태</h3>
+                        <p id="status-sub" style="font-size:0.85rem; color:#64748b; margin:0;">하단의 '설문 결과 분석' 버튼을 작동시켜 주십시오.</p>
+                        
+                        <div id="progress-container" class="progress-section hidden">
+                            <div class="progress-bar-wrap"><div id="progress-fill" class="progress-bar-fill"></div></div>
+                            <div style="margin-top:6px; font-weight:700; font-size:0.85rem; color:var(--sr-primary);">
+                                <span id="progress-text">0</span>% 분석 중
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 전역 상태 및 데이터 모델 정의 (스크립트 최상단으로 이동)
+        const steps = [
+            { id: 1, title: "벤치마킹 분석", icon: "🎯", url: "benchmarking.html" },
+            { id: 2, title: "미디어 분석", icon: "📺", url: "media.html" },
+            { id: 3, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
+            { id: 4, title: "전체 결과", icon: "📊", url: "result.html" },
+            { id: 5, title: "보고서 초안", icon: "📄", url: "draft.html" }
+        ];
+        let activeIndex = 1; // 이해관계자 설문 인덱스 
+        let isAnalyzing = false;
+
+        // URL 클립보드 복사 기능 최신화 및 보완
+        function copyUrl(btn) {
+            const input = btn.previousElementSibling;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(input.value).then(() => {
+                    alert('설문 주소가 복사되었습니다.');
+                }).catch(err => {
+                    fallbackCopy(input);
+                });
+            } else {
+                fallbackCopy(input);
+            }
+        }
+
+        function fallbackCopy(input) {
+            input.select();
+            document.execCommand('copy');
+            alert('설문 주소가 복사되었습니다.');
+        }
+
+        // 대시보드 토글 제어
+        function toggleDashboard() { document.getElementById('dashboard').classList.toggle('open'); }
+        function openDashboard() { document.getElementById('dashboard').classList.add('open'); }
+
+        // 실시간 통계 집계 기능
+        function runLiveKpiAggregation() {
+            const empKpi = document.getElementById('kpi-emp').value || 150;
+            const execKpi = document.getElementById('kpi-exec').value || 20;
+            const extKpi = document.getElementById('kpi-ext').value || 80;
+
+            document.getElementById('res-kpi-emp').innerText = empKpi;
+            document.getElementById('res-kpi-exec').innerText = execKpi;
+            document.getElementById('res-kpi-ext').innerText = extKpi;
+
+            setTimeout(() => {
+                document.getElementById('live-emp-count').innerText = "124";
+                document.getElementById('bar-emp').style.width = "82.6%";
+                
+                document.getElementById('live-exec-count').innerText = "18";
+                document.getElementById('bar-exec').style.width = "90%";
+                
+                document.getElementById('live-ext-count').innerText = "45";
+                document.getElementById('bar-ext').style.width = "56.2%";
+
+                document.getElementById('live-summary-txt').innerText = "구글 시트 실시간 응답 동기화가 성공적으로 끝났습니다. 외부이해관계자 그룹의 참여 독려가 일부 필요합니다.";
+                alert("실시간 통계 집계가 완료되어 우측 패널에 업데이트되었습니다.");
+            }, 300);
+        }
+
+        // AI 연산 처리 및 시뮬레이션 제어
+        function runSurveyAnalysis() {
+            if (isAnalyzing) return;
+            isAnalyzing = true;
+
+            const view = document.getElementById('analysis-view');
+            view.classList.add('analyzing');
+            document.getElementById('result-content').classList.add('hidden');
+            document.getElementById('loading-content').classList.remove('hidden');
+            document.getElementById('progress-container').classList.remove('hidden');
+            openDashboard();
+
+            document.getElementById('handle-status').innerText = "AI 분석 진행 중...";
+            document.getElementById('status-label').innerText = "Impact & Financial 평가 계산 중...";
+            document.getElementById('status-sub').innerText = "이중 중대성 매트릭스 알고리즘을 구동하여 설문 응답을 분석하고 있습니다.";
+
+            let progress = 0;
+            const fill = document.getElementById('progress-fill');
+            const txt = document.getElementById('progress-text');
+
+            const interval = setInterval(() => {
+                progress += 2;
+                fill.style.width = progress + '%';
+                txt.innerText = progress;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    isAnalyzing = false;
+                    view.classList.remove('analyzing');
+                    showResult();
+                }
+            }, 30);
+        }
+
+        const showResult = () => {
+            document.getElementById('handle-status').innerText = "분석 완료 - 결과 요약 확인";
+            document.getElementById('loading-content').classList.add('hidden');
+            document.getElementById('result-content').classList.remove('hidden');
+        }
+
+        // 스텝 바 UI 초기화
+        function init() {
+            const stepper = document.getElementById('stepper');
+            stepper.innerHTML = ''; 
+            steps.forEach((s, i) => {
+                stepper.insertAdjacentHTML('beforeend', `
+                    <div class="step-box ${i === activeIndex ? 'active' : ''}" onclick="changeStep(${i})">
+                        <div class="step-icon-circle">${s.icon}</div>
+                        <div style="font-size:0.8rem; font-weight:800;">${s.title}</div>
+                    </div>
+                    ${i < steps.length - 1 ? '<div class="step-line"></div>' : ''}
+                `);
+            });
+            createParticles();
+        }
+
+        function changeStep(index) {
+            if (isAnalyzing) return;
+            if (index === activeIndex) return; 
+            window.location.href = steps[index].url;
+        }
+
+        // 백그라운드 파티클 생성
+        function createParticles() {
+            const field = document.getElementById('particle-field');
+            if(!field) return;
+            field.innerHTML = ''; // 중복 생성 방지
+            for(let i=0; i<12; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 5 + 3;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 2 + 's';
+                field.appendChild(p);
+            }
+        }
+
+        // 초기화 실행
+        document.addEventListener('DOMContentLoaded', init);
+        let mockNotifications = [
+            { id: 1, type: 'SYSTEM', title: '시스템 공지', message: '2026년 상반기 ESG 정기 공시 입력 기한이 2주 남았습니다.', time: '10분 전', isRead: false },
+            { id: 2, type: 'SERVICE', title: '반려 알림', message: '지표 ID: G-1 윤리경영 항목이 승인권자에 의해 반려되었습니다.', time: '1시간 전', isRead: false },
+            { id: 3, type: 'SERVICE', title: '제출 확인', message: '이채훈 담당자가 S-1 인권경영 지표 제출을 완료했습니다.', time: '어제', isRead: true }
+        ];
+
+        let currentCategoryFilter = 'all';
+        let currentStatusFilter = 'ALL';
+        let currentIssueGroupFilter = 'ALL';
+        let globalSearchKeyword = '';
+        let currentFilterTab = 'ALL';
+        let targetedEditId = null;
+
+        /* 글로벌 비동기 ServiceAlert 모달 인터페이스 */
+        const ServiceAlert = {
+            confirm: function(options) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('globalAlertModal');
+                const titleEl = document.getElementById('alertTitle');
+                const messageEl = document.getElementById('alertMessage');
+                const iconEl = document.getElementById('alertIcon');
+                const confirmBtn = document.getElementById('alertConfirmBtn');
+                const cancelBtn = document.getElementById('alertCancelBtn');
+
+                titleEl.textContent = options.title || '알림';
+                messageEl.textContent = options.message || '';
+                iconEl.textContent = options.icon || '💡';
+                cancelBtn.style.display = options.showCancel === false ? 'none' : 'block';
+                modal.style.display = 'flex';
+
+                function cleanup() {
+                modal.style.display = 'none';
+                confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+                cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+                }
+
+                document.getElementById('alertConfirmBtn').addEventListener('click', () => { cleanup(); resolve(true); });
+                document.getElementById('alertCancelBtn').addEventListener('click', () => { cleanup(); resolve(false); });
+            });
+            }
+        };
+
+        /* mains.css 아코디언 인터랙션 적용 */
+        function toggleAccordionMenu(element) {
+            const content = element.nextElementSibling;
+            const arrow = element.querySelector('.nav-arrow');
+            if (content && content.classList.contains('nav-accordion-content')) {
+            const isExpanded = content.classList.toggle('expanded');
+            if (arrow) arrow.classList.toggle('expanded', isExpanded);
+            }
+        }
+
+        function toggleSidebarMobile() {
+            const sidebar = document.getElementById('globalSidebar');
+            if (sidebar) sidebar.classList.toggle('mobile-open');
+        }
+
+        async function handleLogout() {
+            const isConfirmed = await ServiceAlert.confirm({
+            title: '로그아웃 확인',
+            message: '정말 로그아웃 하시겠습니까?\n작업 중인 내용이 저장되지 않을 수 있습니다.',
+            icon: '🔓',
+            showCancel: true
+            });
+            if (isConfirmed) alert("로그아웃 되었습니다.");
+        }
+    </script>
+</body>
+</html>
