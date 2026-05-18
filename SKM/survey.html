@@ -137,41 +137,34 @@
         .step-box.active .step-icon-circle { background: var(--sr-primary-vibrant); color: #fff; border: none; box-shadow: 0 4px 10px rgba(3, 169, 77, 0.2); }
         .step-line { flex: 1; height: 2px; background: #e2e8f0; margin: -20px 15px 0; }
 
-        /* 메인 패널 */
+         /* 메인 패널 */
         .main-content { 
             flex: 1; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
-            padding: 20px 40px 65px 40px; 
-            overflow: hidden; 
-            height: 100%;
+            overflow-y: auto; /* 내부 요소가 종으로 길어질 때 카드가 깨지지 않도록 스크롤 허용 */
         }
         
         .input-card { 
             background: #fff; 
             padding: 25px 30px; 
             border-radius: var(--sr-radius); 
-            border: 1px solid var(--sr-border); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.02); 
             width: 100%; 
-            max-width: 1200px; 
             text-align: center;
-            max-height: calc(100vh - 140px); 
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            overflow-y: auto;
         }
 
         /* 메인 중앙 그리드 */
         .survey-section-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 25px;
+            padding: 0 10%;
+            display: flex;
+            gap: 50px;
             margin: 20px 0;
             text-align: left;
             min-height: 0;
+            /* width: 100%;          좌우 화면 꽉 채우기 */
         }
 
         .survey-wrapper {
@@ -179,6 +172,7 @@
             padding-top: 12px;
             display: flex;
             flex-direction: column;
+            width: 100%;
         }
         .survey-badge {
             position: absolute;
@@ -421,7 +415,7 @@
 
             <main class="main-content">
                 <div class="input-card">
-                    <h2 id="step-title-display" style="font-size:1.4rem; font-weight:850; margin-bottom:6px;">이해관계자 설문</h2>
+                    <h2 id="step-title-display" style="font-size:1.4rem; font-weight:800; margin-bottom:6px;">이해관계자 설문</h2>
                     <p style="color:#64748b; font-size:0.9rem; margin-bottom:4px;">각 이해관계자 그룹별 설문 발송 관리 및 실시간 집계 결과를 매핑합니다.</p>
 
                     <div class="survey-section-grid">
@@ -514,19 +508,18 @@
                                 <img id="robot-img" src="img/robot_servey_t.png" class="robot-main-img" alt="robot">
                             </div>
                         </div>
-                        <h3 id="status-label" style="font-size:1.2rem; font-weight:850; margin:0 0 4px 0;">분석 미실행 상태</h3>
+                        <h3 id="status-label" style="font-size:1.2rem; font-weight:800; margin:0 0 4px 0;">분석 미실행 상태</h3>
                         <p id="status-sub" style="font-size:0.85rem; color:#64748b; margin:0;">하단의 '설문 결과 분석' 버튼을 작동시켜 주십시오.</p>
                         
                         <div id="progress-container" class="progress-section hidden">
                             <div class="progress-bar-wrap"><div id="progress-fill" class="progress-bar-fill"></div></div>
-                            <div style="margin-top:6px; font-weight:900; font-size:0.85rem; color:var(--sr-primary);">
+                            <div style="margin-top:6px; font-weight:700; font-size:0.85rem; color:var(--sr-primary);">
                                 <span id="progress-text">0</span>% 분석 중
                             </div>
                         </div>
                     </div>
 
                     <div id="result-content" class="result-layout hidden">
-                        
                         <div class="filter-bar">
                             <select class="filter-select">
                                 <option value="all">전체 이해관계자 그룹</option>
@@ -571,8 +564,8 @@
                             <div class="issue-item"><span>글로벌 공급망 ESG 평가 및 리스크 관리 체계 고도화</span><span class="badge-risk">Financial 위험</span></div>
                             <div class="issue-item"><span>사내 안전 보건 관리 감독 및 직무 환경 만족도 개선</span><span>일반 지표</span></div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
 
@@ -580,17 +573,42 @@
     </div>
 
     <script>
+        // 전역 상태 및 데이터 모델 정의 (스크립트 최상단으로 이동)
+        const steps = [
+            { id: 1, title: "벤치마킹 분석", icon: "🎯", url: "benchmarking.html" },
+            { id: 2, title: "미디어 분석", icon: "📺", url: "media.html" },
+            { id: 3, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
+            { id: 4, title: "전체 결과", icon: "📊", url: "result.html" },
+            { id: 5, title: "보고서 초안", icon: "📄", url: "draft.html" }
+        ];
+        let activeIndex = 2; // 이해관계자 설문 인덱스 
+        let isAnalyzing = false;
+
+        // URL 클립보드 복사 기능 최신화 및 보완
         function copyUrl(btn) {
             const input = btn.previousElementSibling;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(input.value).then(() => {
+                    alert('설문 주소가 복사되었습니다.');
+                }).catch(err => {
+                    fallbackCopy(input);
+                });
+            } else {
+                fallbackCopy(input);
+            }
+        }
+
+        function fallbackCopy(input) {
             input.select();
             document.execCommand('copy');
             alert('설문 주소가 복사되었습니다.');
         }
 
+        // 대시보드 토글 제어
         function toggleDashboard() { document.getElementById('dashboard').classList.toggle('open'); }
         function openDashboard() { document.getElementById('dashboard').classList.add('open'); }
 
-        // 우측 고정 영역: 실시간 통계 집계 기능
+        // 실시간 통계 집계 기능
         function runLiveKpiAggregation() {
             const empKpi = document.getElementById('kpi-emp').value || 150;
             const execKpi = document.getElementById('kpi-exec').value || 20;
@@ -615,12 +633,11 @@
             }, 300);
         }
 
-        // 하단 슬라이드 업 대시보드: AI 연산 처리 및 결과물 전환 제어
+        // AI 연산 처리 및 시뮬레이션 제어
         function runSurveyAnalysis() {
             if (isAnalyzing) return;
             isAnalyzing = true;
 
-            // 상태 레이아웃 정비 및 대시보드 열기
             const view = document.getElementById('analysis-view');
             view.classList.add('analyzing');
             document.getElementById('result-content').classList.add('hidden');
@@ -656,17 +673,7 @@
             document.getElementById('result-content').classList.remove('hidden');
         }
 
-        // 벤치마킹 화면 스텝 바 데이터 모델 동기화
-        const steps = [
-            { id: 1, title: "벤치마킹 분석", icon: "🎯", url: "benchmarking.html" },
-            { id: 2, title: "미디어 분석", icon: "📺", url: "media.html" },
-            { id: 3, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
-            { id: 4, title: "전체 결과", icon: "📊", url: "result.html" },
-            { id: 5, title: "보고서 초안", icon: "📄", url: "draft.html" }
-        ];
-        let activeIndex = 2; // 이해관계자 설문 인덱스 
-        let isAnalyzing = false;
-
+        // 스텝 바 UI 초기화
         function init() {
             const stepper = document.getElementById('stepper');
             stepper.innerHTML = ''; 
@@ -674,7 +681,7 @@
                 stepper.insertAdjacentHTML('beforeend', `
                     <div class="step-box ${i === activeIndex ? 'active' : ''}" onclick="changeStep(${i})">
                         <div class="step-icon-circle">${s.icon}</div>
-                        <div style="font-size:0.8rem; font-weight:850;">${s.title}</div>
+                        <div style="font-size:0.8rem; font-weight:800;">${s.title}</div>
                     </div>
                     ${i < steps.length - 1 ? '<div class="step-line"></div>' : ''}
                 `);
@@ -688,8 +695,11 @@
             window.location.href = steps[index].url;
         }
 
+        // 백그라운드 파티클 생성
         function createParticles() {
             const field = document.getElementById('particle-field');
+            if(!field) return;
+            field.innerHTML = ''; // 중복 생성 방지
             for(let i=0; i<12; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
@@ -703,7 +713,8 @@
             }
         }
 
-        init();
+        // 초기화 실행
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
