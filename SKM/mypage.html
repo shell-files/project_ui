@@ -4,163 +4,332 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>마이페이지 - ESG 시스템</title>
-      <link rel="stylesheet" href="../../styles/mypage.css">
+      <link rel="stylesheet" href="./styles/mypage.css">
+      <link rel="stylesheet" href="./styles/App.css">
+      <link rel="stylesheet" href="./styles/mains.css">
+      <link rel="stylesheet" href="./styles/alarm.css">
   </head>
   <body class="standalone-body">
-      <div class="mypage-wrapper">
-        <main class="mypage-container">
-          <div class="mypage-header">
-            <h2>마이페이지</h2>
-            <p>개인 정보 및 계정 설정을 관리하세요.</p>
-          </div>
-
-          <div class="mypage-content">
-            <!-- 프로필 상단 배너 -->
-            <section class="profile-banner">
-                <div class="profile-banner-content">
-                  <h1 id="displayUserName">이나라</h1>
-                  <div class="profile-banner-details">
-                    <span class="team-tag">WITH</span>
-                    <span class="divider">·</span>
-                    <span class="user-email">weareithero@example.com</span>
-                  </div>
-                </div>
-            </section>
-
-            <!-- 프로필 상세 영역 -->
-            <section class="info-section">
-                <div class="info-grid">
-                  <div class="info-item">
-                    <label>이메일</label>
-                    <div class="info-box">weareithero@example.com</div>
-                  </div>
-                  <div class="info-item">
-                    <label>소속</label>
-                    <div class="info-box">WITH</div>
-                  </div>
-                  <div class="info-item">
-                    <label>역할</label>
-                    <div class="info-box">ESG 담당자</div>
-                  </div>
-                  <div class="info-item">
-                    <label>가입일</label>
-                    <div class="info-box">2026-06-25</div>
-                  </div>
-                </div>
-            </section>
-
-            <div class="mypage-footer">
-              <button class="btn-edit" onclick="openModal()">정보 수정</button>
-              <button class="btn-delete" onclick="deleteAccount()">회원 탈퇴</button>
-            </div>
-          </div>
-        </main>
+    <div id="main_page">
+    <header class="header">
+      <div class="header-left-group">
+        <div class="logo-placeholder" onclick="loadSubPage('dashboard')" style="cursor: pointer; font-weight:800; color:#03A94D; font-size:18px;">
+          SKM
+        </div>
+        <button class="mobile-hamburger" onclick="toggleSidebarMobile()" aria-label="메뉴 열기">☰</button>
       </div>
+      <div class="header-right-group">
+        <div class="user-link" onclick="loadSubPage('mypage')" style="cursor: pointer;">
+          이채훈 <span id="current-company-badge" style="font-weight:400; color:#64748b; font-size:12px;">(SKM)</span>
+        </div>
+        <button class="header-action" onclick="handleLogout()" style="cursor: pointer; border:none; background:none; font-size:14px;">로그아웃</button>
+        <div class="header-action" onclick="openAlarmCenter()" style="cursor: pointer; position: relative;">
+          알림
+          <div class="noti-dot" id="header-noti-dot"></div>
+        </div>
+      </div>
+    </header>
 
-      <!-- 정보 수정 모달 -->
-      <div id="infoModal" class="modal-overlay">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h3 id="modalTitle">본인 확인</h3>
-                  <p id="modalDesc">정보 수정을 위해 현재 비밀번호를 입력해주세요.</p>
+    <div class="content_box">
+      
+      <aside class="sidebar" id="globalSidebar">
+        <div class="nav-scroll-wrapper">
+          <div class="nav-scroll-area">
+            <div class="nav-item" onclick="location.href='index.html'">
+                        <span style="margin-bottom: 10px;">대시보드</span>
+                    </div>
+                    <div class="nav-item" onclick="location.href='onboarding.html'">
+                        <span style="margin-bottom: 10px;">데이터 입력</span>
+                    </div>
+            <div class="nav-group">
+                <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                    <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                    <span>지속가능경영보고서</span>
+
+                    <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    </div>
+                </div>
+
+                <div class="nav-accordion-content">
+                    <div class="inner-wrapper">
+
+                    
+
+                    <div class="nav-item sub-item" onclick="location.href='benchmarking.html'">
+                        <span>벤치마킹</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('media')">
+                        <span>미디어 분석</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="location.href='survey.html'">
+                        <span>이해관계자 설문</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('result')">
+                        <span>분석 결과</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('generate')">
+                        <span>보고서 생성</span>
+                    </div>
+
+                    </div>
+                </div>
+                </div>
+
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>ESG 담당자 통합 관리</span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
               </div>
               
-              <div class="modal-body">
-                  <div id="step1">
-                      <input type="password" id="currentPassword" placeholder="현재 비밀번호 입력" class="modal-input">
-                      <div class="modal-btns">
-                          <button onclick="verifyPassword()" class="btn-edit">확인</button>
-                          <button onclick="closeModal()" class="btn-password">취소</button>
-                      </div>
-                  </div>
-                  
-                  <div id="step2" style="display: none;">
-                      <div class="input-group">
-                        <label class="modal-label">사용자 이름 변경</label>
-                        <input type="text" id="newUserName" placeholder="변경할 이름 입력" class="modal-input">
-                      </div>
-                      <div class="input-group">
-                        <label class="modal-label">비밀번호 변경 (필요 시)</label>
-                        <input type="password" id="newPassword" placeholder="새 비밀번호 입력" class="modal-input">
-                        <input type="password" id="confirmPassword" placeholder="새 비밀번호 확인" class="modal-input">
-                      </div>
-                      <div class="modal-btns">
-                          <button onclick="updateUserInfo()" class="btn-edit">수정 완료</button>
-                          <button onclick="closeModal()" class="btn-password">취소</button>
-                      </div>
-                  </div>
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
+                </div>
               </div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>환경 설정 </span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="location.href='mypage.html'">내 계정 설정</div>
+                </div>
+              </div>
+            </div>
+
           </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="search-container" style="position: relative; width: 100%;">
+            <input type="text" class="company-search" id="companySearchInput" placeholder="회사 검색..." oninput="filterCompanyList()">
+            <button id="searchResetX" onclick="resetCompanySearch()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; display:none; color:#94a3b8;">✕</button>
+          </div>
+          <select class="company-select" id="sidebarCompanySelect" onchange="syncHeaderCompany(this)">
+            <option value="SKM">SKM</option>
+            <option value="HG">HG</option>
+            <option value="TV">TV</option>
+          </select>
+        </div>
+      </aside>
+
+      <div id="mypage_page">
+        <div class="mypage-compact-container">
+          
+          <section class="compact-hero-section">
+            <div class="section-title"><i></i>내 프로필</div>
+            <div class="compact-hero-card">
+              <div class="hero-left">
+                <div class="hero-profile-main">
+                  <div class="hero-avatar" id="avatarIcon">이</div>
+                  <div class="hero-welcome">
+                    <h1><span id="welcomeUserName">이채훈</span>님, 반갑습니다!</h1>
+                    <p class="hero-subtitle">안전한 서비스 이용을 위해 정보를 관리하세요.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-right">
+                <div class="hero-top-actions">
+                  <div class="edit-actions-wrap">
+                    <button class="btn-save-primary" onclick="openModal()">정보 수정</button>
+                  </div>
+                </div>
+
+                <div class="hero-bottom-info">
+                  <div class="naver-style-info-box">
+                    <div style="padding: 12px; display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9;">
+                      <span style="color:#64748b;">로그인 계정</span>
+                      <span style="font-weight: 500;">chaehoon@example.com</span>
+                    </div>
+                    <div style="padding: 12px; display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9;">
+                      <span style="color:#64748b;">사용자 이름</span>
+                      <span style="font-weight: 500;" id="infoBoxName">이채훈</span>
+                    </div>
+                    <div style="padding: 12px; display: flex; justify-content: space-between;">
+                      <span style="color:#64748b;">현재 역할</span>
+                      <span style="font-weight: 500; color:#03A94D;">최고 관리자</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="compact-security-section">
+            <div class="section-title"><i></i>보안 센터</div>
+            <div class="security-card-flat">
+              <div class="security-row">
+                <div class="row-text">
+                  <label>계정 비밀번호</label>
+                  <p>주기적인 비밀번호 변경으로 계정을 안전하게 보호하세요.</p>
+                </div>
+                <button class="btn-row-action" onclick="openModal()">변경하기</button>
+              </div>
+              <div class="security-row danger-row">
+                <div class="row-text">
+                  <label>계정 관리</label>
+                  <p>탈퇴 시 계정의 모든 정보가 영구 삭제됩니다.</p>
+                </div>
+                <button class="btn-row-danger" onclick="deleteAccount()">회원 탈퇴</button>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div> </div> <div id="infoModal" class="modal-overlay" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:2000; justify-content:center; align-items:center;">
+      <div class="modal-content bento-modal" style="background:#fff; padding:30px; border-radius:16px; width:100%; max-width:400px;">
+        <div class="modal-header">
+          <h3 id="modalTitle">본인 확인</h3>
+          <p id="modalDesc" style="font-size:13px; color:#64748b; margin-bottom:15px;">정보 수정을 위해 현재 비밀번호를 입력해주세요.</p>
+        </div>
+        
+        <div id="step1">
+          <input type="password" id="currentPassword" placeholder="현재 비밀번호 (초기: 1234)" class="modal-input" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #e2e8f0; border-radius:8px;">
+          <div class="modal-btns" style="display:flex; gap:10px;">
+            <button type="button" class="btn-confirm" onclick="verifyPassword()" style="flex:1; padding:12px; background:#03A94D; color:#fff; border:none; border-radius:8px; cursor:pointer;">확인</button>
+            <button type="button" class="btn-close" onclick="closeModal()" style="flex:1; padding:12px; background:#e2e8f0; border:none; border-radius:8px; cursor:pointer;">취소</button>
+          </div>
+        </div>
+
+        <div id="step2" style="display: none;">
+          <div style="margin-bottom:12px;">
+            <label style="font-size:12px; font-weight:600;">새 사용자 이름</label>
+            <input type="text" id="newUserName" class="modal-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="font-size:12px; font-weight:600;">새 비밀번호 (변경시에만)</label>
+            <input type="password" id="newPassword" class="modal-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
+          </div>
+          <div style="margin-bottom:15px;">
+            <label style="font-size:12px; font-weight:600;">새 비밀번호 확인</label>
+            <input type="password" id="confirmPassword" class="modal-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
+          </div>
+          <div class="modal-btns" style="display:flex; gap:10px;">
+            <button type="button" class="btn-confirm" onclick="updateUserInfo()" style="flex:1; padding:12px; background:#03A94D; color:#fff; border:none; border-radius:8px; cursor:pointer;">수정 완료</button>
+            <button type="button" class="btn-close" onclick="closeModal()" style="flex:1; padding:12px; background:#e2e8f0; border:none; border-radius:8px; cursor:pointer;">취소</button>
+          </div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <script>
-        const modal = document.getElementById('infoModal');
-        const step1 = document.getElementById('step1');
-        const step2 = document.getElementById('step2');
-        const title = document.getElementById('modalTitle');
-        const desc = document.getElementById('modalDesc');
+    <script>
+      const modal = document.getElementById('infoModal');
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      const title = document.getElementById('modalTitle');
+      const desc = document.getElementById('modalDesc');
 
-        let currentUserData = { name: "이나라", pw: "1234" };
+      let currentUserData = { name: "이채훈", pw: "1234" };
 
-        function openModal() {
-          modal.style.display = 'flex';
-          document.getElementById('newUserName').value = currentUserData.name;
+      function openModal() {
+        modal.style.display = 'flex';
+        document.getElementById('newUserName').value = currentUserData.name;
+      }
+
+      function closeModal() {
+        modal.style.display = 'none';
+        resetModal();
+      }
+
+      function verifyPassword() {
+        if(document.getElementById('currentPassword').value === currentUserData.pw) {
+          step1.style.display = 'none';
+          step2.style.display = 'block';
+          title.innerText = "정보 수정";
+          desc.innerText = "변경할 정보를 입력해주세요.";
+        } else {
+          alert("비밀번호가 일치하지 않습니다.");
+        }
+      }
+
+      function updateUserInfo() {
+        const newName = document.getElementById('newUserName').value;
+        const newPw = document.getElementById('newPassword').value;
+        const cfPw = document.getElementById('confirmPassword').value;
+
+        if (!newName) { alert("이름은 필수 항목입니다."); return; }
+
+        if (newPw !== "") {
+            if (newPw === currentUserData.pw) {
+                alert("기존 비밀번호와 동일합니다."); return;
+            }
+            if (newPw !== cfPw) {
+                alert("새 비밀번호 확인이 일치하지 않습니다."); return;
+            }
+            currentUserData.pw = newPw;
         }
 
-        function closeModal() {
-          modal.style.display = 'none';
-          resetModal();
-        }
+        currentUserData.name = newName;
+        
+        // 화면 UI 갱신 데이터 동기화
+        document.getElementById('displayUserName').innerText = newName;
+        document.getElementById('welcomeUserName').innerText = newName;
+        document.getElementById('infoBoxName').innerText = newName;
+        document.getElementById('avatarIcon').innerText = newName.charAt(0);
 
-        function verifyPassword() {
-          if(document.getElementById('currentPassword').value === currentUserData.pw) {
-            step1.style.display = 'none';
-            step2.style.display = 'block';
-            title.innerText = "정보 수정";
-            desc.innerText = "변경할 정보를 입력해주세요.";
-          } else {
-            alert("비밀번호가 일치하지 않습니다.");
+        alert("정보 수정이 완료되었습니다.");
+        closeModal();
+      }
+
+      function resetModal() {
+        step1.style.display = 'block';
+        step2.style.display = 'none';
+        title.innerText = "본인 확인";
+        desc.innerText = "정보 수정을 위해 현재 비밀번호를 입력해주세요.";
+        document.querySelectorAll('.modal-input').forEach(input => input.value = "");
+      }
+
+      function deleteAccount() {
+        if (confirm("정말로 탈퇴하시겠습니까?")) {
+          alert("탈퇴 완료. 로그인 페이지로 이동합니다.");
+          window.location.href = "../auth/login.html";
+        }
+      }
+
+      // 공통 사이드바 및 UI 인터랙션 더미 스텁 함수 정의
+      function toggleSidebarMobile() {
+          const sidebar = document.getElementById('globalSidebar');
+          if(sidebar) sidebar.classList.toggle('open');
+      }
+      function handleLogout() {
+          if(confirm("로그아웃 하시겠습니까?")) window.location.href='../auth/login.html';
+      }
+
+      let currentFilterTab = 'ALL';
+      let mockNotifications = [
+          { id: 1, title: '공시 알림', message: 'ESG 데이터 입력 기한이 3일 남았습니다.', time: '10분 전', isRead: false, type: 'ALL' },
+          { id: 2, title: '시스템', message: '새로운 가이드라인이 업데이트되었습니다.', time: '1시간 전', isRead: true, type: 'ALL' }
+      ];
+
+      function toggleAccordionMenu(element) {
+          const content = element.nextElementSibling;
+          const arrow = element.querySelector('.nav-arrow');
+          if (content && content.classList.contains('nav-accordion-content')) {
+            const isExpanded = content.classList.toggle('expanded');
+            if (arrow) arrow.classList.toggle('expanded', isExpanded);
           }
-        }
-
-        function updateUserInfo() {
-          const newName = document.getElementById('newUserName').value;
-          const newPw = document.getElementById('newPassword').value;
-          const cfPw = document.getElementById('confirmPassword').value;
-
-          if (!newName) { alert("이름은 필수 항목입니다."); return; }
-
-          if (newPw !== "") {
-              if (newPw === currentUserData.pw) {
-                  alert("기존 비밀번호와 동일합니다."); return;
-              }
-              if (newPw !== cfPw) {
-                  alert("새 비밀번호 확인이 일치하지 않습니다."); return;
-              }
-              currentUserData.pw = newPw;
-          }
-
-          currentUserData.name = newName;
-          document.getElementById('displayUserName').innerText = newName;
-
-          alert("정보 수정이 완료되었습니다.");
-          closeModal();
-        }
-
-        function resetModal() {
-          step1.style.display = 'block';
-          step2.style.display = 'none';
-          title.innerText = "본인 확인";
-          desc.innerText = "정보 수정을 위해 현재 비밀번호를 입력해주세요.";
-          document.querySelectorAll('.modal-input').forEach(input => input.value = "");
-        }
-
-        function deleteAccount() {
-          if (confirm("정말로 탈퇴하시겠습니까?")) {
-            alert("탈퇴 완료. 로그인 페이지로 이동합니다.");
-            window.location.href = "../auth/login.html";
-          }
-        }
-      </script>
+      }
+    </script>
   </body>
 </html>
