@@ -246,7 +246,12 @@
       <aside class="sidebar" id="globalSidebar">
         <div class="nav-scroll-wrapper">
           <div class="nav-scroll-area">
-            
+            <div class="nav-item" onclick="location.href='index.html'">
+                        <span style="margin-bottom: 10px;">대시보드</span>
+                    </div>
+                    <div class="nav-item" onclick="location.href='onboarding.html'">
+                        <span style="margin-bottom: 10px;">데이터 입력</span>
+                    </div>
             <div class="nav-group">
                 <div class="nav-item" onclick="toggleAccordionMenu(this)">
                     <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
@@ -261,13 +266,7 @@
                 <div class="nav-accordion-content">
                     <div class="inner-wrapper">
 
-                    <div class="nav-item sub-item" onclick="location.href='index.html'">
-                        <span>대시보드</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="location.href='onboarding.html'">
-                        <span>데이터 입력</span>
-                    </div>
+                    
 
                     <div class="nav-item sub-item" onclick="location.href='benchmarking.html'">
                         <span>벤치마킹</span>
@@ -308,6 +307,22 @@
                   <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
+                </div>
+              </div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>환경 설정 </span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="location.href='mypage.html'">내 계정 설정</div>
                 </div>
               </div>
             </div>

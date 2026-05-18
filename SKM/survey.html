@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="./styles/mains.css">
     <link rel="stylesheet" href="./styles/alarm.css">
+    <link rel="stylesheet" href="./styles/App.css">
     <style>
         :root {
             --sr-primary: #03A94D;
@@ -18,100 +19,10 @@
             --sr-radius: 20px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body { 
-            display: flex; 
-            height: 100vh; 
-            overflow: hidden; 
-            background-color: var(--sr-bg); 
-            font-family: 'Pretendard', sans-serif;
-            color: var(--sr-text);
-        }
-        
-        /* 좌측 사이드바 */
-        .sidebar {
-            width: 260px;
-            background-color: #fff;
-            border-right: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            z-index: 10;
-            height: 100vh;
-        }
-        .sidebar .logo-placeholder { 
-            margin-bottom: 25px; 
-            height: 50px; 
-            background: #eee; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 8px;
-        }
-        .nav-group { margin-bottom: 20px; }
-        .nav-title { font-size: 11px; color: #999; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; }
-        .nav-item { 
-            padding: 10px 14px; 
-            cursor: pointer; 
-            border-radius: 8px; 
-            margin-bottom: 4px; 
-            font-size: 13px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            transition: background 0.2s;
-        }
-        .nav-item:hover { background-color: #f0fdf4; color: #03a94d; }
-        .sub-item { padding-left: 25px; font-size: 12px; color: #666; }
-
-        .noti-dot {
-            width: 7px;
-            height: 7px;
-            background-color: #ff4d4d;
-            border-radius: 50%;
-            border: 1.5px solid #fff;
-        }
-
-        .sidebar-footer { margin-top: auto; padding-top: 15px; border-top: 1px solid #eee; }
-        .company-select { 
-            width: 100%; 
-            padding: 8px; 
-            border-radius: 6px; 
-            border: 1px solid #ddd; 
-            margin-bottom: 8px; 
-            font-size: 13px;
-            outline: none;
-        }
-        .company-search { 
-            width: 100%; 
-            padding: 8px; 
-            border-radius: 6px; 
-            border: 1px solid #ddd; 
-            font-size: 13px; 
-            outline: none;
-        }
 
         /* 우측 메인 영역 */
         .main-container { flex: 1; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
         
-        /* 상단 헤더 */
-        .header {
-            height: 60px;
-            background: #fff;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0 40px;
-            gap: 25px;
-            flex-shrink: 0;
-        }
         .user-link { 
             cursor: pointer; 
             font-size: 14px; 
@@ -130,7 +41,13 @@
 
         /* 중앙 컨텐츠 영역 */
         .sr-container { display: flex; flex-direction: column; height: calc(100vh - 60px); position: relative; overflow: hidden; }
-        .sr-header { background: #fff; padding: 20px 40px; border-bottom: 1px solid var(--sr-border); flex-shrink: 0; }
+        .sr-header {
+            background: #fff;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--sr-border);
+            flex-shrink: 0;
+            width: 100%; /* 좌우로 무조건 꽉 차게 */
+        }
         .sr-title { font-size: 1.3rem; font-weight: 850; margin: 0 0 15px 0; color: #1e293b; }
         .sr-stepper-row { display: flex; align-items: center; justify-content: space-between; max-width: 900px; margin: 0 auto; position: relative; }
         .step-box { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; opacity: 0.35; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2; }
@@ -138,7 +55,19 @@
         .step-icon-circle { width: 38px; height: 38px; background: #fff; border: 2px solid #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: 0.3s; }
         .step-box.active .step-icon-circle { background: var(--sr-primary-vibrant); color: #fff; border: none; box-shadow: 0 4px 10px rgba(3, 169, 77, 0.2); }
         .step-line { flex: 1; height: 2px; background: #e2e8f0; margin: -20px 15px 0; }
-
+        .main-container, .sr-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* background-color: #fff; */
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 1400px; /* 대형 화면에서도 빈 공간이 적어 보이도록 넓힘 */
+            margin: 0 auto;
+        }
+        
          /* 메인 패널 */
         .main-content { 
             flex: 1; 
@@ -378,7 +307,7 @@
     </style>
 </head>
 <body>
-    <div class="layout">
+    
   <div id="main_page">
     
     <header class="header">
@@ -405,32 +334,51 @@
       <aside class="sidebar" id="globalSidebar">
         <div class="nav-scroll-wrapper">
           <div class="nav-scroll-area">
-            
+            <div class="nav-item" onclick="location.href='index.html'">
+                        <span style="margin-bottom: 10px;">대시보드</span>
+                    </div>
+                    <div class="nav-item" onclick="location.href='onboarding.html'">
+                        <span style="margin-bottom: 10px;">데이터 입력</span>
+                    </div>
             <div class="nav-group">
-              <div class="nav-title">지속가능경영보고서</div>
-              
-              <div class="nav-item" onclick="location.href='index.html'">
-                <span>대시보드</span>
-              </div>
-              <div class="nav-item" onclick="location.href='onboarding.html'">
-                <span>데이터 입력</span>
-              </div>
-              <div class="nav-item" onclick="location.href='benchmarking.html'">
-                <span>벤치마킹</span>
-              </div>
-              <div class="nav-item" onclick="loadSubPage('media')">
-                <span>미디어 분석</span>
-              </div>
-              <div class="nav-item" onclick="location.href='survey.html'">
-                <span>이해관계자 설문</span>
-              </div>
-              <div class="nav-item" onclick="loadSubPage('result')">
-                <span>분석 결과</span>
-              </div>
-              <div class="nav-item" onclick="loadSubPage('generate')">
-                <span>보고서 생성</span>
-              </div>
-            </div>
+                <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                    <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                    <span>지속가능경영보고서</span>
+
+                    <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    </div>
+                </div>
+
+                <div class="nav-accordion-content">
+                    <div class="inner-wrapper">
+
+                    
+
+                    <div class="nav-item sub-item" onclick="location.href='benchmarking.html'">
+                        <span>벤치마킹</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('media')">
+                        <span>미디어 분석</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="location.href='survey.html'">
+                        <span>이해관계자 설문</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('result')">
+                        <span>분석 결과</span>
+                    </div>
+
+                    <div class="nav-item sub-item" onclick="loadSubPage('generate')">
+                        <span>보고서 생성</span>
+                    </div>
+
+                    </div>
+                </div>
+                </div>
 
             <div class="nav-group">
               <div class="nav-item" onclick="toggleAccordionMenu(this)">
@@ -447,6 +395,22 @@
                   <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
+                </div>
+              </div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>환경 설정 </span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="location.href='mypage.html'">내 계정 설정</div>
                 </div>
               </div>
             </div>
@@ -775,6 +739,72 @@
 
         // 초기화 실행
         document.addEventListener('DOMContentLoaded', init);
+        let mockNotifications = [
+            { id: 1, type: 'SYSTEM', title: '시스템 공지', message: '2026년 상반기 ESG 정기 공시 입력 기한이 2주 남았습니다.', time: '10분 전', isRead: false },
+            { id: 2, type: 'SERVICE', title: '반려 알림', message: '지표 ID: G-1 윤리경영 항목이 승인권자에 의해 반려되었습니다.', time: '1시간 전', isRead: false },
+            { id: 3, type: 'SERVICE', title: '제출 확인', message: '이채훈 담당자가 S-1 인권경영 지표 제출을 완료했습니다.', time: '어제', isRead: true }
+        ];
+
+        let currentCategoryFilter = 'all';
+        let currentStatusFilter = 'ALL';
+        let currentIssueGroupFilter = 'ALL';
+        let globalSearchKeyword = '';
+        let currentFilterTab = 'ALL';
+        let targetedEditId = null;
+
+        /* 글로벌 비동기 ServiceAlert 모달 인터페이스 */
+        const ServiceAlert = {
+            confirm: function(options) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('globalAlertModal');
+                const titleEl = document.getElementById('alertTitle');
+                const messageEl = document.getElementById('alertMessage');
+                const iconEl = document.getElementById('alertIcon');
+                const confirmBtn = document.getElementById('alertConfirmBtn');
+                const cancelBtn = document.getElementById('alertCancelBtn');
+
+                titleEl.textContent = options.title || '알림';
+                messageEl.textContent = options.message || '';
+                iconEl.textContent = options.icon || '💡';
+                cancelBtn.style.display = options.showCancel === false ? 'none' : 'block';
+                modal.style.display = 'flex';
+
+                function cleanup() {
+                modal.style.display = 'none';
+                confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+                cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+                }
+
+                document.getElementById('alertConfirmBtn').addEventListener('click', () => { cleanup(); resolve(true); });
+                document.getElementById('alertCancelBtn').addEventListener('click', () => { cleanup(); resolve(false); });
+            });
+            }
+        };
+
+        /* mains.css 아코디언 인터랙션 적용 */
+        function toggleAccordionMenu(element) {
+            const content = element.nextElementSibling;
+            const arrow = element.querySelector('.nav-arrow');
+            if (content && content.classList.contains('nav-accordion-content')) {
+            const isExpanded = content.classList.toggle('expanded');
+            if (arrow) arrow.classList.toggle('expanded', isExpanded);
+            }
+        }
+
+        function toggleSidebarMobile() {
+            const sidebar = document.getElementById('globalSidebar');
+            if (sidebar) sidebar.classList.toggle('mobile-open');
+        }
+
+        async function handleLogout() {
+            const isConfirmed = await ServiceAlert.confirm({
+            title: '로그아웃 확인',
+            message: '정말 로그아웃 하시겠습니까?\n작업 중인 내용이 저장되지 않을 수 있습니다.',
+            icon: '🔓',
+            showCancel: true
+            });
+            if (isConfirmed) alert("로그아웃 되었습니다.");
+        }
     </script>
 </body>
 </html>
