@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESG 지속가능경영보고서 AI 시스템 - 이해관계자 설문</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="./styles/mains.css">
+    <link rel="stylesheet" href="./styles/alarm.css">
     <style>
         :root {
             --sr-primary: #03A94D;
@@ -376,36 +378,94 @@
     </style>
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="logo-placeholder">로고</div>
-        <nav class="nav-group">
-            <div class="nav-title">프로젝트 목록</div>
-            <div class="nav-item">데이터입력</div>
-            <div class="nav-item">1팀 (SKM)</div>
-        </nav>
-        <nav class="nav-group">
-            <div class="nav-item">ESG 담당자 페이지</div>
-            <div class="nav-item sub-item">└ 관리페이지</div>
-            <div class="nav-item sub-item">└ 초대페이지</div>
-        </nav>
-        <div class="sidebar-footer">
-            <select class="company-select">
-                <option>SKM</option>
-                <option>HG</option>
-                <option>TV</option>
-            </select>
-            <input type="text" class="company-search" placeholder="회사 검색...">
+    <div class="layout">
+  <div id="main_page">
+    
+    <header class="header">
+      <div class="header-left-group">
+        <div class="logo-placeholder" onclick="loadSubPage('dashboard')" style="cursor: pointer; font-weight:800; color:#03A94D; font-size:18px;">
+          SKM
         </div>
-    </aside>
+        <button class="mobile-hamburger" onclick="toggleSidebarMobile()" aria-label="메뉴 열기">☰</button>
+      </div>
+      <div class="header-right-group">
+        <div class="user-link" onclick="loadSubPage('mypage')" style="cursor: pointer;">
+          이채훈 <span id="current-company-badge" style="font-weight:400; color:#64748b; font-size:12px;">(SKM)</span>
+        </div>
+        <button class="header-action" onclick="handleLogout()" style="cursor: pointer; border:none; background:none; font-size:14px;">로그아웃</button>
+        <div class="header-action" onclick="openAlarmCenter()" style="cursor: pointer; position: relative;">
+          알림
+          <div class="noti-dot" id="header-noti-dot"></div>
+        </div>
+      </div>
+    </header>
 
-    <div class="main-container">
-        <header class="header">
-            <div class="user-link">이채훈 <span>(SKM)</span></div>
-            <div class="header-action">로그아웃</div>
-            <div class="header-action" style="position:relative;">
-                알림 <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
+    <div class="content_box">
+      
+      <aside class="sidebar" id="globalSidebar">
+        <div class="nav-scroll-wrapper">
+          <div class="nav-scroll-area">
+            
+            <div class="nav-group">
+              <div class="nav-title">지속가능경영보고서</div>
+              
+              <div class="nav-item" onclick="location.href='index.html'">
+                <span>대시보드</span>
+              </div>
+              <div class="nav-item" onclick="location.href='onboarding.html'">
+                <span>데이터 입력</span>
+              </div>
+              <div class="nav-item" onclick="location.href='benchmarking.html'">
+                <span>벤치마킹</span>
+              </div>
+              <div class="nav-item" onclick="loadSubPage('media')">
+                <span>미디어 분석</span>
+              </div>
+              <div class="nav-item" onclick="location.href='survey.html'">
+                <span>이해관계자 설문</span>
+              </div>
+              <div class="nav-item" onclick="loadSubPage('result')">
+                <span>분석 결과</span>
+              </div>
+              <div class="nav-item" onclick="loadSubPage('generate')">
+                <span>보고서 생성</span>
+              </div>
             </div>
-        </header>
+
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>ESG 담당자 통합 관리</span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="search-container" style="position: relative; width: 100%;">
+            <input type="text" class="company-search" id="companySearchInput" placeholder="회사 검색..." oninput="filterCompanyList()">
+            <button id="searchResetX" onclick="resetCompanySearch()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; display:none; color:#94a3b8;">✕</button>
+          </div>
+          <select class="company-select" id="sidebarCompanySelect" onchange="syncHeaderCompany(this)">
+            <option value="SKM">SKM</option>
+            <option value="HG">HG</option>
+            <option value="TV">TV</option>
+          </select>
+        </div>
+      </aside>
 
         <div class="sr-container">
             <header class="sr-header">

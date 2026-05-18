@@ -5,126 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESG 지속가능경영보고서 AI 시스템</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="./styles/mains.css">
+    <link rel="stylesheet" href="./styles/alarm.css">
     <style>
-        :root {
-            --sr-primary: #03A94D;
-            --sr-primary-vibrant: linear-gradient(135deg, #03A94D, #017E3F);
-            --sr-bg: #f4f7f6;
-            --sr-border: #e2e8f0;
-            --sr-text: #334155;
-            --sr-sub: #64748b;
-            --sr-radius: 20px;
-        }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body { 
-            display: flex; 
-            height: 100vh; 
-            overflow: hidden; 
-            background-color: var(--sr-bg); 
-            font-family: 'Pretendard', sans-serif;
-            color: var(--sr-text);
-        }
-
-        /* 좌측 사이드바 */
-        .sidebar {
-            width: 260px;
-            background-color: #fff;
-            border-right: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            z-index: 10;
-            height: 100vh;
-        }
-        .sidebar .logo-placeholder { 
-            margin-bottom: 25px; 
-            height: 50px; 
-            background: #eee; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 8px;
-        }
-        .nav-group { margin-bottom: 20px; }
-        .nav-title { font-size: 11px; color: #999; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; }
-        .nav-item { 
-            padding: 10px 14px; 
-            cursor: pointer; 
-            border-radius: 8px; 
-            margin-bottom: 4px; 
-            font-size: 13px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            transition: background 0.2s;
-        }
-        .nav-item:hover { background-color: #f0fdf4; color: #03a94d; }
-        .sub-item { padding-left: 25px; font-size: 12px; color: #666; }
-
-        .noti-dot {
-            width: 7px;
-            height: 7px;
-            background-color: #ff4d4d;
-            border-radius: 50%;
-            border: 1.5px solid #fff;
-        }
-
-        .sidebar-footer { margin-top: auto; padding-top: 15px; border-top: 1px solid #eee; }
-        .company-select { 
-            width: 100%; 
-            padding: 8px; 
-            border-radius: 6px; 
-            border: 1px solid #ddd; 
-            margin-bottom: 8px; 
-            font-size: 13px;
-            outline: none;
-        }
-        .company-search { 
-            width: 100%; 
-            padding: 8px; 
-            border-radius: 6px; 
-            border: 1px solid #ddd; 
-            font-size: 13px; 
-            outline: none;
-        }
-
-        /* 우측 메인 영역 */
-        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
-
-        /* 상단 헤더 */
-        .header {
-            height: 60px;
-            background: #fff;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0 40px;
-            gap: 25px;
-            flex-shrink: 0;
-        }
-        .user-link { 
-            cursor: pointer; 
-            font-size: 14px; 
-            font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-        }
-        .user-link span { 
-            color: #03a94d;
-            font-size: 12px; 
-            font-weight: normal; 
-            margin-left: 6px; 
-        }
-        .header-action { cursor: pointer; font-size: 13px; color: #555; position: relative; }
-        .header-action:hover { color: #03a94d; }
 
         /* 중앙 컨텐츠 영역 */
         .sr-container { display: flex; flex-direction: column; height: calc(100vh - 60px); position: relative; overflow: hidden; }
@@ -419,42 +303,94 @@
     </style>
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="logo-placeholder">로고</div>
-        
-        <nav class="nav-group">
-            <div class="nav-title">프로젝트 목록</div>
-            <div class="nav-item">데이터입력</div>
-            <div class="nav-item">1팀 (SKM)</div>
-        </nav>
+    <div class="layout">
+  <div id="main_page">
+    
+    <header class="header">
+      <div class="header-left-group">
+        <div class="logo-placeholder" onclick="loadSubPage('dashboard')" style="cursor: pointer; font-weight:800; color:#03A94D; font-size:18px;">
+          SKM
+        </div>
+        <button class="mobile-hamburger" onclick="toggleSidebarMobile()" aria-label="메뉴 열기">☰</button>
+      </div>
+      <div class="header-right-group">
+        <div class="user-link" onclick="loadSubPage('mypage')" style="cursor: pointer;">
+          이채훈 <span id="current-company-badge" style="font-weight:400; color:#64748b; font-size:12px;">(SKM)</span>
+        </div>
+        <button class="header-action" onclick="handleLogout()" style="cursor: pointer; border:none; background:none; font-size:14px;">로그아웃</button>
+        <div class="header-action" onclick="openAlarmCenter()" style="cursor: pointer; position: relative;">
+          알림
+          <div class="noti-dot" id="header-noti-dot"></div>
+        </div>
+      </div>
+    </header>
 
-        <nav class="nav-group">
-            <div class="nav-item">ESG 담당자 페이지</div>
-            <div class="nav-item sub-item">└ 관리페이지</div>
-            <div class="nav-item sub-item">└ 초대페이지</div>
-        </nav>
+    <div class="content_box">
+      
+      <aside class="sidebar" id="globalSidebar">
+        <div class="nav-scroll-wrapper">
+          <div class="nav-scroll-area">
+            
+            <div class="nav-group">
+              <div class="nav-title">지속가능경영보고서</div>
+              
+              <div class="nav-item" onclick="location.href='index.html'">
+                <span>대시보드</span>
+              </div>
+              <div class="nav-item" onclick="location.href='onboarding.html'">
+                <span>데이터 입력</span>
+              </div>
+              <div class="nav-item" onclick="location.href='benchmarking.html'">
+                <span>벤치마킹</span>
+              </div>
+              <div class="nav-item" onclick="loadSubPage('media')">
+                <span>미디어 분석</span>
+              </div>
+              <div class="nav-item" onclick="location.href='survey.html'">
+                <span>이해관계자 설문</span>
+              </div>
+              <div class="nav-item" onclick="loadSubPage('result')">
+                <span>분석 결과</span>
+              </div>
+              <div class="nav-item" onclick="loadSubPage('generate')">
+                <span>보고서 생성</span>
+              </div>
+            </div>
+
+            <div class="nav-group">
+              <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                  <span>ESG 담당자 통합 관리</span>
+                  <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="nav-accordion-content">
+                <div class="inner-wrapper">
+                  <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
+                  <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <div class="sidebar-footer">
-            <select class="company-select">
-                <option>SKM</option>
-                <option>HG</option>
-                <option>TV</option>
-            </select>
-            <input type="text" class="company-search" placeholder="회사 검색...">
+          <div class="search-container" style="position: relative; width: 100%;">
+            <input type="text" class="company-search" id="companySearchInput" placeholder="회사 검색..." oninput="filterCompanyList()">
+            <button id="searchResetX" onclick="resetCompanySearch()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; display:none; color:#94a3b8;">✕</button>
+          </div>
+          <select class="company-select" id="sidebarCompanySelect" onchange="syncHeaderCompany(this)">
+            <option value="SKM">SKM</option>
+            <option value="HG">HG</option>
+            <option value="TV">TV</option>
+          </select>
         </div>
-    </aside>
-
-    <div class="main-container">
-        <header class="header">
-            <div class="user-link">
-                이채훈 <span>(SKM)</span>
-            </div>
-            <div class="header-action">로그아웃</div>
-            <div class="header-action">
-                알림
-                <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
-            </div>
-        </header>
+      </aside>
 
         <div class="sr-container">
             <header class="sr-header">
