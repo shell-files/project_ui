@@ -143,10 +143,9 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            padding: 15px 40px; 
+            padding: 20px 40px 65px 40px; 
             overflow: hidden; 
             height: 100%;
-            margin-bottom: 45px; /* 하단 대시보드 핸들 공간 확보 */
         }
         
         .input-card { 
@@ -156,33 +155,30 @@
             border: 1px solid var(--sr-border); 
             box-shadow: 0 10px 25px rgba(0,0,0,0.02); 
             width: 100%; 
-            max-width: 1100px; 
+            max-width: 1200px; 
             text-align: center;
-            max-height: calc(100vh - 180px); 
+            max-height: calc(100vh - 140px); 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            overflow-y: auto;
         }
 
-        /* 중앙 양대 산맥 레이아웃 구조 */
+        /* 메인 중앙 그리드 */
         .survey-section-grid {
             display: grid;
-            grid-template-columns: 1.1fr 1.3fr;
+            grid-template-columns: 1fr 1.2fr;
             gap: 25px;
             margin: 20px 0;
             text-align: left;
             min-height: 0;
-            overflow: visible;
-
         }
 
-        /* 탭 카드 디자인 */
         .survey-wrapper {
             position: relative;
             padding-top: 12px;
             display: flex;
             flex-direction: column;
-            overflow: visible;
         }
         .survey-badge {
             position: absolute;
@@ -198,34 +194,22 @@
             font-size: 0.8rem;
             z-index: 5;
         }
-        .green-badge { background: #03A94D; color: #fff; }
         .white-badge { background: #fff; color: #03A94D; }
 
         .survey-panel {
             border: 2px solid #03A94D;
-            border-radius:  14px;
+            border-radius: 0 14px 14px 14px;
             padding: 20px;
             background: #fff;
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
+            justify-content: flex-start;
+            gap: 15px;
         }
 
-        /* 좌측: 설문 발송 관리 내부 아이템 */
-        .survey-group-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow-y: auto;
-        }
-        .survey-row-box {
-            background-color: #f8fafc;
-            padding: 12px 14px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
+        .survey-group-list { display: flex; flex-direction: column; gap: 12px; }
+        .survey-row-box { background-color: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #e2e8f0; }
         .survey-row-box label { display: block; font-size: 0.88rem; font-weight: 800; color: #1e293b; margin-bottom: 6px; }
         
         .url-input-line { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
@@ -249,98 +233,150 @@
             font-size: 0.75rem;
             cursor: pointer;
             white-space: nowrap;
-            transition: opacity 0.2s;
         }
-        .btn-url-copy:hover { opacity: 0.85; }
 
         .kpi-input-line { display: flex; align-items: center; justify-content: flex-end; gap: 6px; font-size: 0.78rem; color: #64748b; font-weight: 600; }
-        .kpi-input-line input[type="number"] {
-            width: 65px;
-            padding: 3px 6px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            text-align: right;
-            outline: none;
-            font-size: 0.78rem;
-            font-family: inherit;
-        }
-        .kpi-input-line input[type="number"]:focus { border-color: #03A94D; }
+        .kpi-input-line input[type="number"] { width: 65px; padding: 3px 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; outline: none; }
 
-        /* 우측: 설문 미리보기 내부 */
-        .preview-panel {
-            background: #fff;
-            justify-content: center;
-            align-items: center;
-        }
-        .hardcoded-text-placeholder {
-            font-size: 1.6rem;
-            font-weight: 850;
-            color: #1e293b;
-            text-align: center;
-            letter-spacing: -0.5px;
-        }
-
-        /* 하단 슬라이드 대시보드 */
-        .sr-result-dashboard {
-            position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--sr-border);
-            height: 45px; transition: height 0.6s cubic-bezier(0.19, 1, 0.22, 1); display: flex; flex-direction: column; z-index: 100;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
-        }
-        .sr-result-dashboard.open { height: 400px; }
-        .dashboard-handle { height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-bottom: 1px solid #f1f5f9; flex-shrink: 0; }
-        .handle-pill { padding: 6px 20px; background: #f1f5f9; border-radius: 30px; font-weight: 700; font-size: 0.8rem; color: #64748b; }
-
-        /* 애니메이션 구성 */
-        .robot-view-container { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 100%); }
-        .particle-field { position: absolute; inset: 0; pointer-events: none; }
-        .particle { position: absolute; background: var(--sr-primary); border-radius: 50%; opacity: 0; }
-        .analyzing .particle { opacity: 0.3; animation: particleFloat 3s infinite linear; }
-        @keyframes particleFloat { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.2); } 100% { transform: translateY(0) scale(1); } }
-
-        .robot-stage { position: relative; z-index: 2; margin-bottom: 10px; }
-        .robot-main-img { width: 150px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.04)); }
-        .robot-float-wrap { animation: float 3.5s ease-in-out infinite; }
-        .analyzing .robot-float-wrap { animation: float 1.5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        
-        .mascot-entrance-pop { animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .progress-section { width: 280px; margin-top: 15px; }
-        .progress-bar-wrap { width: 100%; height: 8px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; width: 0%; background: var(--sr-primary-vibrant); transition: width 0.3s; }
-
-        /* 분석 완료 후 보일 실시간 Sheets API 시각화 통계 레이아웃 */
-        .result-layout { max-width: 850px; width: 100%; padding: 0 20px; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .sheets-dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
-        .chart-status-card { background: #fff; padding: 18px 15px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.01); text-align: center; }
-        .chart-status-card .label { font-size: 0.78rem; color: #94a3b8; font-weight: 700; margin-bottom: 8px; display: block; }
-        .chart-status-card .value { font-size: 1.25rem; font-weight: 850; color: #1e293b; margin-bottom: 10px; }
-        .chart-status-card .value span { font-size: 0.85rem; color: #94a3b8; font-weight: 500; margin-left: 3px; }
-        
-        /* 구글 시트 데이터 연동용 인디케이터 바 */
-        .api-progress-container { background-color: #f1f5f9; border-radius: 10px; height: 10px; width: 100%; overflow: hidden; }
+        /* 실시간 통계 집계 영역 */
+        .sheets-dashboard-grid { display: flex; flex-direction: column; gap: 10px; }
+        .chart-status-card { background: #fff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .chart-status-card .label { font-size: 0.8rem; color: #475569; font-weight: 700; }
+        .chart-status-card .value { font-size: 0.95rem; font-weight: 850; color: #1e293b; }
+        .chart-status-card .value span { font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
+        .api-progress-container { background-color: #f1f5f9; border-radius: 10px; height: 6px; width: 100%; overflow: hidden; }
         .api-progress-bar { background: var(--sr-primary-vibrant); height: 100%; border-radius: 10px; }
+        .ai-message-box { background: #f8fafc; border-radius: 10px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.8rem; line-height: 1.5; text-align: left; }
 
-        .ai-message-box { background: #f8fafc; border-radius: 14px; padding: 15px; border: 1px solid #f1f5f9; line-height: 1.6; text-align: left; font-size: 0.85rem; }
-        
-        /* 액션 버튼 */
+        /* 메인 작업 버튼 그룹 */
+        .action-btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
         .sr-btn { 
-            align-self: center;
-            padding: 12px 50px; 
-            border-radius: 10px; 
-            border: none; 
-            font-weight: 850; 
-            font-size: 0.95rem; 
-            cursor: pointer; 
-            background: var(--sr-primary-vibrant); 
-            color: #fff; 
-            transition: 0.3s; 
-            box-shadow: 0 4px 12px rgba(3, 169, 77, 0.15); 
+            padding: 12px 35px; border-radius: 10px; border: none; font-weight: 850; font-size: 0.95rem; cursor: pointer; 
+            background: var(--sr-primary-vibrant); color: #fff; transition: 0.3s; box-shadow: 0 4px 12px rgba(3, 169, 77, 0.15); 
         }
         .sr-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(3, 169, 77, 0.25); }
+        .sr-btn.secondary { background: #334155; box-shadow: 0 4px 12px rgba(51, 65, 85, 0.15); }
+
+        /* ========================================================
+           [UI 통일] 벤치마킹 대시보드 구조 동기화 (클래스명 및 핸들 알약 스타일 고도화)
+        ======================================================== */
+        .sr-result-dashboard {
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: #fff; 
+            border-top: 1px solid var(--sr-border);
+            height: 45px; /* 초기 높이 benchmarking과 동일하게 고정 */
+            transition: height 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* 트랜스폼 제거하고 높이 애니메이션 적용 */
+            display: flex; 
+            flex-direction: column; 
+            z-index: 100;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+        }
+        .sr-result-dashboard.open { 
+            height: 400px; 
+        }
+
+        /* 벤치마킹 스타일 핸들 적용 */
+        .dashboard-handle { 
+            height: 45px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            border-bottom: 1px solid #f1f5f9; 
+            flex-shrink: 0; 
+        }
+        .handle-pill { 
+            padding: 6px 20px; 
+            background: #f1f5f9; 
+            border-radius: 30px; 
+            font-weight: 700; 
+            font-size: 0.8rem; 
+            color: #64748b; 
+            letter-spacing: normal;
+        }
+        .sr-result-dashboard.open .handle-pill { background: #f1f5f9; }
+        .robot-view-container { 
+            flex: 1; 
+            padding: 30px 50px; /* 여백 크기를 benchmarking의 오리지널 값으로 수정 */
+            display: grid; 
+            gap: 40px; /* 내부 간격을 넓혀 시원한 레이아웃으로 변경 */
+            overflow: hidden; 
+            background: #fff; 
+            position: relative; 
+        }
+
+        /* 파티클 효과 무대 */
+        .particle-field { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; opacity:0; transition: opacity 0.4s; }
+        .analyzing .particle-field { opacity: 1; }
+        .particle { position: absolute; background: rgba(3, 169, 77, 0.2); border-radius: 50%; animation: floatUp 3s infinite linear; }
+        @keyframes floatUp {
+            0% { transform: translateY(20px) scale(0.8); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+        }
+
+        /* 대시보드 내부 좌측: 마스코트 무대 */
+        .robot-stage { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            width: 100%;
+        }
+        .robot-float-wrap { animation: floatMascot 3.5s ease-in-out infinite; }
+        .analyzing .robot-float-wrap { animation: floatMascot 1.5s ease-in-out infinite; }
+        @keyframes floatMascot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        
+        /* 이미지 크기를 고정 수치 대신 max-height로 변환하여 비율 일치화 */
+        .robot-main-img { 
+            max-height: 140px; 
+            width: auto; 
+            object-fit: contain;
+        }
+        
+        /* 프로그레스 영역 너비를 200px로 복구 및 상단 여백 보정 */
+        .progress-section { 
+            width: 200px; 
+            margin-top: 15px; 
+            text-align: center; 
+        }
+        .progress-bar-wrap { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 0%; background: var(--sr-primary-vibrant); transition: width 0.05s linear; }
+
+        /* 대시보드 내부 우측: 설문 분석 대시보드 레이아웃 */
+        .result-layout { display: flex; flex-direction: column; gap: 14px; width: 100%; animation: fadeIn 0.4s ease-out; overflow-y: auto; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 필터 바 */
+        .filter-bar { display: flex; gap: 8px; }
+        .filter-select { padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 700; color: #475569; outline: none; }
+        .filter-select:focus { border-color: #03A94D; }
+
+        /* 중대성 점수화 부문 시각화 */
+        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .summary-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; text-align: left; }
+        .summary-card .label { font-size: 0.78rem; color: #1e293b; font-weight: 800; display: block; margin-bottom: 6px; }
+        .score-flex { display: flex; justify-content: space-between; align-items: baseline; }
+        .summary-card .value { font-size: 1.25rem; font-weight: 900; color: #03A94D; }
+        .summary-card .value span { font-size: 0.72rem; color: #64748b; font-weight: 500; }
+
+        /* 설문 유형별 종합 결과 카드 */
+        .type-result-box { background-color: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: left; }
+        .type-title { font-size: 0.78rem; font-weight: 800; color: #334155; margin-bottom: 8px; display: flex; justify-content: space-between; }
+        .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .type-mini-card { background: #f1f5f9; padding: 6px; border-radius: 6px; text-align: center; }
+        .type-mini-card span { font-size: 0.68rem; color: #64748b; font-weight: 700; display: block; }
+        .type-mini-card strong { font-size: 0.82rem; color: #334155; font-weight: 850; }
+
+        /* 이슈 데이터 리스트 뷰 */
+        .issue-list-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; max-height: 105px; overflow-y: auto; padding: 4px; text-align: left; }
+        .issue-item { font-size: 0.76rem; padding: 5px 8px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+        .issue-item:last-child { border-bottom: none; }
+        .badge-risk { background: #fee2e2; color: #ef4444; padding: 1px 5px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; }
 
         .hidden { display: none !important; }
     </style>
@@ -348,19 +384,16 @@
 <body>
     <aside class="sidebar">
         <div class="logo-placeholder">로고</div>
-        
         <nav class="nav-group">
             <div class="nav-title">프로젝트 목록</div>
             <div class="nav-item">데이터입력</div>
             <div class="nav-item">1팀 (SKM)</div>
         </nav>
-
         <nav class="nav-group">
             <div class="nav-item">ESG 담당자 페이지</div>
             <div class="nav-item sub-item">└ 관리페이지</div>
             <div class="nav-item sub-item">└ 초대페이지</div>
         </nav>
-
         <div class="sidebar-footer">
             <select class="company-select">
                 <option>SKM</option>
@@ -373,13 +406,10 @@
 
     <div class="main-container">
         <header class="header">
-            <div class="user-link">
-                이채훈 <span>(SKM)</span>
-            </div>
+            <div class="user-link">이채훈 <span>(SKM)</span></div>
             <div class="header-action">로그아웃</div>
-            <div class="header-action">
-                알림
-                <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
+            <div class="header-action" style="position:relative;">
+                알림 <div class="noti-dot" style="position:absolute; top:-2px; right:-8px;"></div>
             </div>
         </header>
 
@@ -392,14 +422,12 @@
             <main class="main-content">
                 <div class="input-card">
                     <h2 id="step-title-display" style="font-size:1.4rem; font-weight:850; margin-bottom:6px;">이해관계자 설문</h2>
-                    <p id="step-desc-display" style="color:#64748b; font-size:0.9rem; margin-bottom:4px; line-height:1.5;">
-                        각 이해관계자 그룹별 설문 URL 생성을 하고 몇 명에게 보냈는지 입력하면 통계가 나옵니다.
-                    </p>
+                    <p style="color:#64748b; font-size:0.9rem; margin-bottom:4px;">각 이해관계자 그룹별 설문 발송 관리 및 실시간 집계 결과를 매핑합니다.</p>
 
                     <div class="survey-section-grid">
                         
                         <div class="survey-wrapper">
-                            <div class="survey-badge green-badge">설문 URL & 발송 관리</div>
+                            <div class="survey-badge white-badge">설문 URL & 발송 관리</div>
                             <div class="survey-panel">
                                 <div class="survey-group-list">
                                     <div class="survey-row-box">
@@ -408,10 +436,7 @@
                                             <input type="text" value="https://forms.gle/emp_sample_skm" readonly>
                                             <button class="btn-url-copy" onclick="copyUrl(this)">복사</button>
                                         </div>
-                                        <div class="kpi-input-line">
-                                            <span>총 발송 인원 (KPI) :</span>
-                                            <input type="number" id="kpi-emp" value="150" min="0"> 명
-                                        </div>
+                                        <div class="kpi-input-line"><span>총 발송 인원 (KPI) :</span><input type="number" id="kpi-emp" value="150"> 명</div>
                                     </div>
                                     <div class="survey-row-box">
                                         <label>경영진</label>
@@ -419,10 +444,7 @@
                                             <input type="text" value="https://forms.gle/exec_sample_skm" readonly>
                                             <button class="btn-url-copy" onclick="copyUrl(this)">복사</button>
                                         </div>
-                                        <div class="kpi-input-line">
-                                            <span>총 발송 인원 (KPI) :</span>
-                                            <input type="number" id="kpi-exec" value="20" min="0"> 명
-                                        </div>
+                                        <div class="kpi-input-line"><span>총 발송 인원 (KPI) :</span><input type="number" id="kpi-exec" value="20"> 명</div>
                                     </div>
                                     <div class="survey-row-box">
                                         <label>외부이해관계자</label>
@@ -430,27 +452,51 @@
                                             <input type="text" value="https://forms.gle/ext_sample_skm" readonly>
                                             <button class="btn-url-copy" onclick="copyUrl(this)">복사</button>
                                         </div>
-                                        <div class="kpi-input-line">
-                                            <span>총 발송 인원 (KPI) :</span>
-                                            <input type="number" id="kpi-ext" value="80" min="0"> 명
-                                        </div>
+                                        <div class="kpi-input-line"><span>총 발송 인원 (KPI) :</span><input type="number" id="kpi-ext" value="80"> 명</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="survey-wrapper">
-                            <div class="survey-badge white-badge">설문 미리보기</div>
-                            <div class="survey-panel preview-panel">
-                                <div class="hardcoded-text-placeholder">
-                                    설문 예시 들어갈 예정입니다.
+                            <div class="survey-badge white-badge">실시간 통계 집계 (KPI 현황)</div>
+                            <div class="survey-panel">
+                                <div class="sheets-dashboard-grid" id="main-sheets-kpi">
+                                    <div class="chart-status-card">
+                                        <div class="chart-header">
+                                            <span class="label">임직원 제출 현황</span>
+                                            <div class="value"><span id="live-emp-count">0</span> / <span id="res-kpi-emp">150</span><span>명</span></div>
+                                        </div>
+                                        <div class="api-progress-container"><div id="bar-emp" class="api-progress-bar" style="width: 0%; transition: width 0.5s;"></div></div>
+                                    </div>
+                                    <div class="chart-status-card">
+                                        <div class="chart-header">
+                                            <span class="label">경영진 제출 현황</span>
+                                            <div class="value"><span id="live-exec-count">0</span> / <span id="res-kpi-exec">20</span><span>명</span></div>
+                                        </div>
+                                        <div class="api-progress-container"><div id="bar-exec" class="api-progress-bar" style="width: 0%; transition: width 0.5s;"></div></div>
+                                    </div>
+                                    <div class="chart-status-card">
+                                        <div class="chart-header">
+                                            <span class="label">외부관계자 제출 현황</span>
+                                            <div class="value"><span id="live-ext-count">0</span> / <span id="res-kpi-ext">80</span><span>명</span></div>
+                                        </div>
+                                        <div class="api-progress-container"><div id="bar-ext" class="api-progress-bar" style="width: 0%; transition: width 0.5s; background: #ffb300;"></div></div>
+                                    </div>
+                                </div>
+                                <div class="ai-message-box">
+                                    <strong style="color:var(--sr-primary);">[구글 Sheets API 연동 결과 수신]</strong>
+                                    <p id="live-summary-txt" style="margin-top: 4px; color: #475569;">하단의 '실시간 통계 집계' 버튼을 누르면 연동 데이터 파싱 결과 요약이 표시됩니다.</p>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <button class="sr-btn" onclick="runAnalysis()">실시간 통계 집계</button>
+                    <div class="action-btn-group">
+                        <button class="sr-btn" onclick="runLiveKpiAggregation()">실시간 통계 집계</button>
+                        <button class="sr-btn secondary" onclick="runSurveyAnalysis()">설문 결과 분석</button>
+                    </div>
                 </div>
             </main>
 
@@ -462,19 +508,17 @@
                 <div class="robot-view-container" id="analysis-view">
                     <div id="particle-field" class="particle-field"></div>
                     
-                    <div id="loading-content" style="display:flex; flex-direction:column; align-items:center;">
+                    <div id="loading-content" style="display:flex; flex-direction:column; align-items:center; justify-content: center; width: 100%;">
                         <div class="robot-stage">
                             <div class="robot-float-wrap">
-                                <img id="robot-img" src="img/robot_servey_t.png" class="robot-main-img mascot-entrance-pop" alt="robot">
+                                <img id="robot-img" src="img/robot_servey_t.png" class="robot-main-img" alt="robot">
                             </div>
                         </div>
-                        <h3 id="status-label" style="font-size:1.2rem; font-weight:850; margin:0 0 4px 0;">분석 준비가 완료되었습니다</h3>
-                        <p id="status-sub" style="font-size:0.85rem; color:#64748b; margin:0;">상단의 분석 시작 버튼을 눌러주세요.</p>
+                        <h3 id="status-label" style="font-size:1.2rem; font-weight:850; margin:0 0 4px 0;">분석 미실행 상태</h3>
+                        <p id="status-sub" style="font-size:0.85rem; color:#64748b; margin:0;">하단의 '설문 결과 분석' 버튼을 작동시켜 주십시오.</p>
                         
                         <div id="progress-container" class="progress-section hidden">
-                            <div class="progress-bar-wrap">
-                                <div id="progress-fill" class="progress-bar-fill"></div>
-                            </div>
+                            <div class="progress-bar-wrap"><div id="progress-fill" class="progress-bar-fill"></div></div>
                             <div style="margin-top:6px; font-weight:900; font-size:0.85rem; color:var(--sr-primary);">
                                 <span id="progress-text">0</span>% 분석 중
                             </div>
@@ -482,38 +526,56 @@
                     </div>
 
                     <div id="result-content" class="result-layout hidden">
-                        <div class="sheets-dashboard-grid">
-                            <div class="chart-status-card">
-                                <span class="label">임직원 제출 현황</span>
-                                <div class="value">124 / <span id="res-kpi-emp">150</span><span>명</span></div>
-                                <div class="api-progress-container">
-                                    <div class="api-progress-bar" style="width: 82.6%;"></div>
+                        
+                        <div class="filter-bar">
+                            <select class="filter-select">
+                                <option value="all">전체 이해관계자 그룹</option>
+                                <option value="emp">임직원</option>
+                                <option value="exec">경영진</option>
+                                <option value="ext">외부이해관계자</option>
+                            </select>
+                            <select class="filter-select">
+                                <option value="score">점수 높은 순 정렬</option>
+                                <option value="issue">핵심 이슈 지표 필터링</option>
+                            </select>
+                        </div>
+                        
+                        <div class="summary-grid">
+                            <div class="summary-card">
+                                <span class="label">🌍 Impact Materiality (사회·환경적 영향 점수)</span>
+                                <div class="score-flex">
+                                    <span class="value">87.4<span> / 100점</span></span>
+                                    <span style="font-size:0.7rem; color:#03A94D; font-weight:700;">[상위 4.2% 중대이슈]</span>
                                 </div>
                             </div>
-                            <div class="chart-status-card">
-                                <span class="label">경영진 제출 현황</span>
-                                <div class="value">18 / <span id="res-kpi-exec">20</span><span>명</span></div>
-                                <div class="api-progress-container">
-                                    <div class="api-progress-bar" style="width: 90.0%;"></div>
-                                </div>
-                            </div>
-                            <div class="chart-status-card">
-                                <span class="label">외부관계자 제출 현황</span>
-                                <div class="value">45 / <span id="res-kpi-ext">80</span><span>명</span></div>
-                                <div class="api-progress-container">
-                                    <div class="api-progress-bar" style="width: 56.2%; background: #ffb300;"></div>
+                            <div class="summary-card">
+                                <span class="label">💰 Financial Materiality (재무적 영향 점수)</span>
+                                <div class="score-flex">
+                                    <span class="value" style="color: #334155;">74.2<span> / 100점</span></span>
+                                    <span style="font-size:0.7rem; color:#64748b; font-weight:700;">[중기 리스크 관리 대상]</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="ai-message-box">
-                            <strong style="color:var(--sr-primary); font-weight:850;">[Google Sheets API 연동 결과 요약]</strong>
-                            <p style="margin:8px 0 0; color:#334155; font-weight:500;">
-                                구글 시트 실시간 응답 분석 결과, 임직원 및 경영진의 참여도가 KPI 대비 높은 진척도를 보이고 있습니다. 외부이해관계자 응답률이 60% 미만이므로 피드백 수집 기간을 3일 연장하거나 추가 독려 메일 발송을 권장합니다.
-                            </p>
+
+                        <div class="type-result-box">
+                            <div class="type-title">📋 설문 유형별 종합 결과 <span>(5점 만점 환산 산출)</span></div>
+                            <div class="type-grid">
+                                <div class="type-mini-card"><span>Environment (환경)</span><strong>4.25 / 5.0</strong></div>
+                                <div class="type-mini-card"><span>Social (사회)</span><strong>3.91 / 5.0</strong></div>
+                                <div class="type-mini-card"><span>Governance (지배구조)</span><strong>4.55 / 5.0</strong></div>
+                            </div>
                         </div>
+
+                        <div class="issue-list-box">
+                            <div class="issue-item"><span>탄소 배출 저감 및 기후변화 대응 전략 수립 지표</span><span class="badge-risk">Impact 핵심</span></div>
+                            <div class="issue-item"><span>글로벌 공급망 ESG 평가 및 리스크 관리 체계 고도화</span><span class="badge-risk">Financial 위험</span></div>
+                            <div class="issue-item"><span>사내 안전 보건 관리 감독 및 직무 환경 만족도 개선</span><span>일반 지표</span></div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -522,42 +584,62 @@
             const input = btn.previousElementSibling;
             input.select();
             document.execCommand('copy');
-            alert('설문 주소가 클립보드에 복사되었습니다.');
+            alert('설문 주소가 복사되었습니다.');
         }
 
-        function runAnalysis() {
-            if (isAnalyzing) return;
+        function toggleDashboard() { document.getElementById('dashboard').classList.toggle('open'); }
+        function openDashboard() { document.getElementById('dashboard').classList.add('open'); }
 
-            // KPI 입력값 검증 로직
-            const empKpi = document.getElementById('kpi-emp').value.trim();
-            const execKpi = document.getElementById('kpi-exec').value.trim();
-            const extKpi = document.getElementById('kpi-ext').value.trim();
+        // 우측 고정 영역: 실시간 통계 집계 기능
+        function runLiveKpiAggregation() {
+            const empKpi = document.getElementById('kpi-emp').value || 150;
+            const execKpi = document.getElementById('kpi-exec').value || 20;
+            const extKpi = document.getElementById('kpi-ext').value || 80;
 
-            if (!empKpi || empKpi <= 0) { alert("임직원 발송 인원 KPI를 정확히 입력해주세요."); document.getElementById('kpi-emp').focus(); return; }
-            if (!execKpi || execKpi <= 0) { alert("경영진 발송 인원 KPI를 정확히 입력해주세요."); document.getElementById('kpi-exec').focus(); return; }
-            if (!extKpi || extKpi <= 0) { alert("외부이해관계자 발송 인원 KPI를 정확히 입력해주세요."); document.getElementById('kpi-ext').focus(); return; }
-
-            // 동적으로 결과창에 KPI 수치 동기화
             document.getElementById('res-kpi-emp').innerText = empKpi;
             document.getElementById('res-kpi-exec').innerText = execKpi;
             document.getElementById('res-kpi-ext').innerText = extKpi;
 
+            setTimeout(() => {
+                document.getElementById('live-emp-count').innerText = "124";
+                document.getElementById('bar-emp').style.width = "82.6%";
+                
+                document.getElementById('live-exec-count').innerText = "18";
+                document.getElementById('bar-exec').style.width = "90%";
+                
+                document.getElementById('live-ext-count').innerText = "45";
+                document.getElementById('bar-ext').style.width = "56.2%";
+
+                document.getElementById('live-summary-txt').innerText = "구글 시트 실시간 응답 동기화가 성공적으로 끝났습니다. 외부이해관계자 그룹의 참여 독려가 일부 필요합니다.";
+                alert("실시간 통계 집계가 완료되어 우측 패널에 업데이트되었습니다.");
+            }, 300);
+        }
+
+        // 하단 슬라이드 업 대시보드: AI 연산 처리 및 결과물 전환 제어
+        function runSurveyAnalysis() {
+            if (isAnalyzing) return;
             isAnalyzing = true;
+
+            // 상태 레이아웃 정비 및 대시보드 열기
             const view = document.getElementById('analysis-view');
             view.classList.add('analyzing');
-            document.getElementById('dashboard').classList.add('open');
+            document.getElementById('result-content').classList.add('hidden');
+            document.getElementById('loading-content').classList.remove('hidden');
             document.getElementById('progress-container').classList.remove('hidden');
-            
-            const step = steps[activeIndex];
-            document.getElementById('status-label').innerText = "이해관계자 설문 결과 분석";
-            document.getElementById('status-sub').innerText ="사용자가 입력한 발송 인원 토대로 통계 수집 중 입니다.";
-            document.getElementById('handle-status').innerText = "통계 수집 및 분석 중...";
+            openDashboard();
+
+            document.getElementById('handle-status').innerText = "AI 분석 진행 중...";
+            document.getElementById('status-label').innerText = "Impact & Financial 평가 계산 중...";
+            document.getElementById('status-sub').innerText = "이중 중대성 매트릭스 알고리즘을 구동하여 설문 응답을 분석하고 있습니다.";
 
             let progress = 0;
+            const fill = document.getElementById('progress-fill');
+            const txt = document.getElementById('progress-text');
+
             const interval = setInterval(() => {
                 progress += 2;
-                document.getElementById('progress-fill').style.width = progress + '%';
-                document.getElementById('progress-text').innerText = progress;
+                fill.style.width = progress + '%';
+                txt.innerText = progress;
 
                 if (progress >= 100) {
                     clearInterval(interval);
@@ -568,22 +650,26 @@
             }, 30);
         }
 
-        // 전체 프로젝트 단계 스펙 연동 객체 유지
+        const showResult = () => {
+            document.getElementById('handle-status').innerText = "분석 완료 - 결과 요약 확인";
+            document.getElementById('loading-content').classList.add('hidden');
+            document.getElementById('result-content').classList.remove('hidden');
+        }
+
+        // 벤치마킹 화면 스텝 바 데이터 모델 동기화
         const steps = [
             { id: 1, title: "벤치마킹 분석", icon: "🎯", url: "benchmarking.html" },
-            { id: 2, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
-            { id: 3, title: "미디어 분석", icon: "📺", url: "media.html" },
+            { id: 2, title: "미디어 분석", icon: "📺", url: "media.html" },
+            { id: 3, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
             { id: 4, title: "전체 결과", icon: "📊", url: "result.html" },
             { id: 5, title: "보고서 초안", icon: "📄", url: "draft.html" }
         ];
-
-        // 이해관계자 설문은 1번째 인덱스이므로 고정
-        let activeIndex = 1; 
+        let activeIndex = 2; // 이해관계자 설문 인덱스 
         let isAnalyzing = false;
 
         function init() {
             const stepper = document.getElementById('stepper');
-            stepper.innerHTML = '';
+            stepper.innerHTML = ''; 
             steps.forEach((s, i) => {
                 stepper.insertAdjacentHTML('beforeend', `
                     <div class="step-box ${i === activeIndex ? 'active' : ''}" onclick="changeStep(${i})">
@@ -594,16 +680,11 @@
                 `);
             });
             createParticles();
-            
-            document.getElementById('step-title-display').innerText = steps[activeIndex].title;
-            document.getElementById('robot-img').src = "img/robot_servey_t.png"; // 고정
         }
 
-        // 스텝 클릭 시 페이지 이동
         function changeStep(index) {
             if (isAnalyzing) return;
-            if (index === activeIndex) return;
-            
+            if (index === activeIndex) return; 
             window.location.href = steps[index].url;
         }
 
@@ -620,14 +701,6 @@
                 p.style.animationDelay = Math.random() * 2 + 's';
                 field.appendChild(p);
             }
-        }
-
-        function toggleDashboard() { document.getElementById('dashboard').classList.toggle('open'); }
-
-        const showResult = ()=> {
-            document.getElementById('handle-status').innerText = "분석 완료 - 구글 API 연동 시각화 확인";
-            document.getElementById('loading-content').classList.add('hidden');
-            document.getElementById('result-content').classList.remove('hidden');
         }
 
         init();

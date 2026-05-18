@@ -142,24 +142,15 @@
             flex: 1; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
-            padding: 15px 40px; 
             overflow-y: auto; /* 내부 요소가 종으로 길어질 때 카드가 깨지지 않도록 스크롤 허용 */
-            height: 100%;
         }
 
         .input-card { 
             background: #fff; 
             padding: 24px; 
-            border-radius: var(--sr-radius); 
-            border: 1px solid var(--sr-border); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.02); 
-            box-sizing: border-box;
             width: 100%; 
-            max-width: 1000px; 
             min-width: 280px;
             text-align: center;
-            max-height: calc(100vh - 160px); 
             display: flex;
             flex-direction: column;
             justify-content: flex-start; /* 내부 컨텐츠 증가를 위해 상단 정렬로 변경 */
@@ -400,9 +391,7 @@
                 grid-template-columns: repeat(2, 1fr); /* 3열에서 2열 배치로 자동 축소 */
                 gap: 16px;
             }
-            .main-content {
-                padding: 15px 20px;
-            }
+            
         }
 
         /* 모바일 대화면 및 스마트폰 환경 (768px 이하) */
@@ -479,7 +468,9 @@
                     <p id="step-desc-display" style="color:#64748b; font-size:0.9rem; margin-bottom:4px; line-height:1.5;">
                         산업군 리더 기업들의 공시 지표를 수집하고 우리 기업과의 격차 분석을 시작합니다.
                     </p>
-
+                    <p id="step-desc-display" style="color:#64748b; font-size:0.9rem; margin-bottom:4px; line-height:1.5;">
+                        설명문
+                    </p>
                     <div class="upload-section-grid">
                         
                         <div class="upload-group-container" id="group-leader">
@@ -715,8 +706,8 @@
 
         const steps = [
             { id: 1, title: "벤치마킹 분석", icon: "🎯", url: "benchmarking.html" },
-            { id: 2, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
-            { id: 3, title: "미디어 분석", icon: "📺", url: "media.html" },
+            { id: 2, title: "미디어 분석", icon: "📺", url: "media.html" },
+            { id: 3, title: "이해관계자 설문", icon: "👥", url: "survey.html" },
             { id: 4, title: "전체 결과", icon: "📊", url: "result.html" },
             { id: 5, title: "보고서 초안", icon: "📄", url: "draft.html" }
         ];
