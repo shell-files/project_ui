@@ -188,34 +188,6 @@
             font-size: 20px;
             color: #03a94d;
         }
-
-        .issue-rank-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .issue-item {
-            display: grid;
-            grid-template-columns: 50px 1fr 50px;
-            align-items: center;
-            padding: 14px 16px;
-            border-radius: 12px;
-            background: #f8faf9;
-        }
-
-        .issue-item span {
-            font-weight: bold;
-            color: #03a94d;
-        }
-
-        .issue-item p {
-            font-size: 14px;
-        }
-
-        .issue-item strong {
-            text-align: right;
-        }
     </style>
 </head>
 <body>
@@ -246,52 +218,23 @@
       <aside class="sidebar" id="globalSidebar">
         <div class="nav-scroll-wrapper">
           <div class="nav-scroll-area">
-            <div class="nav-item" onclick="location.href='index.html'">
-                        <span style="margin-bottom: 10px;">대시보드</span>
-                    </div>
-                    <div class="nav-item" onclick="location.href='onboarding.html'">
-                        <span style="margin-bottom: 10px;">데이터 입력</span>
-                    </div>
             <div class="nav-group">
-                <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-item" onclick="location.href='index.html'">
+                    <span style="margin-bottom: 10px;">대시보드</span>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-item" onclick="location.href='benchmarking.html'">
                     <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                     <span>지속가능경영보고서</span>
-
-                    <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 5l7 7-7 7"></path>
-                    </svg>
-                    </div>
-                </div>
-
-                <div class="nav-accordion-content">
-                    <div class="inner-wrapper">
-
-                    
-
-                    <div class="nav-item sub-item" onclick="location.href='benchmarking.html'">
-                        <span>벤치마킹</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="loadSubPage('media')">
-                        <span>미디어 분석</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="location.href='survey.html'">
-                        <span>이해관계자 설문</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="loadSubPage('result')">
-                        <span>분석 결과</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="loadSubPage('generate')">
-                        <span>보고서 생성</span>
-                    </div>
-
                     </div>
                 </div>
                 </div>
-
+            <div class="nav-group">
+                <div class="nav-item" onclick="location.href='onboarding.html'">
+                    <span style="margin-bottom: auto;">데이터 입력</span>
+                </div>
+            </div>
             <div class="nav-group">
               <div class="nav-item" onclick="toggleAccordionMenu(this)">
                 <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
@@ -304,7 +247,7 @@
               
               <div class="nav-accordion-content">
                 <div class="inner-wrapper">
-                  <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
+                  <div class="nav-item sub-item" onclick="location.href='manager.html'">데이터 승인</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
                 </div>

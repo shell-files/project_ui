@@ -304,6 +304,7 @@
         .badge-risk { background: #fee2e2; color: #ef4444; padding: 1px 5px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; }
 
         .hidden { display: none !important; }
+        
     </style>
 </head>
 <body>
@@ -334,52 +335,23 @@
       <aside class="sidebar" id="globalSidebar">
         <div class="nav-scroll-wrapper">
           <div class="nav-scroll-area">
-            <div class="nav-item" onclick="location.href='index.html'">
-                        <span style="margin-bottom: 10px;">대시보드</span>
-                    </div>
-                    <div class="nav-item" onclick="location.href='onboarding.html'">
-                        <span style="margin-bottom: 10px;">데이터 입력</span>
-                    </div>
             <div class="nav-group">
-                <div class="nav-item" onclick="toggleAccordionMenu(this)">
+                <div class="nav-item" onclick="location.href='index.html'">
+                    <span style="margin-bottom: 10px;">대시보드</span>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-item" onclick="location.href='benchmarking.html'">
                     <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                     <span>지속가능경영보고서</span>
-
-                    <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 5l7 7-7 7"></path>
-                    </svg>
-                    </div>
-                </div>
-
-                <div class="nav-accordion-content">
-                    <div class="inner-wrapper">
-
-                    
-
-                    <div class="nav-item sub-item" onclick="location.href='benchmarking.html'">
-                        <span>벤치마킹</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="loadSubPage('media')">
-                        <span>미디어 분석</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="location.href='survey.html'">
-                        <span>이해관계자 설문</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="loadSubPage('result')">
-                        <span>분석 결과</span>
-                    </div>
-
-                    <div class="nav-item sub-item" onclick="loadSubPage('generate')">
-                        <span>보고서 생성</span>
-                    </div>
-
                     </div>
                 </div>
                 </div>
-
+            <div class="nav-group">
+                <div class="nav-item" onclick="location.href='onboarding.html'">
+                    <span style="margin-bottom: auto;">데이터 입력</span>
+                </div>
+            </div>
             <div class="nav-group">
               <div class="nav-item" onclick="toggleAccordionMenu(this)">
                 <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
@@ -392,7 +364,7 @@
               
               <div class="nav-accordion-content">
                 <div class="inner-wrapper">
-                  <div class="nav-item sub-item" onclick="loadSubPage('approval')">데이터 승인</div>
+                  <div class="nav-item sub-item" onclick="location.href='manager.html'">데이터 승인</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('users')">유저 관리</div>
                   <div class="nav-item sub-item" onclick="loadSubPage('invite')">초대 관리</div>
                 </div>
@@ -452,7 +424,7 @@
                     <div id="loading-content" style="display:flex; flex-direction:column; align-items:center; justify-content: center; width: 100%;">
                         <div class="robot-stage">
                             <div class="robot-float-wrap">
-                                <img id="robot-img" src="img/robot_SR_t.png" class="robot-main-img" alt="robot">
+                                <img id="robot-img" src="img/robot_media_t.png" class="robot-main-img" alt="robot">
                             </div>
                         </div>
                         <h3 id="status-label" style="font-size:1.2rem; font-weight:800; margin:0 0 4px 0;">분석 미실행 상태</h3>
@@ -483,7 +455,7 @@
             { id: 4, title: "전체 결과", icon: "📊", url: "result.html" },
             { id: 5, title: "보고서 초안", icon: "📄", url: "draft.html" }
         ];
-        let activeIndex = 4; // 이해관계자 설문 인덱스 
+        let activeIndex = 4;  
         let isAnalyzing = false;
 
         // URL 클립보드 복사 기능 최신화 및 보완
