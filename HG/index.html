@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알루미늄 시트레일 제조 PCF & CBAM 대응 시스템</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-section">로고</div>
+        <nav>
+            <button class="nav-btn active" onclick="openPage('dashboard', this)">대시보드</button>
+            <button class="nav-btn" onclick="openPage('master-data', this)">데이터 관리</button>
+            <button class="nav-btn" onclick="openPage('pcf-report', this)">PCF 데이터</button>
+            <button class="nav-btn" onclick="openPage('anomaly-detection', this)">이상치 탐지</button>
+            <button class="nav-btn" onclick="openPage('cbam-module', this)">CBAM 보고서</button>
+        </nav>
+        <div class="user-section">
+            <span>하이고/사원</span>
+            <button class="bell_icon active"></button>
+            <div class="btw_bar"></div>
+            <button class="home_icon"></button>
+            <div class="btw_bar"></div>
+            <span class="logout-btn">로그아웃</span>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+
+        <div class="sidebar">
+            <form class="sidebar-group" style="margin-top: 0.5rem;">
+                <div class="sidebar-title">📅 범위 선택</div>
+                <div class="sidebar-card">
+                    <select>
+                        <option>2026 년도</option>
+                        <option>2025 년도</option>
+                    </select>
+
+                    <div class="select-group" id="group-quarter">
+                        <p class="select_label" style="cursor: pointer;"><span>분기별</span></p>
+                        <div class="toggle-content" style="display: none; margin-top: 10px;">
+                            <div>
+                                <label for="select_q1">- 1분기 (Q1)</label>
+                                <input type="radio" name="quarter" id="select_q1">
+                            </div>
+                            <div>
+                                <label for="select_q2">- 2분기 (Q2)</label>
+                                <input type="radio" name="quarter" id="select_q2">
+                            </div>
+                            <div>
+                                <label for="select_q3">- 3분기 (Q3)</label>
+                                <input type="radio" name="quarter" id="select_q3">
+                            </div>
+                            <div>
+                                <label for="select_q4">- 4분기 (Q4)</label>
+                                <input type="radio" name="quarter" id="select_q4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="select-group2" id="group-month">
+                        <p class="select_label" style="cursor: pointer;"><span>월별</span></p>
+                        <div class="toggle-content" style="display: none; margin-top: 10px;">
+                            <div>
+                                <input type="text" name="month" id="select_m1">
+                                <span>~</span>
+                                <input type="text" name="month" id="select_m2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="select-btn">검색</button>
+                    <span class="search_comment">* 연도 전체 검색을 원하실시 분기별/월별 <br> 검색을 다시 클릭하여 꺼주시길 바랍니다.</span>
+                </div>
+            </form>
+
+            <div class="sidebar-group2">
+                <div class="sidebar-title">🏢 지사 선택</div>
+                <div class="sidebar-card">
+                    <select>
+                        <option>포항</option>
+                        <option>울산</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+
+            <div id="dashboard" class="page active">
+                <div class="page-title">전사 탄소 배출 현황 요약 (실제 공정 수치 데이터)</div>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>연간 총 온실가스 배출량</h3>
+                        <div class="metric">280.59 tCO₂eq/yr</div>
+                        <div class="metric-sub">포항지사: 158.30 t | 울산지사: 122.29 t</div>
+                    </div>
+                    <div class="card">
+                        <h3>연간 총 전력 사용량</h3>
+                        <div class="metric" style="color: #4a5568;">611,169 kWh</div>
+                        <div class="metric-sub">빌릿 가열기 및 압출 공정 비중 최고 (56.4%)</div>
+                    </div>
+                    <div class="card">
+                        <h3>실시간 공정 이상 알림</h3>
+                        <div class="metric alert-text" style="font-size: 1.6rem; margin-top: 1.2rem;">⚠️ 아노다이징 폐수 모니터링
+                        </div>
+                        <div class="metric-sub">울산지사 아노다이징 지정폐수 연간 100L 경계치 도달 예정</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>공정별 연간 탄소 배출량 지표 ($tCO_2eq/yr$)</h3>
+                        <div class="chart-container">
+                            <canvas id="carbonChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>지사별 배출 핫스팟 분담률</h3>
+                        <div class="chart-container">
+                            <canvas id="locationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="master-data" class="page">
+                <div class="page-title">실제 공정 마스터 데이터 뷰</div>
+                <div style="margin-bottom: 1.5rem;">
+                    <button class="btn" style="border-radius: 20px;">데이터 업데이트 하기</button>
+                    <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">외부 데이터를 가져와 시스템 데이터로
+                        전환합니다.</span>
+                </div>
+
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>지사</th>
+                                <th>공정 단계</th>
+                                <th>세부 공정</th>
+                                <th>장비 라인업</th>
+                                <th>전력 (kWh)</th>
+                                <th>탄소 ($tCO_2eq$)</th>
+                                <th>고형폐기물 (kg)</th>
+                                <th>액체폐기물 (L)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>포항</td>
+                                <td>압출</td>
+                                <td>원재료 용해 및 성형</td>
+                                <td>빌릿 가열기, 간접 압출기</td>
+                                <td>280,000</td>
+                                <td>128.55</td>
+                                <td>10,500</td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <td>포항</td>
+                                <td>압출</td>
+                                <td>인장 및 1차 절단</td>
+                                <td>인발기</td>
+                                <td>65,000</td>
+                                <td>29.75</td>
+                                <td>10,360</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>울산</td>
+                                <td>열처리</td>
+                                <td>시효 경화</td>
+                                <td>알루미늄 시효로</td>
+                                <td>150,000</td>
+                                <td>68.91</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>울산</td>
+                                <td>정밀 가공</td>
+                                <td>피어싱 및 CNC</td>
+                                <td>4축 CNC 머시닝 센터</td>
+                                <td>2,000</td>
+                                <td>0.92</td>
+                                <td>100</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>울산</td>
+                                <td>정밀 가공</td>
+                                <td>정밀 절단 및 노칭</td>
+                                <td>알루미늄 절단기 (PDS600CNC)</td>
+                                <td>29,169</td>
+                                <td>13.40</td>
+                                <td>30,000</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>울산</td>
+                                <td>표면처리</td>
+                                <td>아노다이징</td>
+                                <td>여러 장비 조합</td>
+                                <td>60,000</td>
+                                <td>27.56</td>
+                                <td>100</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>울산</td>
+                                <td>표면처리</td>
+                                <td>윤활코팅</td>
+                                <td>자동 구리스 디스펜서 시스템 등</td>
+                                <td>20,000</td>
+                                <td>9.20</td>
+                                <td>30</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>울산</td>
+                                <td>표면처리</td>
+                                <td>세척</td>
+                                <td>세척 탱크</td>
+                                <td>5,000</td>
+                                <td>2.30</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>고형 폐기물 종류별 발생 비율 (연간)</h3>
+                        <div class="chart-container">
+                            <canvas id="solidWasteChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>액체 지정 폐기물 관리 지표 (연간)</h3>
+                        <div class="chart-container">
+                            <canvas id="liquidWasteChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pcf-report" class="page">
+                <div class="page-title">제품별 탄소 발자국(PCF) 인증 보고서 시뮬레이션</div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h3>[SR-ASSY-001] 자동차 시트레일 1톤 생산 당 누적 기여도 분석</h3>
+                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">실제 투입 에너지 비중 모델링 결과
+                    </div>
+                    <div class="chart-container" style="height: 220px;">
+                        <canvas id="pcfWaterfall"></canvas>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>품질 연동 추적성 데이터 (HZ-1009A/B 인장 데이터 매핑)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>인장시험 Lot No.</th>
+                                    <th>측정 하중</th>
+                                    <th>최종 판정</th>
+                                    <th>해당 뱃지 탄소 배출 원단위</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>LOT-20260518-A</td>
+                                    <td>21,500 kg</td>
+                                    <td><span class="tag-badge"
+                                            style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
+                                    <td>280.1 kg/t</td>
+                                </tr>
+                                <tr>
+                                    <td>LOT-20260518-B</td>
+                                    <td>22,100 kg</td>
+                                    <td><span class="tag-badge"
+                                            style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
+                                    <td>279.5 kg/t</td>
+                                </tr>
+                                <tr>
+                                    <td>LOT-20260517-C</td>
+                                    <td>14,200 kg</td>
+                                    <td><span class="tag-badge"
+                                            style="background-color: #fed7d7; color: #742a2a;">불합격(Fail)</span></td>
+                                    <td>312.4 kg/t</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card"
+                        style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <h3>글로벌 탄소 규제 제출 모듈</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">유럽 자동차 OEM 공급사 및 글로벌 환경 성적서(EPD) 연동 포맷</p>
+                        <button class="btn" style="width: 80%; padding: 0.8rem;"
+                            onclick="alert('ISO 14067 정식 성적서 인쇄 출력이 시작됩니다.')">ISO 14067 정식 성적서 출력 (PDF)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="anomaly-detection" class="page">
+                <div class="banner-danger">
+                    <strong style="color: var(--accent-red); font-size: 1.05rem;">🚨 ESG 스코어 및 탄소 배출 실시간 이상치 탐지 센서
+                        (Anomaly Detection)</strong>
+                    <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #742a2a;">
+                        IoT 전력계 및 스마트 미터기 센서 링크 데이터에서 통계적 임계값 및 AI 기계학습 모델이 감지한 이상 패턴 실시간 모니터링 뷰입니다.
+                    </p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>실시간 공정 위험 지수</h3>
+                        <div class="metric" style="color:var(--accent-red);">74 / 100</div>
+                        <div class="metric-sub">주의 단계 (울산 아노다이징 및 포항 용해로 인접)</div>
+                    </div>
+                    <div class="card">
+                        <h3>미조치 이상치 건수</h3>
+                        <div class="metric" style="color: var(--accent-orange);">2 건</div>
+                        <div class="metric-sub">최근 24시간 내 발생 / 즉시 확인 필요</div>
+                    </div>
+                    <div class="card">
+                        <h3>탐지 모델 알고리즘 상태</h3>
+                        <div class="metric" style="color: #2d3748; font-size: 1.6rem; margin-top: 1.3rem;">Isolation
+                            Forest v2.1</div>
+                        <span class="tag-badge" style="background-color: #c6f6d5; color: #22543d; margin-top:0.3rem;">정상
+                            가동중</span>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>실시간 공정별 배출량 모니터링 (붉은 점: 이상치 발생 지점)</h3>
+                        <div class="chart-container">
+                            <canvas id="realtimeAnomalyChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>공정 라인별 이상치 누적 빈도 (최근 30일)</h3>
+                        <div class="chart-container">
+                            <canvas id="anomalyFrequencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>실시간 탄소 및 폐기물 이상치 탐지 로그 내역</h3>
+                    <table>
+                        <thead>
+                            <tr style="background-color: #f7fafc;">
+                                <th>발생 시간</th>
+                                <th>지사</th>
+                                <th>공정 단계</th>
+                                <th>원인 탐지 유형</th>
+                                <th>실측 데이터</th>
+                                <th>위험도</th>
+                                <th>조치 상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2026-05-19 14:15</td>
+                                <td>울산</td>
+                                <td>표면처리 (아노다이징)</td>
+                                <td class="alert-text">지정폐수 배출 급증</td>
+                                <td>연간 98.2 L</td>
+                                <td><span class="tag-badge status-critical">위험 (Critical)</span></td>
+                                <td><span class="tag-badge style"
+                                        style="background-color:#fed7d7; color:#742a2a;">미조치</span></td>
+                            </tr>
+                            <tr>
+                                <td>2026-05-19 11:32</td>
+                                <td>포항</td>
+                                <td>압출 (원재료 용해)</td>
+                                <td class="alert-text">대기 전력 배출 유량 과다</td>
+                                <td>185.3 kW</td>
+                                <td><span class="tag-badge status-warning">경고 (Warning)</span></td>
+                                <td><span class="tag-badge status-warning">조치중</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="cbam-module" class="page">
+                <div class="banner-info">
+                    <strong style="color: #2f855a; font-size: 1.05rem;">🇪🇺 EU CBAM (탄소국경조정제도) 분기별 보고 대응 센서</strong>
+                    <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #2c5282;">
+                        알루미늄 시트레일 품목의 고유 내재 배출량(Embedded Emissions) 분석 뷰입니다.
+                    </p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>알루미늄 고유 내재 배출량 ($SEE_{alu}$)</h3>
+                        <div class="metric" style="color: #2f855a;">0.281 t/t</div>
+                        <div class="metric-sub">알루미늄 시트레일 완제품 1톤당 내재 배출량</div>
+                    </div>
+                    <div class="card">
+                        <h3>CBAM 신고 대상 CN Code 구분</h3>
+                        <div class="metric" style="font-size: 1.5rem; color: #2d3748; margin-top: 1.2rem;">7604.29 (알루미늄
+                            프로파일)</div>
+                        <div class="metric-sub">자동차 시트레일 구조재 세관 신고 코드</div>
+                    </div>
+                    <div class="card">
+                        <h3>탄소 가격 공제액 (Carbon Price Paid)</h3>
+                        <div class="metric" style="font-size: 1.5rem; color: #4a5568; margin-top: 1.2rem;">0.00 KRW (공제액
+                            없음)</div>
+                        <div class="metric-sub">국내 K-ETS 지출 비용 매핑 연동 데이터</div>
+                    </div>
+                </div>
+                <div class="load_wrap">
+                    <button class="btn btn-secondary" style="font-size:0.85rem; padding:0.4rem 0.8rem;">
+                        <div class="download_icon"></div><span>다운로드</span>
+                    </button>
+                    <button class="btn btn-secondary2" style="font-size:0.85rem; padding:0.4rem 0.8rem;">
+                        <div class="upload_icon"></div><span>업로드</span>
+                    </button>
+                    <div class="load_comment_box">
+                        <span class="load_comment">다운로드 버튼을 눌러 프로그램이 작성한 파일을 받은 후, 수정 사항이 있을 경우 수정하여 업로드 해주시길
+                            바랍니다.</span>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                        <h3 style="margin:0; border:none; padding:0;">CBAM Quarterly Communication 분기별 필수 신고 데이터</h3>
+                    </div>
+                    <div class="grid-2" style="margin:0; gap:2rem;">
+                        <div class="chart-container">
+                            <canvas id="cbamRouteChart"></canvas>
+                        </div>
+                        <div>
+                            <table style="font-size: 0.85rem;">
+                                <thead>
+                                    <tr>
+                                        <th>CBAM 필수 필드항목</th>
+                                        <th>현장 매핑 데이터 값</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>설치소 고유 ID</th>
+                                        <td>KR-PO-UL-SEATRAIL-01</td>
+                                    </tr>
+                                    <tr>
+                                        <th>고유 직접 내재배출량</th>
+                                        <td><strong>0.000 tCO₂/t Product</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <th>고유 간접 내재배출량</th>
+                                        <td><strong>0.281 tCO₂/t Product</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <th>적용 전력 배출 계수 원천</th>
+                                        <td>한전 공식 배출계수 기본값 매핑</td>
+                                    </tr>
+                                    <tr>
+                                        <th>전가된 전력 소비 가중치</th>
+                                        <td>611.17 kWh/t</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

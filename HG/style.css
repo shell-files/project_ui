@@ -1,0 +1,526 @@
+:root {
+    --primary-green: #03a94d;
+    --primary-hover: #008f40;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-dark: #333;
+    --text-muted: #666;
+    --border-color: #e2e8f0;
+    --accent-red: #e53e3e;
+    --accent-orange: #dd6b20;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 1. 상단 헤더 영역 (네비게이션 통합) */
+header {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.logo-section {
+    background-color: #e2e8f0;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    color: #4a5568;
+}
+
+nav {
+    display: flex;
+    gap: 0.5rem;
+    height: 100%;
+    align-items: center;
+}
+
+nav button {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    padding: 0 1.5rem;
+    height: 100%;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.2s;
+}
+
+nav button:hover {
+    color: var(--primary-green);
+}
+
+nav button.active {
+    color: var(--primary-green);
+}
+
+nav button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--primary-green);
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.user-section strong {
+    color: var(--text-dark);
+}
+
+.logout-btn {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* 메인 레이아웃 가로 배치 컨테이너 */
+.main-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 2. 좌측 고정 사이드바 (Green Theme) */
+.sidebar {
+    width: 260px;
+    background-color: #34BA70;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 1.2rem;
+    gap: 2rem;
+    overflow-y: auto;
+    position: relative;
+}
+
+
+
+.sidebar-title {
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 10px;
+}
+
+.sidebar-card {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.sidebar-card select,
+.sidebar-card input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.sidebar-card label {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.radio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+}
+
+.date-range-box {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.sidebar-search-btn {
+    background-color: #ffffff;
+    color: var(--primary-green);
+    border: none;
+    padding: 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sidebar-search-btn:hover {
+    background-color: #f0f0f0;
+}
+
+
+.company-select {
+    width: 100%;
+}
+
+/* 3. 우측 대시보드 메인 콘텐츠 영역 */
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: #FAFDFB;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* 그리드 정의 */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 카드 컴포넌트 */
+.card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.metric {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--primary-green);
+    margin: 0.5rem 0;
+}
+
+.metric-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.alert-text {
+    color: var(--accent-red);
+    font-weight: bold;
+}
+
+/* 테이블 스태일링 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+th,
+td {
+    padding: 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #f8fafc;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+/* 버턴 공통 */
+.btn {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.load_wrap {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-secondary {
+    background-color: #edf2f7;
+    color: #666;
+    padding: 1rem  2rem !important;
+    align-content: center;
+    margin-right: 10px;
+}
+
+.load_comment_box {
+    position: relative;
+}
+
+.load_comment {
+    font-size: 16px;
+    color: #999;
+    margin-top: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: max-content
+}
+
+.btn-secondary span{    
+    display: inline-block;
+    background-color: #edf2f7;
+}
+
+.btn-secondary2 {
+    padding: 1rem  2rem !important;
+}
+
+.download_icon {
+    width: 20px;
+    height: 20px;
+    background: url(./img/download_icon.png) no-repeat center center / contain;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.upload_icon {
+    width: 20px;
+    height: 20px;
+    background: url(./img/upload_icon.png) no-repeat center center / contain;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+}
+
+.tag-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.chart-container {
+    position: relative;
+    height: 280px;
+    width: 100%;
+}
+
+/* 배너 스타일 */
+.banner-info {
+    background-color: #e6f7ed;
+    border-left: 4px solid var(--primary-green);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.banner-danger {
+    background-color: #fff5f5;
+    border-left: 4px solid var(--accent-red);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.status-critical {
+    background-color: #fed7d7;
+    color: #9b2c2c;
+}
+
+.status-warning {
+    background-color: #feebc8;
+    color: #9c4221;
+}
+
+.status-resolved {
+    background-color: #edf2f7;
+    color: #4a5568;
+}
+
+.bell_icon {
+    width: 27px;
+    height: 27px;
+    background: url(./img/notification-bell_black.png) no-repeat center center / contain;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.bell_icon:hover {
+    background: url(./img/notification-bell_green.png) no-repeat center center / contain;
+}
+
+.bell_icon.active::after {
+    content: '';
+    position: absolute;
+    top: 0%;
+    left: 60%;
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+}
+
+.home_icon {
+    width: 20px;
+    height: 20px;
+    background: url(./img/home_button_black.png) no-repeat center center / contain;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+
+
+.home_icon:hover {
+    background: url(./img/home_button_green.png) no-repeat center center / contain;
+}
+
+.btw_bar {
+    width: 1px;
+    height: 20px;
+    background-color: #d1d1d1;
+}
+
+
+.select-group input[type="radio"] {
+    width: 16px;
+    margin: 0;
+}
+
+.select_label {
+    cursor: pointer;
+}
+
+.select_label:hover span {
+    border-bottom: 3px solid white;
+}
+
+.select_label::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 8px;
+    position: relative;
+    top: -3px;
+}
+
+
+.search_comment {
+    font-size: 10px;
+    color: #f5f5f5;
+    margin-top: 0.5rem;
+    text-align: justify;
+}
+
+.select-group div {
+    width: fit-content;
+    margin: 20px auto;
+}
+
+.select-group2 div {
+    width: fit-content;
+    margin: 10px auto;
+}
+.select-group2 input[type="text"] {
+    width: 80px;
+    padding: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.select-btn {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
