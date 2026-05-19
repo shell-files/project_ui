@@ -7,6 +7,11 @@ body {
     margin: 0;
     padding: 0;
 }
+#main_page .logo {
+    width: auto;
+    max-height: 50px;
+    object-fit: contain;
+}
 
 
 /* 메인 레이아웃 전용 스타일 확장 */
