@@ -44,27 +44,6 @@
 }
 
 /* =========================================================
-   Base
-========================================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Pretendard', sans-serif;
-    background: var(--sr-bg);
-    color: var(--sr-text);
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* =========================================================
    Layout
 ========================================================= */
 
@@ -83,7 +62,6 @@ body {
 
 .content-wrapper {
     width: 100%;
-    max-width: 1400px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -132,8 +110,6 @@ body {
     width: 100%;
     flex-shrink: 0;
     padding: 20px 40px;
-    background: var(--sr-surface);
-    border-bottom: 1px solid var(--sr-border);
 }
 
 .sr-title {
@@ -220,24 +196,15 @@ body {
     overflow-y: auto;
 
     padding: 24px;
-    padding-bottom: 140px; /* 추가 */
     
-    min-height: 0; /* 중요 */
 }
 
 .input-card {
     width: 100%;
-    height: auto;
-
+    padding: 10px 130px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
-    padding: 28px 80px;
-
-    background: #fff;
-    border-radius: var(--sr-radius-lg);
-
     text-align: center;
 }
 
