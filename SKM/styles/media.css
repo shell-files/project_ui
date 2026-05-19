@@ -20,6 +20,7 @@
             min-height: 0;
             height: calc(100vh - 60px);
             overflow: hidden;
+            
         }
         
         .sr-header {
@@ -33,11 +34,11 @@
         
         .input-card { 
             background: #fff; 
-            padding: 35px 40px; 
+            padding: 35px 130px; 
             border-radius: var(--sr-radius); 
             width: 100%; 
             box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
-            text-align: left;
+            text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
