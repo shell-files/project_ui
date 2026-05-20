@@ -40,12 +40,9 @@ header {
 }
 
 .logo-section {
-    background-color: #e2e8f0;
-    padding: 0.5rem 1.5rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-radius: 4px;
-    color: #4a5568;
+    background: url(./img/logo.png) no-repeat center center / contain;
+    width: 147px;
+    height: 40px;
 }
 
 nav {
@@ -322,7 +319,7 @@ tr:hover {
 .btn-secondary {
     background-color: #edf2f7;
     color: #666;
-    padding: 1rem  2rem !important;
+    padding: 1rem 2rem !important;
     align-content: center;
     margin-right: 10px;
 }
@@ -341,13 +338,13 @@ tr:hover {
     width: max-content
 }
 
-.btn-secondary span{    
+.btn-secondary span {
     display: inline-block;
     background-color: #edf2f7;
 }
 
 .btn-secondary2 {
-    padding: 1rem  2rem !important;
+    padding: 1rem 2rem !important;
 }
 
 .download_icon {
@@ -504,6 +501,7 @@ tr:hover {
     width: fit-content;
     margin: 10px auto;
 }
+
 .select-group2 input[type="text"] {
     width: 80px;
     padding: 0.3rem;
@@ -523,4 +521,100 @@ tr:hover {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s;
+}
+
+
+
+/* CBAM 내부 엑셀 시트용 서브 탭 스타일 */
+.cbam-sheet-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    background-color: #e2e8f0;
+    padding: 6px 6px 0 6px;
+    border-radius: 6px 6px 0 0;
+    margin-top: 1rem;
+}
+
+.sheet-tab-btn {
+    background: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-bottom: none;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+    color: #4a5568;
+    transition: all 0.2s;
+}
+
+.sheet-tab-btn:hover {
+    background: #fff;
+}
+
+.sheet-tab-btn.active {
+    background: #ffffff;
+    color: #2f855a;
+    border-top: 3px solid #2f855a;
+    height: calc(100% + 2px);
+    position: relative;
+    z-index: 2;
+}
+
+.sheet-content {
+    display: none;
+    background: #ffffff;
+    border: 1px solid #cbd5e0;
+    border-top: none;
+    padding: 1.5rem;
+    border-radius: 0 0 6px 6px;
+}
+
+.sheet-content.active {
+    display: block;
+}
+
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.form-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-box label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.input-box input,
+.input-box select {
+    padding: 0.5rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.sheet-section-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #2c5282;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid #2c5282;
+    padding-left: 6px;
 }
