@@ -34,67 +34,71 @@
     <div class="main-wrapper">
 
         <div class="sidebar">
-            <form class="sidebar-group" style="margin-top: 0.5rem;">
-                <div class="sidebar-title">📅 범위 선택</div>
-                <div class="sidebar-card">
-                    <select style="margin-bottom: 0.5rem;">
-                        <option>2026 년도</option>
-                        <option>2025 년도</option>
-                    </select>
-
-                    <div style="margin-bottom: 0.5rem;">
-                        <label style="font-size: 0.8rem; color: rgba(255,255,255,0.8); display:block; margin-bottom:4px;">📦 제품 선택</label>
+            <div>
+                <div style="margin-bottom: 1rem;">
+                    <label class="sidebar-title"
+                        style="font-size: 0.8rem; color: rgba(255,255,255,0.8); display:block; margin-bottom:4px;">📦 제품
+                        선택</label>
+                    <div class="sidebar-card">
                         <select>
-                            <option>제품 전체 (All)</option>
                             <option>자동차 시트레일 [SR-ASSY-001]</option>
                             <option>알루미늄 프로파일 [AP-6063-T5]</option>
                             <option>구조용 압출재 [EX-STR-02]</option>
                             <option>커스텀 시트 슬라이더 [CS-SL-09]</option>
                         </select>
                     </div>
-
-                    <div class="select-group" id="group-quarter">
-                        <p class="select_label" style="cursor: pointer;"><span>분기별</span></p>
-                        <div class="toggle-content" style="display: none; margin-top: 10px;">
-                            <div>
-                                <label for="select_q1">- 1분기 (Q1)</label>
-                                <input type="radio" name="quarter" id="select_q1">
-                            </div>
-                            <div>
-                                <label for="select_q2">- 2분기 (Q2)</label>
-                                <input type="radio" name="quarter" id="select_q2">
-                            </div>
-                            <div>
-                                <label for="select_q3">- 3분기 (Q3)</label>
-                                <input type="radio" name="quarter" id="select_q3">
-                            </div>
-                            <div>
-                                <label for="select_q4">- 4분기 (Q4)</label>
-                                <input type="radio" name="quarter" id="select_q4">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="select-group2" id="group-month">
-                        <p class="select_label" style="cursor: pointer;"><span>월별</span></p>
-                        <div class="toggle-content" style="display: none; margin-top: 10px;">
-                            <div>
-                                <input type="text" name="month" id="select_m1">
-                                <span>~</span>
-                                <input type="text" name="month" id="select_m2">
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="select-btn">검색</button>
-                    <span class="search_comment">* 연도 전체 검색을 원하실시 분기별/월별 <br> 검색을 다시 클릭하여 꺼주시길 바랍니다.</span>
                 </div>
-            </form>
+                <form class="sidebar-group" style="margin-top: 0.5rem;">
+                    <div class="sidebar-title">📅 범위 선택</div>
+                    <div class="sidebar-card">
+                        <select style="margin-bottom: 0.5rem;">
+                            <option>2026 년도</option>
+                            <option>2025 년도</option>
+                        </select>
 
+
+
+                        <div class="select-group" id="group-quarter">
+                            <p class="select_label" style="cursor: pointer;"><span>분기별</span></p>
+                            <div class="toggle-content" style="display: none; margin-top: 10px;">
+                                <div>
+                                    <label for="select_q1">- 1분기 (Q1)</label>
+                                    <input type="radio" name="quarter" id="select_q1">
+                                </div>
+                                <div>
+                                    <label for="select_q2">- 2분기 (Q2)</label>
+                                    <input type="radio" name="quarter" id="select_q2">
+                                </div>
+                                <div>
+                                    <label for="select_q3">- 3분기 (Q3)</label>
+                                    <input type="radio" name="quarter" id="select_q3">
+                                </div>
+                                <div>
+                                    <label for="select_q4">- 4분기 (Q4)</label>
+                                    <input type="radio" name="quarter" id="select_q4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="select-group2" id="group-month">
+                            <p class="select_label" style="cursor: pointer;"><span>월별</span></p>
+                            <div class="toggle-content" style="display: none; margin-top: 10px;">
+                                <div>
+                                    <input type="text" name="month" id="select_m1"> 월
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">검색</button>
+                        <span class="search_comment">* 연도 전체 검색을 원하실시 분기별/월별 <br> 검색을 다시 클릭하여 꺼주시길 바랍니다.</span>
+                    </div>
+                </form>
+            </div>
             <div class="sidebar-group2">
                 <div class="sidebar-title">🏢 지사 선택</div>
                 <div class="sidebar-card">
                     <select>
+                        <option>전체</option>
                         <option>포항</option>
                         <option>울산</option>
                     </select>
@@ -106,13 +110,12 @@
 
             <div id="dashboard" class="page active">
                 <div class="page-title">전사 탄소 배출 현황 요약 (실제 공정 수치 데이터)</div>
-                
+
                 <div class="grid-3">
                     <div class="card">
                         <h3>연간 총 온실가스 배출량 및 감축 목표</h3>
                         <div class="metric">280.59 tCO₂eq/yr</div>
                         <div class="metric-sub" style="color: var(--primary-green); font-weight: bold;">🎯 2026 감축 목표 달성률: 78.5% (진행중)</div>
-                        <div class="metric-sub">포항지사: 158.30 t | 울산지사: 122.29 t</div>
                     </div>
                     <div class="card">
                         <h3>연간 총 전력 사용량</h3>
@@ -240,11 +243,13 @@
 
             <div id="master-data" class="page">
                 <div class="page-title">실제 공정 마스터 데이터 및 가동 제어</div>
-                
-                <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #eef7f2; padding: 1rem; border-radius: 8px;">
+
+                <div
+                    style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #eef7f2; padding: 1rem; border-radius: 8px;">
                     <div>
                         <button class="btn" style="border-radius: 20px;">데이터 업데이트 하기</button>
-                        <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">외부 데이터를 가져와 시스템 데이터로 전환합니다.</span>
+                        <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">외부 데이터를 가져와 시스템 데이터로
+                            전환합니다.</span>
                     </div>
                     <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary-green);">
                         ⏱️ Late Updated: <span id="live-clock">15:42:03</span>
@@ -255,23 +260,32 @@
                     <h3>🏢 사업장 및 기본 회사 정보 설정</h3>
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
                         <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">회사명</label>
-                            <input type="text" value="(주)하이고 테크" style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
+                            <label
+                                style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">회사명</label>
+                            <input type="text" value="(주)하이고 테크"
+                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
                         </div>
                         <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">산업 분류</label>
-                            <input type="text" value="알루미늄 압출 및 표면처리제조" style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
+                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">산업
+                                분류</label>
+                            <input type="text" value="알루미늄 압출 및 표면처리제조"
+                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
                         </div>
                         <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">포항 대표 주소지</label>
-                            <input type="text" value="경상북도 포항시 남구 공단로" style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
+                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">포항 대표
+                                주소지</label>
+                            <input type="text" value="경상북도 포항시 남구 공단로"
+                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
                         </div>
                         <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">담당자 연락처</label>
-                            <input type="text" value="054-123-4567" style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
+                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">담당자
+                                연락처</label>
+                            <input type="text" value="054-123-4567"
+                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
                         </div>
                     </div>
-                    <button class="btn" style="margin-top: 1rem; padding: 0.4rem 1rem; font-size:0.85rem;">설정 저장</button>
+                    <button class="btn" style="margin-top: 1rem; padding: 0.4rem 1rem; font-size:0.85rem;">설정
+                        저장</button>
                 </div>
 
                 <div class="card" style="margin-bottom: 1.5rem;">
@@ -284,7 +298,6 @@
                                 <th>공급 업체</th>
                                 <th>연간 투입량 (t)</th>
                                 <th>내재 배출계수 ($tCO_2/t$)</th>
-                                <th>업스트림 총 탄소량 ($tCO_2eq$)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -294,7 +307,6 @@
                                 <td>(주)글로벌메탈</td>
                                 <td>1,200</td>
                                 <td>6.85</td>
-                                <td>8,220.0</td>
                             </tr>
                             <tr>
                                 <td>PRC-AL-6063</td>
@@ -302,7 +314,6 @@
                                 <td>포스코에스티</td>
                                 <td>850</td>
                                 <td>5.12</td>
-                                <td>4,352.0</td>
                             </tr>
                             <tr>
                                 <td>PRC-CH-ANO</td>
@@ -310,14 +321,14 @@
                                 <td>삼전화학</td>
                                 <td>45</td>
                                 <td>1.45</td>
-                                <td>65.25</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="banner-danger">
-                    <strong style="color: var(--accent-red); font-size: 1.05rem;">🚨 AI 기반 공정 데이터 실시간 이상치 탐지 모니터링 (통합 제어)</strong>
+                    <strong style="color: var(--accent-red); font-size: 1.05rem;">🚨 AI 기반 공정 데이터 실시간 이상치 탐지 모니터링 (통합
+                        제어)</strong>
                     <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #742a2a;">
                         IoT 전력계 링크 데이터 및 설비 한계점 센서 통계 모델(Isolation Forest v2.1) 연동 화면입니다.
                     </p>
@@ -339,7 +350,7 @@
                 </div>
 
                 <div class="card">
-                    <h3>실시간 탄소 및 폐기물 이상치 탐지 로그 내역</h3>
+                    <h3>이상치 탐지 로그 내역</h3>
                     <table>
                         <thead>
                             <tr style="background-color: #f7fafc;">
@@ -360,7 +371,8 @@
                                 <td class="alert-text">지정폐수 배출 급증</td>
                                 <td>연간 98.2 L</td>
                                 <td><span class="tag-badge status-critical">위험 (Critical)</span></td>
-                                <td><span class="tag-badge" style="background-color:#fed7d7; color:#742a2a;">미조치</span></td>
+                                <td><span class="tag-badge" style="background-color:#fed7d7; color:#742a2a;">미조치</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>2026-05-19 11:32</td>
@@ -381,19 +393,32 @@
                 <div class="page-title">제품별 탄소 발자국(PCF) 인증 보고서 시뮬레이션</div>
 
                 <div class="card" style="margin-bottom: 1.5rem; background: #fff;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 2rem;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 2rem;">
                         <div style="text-align: center; flex: 1; position: relative;">
-                            <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">1</div>
-                            <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">공정 데이터 확인</span>
-                            <div style="position: absolute; top: 15px; left: 60%; width: 80%; height: 2px; background: var(--primary-green); z-index: 1;"></div>
+                            <div
+                                style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
+                                1</div>
+                            <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">공정 데이터
+                                확인</span>
+                            <div
+                                style="position: absolute; top: 15px; left: 60%; width: 80%; height: 2px; background: var(--primary-green); z-index: 1;">
+                            </div>
                         </div>
                         <div style="text-align: center; flex: 1; position: relative;">
-                            <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">2</div>
-                            <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">이상치 검증 검사</span>
-                            <div style="position: absolute; top: 15px; left: 60%; width: 80%; height: 2px; background: #cbd5e0; z-index: 1;"></div>
+                            <div
+                                style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
+                                2</div>
+                            <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">이상치 검증
+                                검사</span>
+                            <div
+                                style="position: absolute; top: 15px; left: 60%; width: 80%; height: 2px; background: #cbd5e0; z-index: 1;">
+                            </div>
                         </div>
                         <div style="text-align: center; flex: 1;">
-                            <div style="width: 30px; height: 30px; border-radius: 50%; background: #e2e8f0; color: #718096; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">3</div>
+                            <div
+                                style="width: 30px; height: 30px; border-radius: 50%; background: #e2e8f0; color: #718096; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
+                                3</div>
                             <span style="font-size: 0.85rem; color: var(--text-muted);">정식 보고서 산출</span>
                         </div>
                     </div>
@@ -409,7 +434,8 @@
 
                 <div class="card" style="margin-bottom: 1.5rem;">
                     <h3>[SR-ASSY-001] 자동차 시트레일 1톤 생산 당 누적 기여도 분석</h3>
-                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">실제 투입 에너지 비중 모델링 결과</div>
+                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">실제 투입 에너지 비중 모델링 결과
+                    </div>
                     <div class="chart-container" style="height: 220px;">
                         <canvas id="pcfWaterfall"></canvas>
                     </div>
@@ -431,29 +457,35 @@
                                 <tr>
                                     <td>LOT-20260518-A</td>
                                     <td>21,500 kg</td>
-                                    <td><span class="tag-badge" style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
+                                    <td><span class="tag-badge"
+                                            style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
                                     <td>280.1 kg/t</td>
                                 </tr>
                                 <tr>
                                     <td>LOT-20260518-B</td>
                                     <td>22,100 kg</td>
-                                    <td><span class="tag-badge" style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
+                                    <td><span class="tag-badge"
+                                            style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
                                     <td>279.5 kg/t</td>
                                 </tr>
                                 <tr>
                                     <td>LOT-20260517-C</td>
                                     <td>14,200 kg</td>
-                                    <td><span class="tag-badge" style="background-color: #fed7d7; color: #742a2a;">불합격(Fail)</span></td>
+                                    <td><span class="tag-badge"
+                                            style="background-color: #fed7d7; color: #742a2a;">불합격(Fail)</span></td>
                                     <td>312.4 kg/t</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <div class="card"
+                        style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                         <h3>글로벌 탄소 규제 제출 모듈</h3>
                         <p style="font-size:0.9rem; color:var(--text-muted);">유럽 자동차 OEM 공급사 및 글로벌 환경 성적서(EPD) 연동 포맷</p>
-                        <button class="btn" style="width: 80%; padding: 0.8rem;" onclick="alert('데이터 검증 단계 통과 완료. ISO 14067 정식 성적서 인쇄 출력이 시작됩니다.')">ISO 14067 정식 성적서 출력 (PDF)</button>
+                        <button class="btn" style="width: 80%; padding: 0.8rem;"
+                            onclick="alert('데이터 검증 단계 통과 완료. ISO 14067 정식 성적서 인쇄 출력이 시작됩니다.')">ISO 14067 정식 성적서 출력
+                            (PDF)</button>
                     </div>
                 </div>
             </div>
@@ -461,16 +493,21 @@
 
             <div id="cbam-module" class="page">
                 <div class="banner-info">
-                    <strong style="color: #2f855a; font-size: 1.05rem;">🇪🇺 EU CBAM (탄소국경조정제도) 분기별 보고대응 및 데이터 검증</strong>
+                    <strong style="color: #2f855a; font-size: 1.05rem;">🇪🇺 EU CBAM (탄소국경조정제도) 분기별 보고대응 및 데이터
+                        검증</strong>
                     <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #2c5282;">
                         알루미늄 시트레일 품목의 고유 내재 배출량(Embedded Emissions) 분석 및 공식 수기 작성 서식 섹션입니다.
                     </p>
                 </div>
 
-                <div style="display:flex; gap:0.5rem; margin-bottom: 1rem; border-bottom: 2px solid #cbd5e0; padding-bottom:5px;">
-                    <button class="btn" style="background-color:#2f855a; font-size:0.85rem; padding: 0.4rem 1rem;">Scope 전체 현황</button>
-                    <button class="btn" style="background-color:#718096; font-size:0.85rem; padding: 0.4rem 1rem;">Scope 1 (직접 배출 지표)</button>
-                    <button class="btn" style="background-color:#718096; font-size:0.85rem; padding: 0.4rem 1rem;">Scope 2 (간접 전력 지표)</button>
+                <div
+                    style="display:flex; gap:0.5rem; margin-bottom: 1rem; border-bottom: 2px solid #cbd5e0; padding-bottom:5px;">
+                    <button class="btn" style="background-color:#2f855a; font-size:0.85rem; padding: 0.4rem 1rem;">Scope
+                        전체 현황</button>
+                    <button class="btn" style="background-color:#718096; font-size:0.85rem; padding: 0.4rem 1rem;">Scope
+                        1 (직접 배출 지표)</button>
+                    <button class="btn" style="background-color:#718096; font-size:0.85rem; padding: 0.4rem 1rem;">Scope
+                        2 (간접 전력 지표)</button>
                 </div>
 
                 <div class="grid-3">
@@ -481,12 +518,14 @@
                     </div>
                     <div class="card">
                         <h3>CBAM 신고 대상 CN Code 구분</h3>
-                        <div class="metric" style="font-size: 1.5rem; color: #2d3748; margin-top: 1.2rem;">7604.29 (알루미늄 프로파일)</div>
+                        <div class="metric" style="font-size: 1.5rem; color: #2d3748; margin-top: 1.2rem;">7604.29 (알루미늄
+                            프로파일)</div>
                         <div class="metric-sub">자동차 시트레일 구조재 세관 신고 코드</div>
                     </div>
                     <div class="card">
                         <h3>탄소 가격 공제액 (Carbon Price Paid)</h3>
-                        <div class="metric" style="font-size: 1.5rem; color: #4a5568; margin-top: 1.2rem;">0.00 KRW (공제액 없음)</div>
+                        <div class="metric" style="font-size: 1.5rem; color: #4a5568; margin-top: 1.2rem;">0.00 KRW (공제액
+                            없음)</div>
                         <div class="metric-sub">국내 K-ETS 지출 비용 매핑 연동 데이터</div>
                     </div>
                 </div>
@@ -499,20 +538,29 @@
                         <div class="upload_icon"></div><span>업로드</span>
                     </button>
                     <div class="load_comment_box">
-                        <span class="load_comment">다운로드 버튼을 눌러 프로그램이 작성한 파일을 받은 후, 수정 사항이 있을 경우 수정하여 업로드 해주시길 바랍니다.</span>
+                        <span class="load_comment">다운로드 버튼을 눌러 프로그램이 작성한 파일을 받은 후, 수정 사항이 있을 경우 수정하여 업로드 해주시길
+                            바랍니다.</span>
                     </div>
                 </div>
 
-                <div class="card" style="margin-bottom: 1.5rem; padding: 0; background: transparent; border: none; box-shadow: none;">
-                    <h3 style="padding-left: 1rem; border-bottom: none; margin-bottom: 0;">📋 CBAM Quarterly Communication 공식 신고서 서식 (시트별 데이터 대장)</h3>
-                    
+                <div class="card"
+                    style="margin-bottom: 1.5rem; padding: 0; background: transparent; border: none; box-shadow: none;">
+                    <h3 style="padding-left: 1rem; border-bottom: none; margin-bottom: 0;">📋 CBAM Quarterly
+                        Communication 공식 신고서 서식 (시트별 데이터 대장)</h3>
+
                     <div class="cbam-sheet-tabs">
-                        <button class="sheet-tab-btn active" onclick="switchSheet('sheet-inst-data', this)">A_InstData (설치소 정보)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-em-inst', this)">B_EmInst (배출원 소스)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-energy', this)">C_Emissions&Energy (에너지/배출량)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-processes', this)">D_Processes (공정 정의)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-purch-prec', this)">E_PurchPrec (구매 전구체)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-summary-comm', this)">Summary_Communication (최종 요약)</button>
+                        <button class="sheet-tab-btn active" onclick="switchSheet('sheet-inst-data', this)">A_InstData
+                            (설치소 정보)</button>
+                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-em-inst', this)">B_EmInst (배출원
+                            소스)</button>
+                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-energy', this)">C_Emissions&Energy
+                            (에너지/배출량)</button>
+                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-processes', this)">D_Processes (공정
+                            정의)</button>
+                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-purch-prec', this)">E_PurchPrec (구매
+                            전구체)</button>
+                        <button class="sheet-tab-btn"
+                            onclick="switchSheet('sheet-summary-comm', this)">Summary_Communication (최종 요약)</button>
                     </div>
 
                     <div id="sheet-inst-data" class="sheet-content active">
@@ -611,7 +659,8 @@
                             </div>
                             <div class="input-box">
                                 <label>Calculated Indirect Emissions ($tCO_2eq$)</label>
-                                <input type="number" step="0.01" value="280.59" readonly style="background-color: #edf2f7;">
+                                <input type="number" step="0.01" value="280.59" readonly
+                                    style="background-color: #edf2f7;">
                             </div>
                         </div>
                     </div>
@@ -677,16 +726,23 @@
 
                     <div id="sheet-summary-comm" class="sheet-content">
                         <div class="sheet-section-title">6.1 EU CBAM 제출용 최종 커뮤니케이션 리포트 서식 요약 (확정 수치)</div>
-                        <div style="background-color: #f7fafc; padding: 1rem; border-radius: 6px; border: 1px solid #cbd5e0; margin-bottom: 1rem;">
+                        <div
+                            style="background-color: #f7fafc; padding: 1rem; border-radius: 6px; border: 1px solid #cbd5e0; margin-bottom: 1rem;">
                             <p style="margin: 0 0 0.5rem 0; font-weight: bold; color: #2f855a;">✓ 최종 산출 규제 매핑 데이터 요약</p>
-                            <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem; line-height: 1.6; color: #2d3748;">
+                            <ul
+                                style="margin: 0; padding-left: 20px; font-size: 0.85rem; line-height: 1.6; color: #2d3748;">
                                 <li><strong>CN Code 제품군 종류:</strong> 7604.29 (알루미늄 프로파일 / 자동차 구조재 시트레일)</li>
-                                <li><strong>고유 직접 내재배출량 (Specific Direct Embedded Emissions):</strong> 0.000 tCO₂ / t Product</li>
-                                <li><strong>고유 간접 내재배출량 (Specific Indirect Embedded Emissions):</strong> 0.281 tCO₂ / t Product</li>
-                                <li><strong>합산 고유 총 내재배출량 (Total Embedded Emissions):</strong> 0.281 tCO₂ / t Product</li>
+                                <li><strong>고유 직접 내재배출량 (Specific Direct Embedded Emissions):</strong> 0.000 tCO₂ / t
+                                    Product</li>
+                                <li><strong>고유 간접 내재배출량 (Specific Indirect Embedded Emissions):</strong> 0.281 tCO₂ / t
+                                    Product</li>
+                                <li><strong>합산 고유 총 내재배출량 (Total Embedded Emissions):</strong> 0.281 tCO₂ / t Product
+                                </li>
                             </ul>
                         </div>
-                        <button class="btn" style="background-color: #2f855a; width: 100%; padding: 0.8rem;" onclick="alert('엑셀 시트 연동 데이터 기반으로 수기 입력 원장이 영구 저장되었습니다.')">📋 CBAM 시트 데이터 원장 임시 저장 및 최종 검증 확정</button>
+                        <button class="btn" style="background-color: #2f855a; width: 100%; padding: 0.8rem;"
+                            onclick="alert('엑셀 시트 연동 데이터 기반으로 수기 입력 원장이 영구 저장되었습니다.')">📋 CBAM 시트 데이터 원장 임시 저장 및 최종 검증
+                            확정</button>
                     </div>
 
                 </div>

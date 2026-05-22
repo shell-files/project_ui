@@ -127,12 +127,13 @@ nav button.active::after {
 
 
 .sidebar-title {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1rem !important;
+    font-weight: bold !important;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 10px;
+    color: #fff !important;
+    margin-bottom: 10px !important;
 }
 
 .sidebar-card {
@@ -503,7 +504,7 @@ tr:hover {
 }
 
 .select-group2 input[type="text"] {
-    width: 80px;
+    width: 50px;
     padding: 0.3rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 4px;
@@ -617,4 +618,10 @@ tr:hover {
     margin-bottom: 0.5rem;
     border-left: 3px solid #2c5282;
     padding-left: 6px;
+}
+
+
+.dash_in_box {
+    display: flex;
+    gap: 30px;
 }
