@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알루미늄 시트레일 제조 PCF & CBAM 대응 시스템</title>
+    <title>ESG 탄소배출량 관리 시스템</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js"></script>
@@ -32,7 +32,6 @@
     </header>
 
     <div class="main-wrapper">
-
         <div class="sidebar">
             <div>
                 <div style="margin-bottom: 1rem;">
@@ -48,49 +47,47 @@
                         </select>
                     </div>
                 </div>
-                <form class="sidebar-group" style="margin-top: 0.5rem;">
+                <form class="sidebar-group" style="margin-top: 0.5rem;" onsubmit="return false;">
                     <div class="sidebar-title">📅 범위 선택</div>
                     <div class="sidebar-card">
-                        <select style="margin-bottom: 0.5rem;">
-                            <option>2026 년도</option>
-                            <option>2025 년도</option>
-                        </select>
+                        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">조회
+                            기준</label>
 
-
-
-                        <div class="select-group" id="group-quarter">
-                            <p class="select_label" style="cursor: pointer;"><span>분기별</span></p>
-                            <div class="toggle-content" style="display: none; margin-top: 10px;">
-                                <div>
-                                    <label for="select_q1">- 1분기 (Q1)</label>
-                                    <input type="radio" name="quarter" id="select_q1">
-                                </div>
-                                <div>
-                                    <label for="select_q2">- 2분기 (Q2)</label>
-                                    <input type="radio" name="quarter" id="select_q2">
-                                </div>
-                                <div>
-                                    <label for="select_q3">- 3분기 (Q3)</label>
-                                    <input type="radio" name="quarter" id="select_q3">
-                                </div>
-                                <div>
-                                    <label for="select_q4">- 4분기 (Q4)</label>
-                                    <input type="radio" name="quarter" id="select_q4">
-                                </div>
-                            </div>
+                        <div id="filter-year-wrapper" style="margin-bottom: 0.5rem;">
+                            <select id="select-year" style="width: 100%;">
+                                <option>2026 년도</option>
+                                <option>2025 년도</option>
+                            </select>
                         </div>
 
-                        <div class="select-group2" id="group-month">
-                            <p class="select_label" style="cursor: pointer;"><span>월별</span></p>
-                            <div class="toggle-content" style="display: none; margin-top: 10px;">
-                                <div>
-                                    <input type="text" name="month" id="select_m1"> 월
-                                </div>
-                            </div>
+                        <div class="select-group" id="group-quarter" style="margin-bottom: 0.5rem;">
+                            <select id="select-quarter" style="width: 100%;">
+                                <option value="Q1">1분기 (Q1)</option>
+                                <option value="Q2">2분기 (Q2)</option>
+                                <option value="Q3">3분기 (Q3)</option>
+                                <option value="Q4">4분기 (Q4)</option>
+                            </select>
+                        </div>
+
+                        <div class="select-group2" id="group-month" style="margin-bottom: 0.5rem;">
+                            <select id="select-month" style="width: 100%;">
+                                <option value="1">1 월</option>
+                                <option value="2">2 월</option>
+                                <option value="3">3 월</option>
+                                <option value="4">4 월</option>
+                                <option value="5">5 월</option>
+                                <option value="6">6 월</option>
+                                <option value="7">7 월</option>
+                                <option value="8">8 월</option>
+                                <option value="9">9 월</option>
+                                <option value="10">10 월</option>
+                                <option value="11">11 월</option>
+                                <option value="12">12 월</option>
+                            </select>
                         </div>
 
                         <button class="select-btn">검색</button>
-                        <span class="search_comment">* 연도 전체 검색을 원하실시 분기별/월별 <br> 검색을 다시 클릭하여 꺼주시길 바랍니다.</span>
+                        <span class="search_comment">* 선택하신 기준(년/분기/월)에 따라 대시보드의 시각화 주기(월별/일별)가 자동으로 변경됩니다.</span>
                     </div>
                 </form>
             </div>
@@ -115,7 +112,8 @@
                     <div class="card">
                         <h3>연간 총 온실가스 배출량 및 감축 목표</h3>
                         <div class="metric">280.59 tCO₂eq/yr</div>
-                        <div class="metric-sub" style="color: var(--primary-green); font-weight: bold;">🎯 2026 감축 목표 달성률: 78.5% (진행중)</div>
+                        <div class="metric-sub" style="color: var(--primary-green); font-weight: bold;">🎯 2026 감축 목표
+                            달성률: 78.5% (진행중)</div>
                     </div>
                     <div class="card">
                         <h3>연간 총 전력 사용량</h3>
@@ -124,14 +122,16 @@
                     </div>
                     <div class="card">
                         <h3>실시간 공정 이상 알림</h3>
-                        <div class="metric alert-text" style="font-size: 1.6rem; margin-top: 1.2rem;">⚠️ 아노다이징 폐수 모니터링</div>
+                        <div class="metric alert-text" style="font-size: 1.6rem; margin-top: 1.2rem;">⚠️ 아노다이징 폐수 모니터링
+                        </div>
                         <div class="metric-sub">울산지사 아노다이징 지정폐수 연간 100L 경계치 도달 예정</div>
+                        <span class="anomaly-time">2026-05-26 10:14:45</span>
                     </div>
                 </div>
 
                 <div class="grid-2">
                     <div class="card">
-                        <h3>공정별 연간 탄소 배출량 지표 ($tCO_2eq/yr$)</h3>
+                        <h3>공정별 연간 탄소 배출량 지표 (tCO_2eq/yr)</h3>
                         <div class="chart-container">
                             <canvas id="carbonChart"></canvas>
                         </div>
@@ -243,16 +243,15 @@
 
             <div id="master-data" class="page">
                 <div class="page-title">실제 공정 마스터 데이터 및 가동 제어</div>
-
                 <div
                     style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #eef7f2; padding: 1rem; border-radius: 8px;">
                     <div>
-                        <button class="btn" style="border-radius: 20px;">데이터 업데이트 하기</button>
+                        <button class="btn" style="border-radius: 20px;">데이터 불러오기</button>
                         <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">외부 데이터를 가져와 시스템 데이터로
                             전환합니다.</span>
                     </div>
                     <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary-green);">
-                        ⏱️ Late Updated: <span id="live-clock">15:42:03</span>
+                        ⏱️ Last Updated: <span id="live-clock">YYYY-MM-DD HH:mm:ss</span>
                     </div>
                 </div>
 
@@ -274,13 +273,13 @@
                         <div>
                             <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">포항 대표
                                 주소지</label>
-                            <input type="text" value="경상북도 포항시 남구 공단로"
+                            <input type="text" value="서울특별시 강남구 테헤란로5길 20"
                                 style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
                         </div>
                         <div>
                             <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">담당자
                                 연락처</label>
-                            <input type="text" value="054-123-4567"
+                            <input type="text" value="02-123-4567"
                                 style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
                         </div>
                     </div>
@@ -297,7 +296,7 @@
                                 <th>원재료/합금 계열</th>
                                 <th>공급 업체</th>
                                 <th>연간 투입량 (t)</th>
-                                <th>내재 배출계수 ($tCO_2/t$)</th>
+                                <th>내재 배출계수 (tCO_2/t)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -351,6 +350,12 @@
 
                 <div class="card">
                     <h3>이상치 탐지 로그 내역</h3>
+                    <div>
+                        <button class="btn" style="border-radius: 20px;">이상치 조치 완료 및 기록</button>
+                        <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">현재 조치 사항을 확정하며, 다음
+                            단계(PCF 데이터 산출)의 기초 자료로 사용됩니다.</span>
+                    </div>
+
                     <table>
                         <thead>
                             <tr style="background-color: #f7fafc;">
@@ -380,24 +385,32 @@
                                 <td>압출 (원재료 용해)</td>
                                 <td class="alert-text">대기 전력 배출 유량 과다</td>
                                 <td>185.3 kW</td>
-                                <td><span class="tag-badge status-warning">경고 (Warning)</span></td>
-                                <td><span class="tag-badge status-warning">조치중</span></td>
+                                <td><span class="tag-badge status-warning">승인 (Confirmed)</span></td>
+                                <td><span class="tag-badge status-warning">조치완료</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
             <div id="pcf-report" class="page">
                 <div class="page-title">제품별 탄소 발자국(PCF) 인증 보고서 시뮬레이션</div>
+                <div
+                    style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #eef7f2; padding: 1rem; border-radius: 8px;">
+                    <div>
+                        <button class="btn" style="border-radius: 20px;">PCF 데이터 산출</button>
+                        <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">최신 변경된 이상치 데이터를 반영하여
+                            PCF 데이터를 산출합니다.</span>
+                    </div>
+                    <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary-green);">
+                    </div>
+                </div>
 
                 <div class="card" style="margin-bottom: 1.5rem; background: #fff;">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 2rem;">
                         <div style="text-align: center; flex: 1; position: relative;">
                             <div
-                                style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
+                                style="width: 50%; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
                                 1</div>
                             <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">공정 데이터
                                 확인</span>
@@ -407,7 +420,7 @@
                         </div>
                         <div style="text-align: center; flex: 1; position: relative;">
                             <div
-                                style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
+                                style="width: 50%; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
                                 2</div>
                             <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">이상치 검증
                                 검사</span>
@@ -427,17 +440,22 @@
                 <div class="card" style="margin-bottom: 1.5rem; background: #fafafa; border-style: dashed;">
                     <h4 style="margin:0 0 0.5rem 0; color: #2d3748;">🧮 제품 탄소발자국 연동 산출식 기본 정보</h4>
                     <p style="margin:0; font-size:0.85rem; color: var(--text-muted); line-height: 1.4;">
-                        $PCF = \sum (Activity\ Data_i \times Emission\ Factor_i) + Upstream\ Precursor\ Burden$<br>
-                        본 시뮬레이션은 고정 가동 및 한전 전력 소비 기본 계수($0.4585\ kgCO_2/kWh$)를 기준으로 자동 추적 매핑됩니다.
+                        PCF = sum (Activity\ Data_i \times Emission\ Factor_i) + Upstream\ Precursor\ Burden<br>
+                        본 시뮬레이션은 고정 가동 및 한전 전력 소비 기본 계수(0.4585\ kgCO_2/kWh)를 기준으로 자동 추적 매핑됩니다.
                     </p>
                 </div>
 
                 <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>[SR-ASSY-001] 자동차 시트레일 1톤 생산 당 누적 기여도 분석</h3>
-                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">실제 투입 에너지 비중 모델링 결과
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>[SR-ASSY-001] 자동차 시트레일 1톤 생산 당 기여도 추이</h3>
+                        <div class="time-filter" style="font-size: 0.8rem;">
+                        </div>
+                    </div>
+                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">
+                        실제 투입 에너지 비중 시계열 모델링 결과
                     </div>
                     <div class="chart-container" style="height: 220px;">
-                        <canvas id="pcfWaterfall"></canvas>
+                        <canvas id="pcfTimeSeries"></canvas>
                     </div>
                 </div>
 
@@ -493,10 +511,10 @@
 
             <div id="cbam-module" class="page">
                 <div class="banner-info">
-                    <strong style="color: #2f855a; font-size: 1.05rem;">🇪🇺 EU CBAM (탄소국경조정제도) 분기별 보고대응 및 데이터
+                    <strong style="color: #2f855a; font-size: 1.05rem;">EU CBAM (탄소국경조정제도) 분기별 보고대응 및 데이터
                         검증</strong>
                     <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #2c5282;">
-                        알루미늄 시트레일 품목의 고유 내재 배출량(Embedded Emissions) 분석 및 공식 수기 작성 서식 섹션입니다.
+                        선택 품목의 고유 내재 배출량(Embedded Emissions) 분석 및 공식 수기 작성 서식 섹션입니다.
                     </p>
                 </div>
 
@@ -512,7 +530,7 @@
 
                 <div class="grid-3">
                     <div class="card">
-                        <h3>알루미늄 고유 내재 배출량 ($SEE_{alu}$)</h3>
+                        <h3>알루미늄 고유 내재 배출량 (SEE_{alu})</h3>
                         <div class="metric" style="color: #2f855a;">0.281 t/t</div>
                         <div class="metric-sub">알루미늄 시트레일 완제품 1톤당 내재 배출량</div>
                     </div>
@@ -534,12 +552,8 @@
                     <button class="btn btn-secondary" style="font-size:0.85rem; padding:0.4rem 0.8rem;">
                         <div class="download_icon"></div><span>다운로드</span>
                     </button>
-                    <button class="btn btn-secondary2" style="font-size:0.85rem; padding:0.4rem 0.8rem;">
-                        <div class="upload_icon"></div><span>업로드</span>
-                    </button>
                     <div class="load_comment_box">
-                        <span class="load_comment">다운로드 버튼을 눌러 프로그램이 작성한 파일을 받은 후, 수정 사항이 있을 경우 수정하여 업로드 해주시길
-                            바랍니다.</span>
+                        <span class="load_comment">CBAM Communication Template의 엑셀 파일을 다운 받길 원하시면 클릭하시기 바랍니다.</span>
                     </div>
                 </div>
 
@@ -744,74 +758,81 @@
                             onclick="alert('엑셀 시트 연동 데이터 기반으로 수기 입력 원장이 영구 저장되었습니다.')">📋 CBAM 시트 데이터 원장 임시 저장 및 최종 검증
                             확정</button>
                     </div>
-
                 </div>
 
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>CBAM Route 공정별 내재 배출 원단위 기여도 현황</h3>
-                    <div class="grid-2" style="margin:0; gap:2rem;">
-                        <div class="chart-container">
-                            <canvas id="cbamRouteChart"></canvas>
-                        </div>
-                        <div>
-                            <table style="font-size: 0.85rem;">
-                                <thead>
-                                    <tr>
-                                        <th>CBAM 필수 필드항목</th>
-                                        <th>현장 매핑 데이터 값</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>설치소 고유 ID</th>
-                                        <td>KR-PO-UL-SEATRAIL-01</td>
-                                    </tr>
-                                    <tr>
-                                        <th>고유 직접 내재배출량</th>
-                                        <td><strong>0.000 tCO₂/t Product</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <th>고유 간접 내재배출량</th>
-                                        <td><strong>0.281 tCO₂/t Product</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <th>적용 전력 배출 계수 원천</th>
-                                        <td>한전 공식 배출계수 기본값 매핑</td>
-                                    </tr>
-                                    <tr>
-                                        <th>전가된 전력 소비 가중치</th>
-                                        <td>611.17 kWh/t</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div
+                    style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #eef7f2; padding: 1rem; border-radius: 8px;">
+                    <div>
+                        <button class="btn" style="border-radius: 20px;">메일로 발송하기</button>
+                        <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">완성된 CBAM 보고서를 메일로 받으시길 원하실 경우 클릭하여주시기 바랍니다.</span>
+                    </div>
+                </div>
+
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <h3>CBAM Route 공정별 내재 배출 원단위 기여도 현황</h3>
+                        <div class="grid-2" style="margin:0; gap:2rem;">
+                            <div class="chart-container">
+                                <canvas id="cbamRouteChart"></canvas>
+                            </div>
+                            <div>
+                                <table style="font-size: 0.85rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>CBAM 필수 필드항목</th>
+                                            <th>현장 매핑 데이터 값</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>설치소 고유 ID</th>
+                                            <td>KR-PO-UL-SEATRAIL-01</td>
+                                        </tr>
+                                        <tr>
+                                            <th>고유 직접 내재배출량</th>
+                                            <td><strong>0.000 tCO₂/t Product</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th>고유 간접 내재배출량</th>
+                                            <td><strong>0.281 tCO₂/t Product</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th>적용 전력 배출 계수 원천</th>
+                                            <td>한전 공식 배출계수 기본값 매핑</td>
+                                        </tr>
+                                        <tr>
+                                            <th>전가된 전력 소비 가중치</th>
+                                            <td>611.17 kWh/t</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-    <script>
-        // 엑셀 시트 서브 탭 전환 인터랙션 자바스크립트 제어 함수 추가
-        function switchSheet(sheetId, element) {
-            // 모든 시트 컨텐츠 비활성화
-            const contents = document.querySelectorAll('.sheet-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
+        <script>
+            // 엑셀 시트 서브 탭 전환 인터랙션 자바스크립트 제어 함수 추가
+            function switchSheet(sheetId, element) {
+                // 모든 시트 컨텐츠 비활성화
+                const contents = document.querySelectorAll('.sheet-content');
+                contents.forEach(content => {
+                    content.classList.remove('active');
+                });
 
-            // 모든 시트 탭 버튼 비활성화
-            const buttons = document.querySelectorAll('.sheet-tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-            });
+                // 모든 시트 탭 버튼 비활성화
+                const buttons = document.querySelectorAll('.sheet-tab-btn');
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
 
-            // 선택된 시트 및 탭 버튼 활성화
-            document.getElementById(sheetId).classList.add('active');
-            element.classList.add('active');
-        }
-    </script>
+                // 선택된 시트 및 탭 버튼 활성화
+                document.getElementById(sheetId).classList.add('active');
+                element.classList.add('active');
+            }
+        </script>
 </body>
 
 </html>
