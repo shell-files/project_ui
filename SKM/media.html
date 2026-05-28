@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="./styles/alarm.css">
     <link rel="stylesheet" href="./styles/App.css">
     <link rel="stylesheet" href="./styles/media.css">
-    <style>
-        
+    <style>   
     </style>
 </head>
 <body>
@@ -190,7 +189,7 @@
                     </div>
 
                     <div class="action-container">
-                        <button class="sr-btn" onclick="startMediaCollection()">실시간 AI 분석 시작</button>
+                        <button class="sr-btn" onclick="startMediaCollection()">⚡ 실시간 미디어 수집 시작</button>
                     </div>
                 </div>
             </main>
@@ -201,25 +200,165 @@
                 </div>
                 <div class="robot-view-container">
                     <div id="particle-field"></div>
-                    <img src="img/robot_media_t.png" class="robot-main-img" alt="마스코트">
+                    <img src="img/robot_media_t.png" class="robot-main-img" alt="마스코트" style="align-self: center;">
                     
                     <div id="loading-content" style="text-align: center;">
                         <h3 id="loading-title" style="font-size:1.1rem; font-weight:850; margin:0 0 4px 0;">미디어 수집 현황 대기 중</h3>
                         <p id="loading-p" style="font-size:0.85rem; color:#64748b; margin:0;">상단의 수집 시작 버튼을 누르면 실시간 크롤링 및 파싱이 가동됩니다.</p>
                     </div>
 
-                    <div id="result-content" class="hidden" style="text-align: center;">
-                        <h3 style="font-size:1.1rem; font-weight:850; margin:0 0 8px 0; color:#03A94D;">✓ 실시간 데이터 파이프라인 분석 완료</h3>
-                        <p style="font-size:0.85rem; color:#334155; margin:0; line-height: 1.6;">
-                            선택된 타임라인 범위 내 총 <span style="font-weight:700; color:#ef4444;">14건</span>의 리스크 시그널(언론 8건, 규제 4건, 리서치 2건)이 식별되었습니다.<br>
-                            다음 스텝인 <span id="res-step-name" style="font-weight:700;">이해관계자 설문</span> 단계 분석으로 이동해 주세요.
-                        </p>
-                    </div>
+                
+                              <!-- 결과 배너 -->
+            <div id="result-layout" class="result-layout hidden">
+                        <div class="result-banner">
+                            <div class="result-banner-left">
+                                <div class="result-banner-title" style="text-align:center; align-self: center;">[AI 미디어 시그널 분석 결과]</div>
+                                <p class="result-banner-desc">
+                                    언론 기사,전문기관 자료, 핵심규제 프레임을 종합 반영하여<br>
+                                    외부 시그널 기반의 주요 서브이슈를 도출했습니다.
+                                </p>
+                                </div>
+                                
+                        </div> 
+
+                           <!-- 통계 카드 4개 -->
+                            <div class="result-stats-row">
+                                <div class="result-stat-card">   
+                                <div class="stat-icon-wrap">📰</div>
+                            <div>    
+                                <div class="stat-label">언론 기사 </div>
+                                <div class="stat-value">78건</div>
+                                <div class="stat-sub">관측 이슈 19건</div>
+                              </div>
+                            </div>
+                            <div class="result-stat-card">
+                                <div class="stat-icon-wrap">🏛️</div>
+                                <div>
+                                    <div class="stat-label">전문기관 자료</div>
+                                    <div class="stat-value">4건</div>
+                                    <div class="stat-sub">반영 이슈 6건</div>
+                                </div>
+                                </div>
+                            <div class="result-stat-card">
+                            <div class="stat-icon-wrap">⚖️</div>
+                            <div>
+                              <div class="stat-label">규제 프레임</div>
+                              <div class="stat-value">4건</div>
+                              <div class="stat-sub">반영 이슈 6건</div>
+                            </div>
+                           </div>
+                            <div class="result-stat-card">
+                             <div class="stat-icon-wrap">🔗</div>
+                                <div>
+                                    <div class="stat-label">반영 방식 안내</div>
+                                    <div class="stat-value">29개</div>
+                                </div>
+                                </div>
+                             </div>
+                          
+                          
+                             <!-- 하단 3패널 -->
+    <div class="result-panels-row">
+        <!-- 패널1 -->
+        <div class="result-panel">
+            <div class="panel-header-row">
+                <span class="panel-title">Source 별 반영 현황</span>
+                <span class="panel-info-btn">ⓘ</span>
+            </div>
+            <table class="issue-table">
+                <thead>
+                    <tr><th>Source</th><th>수집·기준 건수</th><th>반영 이슈</th><th>적용 방식</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>언론 기사</td><td>78건</td><td>19개</td><td>실제 기사 기반</td></tr>
+                    <tr><td>전문 기관</td><td>4건</td><td>6개</td><td>고가중치 정성 보정</td></tr>
+                    <tr><td>규제 관례</td><td>4건</td><td>12개</td><td>고정 Rule Base</td></tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 패널2 -->
+        <div class="result-panel">
+            <div class="panel-header-row">
+                <span class="panel-title">미디어 TOP 이슈 점수</span>
+                <span class="panel-info-btn">ⓘ</span>
+            </div>
+            <table class="issue-table">
+                <thead>
+                    <tr><th>순위</th><th>Sub Issue</th><th>Impact</th><th>financial</th><th>source</th><th>Evidence</th></tr>
+                </thead>
+                <tbody>
+                    <!-- · -->
+                    <tr><td>1</td><td>온실가스 배출 감축</td><td></td><td>9.7</td><td>언론,규제</td><td><button class="evidence-btn" onclick="location.href='result.html'">보기</button></td></tr>
+                    <tr><td>2</td><td>에너지 전환/ 재생에너지 확대</td><td>9.7</td><td>7.6</td><td>언론,전문가</td><td><button class="evidence-btn" onclick="location.href='result.html'">보기</button></td></tr>
+                    <tr><td>3</td><td>공급망 ESG 관리 강화</td><td>7.4</td><td>6.9</td><td>언론,전문기관,규제</td><td><button class="evidence-btn" onclick="location.href='result.html'">보기</button></td></tr>
+                    <tr><td>4</td><td>정보공개 / 공시 투명성</td><td>7.2</td><td>4.3</td><td>전문기관, 규제</td><td><button class="evidence-btn" onclick="location.href='result.html'">보기</button></td> </tr>
+                    <tr><td>5</td><td>이사회 다양성 및 독립성</td><td>3.3</td><td>4.9</td><td>전문기관</td><td><button class="evidence-btn" onclick="location.href='result.html'">보기</button></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="result-panel">
+    <div class="panel-header-row">
+        <span class="panel-title">반영 방식 안내</span>
+        <span class="panel-info-btn">ⓘ</span>
+    </div>
+    <ul class="reflect-list">
+        <li class="reflect-item">
+            <div class="reflect-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+            </div>
+            <div>
+                <div class="reflect-title">언론 기사</div>
+                <p class="reflect-desc">현대모비스/자동차부품 키워드 기반 기사 수집</p>
+            </div>
+        </li>
+        <li class="reflect-item">
+            <div class="reflect-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="22" x2="21" y2="22"/>
+                    <line x1="6" y1="18" x2="6" y2="11"/>
+                    <line x1="10" y1="18" x2="10" y2="11"/>
+                    <line x1="14" y1="18" x2="14" y2="11"/>
+                    <line x1="18" y1="18" x2="18" y2="11"/>
+                    <polygon points="12 2 2 7 22 7"/>
+                </svg>
+            </div>
+            <div>
+                <div class="reflect-title">전문기관</div>
+                <p class="reflect-desc">KCGS 등급 추세·기업지배구조보고서·KIS 자동차산업 평가방법론</p>
+            </div>
+        </li>
+        <li class="reflect-item">
+            <div class="reflect-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+            </div>
+            <div>
+                <div class="reflect-title">규제</div>
+                <p class="reflect-desc">CSDDD·CBAM·CSRD·ESRS 기반 고정 점수 룰</p>
+            </div>
+        </li>
+    </ul>
+    <div class="reflect-note">ⓘ 향후 MSCI·S&P·EcoVadis 등 외부 평가기관 자료 확장 가능</div>
+</div>
+        </div>  
+      </div>
                 </div>
             </div>
-      </div>
+
     </div>
   </div>
+</div>
+
+  
 
   <script>
         const steps = [
@@ -232,6 +371,7 @@
 
         let activeIndex = 1; // 현재 페이지 '미디어 분석' 활성화 index
         let isAnalyzing = false;
+        let analysisComplete = false;
 
         function init() {
             const stepper = document.getElementById('stepper');
@@ -276,6 +416,11 @@
         function toggleDashboard() { 
             document.getElementById('dashboard').classList.toggle('open'); 
         }
+        if (analysisComplete) {
+        document.getElementById('result-layout').classList.remove('hidden');
+        document.getElementById('result-layout').scrollIntoView({ behavior: 'smooth' });
+        }
+    
 
         // 실시간 크롤링 시뮬레이션 인터랙션 추가
         function startMediaCollection() {
@@ -306,8 +451,11 @@
         const showResult = () => {
             document.getElementById('handle-status').innerText = "분석 완료 - 결과 요약 확인 (클릭)";
             document.getElementById('loading-content').classList.add('hidden');
-            document.getElementById('result-content').classList.remove('hidden');
-            
+            analysisComplete = true;
+            document.getElementById('dashboard').classList.add('result-expanded');   // 패널 78vh로 확장
+            document.querySelector('.robot-view-container').classList.add('showing-result'); // 스크롤 활성화
+            document.getElementById('handle-status').classList.add('complete');      // 핸들 초록 스타일
+            document.getElementById('result-layout').classList.remove('hidden');
             // 각 카드 상태 업데이트
             document.getElementById('badge-press').className = "status-badge complete";
             document.getElementById('badge-press').innerText = "수집완료";
@@ -315,7 +463,7 @@
             document.getElementById('badge-reg').innerText = "수집완료";
             document.getElementById('badge-expert').className = "status-badge complete";
             document.getElementById('badge-expert').innerText = "수집완료";
-            
+            document.getElementById('result-layout').classList.remove('hidden');
             // 다음 인덱스 가이드 바인딩
             if(steps[activeIndex + 1]) {
                 document.getElementById('res-step-name').innerText = steps[activeIndex + 1].title;

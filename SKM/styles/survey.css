@@ -1,0 +1,261 @@
+/* ─── 결과 통계 카드 행 ─── */
+.result-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.result-stat-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 14px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+/* ─── KPI 카드 추가 스타일 ─── */
+.survey-kpi-card {
+    flex-direction: row;
+}
+
+.stat-icon-wrap {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0fdf4;
+    border-radius: 10px;
+}
+
+.stat-label {
+    font-size: 0.72rem;
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: 850;
+    color: #1e293b;
+    line-height: 1.15;
+}
+
+.stat-target {
+    font-size: 0.68rem;
+    color: #94a3b8;
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+/* ─── KPI 바 (카드 내 진행률 바) ─── */
+.kpi-bar-wrap {
+    position: relative;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    margin-top: 6px;
+    margin-right: 36px;
+}
+
+.kpi-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #03A94D, #017E3F);
+    border-radius: 4px;
+}
+
+.kpi-bar-pct {
+    position: absolute;
+    right: -36px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #03A94D;
+    white-space: nowrap;
+}
+
+/* ─── 결과 패널 행 (하단 2패널 그리드) ─── */
+.result-panels-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 12px;
+}
+
+.survey-panels {
+    grid-template-columns: 3fr 2fr;
+}
+
+.result-panel {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px;
+    overflow-x: auto;
+}
+
+.panel-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.panel-title {
+    font-size: 0.88rem;
+    font-weight: 850;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ─── 복합 헤더 테이블 (rowspan/colspan 사용) ─── */
+.survey-complex-table {
+    width: 100%;
+    min-width: 480px;       /* 좁은 영역에서 최소 너비 보장 */
+    border-collapse: collapse;
+    font-size: 0.7rem;
+}
+
+.survey-complex-table th,
+.survey-complex-table td {
+    padding: 5px 6px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    white-space: nowrap;
+    color: #334155;
+    font-size: 0.7rem;
+}
+
+.survey-complex-table th {
+    background: #f8fafc;
+    font-weight: 700;
+    color: #475569;
+}
+
+.survey-complex-table tbody td:nth-child(2) {
+    text-align: left;
+    white-space: normal;
+    min-width: 70px;
+    word-break: keep-all;
+}
+
+.survey-complex-table tr:last-child td {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* 그룹 헤더 (임직원/경영진/외부) */
+.group-th {
+    background: #f0fdf4 !important;
+    color: #03A94D !important;
+    font-weight: 800 !important;
+    border-bottom: 2px solid #bbf7d0 !important;
+}
+
+/* ─── 이해관계자 그룹 패널 ─── */
+.stakeholder-group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stakeholder-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.stakeholder-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.stakeholder-name {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.stakeholder-topics {
+    display: block;
+    font-size: 0.73rem;
+    color: #03A94D;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.stakeholder-desc {
+    font-size: 0.74rem;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0;
+    padding-left: 42px;
+}
+
+/* ─── 완료 상태 핸들 pill ─── */
+.handle-pill.complete {
+    background: #dcfce7;
+    color: #03A94D;
+}
+
+/* ─── result-expanded: 대시보드 78vh 확장 ─── */
+.sr-result-dashboard.open.result-expanded {
+    height: 78vh;
+}
+
+/* ─── showing-result: robot-view-container 스크롤 허용 ─── */
+.robot-view-container.showing-result {
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    gap: 0;
+}
+
+/* ─── result-layout 내부 여백 조정 ─── */
+.robot-view-container.showing-result .result-layout {
+    padding: 0;
+    gap: 12px;
+}
+
+/* ─── responsive ─── */
+@media (max-width: 1100px) {
+    .result-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .survey-panels {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .result-stats-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    .result-banner-robot {
+        display: none;
+    }
+}
+
+
+/* result-content, result-layout 개별 스크롤 제거 */
+#result-content,
+#result-layout {
+    overflow: visible;
+}
