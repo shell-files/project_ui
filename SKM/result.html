@@ -3,307 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESG 지속가능경영보고서 AI 시스템 - 이해관계자 설문</title>
+    <title>ESG 지속가능경영보고서 AI 시스템 - 분석 전체 결과 </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="./styles/mains.css">
     <link rel="stylesheet" href="./styles/alarm.css">
     <link rel="stylesheet" href="./styles/App.css">
+    <link rel="stylesheet" href="./styles/result.css">
+    <link rel="stylesheet" href="./styles/benchmarking.css">
+    <link rel="stylesheet" href="./styles/media.css">
+    <link rel="stylesheet" href="./styles/survey.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
-        :root {
-            --sr-primary: #03A94D;
-            --sr-primary-vibrant: linear-gradient(135deg, #03A94D, #017E3F);
-            --sr-bg: #f4f7f6;
-            --sr-border: #e2e8f0;
-            --sr-text: #334155;
-            --sr-sub: #64748b;
-            --sr-radius: 20px;
-        }
-
-
-        /* 우측 메인 영역 */
-        .main-container { flex: 1; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
         
-        .user-link { 
-            cursor: pointer; 
-            font-size: 14px; 
-            font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-        }
-        .user-link span { 
-            color: #03a94d;
-            font-size: 12px; 
-            font-weight: normal; 
-            margin-left: 6px; 
-        }
-        .header-action { cursor: pointer; font-size: 13px; color: #555; position: relative; }
-        .header-action:hover { color: #03a94d; }
-
-        /* 중앙 컨텐츠 영역 */
-        .sr-container { display: flex; flex-direction: column; height: calc(100vh - 60px); position: relative; overflow: hidden; }
-        .sr-header {
-            background: #fff;
-            padding: 20px 40px;
-            border-bottom: 1px solid var(--sr-border);
-            flex-shrink: 0;
-            width: 100%; /* 좌우로 무조건 꽉 차게 */
-        }
-        .sr-title { font-size: 1.3rem; font-weight: 850; margin: 0 0 15px 0; color: #1e293b; }
-        .sr-stepper-row { display: flex; align-items: center; justify-content: space-between; max-width: 900px; margin: 0 auto; position: relative; }
-        .step-box { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; opacity: 0.35; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2; }
-        .step-box.active { opacity: 1; transform: translateY(-1px); }
-        .step-icon-circle { width: 38px; height: 38px; background: #fff; border: 2px solid #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: 0.3s; }
-        .step-box.active .step-icon-circle { background: var(--sr-primary-vibrant); color: #fff; border: none; box-shadow: 0 4px 10px rgba(3, 169, 77, 0.2); }
-        .step-line { flex: 1; height: 2px; background: #e2e8f0; margin: -20px 15px 0; }
-        .main-container, .sr-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            /* background-color: #fff; */
-        }
-        .content-wrapper {
-            width: 100%;
-            max-width: 1400px; /* 대형 화면에서도 빈 공간이 적어 보이도록 넓힘 */
-            margin: 0 auto;
-        }
-        
-         /* 메인 패널 */
-        .main-content { 
-            flex: 1; 
-            display: flex; 
-            justify-content: center; 
-            overflow-y: auto; /* 내부 요소가 종으로 길어질 때 카드가 깨지지 않도록 스크롤 허용 */
-        }
-        
-        .input-card { 
-            background: #fff; 
-            padding: 25px 30px; 
-            border-radius: var(--sr-radius); 
-            width: 100%; 
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        /* 메인 중앙 그리드 */
-        .survey-section-grid {
-            padding: 0 10%;
-            display: flex;
-            gap: 50px;
-            margin: 20px 0;
-            text-align: left;
-            min-height: 0;
-            /* width: 100%;          좌우 화면 꽉 채우기 */
-        }
-
-        .survey-wrapper {
-            position: relative;
-            padding-top: 12px;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-        .survey-badge {
-            position: absolute;
-            top: -4px;
-            left: 14px;
-            background: #fff;
-            border: 2px solid #03A94D;
-            border-bottom: none;
-            padding: 2px 16px;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            z-index: 5;
-        }
-        .white-badge { background: #fff; color: #03A94D; }
-
-        .survey-panel {
-            border: 2px solid #03A94D;
-            border-radius: 14px;
-            padding: 20px;
-            background: #fff;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 15px;
-        }
-
-        .survey-group-list { display: flex; flex-direction: column; gap: 12px; }
-        .survey-row-box { background-color: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .survey-row-box label { display: block; font-size: 0.88rem; font-weight: 800; color: #1e293b; margin-bottom: 6px; }
-        
-        .url-input-line { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
-        .url-input-line input[type="text"] {
-            flex: 1;
-            padding: 4px 0;
-            border: none;
-            border-bottom: 1px solid #cbd5e1;
-            background-color: transparent;
-            font-size: 0.82rem;
-            color: #475569;
-            outline: none;
-        }
-        .btn-url-copy {
-            background: #03A94D;
-            color: #fff;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.75rem;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .kpi-input-line { display: flex; align-items: center; justify-content: flex-end; gap: 6px; font-size: 0.78rem; color: #64748b; font-weight: 600; }
-        .kpi-input-line input[type="number"] { width: 65px; padding: 3px 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; outline: none; }
-
-        /* 실시간 통계 집계 영역 */
-        .sheets-dashboard-grid { display: flex; flex-direction: column; gap: 10px; }
-        .chart-status-card { background: #fff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0; }
-        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .chart-status-card .label { font-size: 0.8rem; color: #475569; font-weight: 700; }
-        .chart-status-card .value { font-size: 0.95rem; font-weight: 850; color: #1e293b; }
-        .chart-status-card .value span { font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
-        .api-progress-container { background-color: #f1f5f9; border-radius: 10px; height: 6px; width: 100%; overflow: hidden; }
-        .api-progress-bar { background: var(--sr-primary-vibrant); height: 100%; border-radius: 10px; }
-        .ai-message-box { background: #f8fafc; border-radius: 10px; padding: 12px 14px; border: 1px solid #e2e8f0; font-size: 0.8rem; line-height: 1.5; text-align: left; }
-
-        /* 메인 작업 버튼 그룹 */
-        .action-btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
-        .sr-btn { 
-            padding: 12px 35px; border-radius: 10px; border: none; font-weight: 850; font-size: 0.95rem; cursor: pointer; 
-            background: var(--sr-primary-vibrant); color: #fff; transition: 0.3s; box-shadow: 0 4px 12px rgba(3, 169, 77, 0.15); 
-        }
-        .sr-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(3, 169, 77, 0.25); }
-        .sr-btn.secondary { background: #334155; box-shadow: 0 4px 12px rgba(51, 65, 85, 0.15); }
-
-        /* ========================================================
-           [UI 통일] 벤치마킹 대시보드 구조 동기화 (클래스명 및 핸들 알약 스타일 고도화)
-        ======================================================== */
-        .sr-result-dashboard {
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            background: #fff; 
-            border-top: 1px solid var(--sr-border);
-            height: 45px; /* 초기 높이 benchmarking과 동일하게 고정 */
-            transition: height 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* 트랜스폼 제거하고 높이 애니메이션 적용 */
-            display: flex; 
-            flex-direction: column; 
-            z-index: 100;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
-        }
-        .sr-result-dashboard.open { 
-            height: 400px; 
-        }
-
-        /* 벤치마킹 스타일 핸들 적용 */
-        .dashboard-handle { 
-            height: 45px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            border-bottom: 1px solid #f1f5f9; 
-            flex-shrink: 0; 
-        }
-        .handle-pill { 
-            padding: 6px 20px; 
-            background: #f1f5f9; 
-            border-radius: 30px; 
-            font-weight: 700; 
-            font-size: 0.8rem; 
-            color: #64748b; 
-            letter-spacing: normal;
-        }
-        .sr-result-dashboard.open .handle-pill { background: #f1f5f9; }
-        .robot-view-container { 
-            flex: 1; 
-            padding: 30px 50px; /* 여백 크기를 benchmarking의 오리지널 값으로 수정 */
-            display: grid; 
-            gap: 40px; /* 내부 간격을 넓혀 시원한 레이아웃으로 변경 */
-            overflow: hidden; 
-            background: #fff; 
-            position: relative; 
-        }
-
-        /* 파티클 효과 무대 */
-        .particle-field { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; opacity:0; transition: opacity 0.4s; }
-        .analyzing .particle-field { opacity: 1; }
-        .particle { position: absolute; background: rgba(3, 169, 77, 0.2); border-radius: 50%; animation: floatUp 3s infinite linear; }
-        @keyframes floatUp {
-            0% { transform: translateY(20px) scale(0.8); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
-        }
-
-        /* 대시보드 내부 좌측: 마스코트 무대 */
-        .robot-stage { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            width: 100%;
-        }
-        .robot-float-wrap { animation: floatMascot 3.5s ease-in-out infinite; }
-        .analyzing .robot-float-wrap { animation: floatMascot 1.5s ease-in-out infinite; }
-        @keyframes floatMascot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        
-        /* 이미지 크기를 고정 수치 대신 max-height로 변환하여 비율 일치화 */
-        .robot-main-img { 
-            max-height: 140px; 
-            width: auto; 
-            object-fit: contain;
-        }
-        
-        /* 프로그레스 영역 너비를 200px로 복구 및 상단 여백 보정 */
-        .progress-section { 
-            width: 200px; 
-            margin-top: 15px; 
-            text-align: center; 
-        }
-        .progress-bar-wrap { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; width: 0%; background: var(--sr-primary-vibrant); transition: width 0.05s linear; }
-
-        /* 대시보드 내부 우측: 설문 분석 대시보드 레이아웃 */
-        .result-layout { display: flex; flex-direction: column; gap: 14px; width: 100%; animation: fadeIn 0.4s ease-out; overflow-y: auto; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* 필터 바 */
-        .filter-bar { display: flex; gap: 8px; }
-        .filter-select { padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 700; color: #475569; outline: none; }
-        .filter-select:focus { border-color: #03A94D; }
-
-        /* 중대성 점수화 부문 시각화 */
-        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .summary-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; text-align: left; }
-        .summary-card .label { font-size: 0.78rem; color: #1e293b; font-weight: 800; display: block; margin-bottom: 6px; }
-        .score-flex { display: flex; justify-content: space-between; align-items: baseline; }
-        .summary-card .value { font-size: 1.25rem; font-weight: 900; color: #03A94D; }
-        .summary-card .value span { font-size: 0.72rem; color: #64748b; font-weight: 500; }
-
-        /* 설문 유형별 종합 결과 카드 */
-        .type-result-box { background-color: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: left; }
-        .type-title { font-size: 0.78rem; font-weight: 800; color: #334155; margin-bottom: 8px; display: flex; justify-content: space-between; }
-        .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .type-mini-card { background: #f1f5f9; padding: 6px; border-radius: 6px; text-align: center; }
-        .type-mini-card span { font-size: 0.68rem; color: #64748b; font-weight: 700; display: block; }
-        .type-mini-card strong { font-size: 0.82rem; color: #334155; font-weight: 850; }
-
-        /* 이슈 데이터 리스트 뷰 */
-        .issue-list-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; max-height: 105px; overflow-y: auto; padding: 4px; text-align: left; }
-        .issue-item { font-size: 0.76rem; padding: 5px 8px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
-        .issue-item:last-child { border-bottom: none; }
-        .badge-risk { background: #fee2e2; color: #ef4444; padding: 1px 5px; border-radius: 4px; font-weight: 700; font-size: 0.65rem; }
-
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -328,7 +40,7 @@
         </div>
       </div>
     </header>
-
+    
     <div class="content_box">
       
       <aside class="sidebar" id="globalSidebar">
@@ -406,9 +118,942 @@
                 <div class="sr-stepper-row" id="stepper"></div>
             </header>
 
-            <main class="main-content">
-                
-            </main>
+            <main class="main-content" style="display:flex; flex-direction:column; gap:20px; padding:20px; overflow-y:auto;justify-content:flex-start;">
+            <!-- 왼쪽도 탭 4개 -->
+            <div>
+                <h2 style="font-size: 1.1rem; font-weight:800; color:#1e293b; margin: 0 0 4px 0;text-align:center;">전체결과</h2>
+                <p style="font-size:0.85rem; color:#64748b; margin:0;text-align:center;">파트 별 분석 결과를 한 페이지에서 보여줍니다</p>
+           
+            </div>
+            <div style="display:flex; flex-direction:row; gap:20px; align-items:stretch; flex:1; min-height:0;">
+
+            <div style = "flex:1; min-width:0; display:flex; flex-direction:column;">
+                <!-- 탭 버튼 -->
+        <div style="display:flex; border-bottom:2px solid #e2e8f0; margin-bottom:16px;">
+              
+        <button onclick="switchLeftTab(0)" id="left-tab-btn-0"
+            style="padding:8px 20px; border:none; background:none; font-weight:700; font-size:0.85rem; cursor:pointer; color:#94a3b8;">
+           최종선정요약
+        </button>   
+        <button onclick="switchLeftTab(1)" id="left-tab-btn-1"
+            style="padding:8px 20px; border:none; background:none; font-weight:700; font-size:0.85rem; cursor:pointer; color:#94a3b8;">
+           후보군 최종 선정 과정
+        </button>
+        <button onclick="switchLeftTab(2)" id="left-tab-btn-2"
+            style="padding:8px 20px; border:none; background:none; font-weight:700; font-size:0.85rem; cursor:pointer; color:#94a3b8;">
+            점수 해석
+         </button>
+        <button onclick="switchLeftTab(3)" id="left-tab-btn-3"
+            style="padding:8px 20px; border:none; background:none; font-weight:700; font-size:0.85rem; cursor:pointer; color:#94a3b8;">
+            다음 단계 연결
+        </button>
+     </div>
+      <!-- 탭 0: 벤치마킹 분석 결과 -->          
+    <div id="left-tab-content-0" style="display:flex; flex-direction:column; gap:16px;">
+        <!-- 최종 선정 요약 -->
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px;">
+            <span style="font-size:1rem; font-weight:850; color:#1e293b;">최종 선정 요약</span>
+            <span style="width:18px; height:18px; border:1.5px solid #cbd5e1; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.65rem; color:#94a3b8;">ⓘ</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px;">
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <div style="font-size:0.76rem; color:#64748b; font-weight:600;">평가 대상</div>
+                <div style="font-size:1.5rem; font-weight:850; color:#1e293b;">62개</div>
+            </div>
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div style="font-size:0.76rem; color:#64748b; font-weight:600;">후보군</div>
+                <div style="font-size:1.5rem; font-weight:850; color:#1e293b;">25개</div>
+            </div>
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+                <div style="font-size:0.76rem; color:#64748b; font-weight:600;">최종 선정</div>
+                <div style="font-size:1.5rem; font-weight:850; color:#03A94D;">10개</div>
+            </div>
+            <div style="background:#fff5f5; border:1px solid #fecaca; border-radius:12px; padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.8"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+                <div style="font-size:0.76rem; color:#64748b; font-weight:600;">High 영역</div>
+                <div style="font-size:1.5rem; font-weight:850; color:#ef4444;">5개</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 최종 Top 이슈 점수 분해 -->
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+        <div style="font-size:1rem; font-weight:850; color:#1e293b; margin-bottom:16px;">최종 Top 이슈 점수 분해</div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead>
+                <tr style="border-bottom:1.5px solid #e2e8f0;">
+                    <th style="padding:10px 12px; text-align:left; font-weight:700; color:#64748b;">이슈</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#64748b;">최종점수</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#64748b;">영향</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#64748b;">재무</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#64748b;">벤치마킹</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#64748b;">미디어</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#64748b;">설문</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 12px; font-weight:700; color:#1e293b;">기후변화 대응</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">4.61</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.40</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.75</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.20</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.60</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.70</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 12px; font-weight:700; color:#1e293b;">에너지 관리</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#1e293b;">4.34</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.10</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.50</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.00</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.30</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.40</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 12px; font-weight:700; color:#1e293b;">지속가능한 공급망 관리</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#1e293b;">4.22</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.00</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.30</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.10</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.10</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.40</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 12px; font-weight:700; color:#1e293b;">인재 확보 및 유지</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#1e293b;">3.98</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">3.80</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.20</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">3.70</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.00</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.10</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 12px; font-weight:700; color:#1e293b;">제품 안전 및 품질</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#1e293b;">3.85</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">3.60</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.10</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">3.60</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">3.90</td>
+                    <td style="padding:10px 8px; text-align:center; color:#475569;">4.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 선정 사유 요약 -->
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+        <div style="font-size:1rem; font-weight:850; color:#1e293b; margin-bottom:16px;">선정 사유 요약</div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+                <div style="flex-shrink:0; width:40px; height:40px; background:#f0fdf4; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div>
+                    <div style="font-size:0.88rem; font-weight:800; color:#1e293b; margin-bottom:4px;">영향 및 재무 동시 고점 이슈 우선</div>
+                    <p style="font-size:0.78rem; color:#64748b; margin:0; line-height:1.55;">영향 중대성과 재무 중대성 모두 높은 이슈를 우선 최종 선정하였습니다.</p>
+                </div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+                <div style="flex-shrink:0; width:40px; height:40px; background:#eff6ff; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                    <div style="font-size:0.88rem; font-weight:800; color:#1e293b; margin-bottom:4px;">이해관계자 의견 반영</div>
+                    <p style="font-size:0.78rem; color:#64748b; margin:0; line-height:1.55;">설문 결과와 주요 이해관계자 인터뷰를 반영하여 중요 이슈를 확정하였습니다.</p>
+                </div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+                <div style="flex-shrink:0; width:40px; height:40px; background:#f5f3ff; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div>
+                    <div style="font-size:0.88rem; font-weight:800; color:#1e293b; margin-bottom:4px;">지속가능경영 전략 연계</div>
+                    <p style="font-size:0.78rem; color:#64748b; margin:0; line-height:1.55;">기업의 전략 방향 및 리스크/기회 관점에서 관리가 필요한 이슈를 포함하였습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+                         
+   
+    <div id="left-tab-content-1" style="display:none; flex-direction:column; gap:24px;">
+
+    <!-- ① 후보군 → 최종 선정 과정 -->
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:24px;">
+        <div style="font-size:1rem; font-weight:850; color:#1e293b; margin-bottom:20px;">후보군 최종 선정 과정</div>
+
+        <div style="display:flex; gap:24px; align-items:flex-start;">
+
+            <!-- 왼쪽: 플로우 카드 3개 -->
+            <div style="flex:1.4; display:flex; flex-direction:column; gap:0; align-items:stretch;">
+
+                <!-- 카드 1 -->
+                <div style="display:flex; align-items:center; gap:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px;">
+                    <div style="flex-shrink:0; width:52px; height:52px; background:#dcfce7; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-size:1.15rem; font-weight:850; color:#03A94D; margin-bottom:4px;">62개 평가 대상</div>
+                        <div style="font-size:0.78rem; color:#64748b; line-height:1.55;">벤치마킹, 미디어, 이해관계자 설문을 통해<br>도출된 전체 평가 이슈 수</div>
+                    </div>
+                </div>
+
+                <!-- 화살표 -->
+                <div style="display:flex; justify-content:center; padding:6px 0; color:#03A94D; font-size:1.3rem;">↓</div>
+
+                <!-- 카드 2 -->
+                <div style="display:flex; align-items:center; gap:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px;">
+                    <div style="flex-shrink:0; width:52px; height:52px; background:#dcfce7; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+                            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-size:1.15rem; font-weight:850; color:#03A94D; margin-bottom:4px;">25개 후보군</div>
+                        <div style="font-size:0.78rem; color:#64748b; line-height:1.55;">양축 점수 기준 충족 및 주요성 기준을<br>충족한 이슈</div>
+                    </div>
+                </div>
+
+                <!-- 화살표 -->
+                <div style="display:flex; justify-content:center; padding:6px 0; color:#03A94D; font-size:1.3rem;">↓</div>
+
+                <!-- 카드 3 -->
+                <div style="display:flex; align-items:center; gap:16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:14px; padding:18px 20px;">
+                    <div style="flex-shrink:0; width:52px; height:52px; background:#dcfce7; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-size:1.15rem; font-weight:850; color:#03A94D; margin-bottom:4px;">최종 10개 선정</div>
+                        <div style="font-size:0.78rem; color:#64748b; line-height:1.55;">이사회 및 ESG 실무 협의 기반<br>보고서 핵심 이슈로 최종 선정</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 선정 기준 -->
+            <div style="flex:1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:20px 22px; align-self:stretch;">
+                <div style="font-size:0.92rem; font-weight:850; color:#03A94D; margin-bottom:16px;">선정 기준</div>
+                <div style="display:flex; flex-direction:column; gap:14px;">
+
+                    <div style="display:flex; align-items:flex-start; gap:12px;">
+                        <div style="flex-shrink:0; width:32px; height:32px; background:#dcfce7; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem;">🎯</div>
+                        <div style="font-size:0.78rem; color:#334155; line-height:1.6;">양측 점수 기준 충족<br><span style="color:#64748b;">(재무적·사회적 영향 모두 Medium 이상)</span></div>
+                    </div>
+
+                    <div style="display:flex; align-items:flex-start; gap:12px;">
+                        <div style="flex-shrink:0; width:32px; height:32px; background:#dcfce7; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem;">📊</div>
+                        <div style="font-size:0.78rem; color:#334155; line-height:1.6;">2개 이상 분석축에서<br>반복 관측</div>
+                    </div>
+
+                    <div style="display:flex; align-items:flex-start; gap:12px;">
+                        <div style="flex-shrink:0; width:32px; height:32px; background:#dcfce7; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem;">🔗</div>
+                        <div style="font-size:0.78rem; color:#334155; line-height:1.6;">가치사슬 관련성 높음</div>
+                    </div>
+
+                    <div style="display:flex; align-items:flex-start; gap:12px;">
+                        <div style="flex-shrink:0; width:32px; height:32px; background:#dcfce7; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem;">👥</div>
+                        <div style="font-size:0.78rem; color:#334155; line-height:1.6;">이해관계자 관심도 높음</div>
+                    </div>
+
+                    <div style="display:flex; align-items:flex-start; gap:12px;">
+                        <div style="flex-shrink:0; width:32px; height:32px; background:#dcfce7; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem;">🛡️</div>
+                        <div style="font-size:0.78rem; color:#334155; line-height:1.6;">리스크/기회 요인으로서의<br>중요성 고려</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ② 최종 선정 이슈 테이블 -->
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+        <div style="font-size:0.95rem; font-weight:850; color:#1e293b; margin-bottom:14px;">최종 선정 이슈</div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead>
+                <tr style="background:#f8fafc; border-bottom:1.5px solid #e2e8f0;">
+                    <th style="padding:10px 14px; text-align:left; font-weight:700; color:#475569; width:30%;">이슈</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#475569; width:12%;">후보순위</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#475569; width:12%;">최종순위</th>
+                    <th style="padding:10px 14px; text-align:left; font-weight:700; color:#475569;">포함 사유</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">기후변화 대응</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">1</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">1</td>
+                    <td style="padding:10px 14px; color:#475569;">양측 점수 High, 규제 및 시장 영향 큼, 이해관계자 관심도 높음</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">지배구조 건전성 강화</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">2</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">2</td>
+                    <td style="padding:10px 14px; color:#475569;">재무적 영향 High, 투자자 요구 증가, 거버넌스 핵심 이슈</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">공급망 지속가능성 관리</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">3</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">3</td>
+                    <td style="padding:10px 14px; color:#475569;">공급망 리스크 및 평판 영향 큼, 고객 요구 증가</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">인재 확보 및 육성</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">4</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">4</td>
+                    <td style="padding:10px 14px; color:#475569;">사회적 영향 High, 인력 경쟁 심화</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">그린 제품·서비스 혁신</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">6</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">5</td>
+                    <td style="padding:10px 14px; color:#475569;">기회 요인 크고, 매출 및 시장 확장과 연계</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">에너지 효율 및 온실가스 관리</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">5</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">6</td>
+                    <td style="padding:10px 14px; color:#475569;">온실가스 감축 목표 연계, 비용 절감 효과</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">제품 안전·품질 강화</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">7</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">7</td>
+                    <td style="padding:10px 14px; color:#475569;">고객 신뢰 및 규제 영향 큼</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">정보보안 및 데이터 보호</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">8</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">8</td>
+                    <td style="padding:10px 14px; color:#475569;">디지털 전환 가속, 정보보안 리스크 증가</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">사업장 안전보건</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">9</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">9</td>
+                    <td style="padding:10px 14px; color:#475569;">임직원 안전과 적결, 규제 및 평판 영향</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">생물다양성 보호</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">12</td>
+                    <td style="padding:10px 8px; text-align:center; font-weight:800; color:#03A94D;">10</td>
+                    <td style="padding:10px 14px; color:#475569;">자연자본 영향 증가, 글로벌 이니셔티브 대응</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ③ 후보있지만 제외된 이슈 테이블 -->
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+        <div style="font-size:0.95rem; font-weight:850; color:#ef4444; margin-bottom:14px;">후보있지만 제외된 이슈</div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead>
+                <tr style="background:#f8fafc; border-bottom:1.5px solid #e2e8f0;">
+                    <th style="padding:10px 14px; text-align:left; font-weight:700; color:#475569; width:30%;">이슈</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#475569; width:12%;">후보순위</th>
+                    <th style="padding:10px 8px; text-align:center; font-weight:700; color:#475569; width:12%;">최종순위</th>
+                    <th style="padding:10px 14px; text-align:left; font-weight:700; color:#475569;">제외 사유</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">수자원 관리</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">13</td>
+                    <td style="padding:10px 8px; text-align:center; color:#94a3b8;">-</td>
+                    <td style="padding:10px 14px; color:#475569;">재무적 영향 Medium 이하, 분석축 반복 관측 부족</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">지역사회 투자 및 공헌</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">18</td>
+                    <td style="padding:10px 8px; text-align:center; color:#94a3b8;">-</td>
+                    <td style="padding:10px 14px; color:#475569;">사회적 영향은 있으나, 전략적 연계성 낮음</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">폐기물 및 순환경제</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">21</td>
+                    <td style="padding:10px 8px; text-align:center; color:#94a3b8;">-</td>
+                    <td style="padding:10px 14px; color:#475569;">영향도는 있으나, 우선순위 상대적으로 낮음</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">동물복지</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">24</td>
+                    <td style="padding:10px 8px; text-align:center; color:#94a3b8;">-</td>
+                    <td style="padding:10px 14px; color:#475569;">가치사슬 관련성 낮고, 이해관계자 관심도 낮음</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 14px; font-weight:700; color:#1e293b;">정치자금 및 로비 활동</td>
+                    <td style="padding:10px 8px; text-align:center; color:#64748b;">28</td>
+                    <td style="padding:10px 8px; text-align:center; color:#94a3b8;">-</td>
+                    <td style="padding:10px 14px; color:#475569;">분석축 반복 관측 부족, 리스크 영향 낮음</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+    <div id="left-tab-content-2" style="display:none; flex-direction:column; gap:16px;">
+
+        <!-- 점수 해석 카드 -->
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px;">
+                <span style="font-size:1rem; font-weight:850; color:#1e293b;">점수 해석</span>
+                <span style="width:18px; height:18px; border:1.5px solid #cbd5e1; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.65rem; color:#94a3b8;">ⓘ</span>
+            </div>
+
+            <!-- 1. 분석축 기여도 -->
+            <div style="margin-bottom:28px;">
+                <div style="font-size:0.92rem; font-weight:800; color:#1e293b; margin-bottom:4px;">1. 분석축 기여도</div>
+                <div style="font-size:0.78rem; color:#64748b; margin-bottom:14px;">각 주요 이슈 점수에 대한 분석축(벤치마킹/미디어/설문) 기여도를 보여줍니다.</div>
+
+                <!-- 범례 -->
+                <div style="display:flex; gap:16px; margin-bottom:14px; font-size:0.78rem; color:#475569;">
+                    <div style="display:flex; align-items:center; gap:5px;">
+                        <span style="width:11px; height:11px; border-radius:50%; background:#22c55e; display:inline-block;"></span>
+                        벤치마킹
+                    </div>
+                    <div style="display:flex; align-items:center; gap:5px;">
+                        <span style="width:11px; height:11px; border-radius:50%; background:#3b82f6; display:inline-block;"></span>
+                        미디어
+                    </div>
+                    <div style="display:flex; align-items:center; gap:5px;">
+                        <span style="width:11px; height:11px; border-radius:50%; background:#f59e0b; display:inline-block;"></span>
+                        설문
+                    </div>
+                </div>
+
+                <!-- 바 차트 행들 -->
+                <div style="display:flex; flex-direction:column; gap:10px;">
+
+                    <!-- 기후변화 대응 -->
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:6px; min-width:130px;">
+                            <span style="width:22px; height:22px; border-radius:50%; background:#22c55e; color:#fff; font-size:0.7rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+                            <span style="font-size:0.78rem; font-weight:600; color:#1e293b; white-space:nowrap;">기후변화 대응</span>
+                        </div>
+                        <div style="flex:1; display:flex; border-radius:6px; overflow:hidden; height:28px;">
+                            <div style="width:45%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">45%</div>
+                            <div style="width:30%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">30%</div>
+                            <div style="width:25%; background:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">25%</div>
+                        </div>
+                    </div>
+
+                    <!-- 에너지 전환 -->
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:6px; min-width:130px;">
+                            <span style="width:22px; height:22px; border-radius:50%; background:#f59e0b; color:#fff; font-size:0.7rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+                            <span style="font-size:0.78rem; font-weight:600; color:#1e293b; white-space:nowrap;">에너지 전환</span>
+                        </div>
+                        <div style="flex:1; display:flex; border-radius:6px; overflow:hidden; height:28px;">
+                            <div style="width:30%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">30%</div>
+                            <div style="width:20%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">20%</div>
+                            <div style="width:50%; background:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">50%</div>
+                        </div>
+                    </div>
+
+                    <!-- 인적자본 개발 -->
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:6px; min-width:130px;">
+                            <span style="width:22px; height:22px; border-radius:50%; background:#22c55e; color:#fff; font-size:0.7rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+                            <span style="font-size:0.78rem; font-weight:600; color:#1e293b; white-space:nowrap;">인적자본 개발</span>
+                        </div>
+                        <div style="flex:1; display:flex; border-radius:6px; overflow:hidden; height:28px;">
+                            <div style="width:25%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">25%</div>
+                            <div style="width:15%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">15%</div>
+                            <div style="width:60%; background:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">60%</div>
+                        </div>
+                    </div>
+
+                    <!-- 공급망 ESG 관리 -->
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:6px; min-width:130px;">
+                            <span style="width:22px; height:22px; border-radius:50%; background:#f59e0b; color:#fff; font-size:0.7rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+                            <span style="font-size:0.78rem; font-weight:600; color:#1e293b; white-space:nowrap;">공급망 ESG 관리</span>
+                        </div>
+                        <div style="flex:1; display:flex; border-radius:6px; overflow:hidden; height:28px;">
+                            <div style="width:40%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">40%</div>
+                            <div style="width:25%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">25%</div>
+                            <div style="width:35%; background:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">35%</div>
+                        </div>
+                    </div>
+
+                    <!-- 제품 안전 및 품질 -->
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:6px; min-width:130px;">
+                            <span style="width:22px; height:22px; border-radius:50%; background:#f59e0b; color:#fff; font-size:0.7rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">5</span>
+                            <span style="font-size:0.78rem; font-weight:600; color:#1e293b; white-space:nowrap;">제품 안전 및 품질</span>
+                        </div>
+                        <div style="flex:1; display:flex; border-radius:6px; overflow:hidden; height:28px;">
+                            <div style="width:20%; background:#22c55e; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">20%</div>
+                            <div style="width:30%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">30%</div>
+                            <div style="width:50%; background:#f59e0b; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:#fff;">50%</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2. 분석축 간 불일치 / Blind Spot -->
+            <div style="margin-bottom:28px;">
+                <div style="font-size:0.92rem; font-weight:800; color:#1e293b; margin-bottom:4px;">2. 분석축 간 불일치 / Blind Spot</div>
+                <div style="font-size:0.78rem; color:#64748b; margin-bottom:14px;">분석축 간 점수 편차가 큰 이슈를 확인하여 전략적 블라인드 스팟을 식별합니다.</div>
+
+                <div style="display:flex; flex-direction:column; gap:10px;">
+
+                    <!-- 생물다양성 보호 -->
+                    <div style="display:flex; align-items:center; gap:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px;">
+                        <span style="width:24px; height:24px; border-radius:50%; background:#22c55e; color:#fff; font-size:0.72rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+                        <div style="flex:1;">
+                            <div style="font-size:0.82rem; font-weight:700; color:#1e293b; margin-bottom:2px;">생물다양성 보호</div>
+                            <div style="font-size:0.74rem; color:#64748b;">이해관계자(설문) 관심은 높으나, 외부 미디어 및 벤치마킹 반영 낮음</div>
+                        </div>
+                        <span style="background:#dcfce7; color:#16a34a; font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0;">설문-벤치 격차 +1.8</span>
+                    </div>
+
+                    <!-- 데이터 프라이버시 -->
+                    <div style="display:flex; align-items:center; gap:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px;">
+                        <span style="width:24px; height:24px; border-radius:50%; background:#f59e0b; color:#fff; font-size:0.72rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+                        <div style="flex:1;">
+                            <div style="font-size:0.82rem; font-weight:700; color:#1e293b; margin-bottom:2px;">데이터 프라이버시</div>
+                            <div style="font-size:0.74rem; color:#64748b;">미디어에서 주목도 높으나, 이해관계자 관심 및 벤치마킹 낮음</div>
+                        </div>
+                        <span style="background:#fef3c7; color:#d97706; font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0;">미디어-설문 격차 +1.6</span>
+                    </div>
+
+                    <!-- 수자원 관리 -->
+                    <div style="display:flex; align-items:center; gap:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px;">
+                        <span style="width:24px; height:24px; border-radius:50%; background:#3b82f6; color:#fff; font-size:0.72rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+                        <div style="flex:1;">
+                            <div style="font-size:0.82rem; font-weight:700; color:#1e293b; margin-bottom:2px;">수자원 관리</div>
+                            <div style="font-size:0.74rem; color:#64748b;">벤치마킹 반영도는 높으나, 이해관계자 관심 미흡</div>
+                        </div>
+                        <span style="background:#dbeafe; color:#2563eb; font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0;">벤치-설문 격차 +1.2</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 3. 매트릭스 해석 -->
+            <div>
+                <div style="font-size:0.92rem; font-weight:800; color:#1e293b; margin-bottom:4px;">3. 매트릭스 해석</div>
+                <div style="font-size:0.78rem; color:#64748b; margin-bottom:14px;">이중 중대성 매트릭스 영역별 의미를 안내합니다.</div>
+
+                <div style="display:flex; flex-direction:column; gap:10px;">
+
+                    <!-- High-High -->
+                    <div style="display:flex; gap:14px; background:#fff5f5; border:1px solid #fecaca; border-radius:10px; padding:14px 16px; align-items:flex-start;">
+                        <div style="min-width:130px;">
+                            <span style="font-size:0.82rem; font-weight:800; color:#ef4444;">High - High 영역</span>
+                        </div>
+                        <div style="font-size:0.78rem; color:#475569; line-height:1.6;">
+                            재무적 영향과 사회/환경적 영향이 모두 높은 핵심 이슈입니다.<br>
+                            최우선 대응 및 전략 자원 집중이 필요합니다.
+                        </div>
+                    </div>
+
+                    <!-- High Impact / Medium Financial -->
+                    <div style="display:flex; gap:14px; background:#fffbeb; border:1px solid #fed7aa; border-radius:10px; padding:14px 16px; align-items:flex-start;">
+                        <div style="min-width:130px;">
+                            <span style="font-size:0.82rem; font-weight:800; color:#d97706;">High Impact /<br>Medium Financial</span>
+                        </div>
+                        <div style="font-size:0.78rem; color:#475569; line-height:1.6;">
+                            사회-환경적 영향은 크지만 재무적 영향은 중간 수준입니다.<br>
+                            이해관계자 기대 관리 및 선제적 대응으로 리스크를 완화하세요.
+                        </div>
+                    </div>
+
+                    <!-- High Financial / Medium Impact -->
+                    <div style="display:flex; gap:14px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:14px 16px; align-items:flex-start;">
+                        <div style="min-width:130px;">
+                            <span style="font-size:0.82rem; font-weight:800; color:#2563eb;">High Financial /<br>Medium Impact</span>
+                        </div>
+                        <div style="font-size:0.78rem; color:#475569; line-height:1.6;">
+                            재무적 영향은 크지만 사회-환경적 영향은 중간 수준입니다.<br>
+                            재무 리스크 관리와 함께 영향 개선을 병행하세요.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+       
+    <div id="left-tab-content-3" style="display:none; flex-direction:column; gap:16px;">
+
+        <!-- 다음 단계 연결 카드 -->
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px 24px;">
+            <div style="font-size:1rem; font-weight:850; color:#1e293b; margin-bottom:20px;">다음 단계 연결</div>
+
+            <!-- 1. 보고서 반영 우선순위 -->
+            <div style="border:1px solid #e2e8f0; border-radius:12px; margin-bottom:14px; overflow:hidden;">
+                <div onclick="toggleSection('next-section-1')"
+                     style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; cursor:pointer; user-select:none; background:#f8fafc;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:0.88rem; font-weight:800; color:#1e293b;">1. 보고서 반영 우선순위</span>
+                        <span style="width:17px; height:17px; border:1.5px solid #cbd5e1; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.6rem; color:#94a3b8;">ⓘ</span>
+                    </div>
+                    <span id="next-section-1-icon" style="color:#94a3b8; font-size:0.85rem;">∧</span>
+                </div>
+                <div id="next-section-1" style="padding:16px 18px; display:flex; flex-direction:column; gap:10px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="background:#ef4444; color:#fff; font-size:0.7rem; font-weight:800; padding:3px 9px; border-radius:6px; white-space:nowrap; flex-shrink:0;">1순위</span>
+                        <span style="flex:1; font-size:0.82rem; font-weight:600; color:#1e293b;">기후변화 대응</span>
+                        <span style="font-size:0.78rem; color:#94a3b8; white-space:nowrap;">중요도 <strong style="color:#1e293b;">4.6</strong></span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="background:#f97316; color:#fff; font-size:0.7rem; font-weight:800; padding:3px 9px; border-radius:6px; white-space:nowrap; flex-shrink:0;">2순위</span>
+                        <span style="flex:1; font-size:0.82rem; font-weight:600; color:#1e293b;">지속가능한 공급망 관리</span>
+                        <span style="font-size:0.78rem; color:#94a3b8; white-space:nowrap;">중요도 <strong style="color:#1e293b;">4.3</strong></span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="background:#f59e0b; color:#fff; font-size:0.7rem; font-weight:800; padding:3px 9px; border-radius:6px; white-space:nowrap; flex-shrink:0;">3순위</span>
+                        <span style="flex:1; font-size:0.82rem; font-weight:600; color:#1e293b;">정보보호 및 데이터 보안</span>
+                        <span style="font-size:0.78rem; color:#94a3b8; white-space:nowrap;">중요도 <strong style="color:#1e293b;">4.1</strong></span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="background:#22c55e; color:#fff; font-size:0.7rem; font-weight:800; padding:3px 9px; border-radius:6px; white-space:nowrap; flex-shrink:0;">4순위</span>
+                        <span style="flex:1; font-size:0.82rem; font-weight:600; color:#1e293b;">인재 육성 및 역량 강화</span>
+                        <span style="font-size:0.78rem; color:#94a3b8; white-space:nowrap;">중요도 <strong style="color:#1e293b;">3.8</strong></span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="background:#3b82f6; color:#fff; font-size:0.7rem; font-weight:800; padding:3px 9px; border-radius:6px; white-space:nowrap; flex-shrink:0;">5순위</span>
+                        <span style="flex:1; font-size:0.82rem; font-weight:600; color:#1e293b;">친환경 제품 및 서비스 확대</span>
+                        <span style="font-size:0.78rem; color:#94a3b8; white-space:nowrap;">중요도 <strong style="color:#1e293b;">3.6</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 필요 온보딩 지표 -->
+            <div style="border:1px solid #e2e8f0; border-radius:12px; margin-bottom:14px; overflow:hidden;">
+                <div onclick="toggleSection('next-section-2')"
+                     style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; cursor:pointer; user-select:none; background:#f8fafc;">
+                    <span style="font-size:0.88rem; font-weight:800; color:#1e293b;">2. 필요 온보딩 지표</span>
+                    <span id="next-section-2-icon" style="color:#94a3b8; font-size:0.85rem;">∧</span>
+                </div>
+                <div id="next-section-2" style="padding:0 18px 16px 18px; display:flex; flex-direction:column;">
+                    <table style="width:100%; border-collapse:collapse; font-size:0.78rem;">
+                        <thead>
+                            <tr style="border-bottom:1.5px solid #e2e8f0;">
+                                <th style="padding:10px 8px; text-align:left; font-weight:600; color:#94a3b8;">이슈</th>
+                                <th style="padding:10px 6px; text-align:center; font-weight:600; color:#94a3b8;">환경(E)</th>
+                                <th style="padding:10px 6px; text-align:center; font-weight:600; color:#94a3b8;">사회(S)</th>
+                                <th style="padding:10px 6px; text-align:center; font-weight:600; color:#94a3b8;">지배구조(G)</th>
+                                <th style="padding:10px 6px; text-align:center; font-weight:600; color:#94a3b8;">필요 지표 수</th>
+                                <th style="padding:10px 8px; text-align:center; font-weight:600; color:#94a3b8;">온보딩 완료</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:10px 8px; font-weight:600; color:#1e293b;">기후변화 대응</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#475569;">8개</td>
+                                <td style="padding:10px 8px; text-align:center; font-weight:700; color:#ef4444;">3/8</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:10px 8px; font-weight:600; color:#1e293b;">지속가능한 공급망 관리</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#475569;">6개</td>
+                                <td style="padding:10px 8px; text-align:center; font-weight:700; color:#ef4444;">2/6</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:10px 8px; font-weight:600; color:#1e293b;">정보보호 및 데이터 보안</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#475569;">5개</td>
+                                <td style="padding:10px 8px; text-align:center; font-weight:700; color:#ef4444;">1/5</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:10px 8px; font-weight:600; color:#1e293b;">인재 육성 및 역량 강화</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#475569;">6개</td>
+                                <td style="padding:10px 8px; text-align:center; font-weight:700; color:#475569;">4/6</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px 8px; font-weight:600; color:#1e293b;">친환경 제품 및 서비스 확대</td>
+                                <td style="padding:10px 6px; text-align:center; color:#22c55e; font-weight:700;">✓</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#94a3b8;">-</td>
+                                <td style="padding:10px 6px; text-align:center; color:#475569;">5개</td>
+                                <td style="padding:10px 8px; text-align:center; font-weight:700; color:#ef4444;">2/5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3. 부족 데이터 현황 -->
+            <div style="border:1px solid #e2e8f0; border-radius:12px; margin-bottom:14px; overflow:hidden;">
+                <div style="padding:14px 18px; background:#f8fafc;">
+                    <span style="font-size:0.88rem; font-weight:800; color:#1e293b;">3. 부족 데이터 현황</span>
+                </div>
+                <div style="padding:0 18px 16px 18px;">
+                    <table style="width:100%; border-collapse:collapse; font-size:0.78rem;">
+                        <thead>
+                            <tr style="border-bottom:1.5px solid #e2e8f0;">
+                                <th style="padding:10px 8px; text-align:left; font-weight:600; color:#94a3b8;">항목</th>
+                                <th style="padding:10px 8px; text-align:left; font-weight:600; color:#94a3b8;">부족 데이터</th>
+                                <th style="padding:10px 8px; text-align:left; font-weight:600; color:#94a3b8;">완료율</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:12px 8px; font-weight:600; color:#1e293b; white-space:nowrap;">온실가스 배출량 (Scope 1,2,3)</td>
+                                <td style="padding:12px 8px;">
+                                    <span style="display:flex; align-items:center; gap:5px;">
+                                        <span style="color:#f59e0b; font-size:0.82rem;">⚠</span>
+                                        <span style="color:#475569;">Scope 3 카테고리 11, 12, 15</span>
+                                    </span>
+                                </td>
+                                <td style="padding:12px 8px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <div style="flex:1; height:7px; background:#e2e8f0; border-radius:99px; overflow:hidden; min-width:60px;">
+                                            <div style="width:60%; height:100%; background:#22c55e; border-radius:99px;"></div>
+                                        </div>
+                                        <span style="font-size:0.78rem; font-weight:700; color:#22c55e; white-space:nowrap;">60%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:12px 8px; font-weight:600; color:#1e293b; white-space:nowrap;">용수 사용량 및 재활용률</td>
+                                <td style="padding:12px 8px;">
+                                    <span style="display:flex; align-items:center; gap:5px;">
+                                        <span style="color:#f59e0b; font-size:0.82rem;">⚠</span>
+                                        <span style="color:#475569;">사업장별 용수 사용량</span>
+                                    </span>
+                                </td>
+                                <td style="padding:12px 8px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <div style="flex:1; height:7px; background:#e2e8f0; border-radius:99px; overflow:hidden; min-width:60px;">
+                                            <div style="width:40%; height:100%; background:#ef4444; border-radius:99px;"></div>
+                                        </div>
+                                        <span style="font-size:0.78rem; font-weight:700; color:#ef4444; white-space:nowrap;">40%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:12px 8px; font-weight:600; color:#1e293b; white-space:nowrap;">공급망 ESG 평가 비율</td>
+                                <td style="padding:12px 8px;">
+                                    <span style="display:flex; align-items:center; gap:5px;">
+                                        <span style="color:#f59e0b; font-size:0.82rem;">⚠</span>
+                                        <span style="color:#475569;">1차 협력사 평가 데이터</span>
+                                    </span>
+                                </td>
+                                <td style="padding:12px 8px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <div style="flex:1; height:7px; background:#e2e8f0; border-radius:99px; overflow:hidden; min-width:60px;">
+                                            <div style="width:50%; height:100%; background:#f59e0b; border-radius:99px;"></div>
+                                        </div>
+                                        <span style="font-size:0.78rem; font-weight:700; color:#f59e0b; white-space:nowrap;">50%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:12px 8px; font-weight:600; color:#1e293b; white-space:nowrap;">정보보호 사고 건수</td>
+                                <td style="padding:12px 8px;">
+                                    <span style="display:flex; align-items:center; gap:5px;">
+                                        <span style="color:#f59e0b; font-size:0.82rem;">⚠</span>
+                                        <span style="color:#475569;">연도별 사고 유형 및 건수</span>
+                                    </span>
+                                </td>
+                                <td style="padding:12px 8px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <div style="flex:1; height:7px; background:#e2e8f0; border-radius:99px; overflow:hidden; min-width:60px;">
+                                            <div style="width:30%; height:100%; background:#ef4444; border-radius:99px;"></div>
+                                        </div>
+                                        <span style="font-size:0.78rem; font-weight:700; color:#ef4444; white-space:nowrap;">30%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. 바로가기 -->
+            <div style="border:1px solid #e2e8f0; border-radius:12px; overflow:hidden;">
+                <div style="padding:14px 18px; background:#f8fafc;">
+                    <span style="font-size:0.88rem; font-weight:800; color:#1e293b;">4. 바로가기</span>
+                </div>
+                <div style="padding:14px 18px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+
+                    <!-- 온보딩 지표 확인 -->
+                    <div style="display:flex; align-items:center; gap:10px; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; cursor:pointer; background:#fff;"
+                         onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'">
+                        <div style="width:36px; height:36px; border-radius:9px; background:#dcfce7; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                                <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+                            </svg>
+                        </div>
+                        <div style="flex:1; min-width:0;">
+                            <div style="font-size:0.76rem; font-weight:700; color:#1e293b; margin-bottom:2px;">온보딩 지표 확인</div>
+                            <div style="font-size:0.68rem; color:#94a3b8; line-height:1.4;">지표 정의 및 입력 항목 보기</div>
+                        </div>
+                        <span style="color:#94a3b8; font-size:1rem; flex-shrink:0;">›</span>
+                    </div>
+
+                    <!-- 부족 데이터 입력 -->
+                    <div style="display:flex; align-items:center; gap:10px; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; cursor:pointer; background:#fff;"
+                         onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'">
+                        <div style="width:36px; height:36px; border-radius:9px; background:#dbeafe; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="12" y1="18" x2="12" y2="12"/>
+                                <line x1="9" y1="15" x2="15" y2="15"/>
+                            </svg>
+                        </div>
+                        <div style="flex:1; min-width:0;">
+                            <div style="font-size:0.76rem; font-weight:700; color:#1e293b; margin-bottom:2px;">부족 데이터 입력</div>
+                            <div style="font-size:0.68rem; color:#94a3b8; line-height:1.4;">필요 데이터 입력 및 관리</div>
+                        </div>
+                        <span style="color:#94a3b8; font-size:1rem; flex-shrink:0;">›</span>
+                    </div>
+
+                    <!-- 보고서 초안 생성 -->
+                    <div style="display:flex; align-items:center; gap:10px; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; cursor:pointer; background:#fff;"
+                         onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'">
+                        <div style="width:36px; height:36px; border-radius:9px; background:#ede9fe; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <div style="flex:1; min-width:0;">
+                            <div style="font-size:0.76rem; font-weight:700; color:#1e293b; margin-bottom:2px;">보고서 초안 생성</div>
+                            <div style="font-size:0.68rem; color:#94a3b8; line-height:1.4;">선택 이슈 기반 초안 생성</div>
+                        </div>
+                        <span style="color:#94a3b8; font-size:1rem; flex-shrink:0;">›</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    
+
+        <!-- 오른쪽 패널: 탭 2개 -->
+<div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+
+    <!-- 탭 버튼 -->
+    <div style="display:flex; border-bottom:2px solid #e2e8f0; margin-bottom:16px;">
+        <button onclick="switchTab(0)" id="tab-btn-0"
+            style="padding:8px 20px; border:none; background:none; font-weight:700; font-size:0.85rem; cursor:pointer; color:#03A94D; border-bottom:2px solid #03A94D; margin-bottom:-2px;">
+            전체
+        </button>
+        <button onclick="switchTab(1)" id="tab-btn-1"
+            style="padding:8px 20px; border:none; background:none; font-weight:700; font-size:0.85rem; cursor:pointer; color:#94a3b8;">
+        </button>
+        </div>  
+
+    <div id="tab-content-0" style="display:flex; flex-direction:column; gap:26px;">
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:16px 20px;">
+        <div style="font-size:0.85rem; font-weight:800; color:#1e293b; margin-bottom:12px;">이중 중대성 매트릭스</div>
+        <div style="position:relative; height:320px; width:100%;">
+          <canvas id="myScatterChart"></canvas>
+        </div>
+      </div>
+    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px;">   
+   <p style="margin:0 0 8px 0;"> ⚫ x 1 = low,⚫ x 2 = middle,⚫ x 3 = high</p>
+<table border = "1" style ="width:100%;border-collapse:collapse;">
+    <thead>
+    <tr>
+    <th>순위</th>
+    <th>구분 </th>
+    <th>탑 이슈</th>
+    <th>Type</th>
+    <th>Period</th>
+    <th>재무중요성</th>
+    <th>영향중요성</th>
+    
+    
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1.</td>
+    <td>E</td>
+    <td>기후목표·전환계획</td>
+    <td>위기</td>
+    <td>장기</td>
+    <td>재무중요성</td>
+    <td>영향중요성</td>
+  </tr>
+  <tr>
+    <td>2.</td>
+    <td>E</td>
+    <td>저탄소·친환경 제품</td>
+    <td>기회</td>
+    <td>단기</td>
+    <td>⚫⚪⚪</td>
+    <td>⚫⚫⚪</td>
+  </tr>
+  <tr>
+    <td>3.</td>
+    <td>S</td>
+    <td>교육훈련·역량개발</td>
+    <td>위기</td>
+    <td>장기</td>
+    <td>⚫⚫⚪</td>
+    <td>⚫⚪⚪</td>
+  </tr>
+  <tr>
+    <td>4.</td>
+    <td>S</td>
+    <td>소비자 건강·제품안전</td>
+    <td>기회</td>
+    <td>장기</td>
+    <td>⚫⚫⚪</td>
+    <td>⚫⚫⚪</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>S</td>
+    <td>공급망 감사·시정조치</td>
+    <td>위기</td>
+    <td>단기</td>
+    <td>⚫⚫⚫</td>
+    <td>⚫⚫⚫</td>
+  </tr>
+  
+  </tbody>
+    </table>
+    </div>
+    </div>
+
+   </div>
+
+<div id="tab-content-1" style="display:none;">
+    <script>
+        
+    </script>
+
+            
 
             <div class="sr-result-dashboard" id="dashboard">
                 <div class="dashboard-handle" onclick="toggleDashboard()">
@@ -454,6 +1099,11 @@
         ];
         let activeIndex = 3; // 이해관계자 설문 인덱스 
         let isAnalyzing = false;
+
+        
+        
+
+
 
         // URL 클립보드 복사 기능 최신화 및 보완
         function copyUrl(btn) {
@@ -503,6 +1153,9 @@
                 alert("실시간 통계 집계가 완료되어 우측 패널에 업데이트되었습니다.");
             }, 300);
         }
+
+
+
 
         // AI 연산 처리 및 시뮬레이션 제어
         function runSurveyAnalysis() {
@@ -558,6 +1211,7 @@
                 `);
             });
             createParticles();
+            switchLeftTab(0); 
         }
 
         function changeStep(index) {
@@ -628,6 +1282,37 @@
             }
         };
 
+        function switchTab(index) {
+             for (let i = 0; i < 2; i++) {
+                document.getElementById('tab-content-' + i).style.display = i === index ? 'flex' : 'none';
+                const btn = document.getElementById('tab-btn-' + i);
+                btn.style.color = i === index ? '#03A94D' : '#94a3b8';
+                btn.style.borderBottom = i === index ? '2px solid #03A94D' : 'none';
+                btn.style.marginBottom = i === index ? '-2px' : '0';
+    }
+}
+     
+        function toggleSection(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id + '-icon');
+    if (!el) return;
+    const isOpen = el.style.display !== 'none';
+    el.style.display = isOpen ? 'none' : 'flex';
+    if (icon) icon.textContent = isOpen ? '∨' : '∧';
+}
+
+        function switchLeftTab(index) {
+    for (let i = 0; i < 4; i++) {
+        document.getElementById('left-tab-content-' + i).style.display = i === index ? 'flex' : 'none';
+        const btn = document.getElementById('left-tab-btn-' + i);
+        btn.style.color = i === index ? '#03A94D' : '#94a3b8';
+        btn.style.borderBottom = i === index ? '2px solid #03A94D' : 'none';
+        btn.style.marginBottom = i === index ? '-2px' : '0';
+    }
+}
+
+
+
         /* mains.css 아코디언 인터랙션 적용 */
         function toggleAccordionMenu(element) {
             const content = element.nextElementSibling;
@@ -651,6 +1336,223 @@
             showCancel: true
             });
             if (isConfirmed) alert("로그아웃 되었습니다.");
+        }
+
+        // ── 이중 중대성 매트릭스 Scatter Chart ──
+        window.addEventListener('DOMContentLoaded', function () {
+            initScatterChart();
+        });
+
+        function initScatterChart() {
+            const canvas = document.getElementById('myScatterChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            // x = 재무중요성 (1=Low, 2=Middle, 3=High)
+            // y = 영향중요성 (1=Low, 2=Middle, 3=High)
+            const datasets = [
+                {
+                    label: '환경(E)',
+                    data: [
+                        { x: 3,   y: 3,   label: '기후목표·전환계획',   rank: 1 },
+                        { x: 1,   y: 2,   label: '저탄소·친환경 제품', rank: 2 },
+                    ],
+                    backgroundColor: 'rgba(34, 197, 94, 0.85)',
+                    borderColor: '#16a34a',
+                    borderWidth: 2,
+                    pointRadius: 18,
+                    pointHoverRadius: 22,
+                },
+                {
+                    label: '사회(S)',
+                    data: [
+                        { x: 2,   y: 1,   label: '교육훈련·역량개발',     rank: 3 },
+                        { x: 2,   y: 2,   label: '소비자 건강·제품안전', rank: 4 },
+                        { x: 2.9, y: 2.8, label: '공급망 감사·시정조치', rank: 5 },
+                    ],
+                    backgroundColor: 'rgba(59, 130, 246, 0.85)',
+                    borderColor: '#2563eb',
+                    borderWidth: 2,
+                    pointRadius: 18,
+                    pointHoverRadius: 22,
+                },
+                //  {
+                //     label: '지배구조(G)',
+                //     data: [
+                //         { x: 2,   y: 3,   label: '윤리·부패방지 교육',     rank: 6 },
+                //         { x: 3,   y: 2.5, label: '경제가치 창출·배분', rank: 7 },
+                //         { x: 2.9, y: 1, label: '세무·공공정책', rank: 8 },
+                //     ],
+                //     backgroundColor: 'rgba(234, 179, 8, 0.85)',
+                //     borderColor: '#ca8a04',
+                //     borderWidth: 2,
+                //     pointRadius: 18,
+                //     pointHoverRadius: 22,
+                // }
+            ];
+
+            // 사분면 배경색 + 구분선 플러그인
+            const quadrantPlugin = {
+                id: 'quadrantBg',
+                beforeDraw(chart) {
+                    const { ctx, chartArea: { left, right, top, bottom, width, height } } = chart;
+                    const midX = left + width / 2;
+                    const midY = top + height / 2;
+                    ctx.save();
+
+                    // ── 배경색 ──
+                    // 우상단: High-High (연한 빨강)
+                    ctx.fillStyle = 'rgba(239,68,68,0.08)';
+                    ctx.fillRect(midX, top, right - midX, midY - top);
+                    // 좌하단: Low-Low (연한 회색)
+                    ctx.fillStyle = 'rgba(148,163,184,0.08)';
+                    ctx.fillRect(left, midY, midX - left, bottom - midY);
+                    // 좌상단: High Impact / Low Financial (연한 주황)
+                    ctx.fillStyle = 'rgba(245,158,11,0.08)';
+                    ctx.fillRect(left, top, midX - left, midY - top);
+                    // 우하단: High Financial / Low Impact (연한 파랑)
+                    ctx.fillStyle = 'rgba(59,130,246,0.08)';
+                    ctx.fillRect(midX, midY, right - midX, bottom - midY);
+
+                    // ── 수직 구분선 (x = 2 중앙) ──
+                    ctx.beginPath();
+                    ctx.setLineDash([6, 4]);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = 'rgba(100,116,139,0.55)';
+                    ctx.moveTo(midX, top);
+                    ctx.lineTo(midX, bottom);
+                    ctx.stroke();
+
+                    // ── 수평 구분선 (y = 2 중앙) ──
+                    ctx.beginPath();
+                    ctx.setLineDash([6, 4]);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = 'rgba(100,116,139,0.55)';
+                    ctx.moveTo(left, midY);
+                    ctx.lineTo(right, midY);
+                    ctx.stroke();
+
+                    // ── 사분면 라벨 ──
+                    ctx.setLineDash([]);
+                    ctx.font = 'bold 10px Pretendard, sans-serif';
+                    ctx.textBaseline = 'top';
+
+                    // 우상단: High-High
+                    ctx.fillStyle = 'rgba(239,68,68,0.75)';
+                    ctx.textAlign = 'right';
+                    // ctx.fillText('High-High ▲', right - 8, top + 6);
+
+                    // 좌상단: High Impact
+                    ctx.fillStyle = 'rgba(245,158,11,0.75)';
+                    ctx.textAlign = 'left';
+                    // ctx.fillText('▲ High Impact', left + 8, top + 6);
+
+                    // 우하단: High Financial
+                    ctx.fillStyle = 'rgba(59,130,246,0.75)';
+                    ctx.textBaseline = 'bottom';
+                    ctx.textAlign = 'right';
+                    // ctx.fillText('High Financial ▶', right - 8, bottom - 6);
+
+                    // 좌하단: Low-Low
+                    ctx.fillStyle = 'rgba(148,163,184,0.75)';
+                    ctx.textAlign = 'left';
+                    // ctx.fillText('Low-Low', left + 8, bottom - 6);
+
+                    ctx.restore();
+                }
+            };
+
+            // 포인트 위에 순위 숫자 표시 플러그인
+            const rankLabelPlugin = {
+                id: 'rankLabels',
+                afterDatasetsDraw(chart) {
+                    const { ctx } = chart;
+                    chart.data.datasets.forEach((dataset, di) => {
+                        const meta = chart.getDatasetMeta(di);
+                        dataset.data.forEach((point, i) => {
+                            const el = meta.data[i];
+                            if (!el) return;
+                            const { x, y } = el.getProps(['x', 'y'], true);
+                            ctx.save();
+                            ctx.fillStyle = '#fff';
+                            ctx.font = 'bold 12px Pretendard, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(point.rank, x, y);
+                            ctx.restore();
+                        });
+                    });
+                }
+            };
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets },
+                plugins: [quadrantPlugin, rankLabelPlugin],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 8, right: 24, bottom: 8, left: 8 } },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: { size: 12, family: 'Pretendard, sans-serif' },
+                                padding: 16
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label(ctx) {
+                                    const d = ctx.raw;
+                                    const lvl = v => v < 1.5 ? 'Low' : v < 2.5 ? 'Middle' : 'High';
+                                    return ` ${d.rank}위  ${d.label}   재무: ${lvl(d.x)} / 영향: ${lvl(d.y)}`;
+                                }
+                            },
+                            bodyFont: { size: 12, family: 'Pretendard, sans-serif' },
+                            padding: 10
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 0.5,
+                            max: 3.5,
+                            title: {
+                                display: true,
+                                text: '재무중요성 (Financial Materiality)',
+                                font: { size: 11, weight: '700', family: 'Pretendard, sans-serif' },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                font: { size: 11, family: 'Pretendard, sans-serif' },
+                                color: '#64748b',
+                                callback: v => ({ 1: 'Low', 2: 'Middle', 3: 'High' }[v] || '')
+                            },
+                            grid: { color: '#e2e8f0' }
+                        },
+                        y: {
+                            min: 0.5,
+                            max: 3.5,
+                            title: {
+                                display: true,
+                                text: '영향중요성 (Impact Materiality)',
+                                font: { size: 11, weight: '700', family: 'Pretendard, sans-serif' },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                font: { size: 11, family: 'Pretendard, sans-serif' },
+                                color: '#64748b',
+                                callback: v => ({ 1: 'Low', 2: 'Middle', 3: 'High' }[v] || '')
+                            },
+                            grid: { color: '#e2e8f0' }
+                        }
+                    }
+                }
+            });
         }
     </script>
 </body>

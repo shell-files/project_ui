@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="./styles/mains.css">
     <link rel="stylesheet" href="./styles/alarm.css">
     <link rel="stylesheet" href="./styles/App.css">
-    <link rel="stylesheet" href="./styles/sr.css">
-    <style>
-        
+    <link rel="stylesheet" href="./styles/sr.css">    
+    <link rel="stylesheet" href="./styles/survey.css">
+    <style>      
     </style>
 </head>
 <body>
@@ -201,8 +201,8 @@
                     <div class="handle-pill" id="handle-status">실시간 분석 대기 중</div>
                 </div>
                 
-                <div class="robot-view-container" id="analysis-view">
-                    <div id="particle-field" class="particle-field"></div>
+            <div class="robot-view-container" id="analysis-view">
+                <div id="particle-field" class="particle-field"></div>
                     
                     <div id="loading-content" style="display:flex; flex-direction:column; align-items:center; justify-content: center; width: 100%;">
                         <div class="robot-stage">
@@ -266,13 +266,200 @@
                             <div class="issue-item"><span>글로벌 공급망 ESG 평가 및 리스크 관리 체계 고도화</span><span class="badge-risk">Financial 위험</span></div>
                             <div class="issue-item"><span>사내 안전 보건 관리 감독 및 직무 환경 만족도 개선</span><span>일반 지표</span></div>
                         </div>
+                    
+                
+                         
+              <!-- 결과 배너 -->
+             <div id="result-layout" class="result-layout hidden">
+                        <div class="result-banner">
+                            <div style="display:flex; align-items:center; gap:16px; flex:1;">
+                                <div class="result-banner-title">📰[AI 이해관계자 설문 분석 결과]</div>
+                                <p class="result-banner-desc">
+                                    임직원,경영진,외부 이해관계자 응답을 종합한 결과<br>
+                                    <b>기후변화 대응과 안전보건 관리 이슈</b>가 가장 높은 우선순위로 도출되었습니다
+                                </p>
+                                </div>
+                                
+                                <img src="img/robot_servey_t.png" alt="robot" class="result-banner-robot">
+                        </div> 
+
+                           <!-- 통계 카드 4개 -->
+                            <div class="result-stats-row">
+                                <div class="result-stat-card survey-kpi-card">   
+                                <div class="stat-icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                    </svg>
                     </div>
-
-                </div>
+                            <div>    
+                                <div class="stat-label">임직원 응답 </div>
+                                <div class="stat-value">124명<span class="stat-target">(목표150명)</span></div>
+                            <div class ="kpi-bar-wrap">
+                                <div class="kpi-bar-fill" style="width:83%;">  </div>
+                                <span class ="kpi-bar-pct">83%</span>
+                            </div>
+                            </div>
+                            </div>
+                    <div class="result-stat-card survey-kpi-card">
+                    <div class="stat-icon-wrap">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                        <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+                        </svg>
+                                </div>
+                            
+                                <div style="flex:1;">
+                                    <div class="stat-label">경영진 응답</div>
+                                    <div class="stat-value">18명<span class="stat-target">(목표 20명)</span></div>
+                                    <div class="kpi-bar-wrap">
+                                        <div class="kpi-bar-fill" style="width:90%;"></div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-stat-card survey-kpi-card">
+                            <div class="stat-icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                             <circle cx="12" cy="12" r="10"/>
+                             <line x1="2" y1="12" x2="22" y2="12"/>
+                             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                             </svg>
+                            </div>
+                            <div style="flex:1">
+                              <div class="stat-label">외부 응답</div>
+                              <div class="stat-value">45명<span class="stat-target">(목표 80명)</span></div>
+                              <div class="kpi-bar-wrap">
+                                <div class="kpi-bar-fill" style="width:56%;"></div>
+                                <span class="kpi-bar-pct">56%</span>
+                                  </div>
+                            </div>
+                           </div>
+                            <div class="result-stat-card survey-kpi-card">
+                             <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                 <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                                </svg>
+                             </div>
+                                <div>
+                                    <div class="stat-label">전체응답률</div>
+                                    <div class="stat-value"><span class="stat-target">64%(187/290)</span></div>
+                                    <div class="kpi-bar-wrap">
+                                        <div class="kpi-bar-fill" style="width:64%;"></div>
+                                        <span class="kpi-bar-pct">64%</span>
+                                     </div>
+                                
+                                    </div>
+                                </div>
+                             
+                            </div>
+                          
+                             <!-- 하단 3패널 -->
+    <div class="result-panels-row survey-panels">
+        <!-- 패널1 -->
+        <div class="result-panel">
+            <div class="panel-header-row">
+                <span class="panel-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" style="vertical-align:middle; margin-right:4px;">
+                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                설문 Top 이슈 점수
+            </span>               
             </div>
-
+            <table class="issue-table survey-complex-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">순위</th>
+                        <th rowspan="2">Sub Issue</th>
+                        <th rowspan="2">Total Impact</th>
+                        <th rowspan="2">Total Financial</th>
+                        <th colspan="2" class="group-th">임직원</th>
+                        <th colspan="2" class="group-th">경영진</th>
+                        <th colspan="2" class="group-th">외부</th>
+                    </tr>
+                    <tr>
+                        <th>Impact</th><th>Financial</th>
+                        <th>Impact</th><th>Financial</th>
+                        <th>Impact</th><th>Financial</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>기후변화 대응</td><td>88.7</td><td>76.3</td><td>4.7</td><td>4.5</td><td>4.6</td><td>4.4</td><td>4.4</td><td>4.2</td></tr>
+                    <tr><td>2</td><td>안전보건 관리</td><td>84.1</td><td>73.2</td><td>4.5</td><td>4.3</td><td>4.4</td><td>4.2</td><td>4.0</td><td>3.9</td></tr>
+                    <tr><td>3</td><td>인적자본 개발</td><td>76.8</td><td>68.1</td><td>4.2</td><td>4.0</td><td>3.9</td><td>3.8</td><td>3.6</td><td>3.5</td></tr>
+                    <tr><td>4</td><td>공급망 ESG 관리</td><td>72.3</td><td>65.4</td><td>4.0</td><td>3.9</td><td>3.8</td><td>3.7</td><td>3.5</td><td>3.4</td></tr>
+                    <tr><td>5</td><td>윤리·준법 경영</td><td>70.2</td><td>62.8</td><td>3.9</td><td>3.8</td><td>3.7</td><td>3.6</td><td>3.3</td><td>3.2</td></tr>
+                </tbody>
+            </table>
         </div>
-    </div>
+
+        <!-- 패널2 -->
+        <div class="result-panel">
+            <div class="panel-header-row">
+                <span class="panel-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2" style="vertical-align:middle; margin-right:4px;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>    
+                    이해관계자 그룹별 관점 차이
+                </span>
+            </div>
+            <div class="stakeholder-group-list">
+                <div class="stakeholder-item">
+                    <div class="stakeholder-header">
+                        <div class="reflect-icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                          </svg>      
+                          </div>
+            <div>      
+                <span class="stakeholder-name">임직원 Top3</span>
+                <span class="stakeholder-topics">기후변화 대응, 안전보건 관리, 인적자본 개발</span>
+            </div>
+            </div>
+            <p class="stakeholder-desc">임직원은 환경 대응과 안전, 그리고 인적 성장에 높은 관심을 보였습니다.</p>
+            </div>
+    <div class="stakeholder-item">
+        <div class="stakeholder-header">
+            <div class="reflect-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2"/>
+                            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                </svg>
+            </div>
+            <div>
+                <span class="stakeholder-name">경영진 Top3</span>
+                <span class="stakeholder-topics">기후변화 대응, 기업가치 제고, 리스크 관리</span>
+                
+            </div>
+        </div>
+        <p class="stakeholder-desc">경영진은 중장기 가치 창출과 리스크 관리에 초점을 두고 있습니다.</p>
+        </div>
+        <div class="stakeholder-item">
+            <div class="stakeholder-header">
+                <div class="reflect-icon">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                 </svg>   
+        </div>
+        <div>
+            <span class="stakeholder-name">외부 Top3</span>
+            <span class="stakeholder-topics">기후변화 대응, 공급망 ESG 관리, 투명한 정보 공개</span>
+        </div>
+        </div>
+        <p class="stakeholder-desc">외부 이해관계자는 투명성과 공급망 관리에 높은 중요성을 부여했습니다.</p>    
+        </div>
+        </div>
+        </div>
+        </div>   
+        </div>       
+        </div>      
+        </div>                   
+        </div>     
+        </div>      
+        </div>      
+        </div>      
+    
 
     <script>
         // 전역 상태 및 데이터 모델 정의 (스크립트 최상단으로 이동)
@@ -341,15 +528,15 @@
             isAnalyzing = true;
 
             const view = document.getElementById('analysis-view');
-            view.classList.add('analyzing');
-            document.getElementById('result-content').classList.add('hidden');
-            document.getElementById('loading-content').classList.remove('hidden');
-            document.getElementById('progress-container').classList.remove('hidden');
-            openDashboard();
+                view.classList.add('analyzing');
+                document.getElementById('result-content').classList.add('hidden');
+                document.getElementById('loading-content').classList.remove('hidden');
+                document.getElementById('progress-container').classList.remove('hidden');
+                openDashboard();
 
-            document.getElementById('handle-status').innerText = "AI 분석 진행 중...";
-            document.getElementById('status-label').innerText = "Impact & Financial 평가 계산 중...";
-            document.getElementById('status-sub').innerText = "이중 중대성 매트릭스 알고리즘을 구동하여 설문 응답을 분석하고 있습니다.";
+                document.getElementById('handle-status').innerText = "AI 분석 진행 중...";
+                document.getElementById('status-label').innerText = "Impact & Financial 평가 계산 중...";
+                document.getElementById('status-sub').innerText = "이중 중대성 매트릭스 알고리즘을 구동하여 설문 응답을 분석하고 있습니다.";
 
             let progress = 0;
             const fill = document.getElementById('progress-fill');
@@ -370,10 +557,13 @@
         }
 
         const showResult = () => {
-            document.getElementById('handle-status').innerText = "분석 완료 - 결과 요약 확인";
-            document.getElementById('loading-content').classList.add('hidden');
-            document.getElementById('result-content').classList.remove('hidden');
-        }
+             document.getElementById('handle-status').innerText = "분석 완료 - 결과 요약 확인";
+             document.getElementById('loading-content').classList.add('hidden');
+             document.getElementById('result-content').classList.add('hidden');   // ← 추가
+             document.getElementById('result-layout').classList.remove('hidden');
+             document.getElementById('dashboard').classList.add('result-expanded');
+             document.querySelector('.robot-view-container').classList.add('showing-result');
+            }
 
         // 스텝 바 UI 초기화
         function init() {
