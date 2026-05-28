@@ -57,12 +57,13 @@
             margin: 0 auto;
         }
         
+
          /* 메인 패널 */
         .main-content { 
             flex: 1; 
             display: flex; 
             justify-content: center; 
-            overflow-y: auto; /* 내부 요소가 종으로 길어질 때 카드가 깨지지 않도록 스크롤 허용 */
+            overflow: hidden; /* 내부 요소가 종으로 길어질 때 카드가 깨지지 않도록 스크롤 허용 */
         }
         
         .input-card { 
@@ -413,3 +414,80 @@
 .statusbar-pill{padding:5px 18px;background:#f1f5f9;border-radius:20px;font-size:12px;font-weight:700;color:#64748b;}
 .statusbar-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#03A94D;margin-right:6px;animation:pulse-dot 1.5s infinite;}
 @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+
+
+/* draft.css에 추가 */
+.nav-accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#current-company-badge {
+    font-weight: 400;
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+
+.panel-subsection { margin-top: 10px; }
+
+
+
+#searchResetX {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: none;
+    color: #94a3b8;
+}
+
+
+
+#loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#status-label {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+}
+#status-sub {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+}
+.progress-pct-label {
+    margin-top: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--sr-primary);
+}
+
+
+.step-title { font-size: 0.8rem; font-weight: 800; }
+
+.breakdown-table .breakdown-val { text-align: right; font-weight: 700; }
+
+.metric-row-val--muted { color: #64748b; }
+
+
+
+

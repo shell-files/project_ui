@@ -26,7 +26,7 @@
       </div>
       <div class="header-right-group">
         <div class="user-link" onclick="location.href='mypage.html'" style="cursor: pointer;">
-          이채훈 <span id="current-company-badge" style="font-weight:400; color:#64748b; font-size:12px;">(SKM)</span>
+          이채훈 <span id="current-company-badge" ;">(SKM)</span>
         </div>
         <button class="header-action" onclick="handleLogout()" style="cursor: pointer; border:none; background:none; font-size:14px;">로그아웃</button>
         <div class="header-action" onclick="openAlarmCenter()" style="cursor: pointer; position: relative;">
@@ -48,7 +48,7 @@
             </div>
             <div class="nav-group">
                 <div class="nav-item" onclick="location.href='benchmarking.html'">
-                    <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="nav-accordion-header">
                     <span>지속가능경영보고서</span>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="nav-group">
               <div class="nav-item" onclick="toggleAccordionMenu(this)">
-                <div class="nav-accordion-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                <div class="nav-accordion-header" >
                   <span>ESG 담당자 통합 관리</span>
                   <svg class="nav-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 5l7 7-7 7"></path>
@@ -97,9 +97,9 @@
         </div>
 
         <div class="sidebar-footer">
-          <div class="search-container" style="position: relative; width: 100%;">
+          <div class="search-container"">
             <input type="text" class="company-search" id="companySearchInput" placeholder="회사 검색..." oninput="filterCompanyList()">
-            <button id="searchResetX" onclick="resetCompanySearch()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer; display:none; color:#94a3b8;">✕</button>
+            <button id="searchResetX" onclick="resetCompanySearch()" ">✕</button>
           </div>
           <select class="company-select" id="sidebarCompanySelect" onchange="syncHeaderCompany(this)">
             <option value="SKM">SKM</option>
@@ -116,40 +116,10 @@
             </header>
 
             <main class="main-content">
-            <main>
+            
                 <div class="draft-wrapper">    
                      <!-- Stats bar -->
-                    <div class="draft-stats">
-                        <div class="dstat-card">
-                            <div class="dstat-icon blue">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            </div>
-                            <div><div class="dstat-label">생성 이슈 페이지</div><div class="dstat-value">5<span>개</span></div></div>
-                        </div>
-                        <div class="dstat-card">
-                            <div class="dstat-icon green">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#03A94D" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                            </div>
-                            <div><div class="dstat-label">참조 KPI</div><div class="dstat-value">22<span>개</span></div></div>
-                        </div>
-                        <div class="dstat-card">
-                            <div class="dstat-icon purple">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                            </div>
-                            <div><div class="dstat-label">근거 연결률</div><div class="dstat-value">94<span>%</span></div></div>
-                        </div>
-                        <div class="dstat-card">
-                            <div class="dstat-icon red">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                            </div>
-                            <div><div class="dstat-label">수정 필요</div><div class="dstat-value">2<span>개</span></div></div>
-                        </div>
-                    </div>
-                     <!-- Tabs -->
-                    <div class="draft-tabs">
-                        <button class="dtab active" onclick="switchTab(this)">보고서 생성 확인</button>
-                        <button class="dtab" onclick="switchTab(this)">온보딩 데이터 이상치 점검</button>
-                    </div>
+                    
 
                      <!-- Body -->
                     <div class="draft-body">
@@ -178,80 +148,106 @@
 
                 <!-- 문단 1 -->
                 <div class="dp-wrap" data-pid="p1" onclick="selectParagraph('p1')">
-                    <p class="dp-text">SKM은 과학기반 감축목표 이니셔티브(SBTi)의 1.5°C 시나리오에 부합하는 넷제로 목표를 수립하고, 전사 차원의 전환 전략을 체계적으로 실행하고 있습니다.</p>
-                    <div class="dp-tooltip">
-                        <div class="dp-tooltip-title">● 연결 Scope 1-2 총배출량</div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">metric_id</span><span class="dp-tooltip-val">E1-06</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">atomic_metric_id</span><span class="dp-tooltip-val">E1-06-G0003</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">최신(2024)</span><span class="dp-tooltip-val">112,500 tCO₂eq</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">단위</span><span class="dp-tooltip-val">tCO₂eq</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">source table</span><span class="dp-tooltip-val">EHS_Emission_Group</span></div>
+                    <p class="dp-text">A_GROUP의 자동차 부품과 전동화 부품 사업을 총괄하는 지주회사로, 국내외 자회사와
+                                함께 모빌리티 부품 사업을 이룬다. 보고기간은 2024.01.01~2024.12.31이며,
+                                연결 공시 범위는 A_GROUP 본인 사업장과 B_SUB_KR, C_SUB_EU, D_SUB_US를 포함한다.
+                                연결 매출액은 17,800,000,000,000 KRW</span>,
+                                연결 사업장 수는 22개이다.
+                </p>
+                <div class="dp-tooltip">
+                        <div class="dp-tooltip-title">● 사업 개요 지표</div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">metric_id</span><span class="dp-tooltip-val">G0-02__G0001</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">연결 매출액</span><span class="dp-tooltip-val">17.8조 KRW</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">G0-03__G0001</span><span class="dp-tooltip-val">22개 사업장</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">보고기간</span><span class="dp-tooltip-val">2024.01.01~12.31</span></div>
                     </div>
                 </div>
 
-                 <!-- 문단 2 -->
+                                <!-- 문단 2: 기후목표 (E1-05/06/07) -->
                 <div class="dp-wrap" data-pid="p2" onclick="selectParagraph('p2')">
                     <p class="dp-text">
-                        <span class="dp-txt">2024년 온실가스 배출량(스코프 1·2)은 96.7만 tCO₂e로, 2022년 대비 11.0% 감소하였습니다.</span>
-                        이는 에너지 효율 개선과 재생에너지 확대의 성과로, 2030년까지 2022년 대비 42% 감축을 목표로 하고 있습니다.
+                        A_GROUP의 2045년 넷제로립과 2040년 재생에너지 100% 전환을 목표로
+                        Scope 1·2 배출 감축과 전환계획을 관리한다. 기준연도는 2019이며 기준연도
+                        연결 Scope 1·2 배출량은 130,890 tCO₂eq이다. 보고연도 연결 Scope 1·2 배출량은
+                        112,500 tCO₂eq, 전년 대비 감축량은
+                        4,402 tCO₂eq, 감축률은 3.91%이다. 재생에너지 전환율은 9.49%이다.
                     </p>
                     <div class="dp-tooltip">
-                        <div class="dp-tooltip-title">● 온실가스 배출량 (스코프 1·2)</div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">metric_id</span><span class="dp-tooltip-val">M-ENV-045</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">atomic_metric_id</span><span class="dp-tooltip-val">AM-ENV-045-01</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">2022값</span><span class="dp-tooltip-val">101.4</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">2023값</span><span class="dp-tooltip-val">94.2</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">2024값</span><span class="dp-tooltip-val">96.7</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">단위</span><span class="dp-tooltip-val">만 tCO₂e</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">source table</span><span class="dp-tooltip-val">EHS_Emission_Site</span></div>
+                        <div class="dp-tooltip-title">● E1-06 Scope 1·2 배출량</div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">metric_id</span><span class="dp-tooltip-val">E1-06__G0003</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">2024 배출량</span><span class="dp-tooltip-val">112,500 tCO₂eq</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">감축량</span><span class="dp-tooltip-val">4,402 tCO₂eq</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">감축률</span><span class="dp-tooltip-val">3.91%</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">재생E 전환율</span><span class="dp-tooltip-val">9.49%</span></div>
                     </div>
                 </div>
 
-                <!-- 표 -->
-                <div class="doc-table-wrap">
-                    <div class="doc-table-title">온실가스 배출량</div>
-                    <div class="doc-table-unit">(단위: 만 tCO₂e)</div>
-                    <table class="doc-table">
-                        <thead><tr><th>구분</th><th>2022</th><th>2023</th><th>2024</th></tr></thead>
-                        <tbody>
-                            <tr><td>스코프 1</td><td>38.2</td><td>36.1</td><td>33.6</td></tr>
-                            <tr><td>스코프 2 (시장기반)</td><td>63.2</td><td>58.1</td><td>53.1</td></tr>
-                            <tr><td>합계 (스코프 1·2)</td><td>101.4</td><td>94.2</td><td>96.7</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <p class="doc-section-title">2030 감축 목표 및 주요 실행 전략</p>
-
-                <!-- 문단 3 -->
+                <!-- 문단 3: 공급망 (S6) -->
                 <div class="dp-wrap" data-pid="p3" onclick="selectParagraph('p3')">
-                    <p class="dp-text">SKM은 2030년까지 2022년 대비 온실가스 배출량(스코프 1·2) 42% 감축을 목표로 하며, 에너지 전환, 공정 효율화, 공급망 온실가스 관리 강화를 3대 전략 축으로 설정하였습니다.</p>
+                    <p class="dp-text">
+                        A_GROUP의 주요 협력사의 환경·인권·윤리 리스크가 조달 안정성과 브랜드 신뢰에
+                        미치는 영향을 고려해 공급망 지속가능성 리스크를 관리한다. 연결 기준 공급업체
+                        감사 이행률은 71.90%, 고위험 공급업체 수는
+                        64개사이다. 공급망 CAP 완료율은 68.09%이다.
+                    </p>
                     <div class="dp-tooltip">
-                        <div class="dp-tooltip-title">● 온실가스 감축 목표</div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">metric_id</span><span class="dp-tooltip-val">E1-05</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">감축목표</span><span class="dp-tooltip-val">42%</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">기준연도</span><span class="dp-tooltip-val">2022</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">목표연도</span><span class="dp-tooltip-val">2030</span></div>
-                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">source table</span><span class="dp-tooltip-val">EHS_Target_Plan</span></div>
+                        <div class="dp-tooltip-title">● S6-04 공급망 감사</div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">감사 이행률</span><span class="dp-tooltip-val">71.90%</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">고위험 업체 수</span><span class="dp-tooltip-val">64개사</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">CAP 완료율</span><span class="dp-tooltip-val">68.09%</span></div>
                     </div>
                 </div>
 
-                <!-- 전략 카드 -->
-                    <div class="strategy-cards">
-                     <div class="strategy-card">
-                        <div class="strategy-icon" style="background:#fef9c3;">⚡</div>
-                          <div><div class="strategy-card-title">에너지 전환 가속화</div><div class="strategy-card-desc">2030년 재생에너지 사용 비중 60% 달성</div></div>
-                        </div>
-                     <div class="strategy-card">
-                        <div class="strategy-icon" style="background:#ffe4e6;">⚙️</div>
-                        <div><div class="strategy-card-title">공정 및 설비 효율화</div><div class="strategy-card-desc">고효율 설비 투자 및 공정 개선으로 에너지 원단위 15% 개선</div></div>
-                     </div>
-                     <div class="strategy-card">
-                          <div class="strategy-icon" style="background:#dcfce7;">🌿</div>
-                        <div><div class="strategy-card-title">공급망 온실가스 관리</div><div class="strategy-card-desc">주요 협력사와 감축 프로그램을 확대하여 Scope 3 배출 저감</div></div>
-                       </div>
-                        </div>
-            </div><!-- /doc-content -->
+                <!-- 문단 4: 인재 개발 (S3) -->
+                <div class="dp-wrap" data-pid="p4" onclick="selectParagraph('p4')">
+                    <p class="dp-text">
+                        전동화·자율주행·디지털화 전환에 대응하기 위해 미래 모빌리티 기술 인재 확보와
+                        내부 역량 강화가 중요하다. 연결 임직원 수는 8,367명이며,
+                        1인당 교육시간은 33.42시간/명, 핵심직무 교육 달성률은 72.01%이다.
+                    </p>
+                    <div class="dp-tooltip">
+                        <div class="dp-tooltip-title">● S3-02 교육 지표</div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">임직원 수</span><span class="dp-tooltip-val">8,367명</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">1인당 교육시간</span><span class="dp-tooltip-val">33.42시간</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">핵심직무 달성률</span><span class="dp-tooltip-val">72.01%</span></div>
+                    </div>
+                </div>
+
+                <!-- 문단 5: 친환경 제품 (AP-E-06) -->
+                <div class="dp-wrap" data-pid="p5" onclick="selectParagraph('p5')">
+                    <p class="dp-text">
+                        전동화 부품과 경량화·고효율 부품은 제품 사용 단계의 온실가스 감축과 환경영향
+                        저감에 기여한다. 연결 친환경 제품 매출액은
+                        4,298,000,000,000 KRW이며,
+                        연결 매출 대비 비중은 24.15%이다. 회피 배출량은 1,245,000 tCO₂eq,
+                        재화적 비용 절감 효과는 68,973,000,000 KRW로 추산된다.
+                    </p>
+                    <div class="dp-tooltip">
+                        <div class="dp-tooltip-title">● AP-E-06 친환경제품</div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">친환경 매출</span><span class="dp-tooltip-val">4.3조 KRW</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">매출 비중</span><span class="dp-tooltip-val">24.15%</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">회피 배출량</span><span class="dp-tooltip-val">1,245,000 tCO₂eq</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">비용 절감</span><span class="dp-tooltip-val">689.7억 KRW</span></div>
+                    </div>
+                </div>
+
+                <!-- 문단 6: 제품 안전 (AP-S-01) -->
+                <div class="dp-wrap" data-pid="p6" onclick="selectParagraph('p6')">
+                    <p class="dp-text">
+                        제품 품질과 안전은 고객 신뢰 확보와 규제 대응, 리콜 리스크 관리와 직접 연결되는
+                        핵심 주제다. 연결 기준 리콜 건수는 10건,
+                        리콜 건수는 3건이며, 제품안전 CAP 완료율은 70.37%이다.
+                    </p>
+                    <div class="dp-tooltip">
+                        <div class="dp-tooltip-title">● AP-S-01 제품안전</div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">리콜 건수</span><span class="dp-tooltip-val">3건</span></div>
+                        <div class="dp-tooltip-row"><span class="dp-tooltip-key">CAP 완료율</span><span class="dp-tooltip-val">70.37%</span></div>
+                    </div>
+                    </div>
+
+                   
+            
+                </div><!-- /doc-content -->
         </div><!-- /draft-doc -->
 
         <!-- 우측 패널 -->
@@ -261,17 +257,10 @@
 
     </div><!-- /draft-body -->
 
-    <!-- 하단 상태바 -->
-    <div class="draft-statusbar">
-        <div class="statusbar-pill"><span class="statusbar-dot"></span>실시간 분석 엔진 가동</div>
-    </div>
 
 </div><!-- /draft-wrapper -->
-
-                   </div>
-            </main>
-
-            <div class="sr-result-dashboard" id="dashboard">
+</main>
+            <div class="sr-result-dashboard" id="dashboard" style="display:none;">
                 <div class="dashboard-handle" onclick="toggleDashboard()">
                     <div class="handle-pill" id="handle-status">실시간 분석 대기 중</div>
                 </div>
@@ -279,18 +268,18 @@
                 <div class="robot-view-container" id="analysis-view">
                     <div id="particle-field" class="particle-field"></div>
                     
-                    <div id="loading-content" style="display:flex; flex-direction:column; align-items:center; justify-content: center; width: 100%;">
+                    <div id="loading-content" >
                         <div class="robot-stage">
                             <div class="robot-float-wrap">
                                 <img id="robot-img" src="img/robot_media_t.png" class="robot-main-img" alt="robot">
                             </div>
                         </div>
-                        <h3 id="status-label" style="font-size:1.2rem; font-weight:800; margin:0 0 4px 0;">분석 미실행 상태</h3>
-                        <p id="status-sub" style="font-size:0.85rem; color:#64748b; margin:0;">하단의 '설문 결과 분석' 버튼을 작동시켜 주십시오.</p>
+                        <h3 id="status-label">분석 미실행 상태</h3>
+                        <p id="status-sub">하단의 '설문 결과 분석' 버튼을 작동시켜 주십시오.</p>
                         
                         <div id="progress-container" class="progress-section hidden">
                             <div class="progress-bar-wrap"><div id="progress-fill" class="progress-bar-fill"></div></div>
-                            <div style="margin-top:6px; font-weight:700; font-size:0.85rem; color:var(--sr-primary);">
+                            <div class="progress-pct-label">
                                 <span id="progress-text">0</span>% 분석 중
                             </div>
                         </div>
@@ -413,7 +402,7 @@
                 stepper.insertAdjacentHTML('beforeend', `
                     <div class="step-box ${i === activeIndex ? 'active' : ''}" onclick="changeStep(${i})">
                         <div class="step-icon-circle">${s.icon}</div>
-                        <div style="font-size:0.8rem; font-weight:800;">${s.title}</div>
+                        <div class="step-title">${s.title}</div>
                     </div>
                     ${i < steps.length - 1 ? '<div class="step-line"></div>' : ''}
                 `);
@@ -569,8 +558,61 @@
             }],
             aiDesc:'온실가스 감축 목표 및 3대 전략 축에 관한 내용으로, 2030 로드맵의 핵심 실행 방향을 제시합니다.',
             related:{id:'S-03-02', label:'주요 성과'}
-        }
-    };
+        },
+        
+    p4: {
+        tag: '인재 개발', tagType: 'blue', id: 'S3-02',
+        preview: '연결 임직원 8,367명, 1인당 교육시간 33.42시간, 핵심직무 달성률 72.01%...',
+        metricCount: 2,
+        metrics: [{
+            name: '교육 훈련 현황', badge: '인적자본 지표', badgeType: 'blue',
+            metricId: 'S3-02__G0002', atomicId: 'S3-02__G0003',
+            unit: '시간/명', dataType: '정량',
+            desc: '연결 임직원 교육시간 및 핵심직무 교육 달성률',
+            latest: '33.42시간/명',
+            trend: [{y:2022,v:28.1},{y:2023,v:31.5},{y:2024,v:33.42}],
+            breakdown: [{l:'임직원 수',v:'8,367명'},{l:'1인당 교육시간',v:'33.42h'},{l:'핵심직무 달성률',v:'72.01%'}],
+            formula: '총 교육시간 / 전체 임직원 수 (S1-02__G0001)'
+        }],
+        aiDesc: '미래 모빌리티 전환을 위한 인적 역량 개발 수준을 나타내는 핵심 지표입니다.',
+        related: {id: 'S3-01', label: '인재 개발 전략'}
+    },
+    p5: {
+        tag: '친환경 제품', tagType: 'green', id: 'AP-E-06',
+        preview: '친환경 제품 매출 4.3조 KRW (매출 대비 24.15%), 회피배출 1,245,000 tCO₂eq...',
+        metricCount: 1,
+        metrics: [{
+            name: '친환경 제품 매출', badge: '제품 지속가능성', badgeType: 'green',
+            metricId: 'AP-E-06__G0001', atomicId: 'AP-E-06__G0003',
+            unit: 'KRW', dataType: '정량',
+            desc: '연결 기준 친환경 제품 매출액 및 회피 온실가스 배출량',
+            latest: '4,298,000,000,000 KRW',
+            trend: [{y:2022,v:3100},{y:2023,v:3750},{y:2024,v:4298}],
+            breakdown: [{l:'친환경 매출',v:'4.3조 KRW'},{l:'매출 비중',v:'24.15%'},{l:'회피 배출량',v:'1,245,000 tCO₂eq'},{l:'비용 절감',v:'689.7억 KRW'}],
+            formula: 'AP-E-06__G0001 / 연결 총매출 × 100 = AP-E-06__G0003'
+        }],
+        aiDesc: '친환경 제품 포트폴리오의 재무적·환경적 성과를 동시에 보여주는 핵심 지표입니다.',
+        related: {id: 'AP-E-06', label: '제품 환경성과'}
+    },
+    p6: {
+        tag: '제품 안전', tagType: 'orange', id: 'AP-S-01',
+        preview: '리콜 건수 3건, 제품안전 CAP 완료율 70.37%...',
+        metricCount: 1,
+        metrics: [{
+            name: '제품안전 관리 현황', badge: '품질 지표', badgeType: 'blue',
+            metricId: 'AP-S-01__G0001', atomicId: 'AP-S-01__G0005',
+            unit: '건', dataType: '정량',
+            desc: '연결 기준 리콜 및 제품안전 시정조치(CAP) 완료 현황',
+            latest: 'CAP 완료율 70.37%',
+            trend: [{y:2022,v:65},{y:2023,v:68},{y:2024,v:70.37}],
+            breakdown: [{l:'리콜 건수',v:'3건'},{l:'CAP 완료율',v:'70.37%'},{l:'전체 대상',v:'10건'}],
+            formula: 'CAP 완료 건수 / AP-S-01__G0002 × 100'
+        }],
+        aiDesc: '제품 품질과 안전 관리 수준을 정량적으로 보여주는 핵심 리스크 지표입니다.',
+        related: {id: 'AP-S-01', label: '제품안전 정책'}
+    }
+};
+    
 
     let currentPid = null;
 
@@ -594,7 +636,7 @@
         const m = d.metrics[0];
         const trendSvg = buildTrendSvg(m.trend);
         const breakdownRows = m.breakdown.map(b =>
-            `<tr><td>${b.l}</td><td style="text-align:right;font-weight:700;">${b.v}</td></tr>`
+            `<tr><td>${b.l}</td><td class="breakdown-val">${b.v}</td></tr>`
         ).join('');
 
         document.getElementById('panelInner').innerHTML = `
@@ -625,7 +667,7 @@
                         <div class="metric-row"><span class="metric-row-key">단위</span><span class="metric-row-val">${m.unit}</span></div>
                         <div class="metric-row"><span class="metric-row-key">데이터 유형</span><span class="metric-row-val">${m.dataType}</span></div>
                         <hr class="metric-divider">
-                        <div class="metric-row"><span class="metric-row-key">설명</span><span class="metric-row-val" style="color:#64748b;">${m.desc}</span></div>
+                        <div class="metric-row"><span class="metric-row-key">설명</span><span class="metric-row-val metric-row-val--muted">${m.desc}</span></div>
                         <div class="metric-latest-box">
                             <span class="metric-latest-label">최신 데이터 (2024)</span>
                             <span class="metric-latest-val">${m.latest}</span>
@@ -634,14 +676,14 @@
                             <div class="trend-section-title">감추이</div>
                             <div class="trend-chart-wrap">${trendSvg}</div>
                         </div>
-                        <div style="margin-top:10px;">
+                        <div class="panel=subsection">
                             <div class="trend-section-title">데이터 구성 (${m.trend[m.trend.length-1].y})</div>
                             <table class="breakdown-table">
-                                <thead><tr><th>구분</th><th style="text-align:right;">값 (${m.unit})</th></tr></thead>
+                                <thead><tr><th>구분</th><th class="breakdown-val">값 (${m.unit})</th></tr></thead>
                                 <tbody>${breakdownRows}</tbody>
                             </table>
                         </div>
-                        <div style="margin-top:10px;">
+                        <div class="panel=subsection">
                             <div class="trend-section-title">계산식/산출 방식</div>
                             <div class="formula-box">${m.formula.replace(/\n/g,'<br>')}</div>
                         </div>
