@@ -1,12 +1,209 @@
-:root {
-            --sr-primary: #03A94D;
-            --sr-primary-vibrant: linear-gradient(135deg, #03A94D, #017E3F);
-            --sr-bg: #f4f7f6;
-            --sr-border: #e2e8f0;
-            --sr-text: #334155;
-            --sr-sub: #64748b;
-            --sr-radius: 20px;
-        }
+/* result.css에 추가할 공통 스타일 */
+#result .bg-white { background: #fff; }
+#result .border-main { border: 1px solid #e2e8f0; }
+#result .rounded-md { border-radius: 12px; }
+#result .rounded-lg { border-radius: 16px; }
+#result .text-main { color: #1e293b; }
+#result .text-sub { color: #64748b; }
+#result .font-bold { font-weight: 850; }
+#result .cursor-pointer { cursor: pointer; }
+
+/* 버튼 공통 스타일 */
+#result .btn-base {
+    border: none;
+    background: none;
+    padding: 8px 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#result .btn-tab { color: #94a3b8; }
+#result .btn-tab:hover { color: #03A94D; }
+
+/* 카드 공통 스타일 */
+#result .card-container {
+    padding: 20px 24px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+}
+
+/* result.css */
+
+/* 테이블 전체 공통 */
+#result .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+/* 헤더 스타일 */
+#result .result-table thead tr {
+    border-bottom: 1.5px solid #e2e8f0;
+}
+
+#result .result-table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    color: #64748b;
+}
+
+/* 데이터 셀 스타일 */
+#result .result-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+}
+
+#result .result-table td {
+    padding: 10px 8px;
+    text-align: center;
+    color: #475569;
+}
+
+/* 강조/특수 셀 스타일 */
+#result .result-table td.issue-name {
+    text-align: left;
+    font-weight: 700;
+    color: #1e293b;
+    padding-left: 12px;
+}
+
+#result .result-table td.score-highlight {
+    font-weight: 800;
+    color: #1e293b;
+}
+
+#result .result-table td.score-main {
+    font-weight: 800;
+    color: #03A94D;
+}
+
+/* result.css */
+
+/* 헤더 및 컨테이너 */
+#result .summary-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+#result .summary-title {
+    font-size: 1rem;
+    font-weight: 850;
+    color: #1e293b;
+}
+
+#result .info-icon {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: #94a3b8;
+}
+
+/* 그리드 레이아웃 */
+#result .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+/* 카드 공통 스타일 */
+#result .info-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    background: #f8fafc;
+}
+
+/* 카드별 컬러 테마 (상태값) */
+#result .info-card.success { background: #f0fdf4; border-color: #bbf7d0; }
+#result .info-card.danger { background: #fff5f5; border-color: #fecaca; }
+
+/* 텍스트 스타일 */
+#result .card-label { font-size: 0.76rem; color: #64748b; font-weight: 600; }
+#result .card-value { font-size: 1.5rem; font-weight: 850; color: #1e293b; }
+#result .card-value.text-green { color: #03A94D; }
+#result .card-value.text-red { color: #ef4444; }
+
+/* result.css */
+
+/* 메인 컨테이너 레이아웃 */
+#result .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    justify-content: flex-start;
+}
+
+/* 헤더 텍스트 */
+#result .page-title {
+    font-size: 1.1rem;
+    font-weight: 850;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+    text-align: center;
+}
+
+#result .page-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+    text-align: center;
+}
+
+/* 탭 레이아웃 */
+#result .tab-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+}
+
+#result .tab-wrapper {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 탭 버튼 그룹 */
+#result .tab-button-group {
+    display: flex;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 16px;
+}
+
+/* 탭 버튼 공통 (이전에 만든 btn-tab 클래스 재사용) */
+#result .tab-button {
+    padding: 8px 20px;
+    border: none;
+    background: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+#result .tab-button:hover { color: #03A94D; }
+#result .tab-button.active { color: #1e293b; border-bottom: 2px solid #03A94D; margin-bottom: -2px; }
+
 
 
         /* 우측 메인 영역 */
