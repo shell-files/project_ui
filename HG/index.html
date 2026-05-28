@@ -14,781 +14,350 @@
 <body>
 
     <header>
-        <div class="logo-section"></div>
-        <nav>
-            <button class="nav-btn active" onclick="openPage('dashboard', this)">대시보드</button>
-            <button class="nav-btn" onclick="openPage('master-data', this)">데이터 관리</button>
-            <button class="nav-btn" onclick="openPage('pcf-report', this)">PCF 데이터</button>
-            <button class="nav-btn" onclick="openPage('cbam-module', this)">CBAM 보고서</button>
-        </nav>
-        <div class="user-section">
-            <span>하이고/사원</span>
-            <button class="bell_icon active"></button>
-            <div class="btw_bar"></div>
-            <button class="home_icon"></button>
-            <div class="btw_bar"></div>
-            <span class="logout-btn">로그아웃</span>
+        <div class="logo-area">
+            <h1 class="logo-section"></h1>
+        </div>
+        <div class="header_right_area">
+            <nav>
+                <form>
+                    <div class="context_select_box">
+                        <label for="context_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">컨텍스트:</label>
+                        <select id="context_select">
+                            <option value="dashboard">전체</option>
+                            <option value="master-data">1공장</option>
+                            <option value="pcf-report">2공장</option>
+                            <option value="cbam-module">3공장</option>
+                        </select>
+                    </div>
+                    <div class="company_select_box">
+                        <label for="company_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">화주:</label>
+                        <select id="company_select">
+                            <option value="dashboard">전체</option>
+                            <option value="cbam-module">BMW</option>
+                            <option value="master-data">할로와(주)</option>
+                            <option value="pcf-report">(주)그레놀라</option>
+                        </select>
+                    </div>
+                </form>
+            </nav>
+            <div class="user-section">
+                <span>하이고/사원</span>
+                <button class="bell_icon active"></button>
+                <div class="btw_bar"></div>
+                <button class="home_icon"></button>
+                <div class="btw_bar"></div>
+                <span class="logout-btn">로그아웃</span>
+            </div>
         </div>
     </header>
 
     <div class="main-wrapper">
 
         <div class="sidebar">
-            <div>
-                <div style="margin-bottom: 1rem;">
-                    <label class="sidebar-title"
-                        style="font-size: 0.8rem; color: rgba(255,255,255,0.8); display:block; margin-bottom:4px;">📦 제품
-                        선택</label>
-                    <div class="sidebar-card">
-                        <select>
-                            <option>자동차 시트레일 [SR-ASSY-001]</option>
-                            <option>알루미늄 프로파일 [AP-6063-T5]</option>
-                            <option>구조용 압출재 [EX-STR-02]</option>
-                            <option>커스텀 시트 슬라이더 [CS-SL-09]</option>
-                        </select>
-                    </div>
+            <ul>
+                <h4 class="factory_icon">입고</h4>
+                <li><button>ASN</button></li>
+                <li><button>입고검수</button></li>
+                <li><button>입고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="released_icon">출고</h4>
+                <li><button>주문</button></li>
+                <li><button>패킹</button></li>
+                <li><button>출고/송장</button></li>
+                <li><button>출고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="carbon_icon">탄소배출량</h4>
+                <li><button>대시보드</button></li>
+                <li><button>이상치</button></li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+            <div id="asn-management-page" class="page-content active">
+                <div class="page-header-flex">
+                    <h2 class="page-title">사전입고 통지(ASN) 관리</h2>
+                    <button class="btn-main-action" onclick="openAsnModal()">+ ASN 등록 추가</button>
                 </div>
-                <form class="sidebar-group" style="margin-top: 0.5rem;">
-                    <div class="sidebar-title">📅 범위 선택</div>
-                    <div class="sidebar-card">
-                        <select style="margin-bottom: 0.5rem;">
-                            <option>2026 년도</option>
-                            <option>2025 년도</option>
-                        </select>
 
+                <div class="search-filter-card">
+                    <form id="asn-search-form" onsubmit="event.preventDefault();">
+                        <div class="filter-row">
+                            <label class="filter-label">조회 기간</label>
 
-
-                        <div class="select-group" id="group-quarter">
-                            <p class="select_label" style="cursor: pointer;"><span>분기별</span></p>
-                            <div class="toggle-content" style="display: none; margin-top: 10px;">
-                                <div>
-                                    <label for="select_q1">- 1분기 (Q1)</label>
-                                    <input type="radio" name="quarter" id="select_q1">
-                                </div>
-                                <div>
-                                    <label for="select_q2">- 2분기 (Q2)</label>
-                                    <input type="radio" name="quarter" id="select_q2">
-                                </div>
-                                <div>
-                                    <label for="select_q3">- 3분기 (Q3)</label>
-                                    <input type="radio" name="quarter" id="select_q3">
-                                </div>
-                                <div>
-                                    <label for="select_q4">- 4분기 (Q4)</label>
-                                    <input type="radio" name="quarter" id="select_q4">
-                                </div>
+                            <div class="date-quick-group">
+                                <button type="button" class="btn-quick-date active"
+                                    onclick="setSearchPeriod('today', this)">오늘</button>
+                                <button type="button" class="btn-quick-date"
+                                    onclick="setSearchPeriod('week', this)">이번주</button>
+                                <button type="button" class="btn-quick-date"
+                                    onclick="setSearchPeriod('month', this)">이번달</button>
                             </div>
-                        </div>
 
-                        <div class="select-group2" id="group-month">
-                            <p class="select_label" style="cursor: pointer;"><span>월별</span></p>
-                            <div class="toggle-content" style="display: none; margin-top: 10px;">
-                                <div>
-                                    <input type="text" name="month" id="select_m1"> 월
-                                </div>
+                            <div class="date-picker-range">
+                                <input type="date" id="search-start-date" class="filter-date-input">
+                                <span class="date-separator">~</span>
+                                <input type="date" id="search-end-date" class="filter-date-input">
                             </div>
-                        </div>
 
-                        <button class="select-btn">검색</button>
-                        <span class="search_comment">* 연도 전체 검색을 원하실시 분기별/월별 <br> 검색을 다시 클릭하여 꺼주시길 바랍니다.</span>
+                            <button type="submit" class="btn-filter-search">조회</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="content-card" style="margin-top: 1rem;">
+                    <div class="table-responsive">
+                        <table class="main-list-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;"><input type="checkbox"></th>
+                                    <th>ASN 번호</th>
+                                    <th>공급사명</th>
+                                    <th>화주</th>
+                                    <th>입고 창고</th>
+                                    <th>입고 예정일</th>
+                                    <th>품목 건수</th>
+                                    <th>진행 상태</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260528-001</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 1 자재창고</td>
+                                    <td>2026-06-02</td>
+                                    <td>2건</td>
+                                    <td><span class="status-badge ready">입고대기</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td><a href="#" class="text-link">ASN20260520-004</a></td>
+                                    <td>하이고 주식회사</td>
+                                    <td>하이고(WITH)</td>
+                                    <td>제 2 완제품창고</td>
+                                    <td>2026-05-22</td>
+                                    <td>1건</td>
+                                    <td><span class="status-badge complete">입고완료</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </form>
-            </div>
-            <div class="sidebar-group2">
-                <div class="sidebar-title">🏢 지사 선택</div>
-                <div class="sidebar-card">
-                    <select>
-                        <option>전체</option>
-                        <option>포항</option>
-                        <option>울산</option>
-                    </select>
+
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            전체 <span>2</span>건 중 <span>1-2</span> 표시
+                        </div>
+                        <div class="pagination-buttons">
+                            <button type="button" class="btn-page first" title="첫 페이지" disabled>&laquo;</button>
+                            <button type="button" class="btn-page prev" title="이전 페이지" disabled>&lsaquo;</button>
+
+                            <button type="button" class="btn-page-num active">1</button>
+                            <button type="button" class="btn-page-num">2</button>
+                            <button type="button" class="btn-page-num">3</button>
+                            <button type="button" class="btn-page-num">4</button>
+                            <button type="button" class="btn-page-num">5</button>
+
+                            <button type="button" class="btn-page next" title="다음 페이지">&rsaquo;</button>
+                            <button type="button" class="btn-page last" title="마지막 페이지">&raquo;</button>
+                        </div>
+                        <div class="pagination-size-selector">
+                            <select id="page-size-select">
+                                <option value="10">10개씩 보기</option>
+                                <option value="20">20개씩 보기</option>
+                                <option value="50">50개씩 보기</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="content-area">
-
-            <div id="dashboard" class="page active">
-                <div class="page-title">전사 탄소 배출 현황 요약 (실제 공정 수치 데이터)</div>
-
-                <div class="grid-3">
-                    <div class="card">
-                        <h3>연간 총 온실가스 배출량 및 감축 목표</h3>
-                        <div class="metric">280.59 tCO₂eq/yr</div>
-                        <div class="metric-sub" style="color: var(--primary-green); font-weight: bold;">🎯 2026 감축 목표 달성률: 78.5% (진행중)</div>
-                    </div>
-                    <div class="card">
-                        <h3>연간 총 전력 사용량</h3>
-                        <div class="metric" style="color: #4a5568;">611,169 kWh</div>
-                        <div class="metric-sub">빌릿 가열기 및 압출 공정 비중 최고 (56.4%)</div>
-                    </div>
-                    <div class="card">
-                        <h3>실시간 공정 이상 알림</h3>
-                        <div class="metric alert-text" style="font-size: 1.6rem; margin-top: 1.2rem;">⚠️ 아노다이징 폐수 모니터링</div>
-                        <div class="metric-sub">울산지사 아노다이징 지정폐수 연간 100L 경계치 도달 예정</div>
-                    </div>
+        <div id="asn-register-modal" class="modal-overlay">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h3>사전입고 통지(ASN) 등록</h3>
+                    <button class="modal-close-btn" onclick="closeAsnModal()">&times;</button>
                 </div>
-
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>공정별 연간 탄소 배출량 지표 ($tCO_2eq/yr$)</h3>
-                        <div class="chart-container">
-                            <canvas id="carbonChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>지사별 배출 핫스팟 분담률</h3>
-                        <div class="chart-container">
-                            <canvas id="locationChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>실제 공정 마스터 데이터 뷰 (전사 통합)</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>지사</th>
-                                <th>공정 단계</th>
-                                <th>세부 공정</th>
-                                <th>장비 라인업</th>
-                                <th>전력 (kWh)</th>
-                                <th>탄소 ($tCO_2eq$)</th>
-                                <th>고형폐기물 (kg)</th>
-                                <th>액체폐기물 (L)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>포항</td>
-                                <td>압출</td>
-                                <td>원재료 용해 및 성형</td>
-                                <td>빌릿 가열기, 간접 압출기</td>
-                                <td>280,000</td>
-                                <td>128.55</td>
-                                <td>10,500</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>포항</td>
-                                <td>압출</td>
-                                <td>인장 및 1차 절단</td>
-                                <td>인발기</td>
-                                <td>65,000</td>
-                                <td>29.75</td>
-                                <td>10,360</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>울산</td>
-                                <td>열처리</td>
-                                <td>시효 경화</td>
-                                <td>알루미늄 시효로</td>
-                                <td>150,000</td>
-                                <td>68.91</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>울산</td>
-                                <td>정밀 가공</td>
-                                <td>피어싱 및 CNC</td>
-                                <td>4축 CNC 머시닝 센터</td>
-                                <td>2,000</td>
-                                <td>0.92</td>
-                                <td>100</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>울산</td>
-                                <td>정밀 가공</td>
-                                <td>정밀 절단 및 노칭</td>
-                                <td>알루미늄 절단기 (PDS600CNC)</td>
-                                <td>29,169</td>
-                                <td>13.40</td>
-                                <td>30,000</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>울산</td>
-                                <td>표면처리</td>
-                                <td>아노다이징</td>
-                                <td>여러 장비 조합</td>
-                                <td>60,000</td>
-                                <td>27.56</td>
-                                <td>100</td>
-                                <td>100</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>고형 폐기물 종류별 발생 비율 (연간)</h3>
-                        <div class="chart-container">
-                            <canvas id="solidWasteChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>액체 지정 폐기물 관리 지표 (연간)</h3>
-                        <div class="chart-container">
-                            <canvas id="liquidWasteChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="master-data" class="page">
-                <div class="page-title">실제 공정 마스터 데이터 및 가동 제어</div>
-
-                <div
-                    style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #eef7f2; padding: 1rem; border-radius: 8px;">
-                    <div>
-                        <button class="btn" style="border-radius: 20px;">데이터 업데이트 하기</button>
-                        <span style="font-size:0.85rem; color:var(--text-muted); margin-left:1rem;">외부 데이터를 가져와 시스템 데이터로
-                            전환합니다.</span>
-                    </div>
-                    <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary-green);">
-                        ⏱️ Late Updated: <span id="live-clock">15:42:03</span>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>🏢 사업장 및 기본 회사 정보 설정</h3>
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
-                        <div>
-                            <label
-                                style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">회사명</label>
-                            <input type="text" value="(주)하이고 테크"
-                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
-                        </div>
-                        <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">산업
-                                분류</label>
-                            <input type="text" value="알루미늄 압출 및 표면처리제조"
-                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
-                        </div>
-                        <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">포항 대표
-                                주소지</label>
-                            <input type="text" value="경상북도 포항시 남구 공단로"
-                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
-                        </div>
-                        <div>
-                            <label style="font-size:0.85rem; font-weight:bold; display:block; margin-bottom:5px;">담당자
-                                연락처</label>
-                            <input type="text" value="054-123-4567"
-                                style="width:100%; padding:0.4rem; border:1px solid var(--border-color); border-radius:4px;">
-                        </div>
-                    </div>
-                    <button class="btn" style="margin-top: 1rem; padding: 0.4rem 1rem; font-size:0.85rem;">설정
-                        저장</button>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>🧪 서플라이 체인 전구체(Precursor) 공정 투입 물량 관리</h3>
-                    <table>
-                        <thead>
-                            <tr style="background-color: #f7fafc;">
-                                <th>전구체 자재코드</th>
-                                <th>원재료/합금 계열</th>
-                                <th>공급 업체</th>
-                                <th>연간 투입량 (t)</th>
-                                <th>내재 배출계수 ($tCO_2/t$)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>PRC-AL-6061</td>
-                                <td>알루미늄 빌릿 (Al-Mg-Si)</td>
-                                <td>(주)글로벌메탈</td>
-                                <td>1,200</td>
-                                <td>6.85</td>
-                            </tr>
-                            <tr>
-                                <td>PRC-AL-6063</td>
-                                <td>알루미늄 빌릿 (고순도)</td>
-                                <td>포스코에스티</td>
-                                <td>850</td>
-                                <td>5.12</td>
-                            </tr>
-                            <tr>
-                                <td>PRC-CH-ANO</td>
-                                <td>아노다이징 피막 황산 용액</td>
-                                <td>삼전화학</td>
-                                <td>45</td>
-                                <td>1.45</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="banner-danger">
-                    <strong style="color: var(--accent-red); font-size: 1.05rem;">🚨 AI 기반 공정 데이터 실시간 이상치 탐지 모니터링 (통합
-                        제어)</strong>
-                    <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #742a2a;">
-                        IoT 전력계 링크 데이터 및 설비 한계점 센서 통계 모델(Isolation Forest v2.1) 연동 화면입니다.
-                    </p>
-                </div>
-
-                <div class="grid-2" style="margin-top:1.5rem;">
-                    <div class="card">
-                        <h3>실시간 공정별 배출량 모니터링 (붉은 점: 이상치 발생 지점)</h3>
-                        <div class="chart-container">
-                            <canvas id="realtimeAnomalyChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>공정 라인별 이상치 누적 빈도 (최근 30일)</h3>
-                        <div class="chart-container">
-                            <canvas id="anomalyFrequencyChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>이상치 탐지 로그 내역</h3>
-                    <table>
-                        <thead>
-                            <tr style="background-color: #f7fafc;">
-                                <th>발생 시간</th>
-                                <th>지사</th>
-                                <th>공정 단계</th>
-                                <th>원인 탐지 유형</th>
-                                <th>실측 데이터</th>
-                                <th>위험도</th>
-                                <th>조치 상태</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2026-05-19 14:15</td>
-                                <td>울산</td>
-                                <td>표면처리 (아노다이징)</td>
-                                <td class="alert-text">지정폐수 배출 급증</td>
-                                <td>연간 98.2 L</td>
-                                <td><span class="tag-badge status-critical">위험 (Critical)</span></td>
-                                <td><span class="tag-badge" style="background-color:#fed7d7; color:#742a2a;">미조치</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2026-05-19 11:32</td>
-                                <td>포항</td>
-                                <td>압출 (원재료 용해)</td>
-                                <td class="alert-text">대기 전력 배출 유량 과다</td>
-                                <td>185.3 kW</td>
-                                <td><span class="tag-badge status-warning">경고 (Warning)</span></td>
-                                <td><span class="tag-badge status-warning">조치중</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-
-            <div id="pcf-report" class="page">
-                <div class="page-title">제품별 탄소 발자국(PCF) 인증 보고서 시뮬레이션</div>
-
-                <div class="card" style="margin-bottom: 1.5rem; background: #fff;">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 2rem;">
-                        <div style="text-align: center; flex: 1; position: relative;">
-                            <div
-                                style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
-                                1</div>
-                            <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">공정 데이터
-                                확인</span>
-                            <div
-                                style="position: absolute; top: 15px; left: 60%; width: 80%; height: 2px; background: var(--primary-green); z-index: 1;">
-                            </div>
-                        </div>
-                        <div style="text-align: center; flex: 1; position: relative;">
-                            <div
-                                style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-green); color: white; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
-                                2</div>
-                            <span style="font-size: 0.85rem; font-weight: bold; color: var(--primary-green);">이상치 검증
-                                검사</span>
-                            <div
-                                style="position: absolute; top: 15px; left: 60%; width: 80%; height: 2px; background: #cbd5e0; z-index: 1;">
-                            </div>
-                        </div>
-                        <div style="text-align: center; flex: 1;">
-                            <div
-                                style="width: 30px; height: 30px; border-radius: 50%; background: #e2e8f0; color: #718096; margin: 0 auto 5px; line-height: 30px; font-weight: bold;">
-                                3</div>
-                            <span style="font-size: 0.85rem; color: var(--text-muted);">정식 보고서 산출</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem; background: #fafafa; border-style: dashed;">
-                    <h4 style="margin:0 0 0.5rem 0; color: #2d3748;">🧮 제품 탄소발자국 연동 산출식 기본 정보</h4>
-                    <p style="margin:0; font-size:0.85rem; color: var(--text-muted); line-height: 1.4;">
-                        $PCF = \sum (Activity\ Data_i \times Emission\ Factor_i) + Upstream\ Precursor\ Burden$<br>
-                        본 시뮬레이션은 고정 가동 및 한전 전력 소비 기본 계수($0.4585\ kgCO_2/kWh$)를 기준으로 자동 추적 매핑됩니다.
-                    </p>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>[SR-ASSY-001] 자동차 시트레일 1톤 생산 당 누적 기여도 분석</h3>
-                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">실제 투입 에너지 비중 모델링 결과
-                    </div>
-                    <div class="chart-container" style="height: 220px;">
-                        <canvas id="pcfWaterfall"></canvas>
-                    </div>
-                </div>
-
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>품질 연동 추적성 데이터 (HZ-1009A/B 인장 데이터 매핑)</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>인장시험 Lot No.</th>
-                                    <th>측정 하중</th>
-                                    <th>최종 판정</th>
-                                    <th>해당 뱃지 탄소 배출 원단위</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>LOT-20260518-A</td>
-                                    <td>21,500 kg</td>
-                                    <td><span class="tag-badge"
-                                            style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
-                                    <td>280.1 kg/t</td>
-                                </tr>
-                                <tr>
-                                    <td>LOT-20260518-B</td>
-                                    <td>22,100 kg</td>
-                                    <td><span class="tag-badge"
-                                            style="background-color: #c6f6d5; color: #22543d;">적합(Pass)</span></td>
-                                    <td>279.5 kg/t</td>
-                                </tr>
-                                <tr>
-                                    <td>LOT-20260517-C</td>
-                                    <td>14,200 kg</td>
-                                    <td><span class="tag-badge"
-                                            style="background-color: #fed7d7; color: #742a2a;">불합격(Fail)</span></td>
-                                    <td>312.4 kg/t</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="card"
-                        style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                        <h3>글로벌 탄소 규제 제출 모듈</h3>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">유럽 자동차 OEM 공급사 및 글로벌 환경 성적서(EPD) 연동 포맷</p>
-                        <button class="btn" style="width: 80%; padding: 0.8rem;"
-                            onclick="alert('데이터 검증 단계 통과 완료. ISO 14067 정식 성적서 인쇄 출력이 시작됩니다.')">ISO 14067 정식 성적서 출력
-                            (PDF)</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="cbam-module" class="page">
-                <div class="banner-info">
-                    <strong style="color: #2f855a; font-size: 1.05rem;">🇪🇺 EU CBAM (탄소국경조정제도) 분기별 보고대응 및 데이터
-                        검증</strong>
-                    <p style="margin: 0.3rem 0 0 0; font-size: 0.85rem; color: #2c5282;">
-                        알루미늄 시트레일 품목의 고유 내재 배출량(Embedded Emissions) 분석 및 공식 수기 작성 서식 섹션입니다.
-                    </p>
-                </div>
-
-                <div
-                    style="display:flex; gap:0.5rem; margin-bottom: 1rem; border-bottom: 2px solid #cbd5e0; padding-bottom:5px;">
-                    <button class="btn" style="background-color:#2f855a; font-size:0.85rem; padding: 0.4rem 1rem;">Scope
-                        전체 현황</button>
-                    <button class="btn" style="background-color:#718096; font-size:0.85rem; padding: 0.4rem 1rem;">Scope
-                        1 (직접 배출 지표)</button>
-                    <button class="btn" style="background-color:#718096; font-size:0.85rem; padding: 0.4rem 1rem;">Scope
-                        2 (간접 전력 지표)</button>
-                </div>
-
-                <div class="grid-3">
-                    <div class="card">
-                        <h3>알루미늄 고유 내재 배출량 ($SEE_{alu}$)</h3>
-                        <div class="metric" style="color: #2f855a;">0.281 t/t</div>
-                        <div class="metric-sub">알루미늄 시트레일 완제품 1톤당 내재 배출량</div>
-                    </div>
-                    <div class="card">
-                        <h3>CBAM 신고 대상 CN Code 구분</h3>
-                        <div class="metric" style="font-size: 1.5rem; color: #2d3748; margin-top: 1.2rem;">7604.29 (알루미늄
-                            프로파일)</div>
-                        <div class="metric-sub">자동차 시트레일 구조재 세관 신고 코드</div>
-                    </div>
-                    <div class="card">
-                        <h3>탄소 가격 공제액 (Carbon Price Paid)</h3>
-                        <div class="metric" style="font-size: 1.5rem; color: #4a5568; margin-top: 1.2rem;">0.00 KRW (공제액
-                            없음)</div>
-                        <div class="metric-sub">국내 K-ETS 지출 비용 매핑 연동 데이터</div>
-                    </div>
-                </div>
-
-                <div class="load_wrap">
-                    <button class="btn btn-secondary" style="font-size:0.85rem; padding:0.4rem 0.8rem;">
-                        <div class="download_icon"></div><span>다운로드</span>
-                    </button>
-                    <button class="btn btn-secondary2" style="font-size:0.85rem; padding:0.4rem 0.8rem;">
-                        <div class="upload_icon"></div><span>업로드</span>
-                    </button>
-                    <div class="load_comment_box">
-                        <span class="load_comment">다운로드 버튼을 눌러 프로그램이 작성한 파일을 받은 후, 수정 사항이 있을 경우 수정하여 업로드 해주시길
-                            바랍니다.</span>
-                    </div>
-                </div>
-
-                <div class="card"
-                    style="margin-bottom: 1.5rem; padding: 0; background: transparent; border: none; box-shadow: none;">
-                    <h3 style="padding-left: 1rem; border-bottom: none; margin-bottom: 0;">📋 CBAM Quarterly
-                        Communication 공식 신고서 서식 (시트별 데이터 대장)</h3>
-
-                    <div class="cbam-sheet-tabs">
-                        <button class="sheet-tab-btn active" onclick="switchSheet('sheet-inst-data', this)">A_InstData
-                            (설치소 정보)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-em-inst', this)">B_EmInst (배출원
-                            소스)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-energy', this)">C_Emissions&Energy
-                            (에너지/배출량)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-processes', this)">D_Processes (공정
-                            정의)</button>
-                        <button class="sheet-tab-btn" onclick="switchSheet('sheet-purch-prec', this)">E_PurchPrec (구매
-                            전구체)</button>
-                        <button class="sheet-tab-btn"
-                            onclick="switchSheet('sheet-summary-comm', this)">Summary_Communication (최종 요약)</button>
-                    </div>
-
-                    <div id="sheet-inst-data" class="sheet-content active">
-                        <div class="sheet-section-title">1.1 사업장 기본 인적 사항 (Installation Identification)</div>
-                        <div class="form-grid-3">
+                <div class="modal-body">
+                    <div class="popup-section">
+                        <h4 class="sub-title">기본 정보</h4>
+                        <div class="form-grid-4">
                             <div class="input-box">
-                                <label>Name of Installation (설치소 명칭)</label>
-                                <input type="text" value="Pohang & Ulsan Seatrail Complex Line 1">
+                                <label>화주</label>
+                                <select type="text" value="하이고 주식회사">
+                                    <option value="하이고 주식회사">선택</option>
+                                    <option value="하이고 주식회사">하이고 주식회사</option>
+                                </select>
                             </div>
                             <div class="input-box">
-                                <label>Installation ID (설치소 고유 코드)</label>
-                                <input type="text" value="KR-PO-UL-SEATRAIL-01">
+                                <label>공급사명</label>
+                                <select type="text" value="하이고 주식회사">
+                                    <option value="하이고 주식회사">선택</option>
+                                    <option value="하이고 주식회사">하이고 주식회사</option>
+                                </select>
                             </div>
                             <div class="input-box">
-                                <label>Country of Installation (생산국가)</label>
-                                <input type="text" value="KR - Republic of Korea">
+                                <label>입고 예정일시 *</label>
+                                <input type="datetime-local" required class="filter-date-input">
                             </div>
                         </div>
-                        <div class="form-grid-2">
-                            <div class="input-box">
-                                <label>Address Line (상세 주소지)</label>
-                                <input type="text" value="경상북도 포항시 남구 괴동동 공단로 및 울산광역시 북구">
-                            </div>
-                            <div class="input-box">
-                                <label>Operator Name (운영 사업자명)</label>
-                                <input type="text" value="(주)하이고 테크 (Team HighGo!)">
-                            </div>
-                        </div>
-                        <div class="sheet-section-title">1.2 지리적 좌표 정보 (Geographical Coordinates)</div>
-                        <div class="form-grid-2">
-                            <div class="input-box">
-                                <label>Latitude (위도)</label>
-                                <input type="text" value="36.0194° N">
-                            </div>
-                            <div class="input-box">
-                                <label>Longitude (경도)</label>
-                                <input type="text" value="129.3431° E">
-                            </div>
+                        <div class="input-box">
+                            <label>입고 창고 *</label>
+                            <select required>
+                                <option value="">선택하세요</option>
+                                <option value="W1">제 1 자재창고</option>
+                                <option value="W2">제 2 완제품창고</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div id="sheet-em-inst" class="sheet-content">
-                        <div class="sheet-section-title">2.1 배출원 및 측정 포인트 목록 (List of Emissions Sources)</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Source ID</th>
-                                    <th>Description of Source (배출원 설명)</th>
-                                    <th>Type of Source (배출 유형)</th>
-                                    <th>Linked Process (연결된 공정 라인)</th>
-                                    <th>Monitored GHGs (측정 가스 종류)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>SRC-01</td>
-                                    <td>빌릿 알루미늄 용해 및 가열 가스 연소로</td>
-                                    <td>Direct Combustion (직접 가스 연소)</td>
-                                    <td>압출 (Pohang Line)</td>
-                                    <td>CO₂</td>
-                                </tr>
-                                <tr>
-                                    <td>SRC-02</td>
-                                    <td>알루미늄 시효 경화 열처리 시스템 (시효로)</td>
-                                    <td>Indirect Electricity (간접 전력 소비)</td>
-                                    <td>열처리 (Ulsan Line)</td>
-                                    <td>CO₂ (전력 계수 매핑)</td>
-                                </tr>
-                                <tr>
-                                    <td>SRC-03</td>
-                                    <td>아노다이징 표면처리 탱크 및 정류기 라인</td>
-                                    <td>Indirect Electricity (간접 전력 소비)</td>
-                                    <td>표면처리 (Ulsan Line)</td>
-                                    <td>CO₂</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="sheet-energy" class="sheet-content">
-                        <div class="sheet-section-title">3.1 고유 직접/간접 배출 원천별 정량 수치 데이터 수기 기입</div>
-                        <div class="form-grid-2">
-                            <div class="input-box">
-                                <label>Total Direct Emissions ($tCO_2\ / \ Quarter$)</label>
-                                <input type="number" step="0.01" value="0.00">
-                            </div>
-                            <div class="input-box">
-                                <label>Total Indirect Electricity Consumption ($kWh$)</label>
-                                <input type="number" value="611169">
-                            </div>
+                    <div class="popup-section" style="margin-top: 1.5rem;">
+                        <div class="section-header-flex">
+                            <h4 class="sub-title">품목 정보</h4>
+                            <button type="button" class="btn-secondary-sm">+ 품목 추가</button>
                         </div>
-                        <div class="form-grid-2">
-                            <div class="input-box">
-                                <label>Electricity Grid Emission Factor ($tCO_2/MWh$)</label>
-                                <input type="number" step="0.0001" value="0.4585">
-                            </div>
-                            <div class="input-box">
-                                <label>Calculated Indirect Emissions ($tCO_2eq$)</label>
-                                <input type="number" step="0.01" value="280.59" readonly
-                                    style="background-color: #edf2f7;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="sheet-processes" class="sheet-content">
-                        <div class="sheet-section-title">4.1 정의된 시스템 경계 및 공정 루트 (System Boundaries)</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Process ID</th>
-                                    <th>Name of Production Process (공정명)</th>
-                                    <th>Activity Level Type</th>
-                                    <th>Product Category (CBAM 품목 분류)</th>
-                                    <th>System Boundary Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>PROC-AL-01</td>
-                                    <td>알루미늄 시트레일 빌릿 압출 성형</td>
-                                    <td>Mass of Profiles produced (t)</td>
-                                    <td>Aluminum Products (7604)</td>
-                                    <td>원재료 용해 단계부터 인장, 1차 절단 경계선까지 포함</td>
-                                </tr>
-                                <tr>
-                                    <td>PROC-AL-02</td>
-                                    <td>후가공 및 아노다이징 표면 가공</td>
-                                    <td>Mass of Finished goods (t)</td>
-                                    <td>Aluminum Products (7604)</td>
-                                    <td>시효로 열처리, 피어싱, 피막 코팅 완료 및 최종 출하 경계</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="sheet-purch-prec" class="sheet-content">
-                        <div class="sheet-section-title">5.1 업스트림 구매 전구체 세부 내재 탄소 정보 (Purchased Precursors)</div>
-                        <div class="form-grid-3">
-                            <div class="input-box">
-                                <label>Precursor CN Code (전구체 코드)</label>
-                                <input type="text" value="7601.10 (Unwrought aluminum)">
-                            </div>
-                            <div class="input-box">
-                                <label>Supplier Name (공급처 명칭)</label>
-                                <input type="text" value="Posco ST / Global Metal">
-                            </div>
-                            <div class="input-box">
-                                <label>Country of Origin (전구체 원산지)</label>
-                                <input type="text" value="KR - Republic of Korea">
-                            </div>
-                        </div>
-                        <div class="form-grid-2">
-                            <div class="input-box">
-                                <label>Specific Embedded Emissions ($tCO_2/t\ Product$)</label>
-                                <input type="number" step="0.01" value="5.12">
-                            </div>
-                            <div class="input-box">
-                                <label>Total Inherent Carbon Weight ($tCO_2$)</label>
-                                <input type="number" step="0.1" value="4352.0">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="sheet-summary-comm" class="sheet-content">
-                        <div class="sheet-section-title">6.1 EU CBAM 제출용 최종 커뮤니케이션 리포트 서식 요약 (확정 수치)</div>
-                        <div
-                            style="background-color: #f7fafc; padding: 1rem; border-radius: 6px; border: 1px solid #cbd5e0; margin-bottom: 1rem;">
-                            <p style="margin: 0 0 0.5rem 0; font-weight: bold; color: #2f855a;">✓ 최종 산출 규제 매핑 데이터 요약</p>
-                            <ul
-                                style="margin: 0; padding-left: 20px; font-size: 0.85rem; line-height: 1.6; color: #2d3748;">
-                                <li><strong>CN Code 제품군 종류:</strong> 7604.29 (알루미늄 프로파일 / 자동차 구조재 시트레일)</li>
-                                <li><strong>고유 직접 내재배출량 (Specific Direct Embedded Emissions):</strong> 0.000 tCO₂ / t
-                                    Product</li>
-                                <li><strong>고유 간접 내재배출량 (Specific Indirect Embedded Emissions):</strong> 0.281 tCO₂ / t
-                                    Product</li>
-                                <li><strong>합산 고유 총 내재배출량 (Total Embedded Emissions):</strong> 0.281 tCO₂ / t Product
-                                </li>
-                            </ul>
-                        </div>
-                        <button class="btn" style="background-color: #2f855a; width: 100%; padding: 0.8rem;"
-                            onclick="alert('엑셀 시트 연동 데이터 기반으로 수기 입력 원장이 영구 저장되었습니다.')">📋 CBAM 시트 데이터 원장 임시 저장 및 최종 검증
-                            확정</button>
-                    </div>
-
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h3>CBAM Route 공정별 내재 배출 원단위 기여도 현황</h3>
-                    <div class="grid-2" style="margin:0; gap:2rem;">
-                        <div class="chart-container">
-                            <canvas id="cbamRouteChart"></canvas>
-                        </div>
-                        <div>
-                            <table style="font-size: 0.85rem;">
+                        <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                            <table class="popup-grid-table">
                                 <thead>
                                     <tr>
-                                        <th>CBAM 필수 필드항목</th>
-                                        <th>현장 매핑 데이터 값</th>
+                                        <th style="width: 40px;"><input type="checkbox"></th>
+                                        <th style="width: 50px;">순번</th>
+                                        <th>품목 코드 *</th>
+                                        <th>품목명 *</th>
+                                        <th>규격</th>
+                                        <th style="width: 100px;">요청 수량 *</th>
+                                        <th style="width: 110px;">입고 예정 수량 *</th>
+                                        <th style="width: 70px;">단위</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>설치소 고유 ID</th>
-                                        <td>KR-PO-UL-SEATRAIL-01</td>
+                                        <td><input type="checkbox"></td>
+                                        <td class="text-center">1</td>
+                                        <td><input type="text" value="AL-SHEET-01"
+                                                class="table-inner-input highlight-field"></td>
+                                        <td><input type="text" value="알루미늄 시트레일 A"
+                                                class="table-inner-input highlight-field"></td>
+                                        <td><input type="text" value="500mm * 1200mm"
+                                                class="table-inner-input highlight-field"></td>
+                                        <td><input type="number" value="1000"
+                                                class="table-inner-input text-right highlight-field"></td>
+                                        <td><input type="number" value="1000"
+                                                class="table-inner-input text-right highlight-field"></td>
+                                        <td><input type="text" value="EA"
+                                                class="table-inner-input text-center highlight-field"></td>
                                     </tr>
                                     <tr>
-                                        <th>고유 직접 내재배출량</th>
-                                        <td><strong>0.000 tCO₂/t Product</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <th>고유 간접 내재배출량</th>
-                                        <td><strong>0.281 tCO₂/t Product</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <th>적용 전력 배출 계수 원천</th>
-                                        <td>한전 공식 배출계수 기본값 매핑</td>
-                                    </tr>
-                                    <tr>
-                                        <th>전가된 전력 소비 가중치</th>
-                                        <td>611.17 kWh/t</td>
+                                        <td><input type="checkbox"></td>
+                                        <td class="text-center">2</td>
+                                        <td><input type="text" value="AL-SHEET-02"
+                                                class="table-inner-input highlight-field"></td>
+                                        <td><input type="text" value="알루미늄 시트레일 B"
+                                                class="table-inner-input highlight-field"></td>
+                                        <td><input type="text" value="500mm * 1500mm"
+                                                class="table-inner-input highlight-field"></td>
+                                        <td><input type="number" value="500"
+                                                class="table-inner-input text-right highlight-field"></td>
+                                        <td><input type="number" value="500"
+                                                class="table-inner-input text-right highlight-field"></td>
+                                        <td><input type="text" value="EA"
+                                                class="table-inner-input text-center highlight-field"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button class="btn-pop-cancel" onclick="closeAsnModal()">취소</button>
+                    <button class="btn-pop-submit">ASN 등록</button>
+                </div>
             </div>
-
         </div>
     </div>
 

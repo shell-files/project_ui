@@ -188,3 +188,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// ASN 등록 팝업창 열기
+function openAsnModal() {
+    const modal = document.getElementById('asn-register-modal');
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+// ASN 등록 팝업창 닫기
+function closeAsnModal() {
+    const modal = document.getElementById('asn-register-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+
+// 페이지 번호 변경 제어 핸들러 예시
+document.addEventListener("DOMContentLoaded", function() {
+    const pageButtons = document.querySelectorAll('.btn-page-num');
+    
+    pageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // 기존 active 클래스 제거 후 클릭 대상에 부여
+            pageButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // TODO: 실제 프로젝트 연동 시 이 타이밍에 해당 페이지 인덱스로 테이블 rows 목록 갱신 처리
+            console.log(`${this.textContent} 페이지로 데이터를 새로 조회합니다.`);
+        });
+    });
+});

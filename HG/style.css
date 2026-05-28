@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. 전역 스타일 및 변수 정의 (Global & Reset)
+   ========================================================================== */
 :root {
     --primary-green: #03a94d;
     --primary-hover: #008f40;
@@ -13,6 +16,16 @@
 * {
     box-sizing: border-box;
     font-family: 'Noto Sans KR';
+    padding: 0;
+    margin: 0;
+}
+
+ul,ol.li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 body {
@@ -26,7 +39,10 @@ body {
     overflow: hidden;
 }
 
-/* 1. 상단 헤더 영역 (네비게이션 통합) */
+
+/* ==========================================================================
+   2. 상단 헤더 레이아웃 (Header Area)
+   ========================================================================== */
 header {
     background-color: #ffffff;
     border-bottom: 1px solid var(--border-color);
@@ -34,22 +50,44 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 3rem;
+    padding: 0 3rem 0 0;
     flex-shrink: 0;
     z-index: 10;
 }
+
+header .header_right_area{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: calc(100% - 230px);
+    justify-content: space-between;
+    padding-left: 2rem
+}
+
+.logo-area {
+    width: 230px;
+    border-right: 1px solid var(--border-color);
+    height: 100%;
+    align-content: center;
+}   
 
 .logo-section {
     background: url(./img/logo.png) no-repeat center center / contain;
     width: 147px;
     height: 40px;
+    margin: auto;
 }
 
+
+/* ==========================================================================
+   3. 헤더 내비게이션 및 상단 셀렉트 박스 (Navigation & Header Select)
+   ========================================================================== */
 nav {
     display: flex;
-    gap: 0.5rem;
+    gap: 3rem;
     height: 100%;
     align-items: center;
+    width: fit-content;
 }
 
 nav button {
@@ -63,6 +101,26 @@ nav button {
     font-weight: 600;
     position: relative;
     transition: color 0.2s;
+}
+
+nav form {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+nav select {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    height: 100%;
+    cursor: pointer;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.2s;
+    width: 200px;
+    text-align: center;
+    font-size: 14px
 }
 
 nav button:hover {
@@ -83,11 +141,15 @@ nav button.active::after {
     background-color: var(--primary-green);
 }
 
+
+/* ==========================================================================
+   4. 헤더 우측 사용자 프로필 섹션 (User Section)
+   ========================================================================== */
 .user-section {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 0.95rem;
+    font-size: 14px;
     color: var(--text-muted);
 }
 
@@ -102,30 +164,139 @@ nav button.active::after {
     cursor: pointer;
 }
 
+.bell_icon {
+    width: 24px;
+    height: 24px;
+    background: url(./img/notification-bell_black.png) no-repeat center center / contain;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
 
-/* 메인 레이아웃 가로 배치 컨테이너 */
+.bell_icon:hover {
+    background: url(./img/notification-bell_green.png) no-repeat center center / contain;
+}
+
+.bell_icon.active::after {
+    content: '';
+    position: absolute;
+    top: 0%;
+    left: 60%;
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+}
+
+.home_icon {
+    width: 20px;
+    height: 20px;
+    background: url(./img/home_button_black.png) no-repeat center center / contain;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.home_icon:hover {
+    background: url(./img/home_button_green.png) no-repeat center center / contain;
+}
+
+.btw_bar {
+    width: 1px;
+    height: 20px;
+    background-color: #d1d1d1;
+}
+
+
+/* ==========================================================================
+   5. 메인 레이아웃 및 좌측 고정 사이드바 (Main Wrapper & Sidebar)
+   ========================================================================== */
 .main-wrapper {
     display: flex;
     flex: 1;
     overflow: hidden;
 }
 
-/* 2. 좌측 고정 사이드바 (Green Theme) */
 .sidebar {
-    width: 260px;
+    width: 230px;
     background-color: #34BA70;
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5rem 1.2rem;
+    /* display: flex;
+    flex-direction: column; */
+    /* justify-content: space-between; */
+    padding: 0 1.5rem 1.2rem;
     gap: 2rem;
     overflow-y: auto;
     position: relative;
 }
 
+.sidebar .factory_icon:before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(./img/factory_icon.png) no-repeat center center / contain;
+    margin-right: 8px;
+    position: relative;
+    top: 4px;
+}
+
+.sidebar .released_icon:before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(./img/released_icon.png) no-repeat center center / contain;
+    margin-right: 8px;
+    position: relative;
+    top: 10px;
+}
+
+.sidebar .carbon_icon:before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(./img/carbon_icon.png) no-repeat center center / contain;
+    margin-right: 8px;
+    position: relative;
+    top: 9px;
+}
+
+.sidebar ul {
+    border-bottom: 1px solid rgb(100, 214, 151);
+    padding: 1rem 0.5rem;
+}
+
+.sidebar ul:last-child {
+    border-bottom: none;
+}
+
+.sidebar ul h4 {
+    padding: 0.5rem 0 1rem;
+}
+
+.sidebar ul li:hover {
+    background-color: rgb(100, 214, 151);
+    border-radius: 4px;
+}
+
+.sidebar ul li button{
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    height: 50px;
+    width: 100%;
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s;
+}
 
 
+/* ==========================================================================
+   6. 사이드바 내부 검색 필터 및 카드 컴포넌트 (Sidebar Filters & Cards)
+   ========================================================================== */
 .sidebar-title {
     font-size: 1rem !important;
     font-weight: bold !important;
@@ -190,275 +361,9 @@ nav button.active::after {
     background-color: #f0f0f0;
 }
 
-
 .company-select {
     width: 100%;
 }
-
-/* 3. 우측 대시보드 메인 콘텐츠 영역 */
-.content-area {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-    background-color: #FAFDFB;
-}
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-.page-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: var(--text-dark);
-}
-
-/* 그리드 정의 */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-/* 카드 컴포넌트 */
-.card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-    border: 1px solid var(--border-color);
-}
-
-.card h3 {
-    margin-top: 0;
-    font-size: 1.05rem;
-    color: var(--text-dark);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-.metric {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: var(--primary-green);
-    margin: 0.5rem 0;
-}
-
-.metric-sub {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.alert-text {
-    color: var(--accent-red);
-    font-weight: bold;
-}
-
-/* 테이블 스태일링 */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-
-th,
-td {
-    padding: 0.85rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-
-th {
-    background-color: #f8fafc;
-    color: #4a5568;
-    font-weight: 600;
-}
-
-tr:hover {
-    background-color: #f8fafc;
-}
-
-/* 버턴 공통 */
-.btn {
-    background-color: var(--primary-green);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.2s;
-}
-
-.btn:hover {
-    background-color: var(--primary-hover);
-}
-
-.load_wrap {
-    margin-bottom: 20px;
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.btn-secondary {
-    background-color: #edf2f7;
-    color: #666;
-    padding: 1rem 2rem !important;
-    align-content: center;
-    margin-right: 10px;
-}
-
-.load_comment_box {
-    position: relative;
-}
-
-.load_comment {
-    font-size: 16px;
-    color: #999;
-    margin-top: 0.5rem;
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    width: max-content
-}
-
-.btn-secondary span {
-    display: inline-block;
-    background-color: #edf2f7;
-}
-
-.btn-secondary2 {
-    padding: 1rem 2rem !important;
-}
-
-.download_icon {
-    width: 20px;
-    height: 20px;
-    background: url(./img/download_icon.png) no-repeat center center / contain;
-    display: inline-block;
-    margin-right: 8px;
-}
-
-.upload_icon {
-    width: 20px;
-    height: 20px;
-    background: url(./img/upload_icon.png) no-repeat center center / contain;
-    display: inline-block;
-    margin-right: 8px;
-}
-
-.btn-secondary:hover {
-    background-color: #e2e8f0;
-}
-
-.tag-badge {
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.chart-container {
-    position: relative;
-    height: 280px;
-    width: 100%;
-}
-
-/* 배너 스타일 */
-.banner-info {
-    background-color: #e6f7ed;
-    border-left: 4px solid var(--primary-green);
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-}
-
-.banner-danger {
-    background-color: #fff5f5;
-    border-left: 4px solid var(--accent-red);
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-}
-
-.status-critical {
-    background-color: #fed7d7;
-    color: #9b2c2c;
-}
-
-.status-warning {
-    background-color: #feebc8;
-    color: #9c4221;
-}
-
-.status-resolved {
-    background-color: #edf2f7;
-    color: #4a5568;
-}
-
-.bell_icon {
-    width: 27px;
-    height: 27px;
-    background: url(./img/notification-bell_black.png) no-repeat center center / contain;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
-
-.bell_icon:hover {
-    background: url(./img/notification-bell_green.png) no-repeat center center / contain;
-}
-
-.bell_icon.active::after {
-    content: '';
-    position: absolute;
-    top: 0%;
-    left: 60%;
-    width: 10px;
-    height: 10px;
-    background-color: #ff0000;
-    border-radius: 50%;
-}
-
-.home_icon {
-    width: 20px;
-    height: 20px;
-    background: url(./img/home_button_black.png) no-repeat center center / contain;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
-
-
-
-.home_icon:hover {
-    background: url(./img/home_button_green.png) no-repeat center center / contain;
-}
-
-.btw_bar {
-    width: 1px;
-    height: 20px;
-    background-color: #d1d1d1;
-}
-
 
 .select-group input[type="radio"] {
     width: 16px;
@@ -484,7 +389,6 @@ tr:hover {
     position: relative;
     top: -3px;
 }
-
 
 .search_comment {
     font-size: 10px;
@@ -525,103 +429,541 @@ tr:hover {
 }
 
 
-
-/* CBAM 내부 엑셀 시트용 서브 탭 스타일 */
-.cbam-sheet-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    background-color: #e2e8f0;
-    padding: 6px 6px 0 6px;
-    border-radius: 6px 6px 0 0;
-    margin-top: 1rem;
+/* ==========================================================================
+   7. 우측 본문 기본 영역 메인 쉘 (Content Area Base)
+   ========================================================================== */
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: #FAFDFB;
 }
 
-.sheet-tab-btn {
-    background: #edf2f7;
-    border: 1px solid #cbd5e0;
-    border-bottom: none;
-    padding: 8px 14px;
+/* ==========================================================================
+   8. ASN 메인 리스트 레이아웃 (ASN Management Main UI)
+   ========================================================================== */
+.page-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.35rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.btn-main-action {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-main-action:hover {
+    background-color: var(--primary-hover);
+}
+
+.content-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    overflow-x: auto;
+    
+}
+
+/* 테이블 공통 서식 */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.main-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.main-list-table th, 
+.main-list-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    text-align: center;
+}
+
+.main-list-table th {
+    background-color: #f8fafc;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.main-list-table tr:hover td {
+    background-color: #f1f5f9;
+}
+
+.text-link {
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+/* 상태 표시 배지 */
+.status-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
+}
+.status-badge.ready { background-color: #e6fffa; color: #234e52; }
+.status-badge.complete { background-color: #edf2f7; color: #4a5568; }
+
+
+/* ==========================================================================
+   9. ASN 등록 모달 팝업창 구조 (Modal Popup UI)
+   ========================================================================== */
+.modal-overlay {
+    display: none; /* 기본 숨김 상태 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 모달이 활성화되었을 때 중앙 정렬 노출 */
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-window {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 850px;
+    max-width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: fadeInModal 0.25s ease-out;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    background-color: #ffffff;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
     cursor: pointer;
-    border-radius: 4px 4px 0 0;
-    color: #4a5568;
-    transition: all 0.2s;
+    color: var(--text-muted);
 }
 
-.sheet-tab-btn:hover {
-    background: #fff;
-}
-
-.sheet-tab-btn.active {
-    background: #ffffff;
-    color: #2f855a;
-    border-top: 3px solid #2f855a;
-    height: calc(100% + 2px);
-    position: relative;
-    z-index: 2;
-}
-
-.sheet-content {
-    display: none;
-    background: #ffffff;
-    border: 1px solid #cbd5e0;
-    border-top: none;
+.modal-body {
     padding: 1.5rem;
-    border-radius: 0 0 6px 6px;
+    overflow-y: auto;
+    max-height: 70vh;
 }
 
-.sheet-content.active {
-    display: block;
+/* 팝업 서브 섹션 타이틀 서식 */
+.sub-title {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
-.form-grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    margin-bottom: 1rem;
+.sub-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 12px;
+    background-color: var(--primary-green);
+    border-radius: 2px;
 }
 
-.form-grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-    margin-bottom: 1rem;
-}
 
 .input-box {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
 }
 
 .input-box label {
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #4a5568;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
 }
 
-.input-box input,
-.input-box select {
+.input-box input, .input-box select {
     padding: 0.5rem;
-    border: 1px solid #cbd5e0;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
+    font-size: 0.88rem;
+    outline: none;
+}
+
+.input-box input:focus, .input-box select:focus {
+    border-color: var(--primary-green);
+}
+
+.disabled-bg {
+    background-color: #f5f5f5;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* 모달 그리드 테이블 서식 (원본 스타일 유지용) */
+.popup-grid-table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 0.85rem;
 }
 
-.sheet-section-title {
-    font-size: 0.95rem;
+.popup-grid-table th, .popup-grid-table td {
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    vertical-align: middle;
+}
+
+.popup-grid-table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    text-align: center;
+}
+
+.table-inner-input {
+    width: 100%;
+    padding: 0.35rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.table-inner-input:focus {
+    border-color: var(--primary-green);
+    background-color: #ffffff;
+}
+
+.table-inner-input:disabled {
+    color: var(--text-dark);
+    border: none;
+}
+
+.highlight-field {
+    border: 1px solid #cbd5e0;
+    background-color: #fcfdfa;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.btn-secondary-sm {
+    background: #fff;
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
     font-weight: bold;
-    color: #2c5282;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    border-left: 3px solid #2c5282;
-    padding-left: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 팝업 하단 푸터 제어 영역 */
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.btn-pop-submit {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.25rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-pop-cancel {
+    background-color: #e2e8f0;
+    color: #4a5568;
+    border: none;
+    padding: 0.55rem 1.25rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 
-.dash_in_box {
+
+/* ==========================================================================
+   10. ASN 상단 조회 필터 컴포넌트 (Search Filter Component)
+   ========================================================================== */
+.search-filter-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    margin-bottom: 1rem;
+}
+
+.filter-row {
     display: flex;
-    gap: 30px;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    min-width: 60px;
+}
+
+/* 퀵 날짜 버튼 그룹 */
+.date-quick-group {
+    display: flex;
+    gap: 2px;
+    background-color: #f1f5f9;
+    padding: 3px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.btn-quick-date {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+}
+
+.btn-quick-date:hover {
+    color: var(--text-dark);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 활성화되었을 때 흰색 보드 형태로 토글 */
+.btn-quick-date.active {
+    background-color: #ffffff;
+    color: var(--primary-green);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* 달력 기간 입력 창 */
+.date-picker-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-date-input {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.88rem;
+    outline: none;
+    color: var(--text-dark);
+    background-color: #ffffff;
+}
+
+.filter-date-input:focus {
+    border-color: var(--primary-green);
+}
+
+.date-separator {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* 필터 검색 버튼 */
+.btn-filter-search {
+    background-color: #4a5568;
+    color: #ffffff;
+    border: none;
+    padding: 0.45rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: auto; /* 우측 끝으로 밀착 정렬 */
+    transition: background-color 0.2s;
+}
+
+.btn-filter-search:hover {
+    background-color: #2d3748;
+}
+
+/* 돋보기 아이콘 대용 가상 요소 스타일 */
+.search-icon::before {
+    content: "🔍";
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .btn-filter-search {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+
+/* ==========================================================================
+   11. 데이터 목록 페이지네이션 컴포넌트 (Pagination Component UI)
+   ========================================================================== */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* 좌측 건수 표시 데이터 */
+.pagination-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.pagination-info span {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* 중앙 페이지네이션 버튼 제어 구조 */
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-page, .btn-page-num {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    padding: 0.35rem 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.btn-page:hover:not(:disabled), .btn-page-num:hover:not(.active) {
+    background-color: #f1f5f9;
+    border-color: #cbd5e0;
+}
+
+/* 선택된 페이지 번호 강조 스타일 */
+.btn-page-num.active {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 비활성화된 이전/다음/처음/끝 화살표 버튼 제어 */
+.btn-page:disabled {
+    background-color: #f8fafc;
+    color: #cbd5e0;
+    border-color: var(--border-color);
+    cursor: not-allowed;
+}
+
+/* 우측 목록 개수 선택 박스 */
+.pagination-size-selector select {
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    outline: none;
+    background-color: #ffffff;
+}
+
+.pagination-size-selector select:focus {
+    border-color: var(--primary-green);
+}
+
+@media (max-width: 768px) {
+    .pagination-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .pagination-size-selector {
+        width: 100%;
+        text-align: center;
+    }
+    .pagination-size-selector select {
+        width: 100%;
+    }
 }
