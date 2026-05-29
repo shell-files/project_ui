@@ -133,7 +133,260 @@
 
       <!-- Content Body -->
       <main class="flex-1 overflow-y-auto p-6 space-y-5">
-        <!-- 여기에 콘텐츠 영역 추가 -->
+        <div class="space-y-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-2xl font-black text-gray-900">협력사 정보</h1>
+              <p class="text-sm text-gray-400 mt-1">협력사 마스터 · 계층별 직접 연결</p>
+            </div>
+          </div>
+
+          <!-- 검색 및 필터 패널 -->
+          <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 space-y-4">
+            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+              <!-- 검색창 -->
+              <div class="w-full md:w-72 relative">
+                <input
+                  type="text"
+                  placeholder="협력사명 검색..."
+                  class="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#03a94d]"
+                />
+                <span class="absolute left-3 top-2.5 text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-4 items-center">
+                <!-- 티어 필터 -->
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-gray-500">계층:</span>
+                  <div class="flex gap-1.5">
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800">전체</button>
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50">1차 협력사 (합금)</button>
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50">2차 협력사 (제련)</button>
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50">3차 협력사 (채굴)</button>
+                  </div>
+                </div>
+
+                <!-- 리스크 필터 -->
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-gray-500">리스크:</span>
+                  <div class="flex gap-1.5">
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800">전체</button>
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50">저위험</button>
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50">중위험</button>
+                    <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50">고위험</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 아코디언 카드 리스트 -->
+          <div class="space-y-3">
+            <!-- 1. (주)노벨리스코리아 (아코디언 클로즈 상태) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-10 rounded-full bg-[#03a94d]"></div>
+                  <div>
+                    <p class="font-bold text-gray-900">(주)노벨리스코리아</p>
+                    <p class="text-xs text-gray-500">1차 협력사 · 대한민국 · NOV-001</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-[#03a94d]/10 text-[#03a94d] border border-[#03a94d]/20 font-medium">저위험</span>
+                  <span class="text-gray-400">▼</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. (주)케이알엠 (아코디언 오픈 상태) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 border-b border-gray-100">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-10 rounded-full bg-[#0ea5e9]"></div>
+                  <div>
+                    <p class="font-bold text-gray-900">(주)케이알엠</p>
+                    <p class="text-xs text-gray-500">2차 협력사 · 대한민국 · KRM-001</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-amber-50 text-amber-600 border border-amber-200">중위험</span>
+                  <span class="text-gray-400">▲</span>
+                </div>
+              </div>
+              <div class="p-4 space-y-4">
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <span class="text-xs text-gray-400">대표자명</span>
+                    <p class="font-medium text-gray-800">이성훈</p>
+                  </div>
+                  <div>
+                    <span class="text-xs text-gray-400">사업자등록번호</span>
+                    <p class="font-medium text-gray-800">402-81-45123</p>
+                  </div>
+                  <div>
+                    <span class="text-xs text-gray-400">설립일</span>
+                    <p class="font-medium text-gray-800">2003-07-20</p>
+                  </div>
+                  <div>
+                    <span class="text-xs text-gray-400">대표 이메일 주소</span>
+                    <p class="font-medium text-gray-800">-</p>
+                  </div>
+                  <div>
+                    <span class="text-xs text-gray-400">기업 규모</span>
+                    <p class="font-medium text-gray-800">중견기업</p>
+                  </div>
+                  <div>
+                    <span class="text-xs text-gray-400">국가</span>
+                    <p class="font-medium text-gray-800">대한민국</p>
+                  </div>
+                  <div class="col-span-2">
+                    <span class="text-xs text-gray-400">소재지</span>
+                    <p class="font-medium text-gray-800">인천광역시 남동구 앵고개로 490</p>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  <div class="bg-gray-50 rounded p-2 text-xs">
+                    <p class="text-gray-400">Scope 1</p>
+                    <p class="font-bold text-gray-900">58,000 tCO2e</p>
+                  </div>
+                  <div class="bg-gray-50 rounded p-2 text-xs">
+                    <p class="text-gray-400">Scope 2</p>
+                    <p class="font-bold text-gray-900">40,000 tCO2e</p>
+                  </div>
+                  <div class="bg-gray-50 rounded p-2 text-xs">
+                    <p class="text-gray-400">FEOC 비중</p>
+                    <p class="font-bold text-gray-900">12.5%</p>
+                  </div>
+                  <div class="bg-gray-50 rounded p-2 text-xs">
+                    <p class="text-gray-400">TRIR</p>
+                    <p class="font-bold text-gray-900">1.12</p>
+                  </div>
+                </div>
+                <!-- 글로벌 인증 및 이니셔티브 준수 현황 -->
+                <div class="border-t border-gray-100 pt-3 space-y-2">
+                  <p class="text-xs font-bold text-gray-700">글로벌 인증 및 이니셔티브 준수 현황</p>
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">ISO 14001 환경경영</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y (준수)</span>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">ISO 45001 안전보건</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">IATF 16949 자동차 품질</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">RBA 책임 비즈니스</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">CMRT 분쟁광물 보고</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">RMAP 책임 광물 보증</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-2 text-xs flex flex-col justify-between">
+                      <p class="text-gray-400 font-semibold mb-1">EMAT 전기차 광물 추적</p>
+                      <div>
+                        <span class="inline-block text-[10px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Comilog Gabon (아코디언 클로즈 상태) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-10 rounded-full bg-[#8b5cf6]"></div>
+                  <div>
+                    <p class="font-bold text-gray-900">Comilog Gabon</p>
+                    <p class="text-xs text-gray-500">3차 협력사 · 가봉 · COM-001</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-amber-50 text-amber-600 border border-amber-200">중위험</span>
+                  <span class="text-gray-400">▼</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. (주)한성정밀 (아코디언 클로즈 상태) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-10 rounded-full bg-[#0ea5e9]"></div>
+                  <div>
+                    <p class="font-bold text-gray-900">(주)한성정밀</p>
+                    <p class="text-xs text-gray-500">2차 협력사 · 대한민국 · HSG-001</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-red-50 text-red-600 border border-red-200">고위험</span>
+                  <span class="text-gray-400">▼</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. 삼우강업 (아코디언 클로즈 상태) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-10 rounded-full bg-[#8b5cf6]"></div>
+                  <div>
+                    <p class="font-bold text-gray-900">삼우강업</p>
+                    <p class="text-xs text-gray-500">3차 협력사 · 대한민국 · SWG-001</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-red-50 text-red-600 border border-red-200">고위험</span>
+                  <span class="text-gray-400">▼</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. (주)알루코 (아코디언 클로즈 상태) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-10 rounded-full bg-[#03a94d]"></div>
+                  <div>
+                    <p class="font-bold text-gray-900">(주)알루코</p>
+                    <p class="text-xs text-gray-500">1차 협력사 · 대한민국 · ALC-001</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-[#03a94d]/10 text-[#03a94d] border border-[#03a94d]/20 font-medium">저위험</span>
+                  <span class="text-gray-400">▼</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </div>
