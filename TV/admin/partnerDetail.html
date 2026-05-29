@@ -189,11 +189,11 @@
               <div class="grid grid-cols-2 gap-4 text-xs">
                 <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                   <span class="text-xs text-gray-400 font-semibold">Scope 1 (tCO2e)</span>
-                  <p class="text-sm font-bold text-gray-800 mt-0.5">58,000</p>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">45,000</p>
                 </div>
                 <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                   <span class="text-xs text-gray-400 font-semibold">Scope 2 (tCO2e)</span>
-                  <p class="text-sm font-bold text-gray-800 mt-0.5">40,000</p>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">28,000</p>
                 </div>
                 <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                   <span class="text-xs text-gray-400 font-semibold">FEOC 원료 비중 (%)</span>
@@ -201,7 +201,7 @@
                 </div>
                 <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                   <span class="text-xs text-gray-400 font-semibold">TRIR 산업안전율</span>
-                  <p class="text-sm font-bold text-gray-800 mt-0.5">1.12</p>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">0.15</p>
                 </div>
               </div>
             </div>
@@ -209,152 +209,48 @@
 
           <!-- 탭 네비게이션 -->
           <div class="flex border-b border-gray-200 bg-white rounded-t-xl px-4 pt-2">
-            <button class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
+            <button class="px-4 py-2.5 text-sm font-bold border-b-2 border-[#03a94d] text-[#03a94d] transition-all">
               협력사 정보
             </button>
             <button class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
               자가진단 정보
             </button>
-            <button class="px-4 py-2.5 text-sm font-bold border-b-2 border-[#03a94d] text-[#03a94d] transition-all">
+            <button class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
               증빙 자료
             </button>
           </div>
 
-          <!-- 4대 증빙 자료 카드 세트 (증빙 자료 탭 활성화 상태) -->
-          <div class="space-y-6">
-            <!-- 1층: 자가진단 완료 문서 -->
-            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
-              <h3 class="text-base font-bold text-gray-800 border-b pb-2">자가진단 완료 문서</h3>
-              <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
-                <span class="text-sm font-bold text-gray-800">2차 협력사용 자가진단 파일_케이알엠.xlsx</span>
-                <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                  다운로드
-                </button>
+          <!-- 글로벌 인증 현황 (협력사 정보 탭 활성화 상태 하단) -->
+          <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+            <h3 class="text-base font-bold text-gray-800 border-b pb-2">글로벌 인증 현황</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">CMRT (분쟁광물 보고)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
               </div>
-            </div>
-
-            <!-- 2층: 자가진단 증빙 자료 (8개 이상, 스크롤바 바인딩) -->
-            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
-              <h3 class="text-base font-bold text-gray-800 border-b pb-2">자가진단 증빙 자료</h3>
-              <div class="max-h-48 overflow-y-auto pr-1">
-                <!-- 파일 01 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">01</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_EnergyBill_2026Q1.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 02 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">02</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_GHG_AuditReport.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 03 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-150 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">03</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_WaterConsumptionRecord.xlsx</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 04 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">04</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_WasteTransferTicket.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 05 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">05</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_SafetyTrainingLog.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 06 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">06</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_ChemicalInventory.xlsx</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 07 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">07</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_LocalCommunityAgreement.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 08 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">08</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_EnvironmentalPolicy.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">EMAT (배터리·광물 추적)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
               </div>
-            </div>
-
-            <!-- 3층: 글로벌 인증 증빙 자료 -->
-            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
-              <h3 class="text-base font-bold text-gray-800 border-b pb-2">글로벌 인증 증빙 자료</h3>
-              <div>
-                <!-- 파일 01 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">01</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_ISO14001_Certificate.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
-                <!-- 파일 02 -->
-                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">02</span>
-                    <span class="text-sm font-bold text-gray-800 truncate">KRM_EnvironmentalAudit_2025.pdf</span>
-                  </div>
-                  <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                    다운로드
-                  </button>
-                </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">ISO 14001 (환경경영)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y (준수)</span>
               </div>
-            </div>
-
-            <!-- 4층: 행동강령 준수 서약서 -->
-            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
-              <h3 class="text-base font-bold text-gray-800 border-b pb-2">행동강령 준수 서약서</h3>
-              <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
-                <span class="text-sm font-bold text-gray-800">KRM_Supplier_CoC_Agreement.pdf</span>
-                <button type="button" class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0">
-                  다운로드
-                </button>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">ISO 45001 (안전보건)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+              </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">IATF 16949 (품질경영)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+              </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">RBA (책임 비즈니스)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
+              </div>
+              <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex items-center justify-between">
+                <span class="font-semibold text-gray-700">RMAP (책임 광물 보증)</span>
+                <span class="px-2 py-0.5 rounded text-xs font-bold border bg-slate-100 text-slate-500 border-slate-200">N (미준수)</span>
               </div>
             </div>
           </div>
