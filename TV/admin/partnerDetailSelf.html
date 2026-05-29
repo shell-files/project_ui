@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TV] ESG 공급망 관리 시스템 - 협력사 자가진단 정보</title>
+  <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
+    @theme {
+      --color-primary-green: #03a94d;
+      --color-primary-dark-green: #02823b;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 overflow-hidden font-sans">
+  <div class="flex h-screen overflow-hidden">
+    <!-- SidebarNav (좌측 레이어) -->
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
+      <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
+        <div style="cursor: pointer;"
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden">
+          <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
+        </div>
+      </div>
+      <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
+        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <div class="space-y-1">
+            <!-- 메인 대시보드 -->
+            <a href="dashboard.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>메인 대시보드</span>
+            </a>
+            <!-- 협력사 정보 (활성화 상태) -->
+            <a href="partnerList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-bold transition text-left bg-primary-dark-green text-white">
+              <span>협력사 정보</span>
+            </a>
+            <!-- BOM 관리 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>BOM 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 구매 및 자재 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
+          <div class="space-y-1">
+            <!-- PO 관리 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>PO 관리</span>
+            </a>
+            <!-- 원자재 관리 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>원자재 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 실사 및 평가 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
+          <div class="space-y-1">
+            <!-- 리스크 현황 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>리스크 현황</span>
+            </a>
+            <!-- 현장 실사 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>현장 실사</span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-bold bg-amber-400 text-white">3건</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area (우측 레이어) -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- HeaderNav -->
+      <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
+        <div class="flex items-center gap-3">
+          <!-- 햄버거 메뉴 버튼 -->
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-base md:text-lg font-bold text-gray-800">ESG 공급망 관리 시스템</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- 역할 전환 셀렉트 박스 -->
+          <div class="flex items-center gap-2">
+            <select
+              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer">
+              <option value="현대모비스" selected>원청사 (현대모비스)</option>
+              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              <option value="2차 협력사">2차 협력사 (케이알엠)</option>
+              <option value="3차 협력사">3차 협력사 (Comilog)</option>
+            </select>
+          </div>
+
+          <!-- 알림 센터 -->
+          <div class="relative">
+            <button class="relative p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
+            </button>
+          </div>
+
+          <!-- 역할 표시 -->
+          <span class="text-xs text-gray-600 font-semibold">원청사 관리자</span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="flex-1 overflow-y-auto p-6 space-y-5">
+        <div class="space-y-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-2xl font-black text-gray-900">협력사 상세 정보</h1>
+              <p class="text-sm text-gray-400 mt-1">(주)케이알엠 (2차 협력사)</p>
+            </div>
+            <a href="partnerList.html"
+              class="px-4 py-2 bg-slate-100 text-slate-700 text-sm rounded-lg hover:bg-slate-200 transition font-bold">←
+              목록으로</a>
+          </div>
+
+          <!-- 기본 협력사 정보 & ESG 주요 지표 데이터 (2열 그리드 배치) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- 기본 협력사 정보 -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2">기본 협력사 정보</h3>
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">기업명</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">(주)케이알엠</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">대표자명</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">이성훈</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">사업자등록번호</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">402-81-45123</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">설립일</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">2003-07-20</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">대표 이메일 주소</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">-</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">기업 규모</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">중견기업</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">소재 국가</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">대한민국</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">소재지</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">인천광역시 남동구 앵고개로 490</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ESG 주요 지표 데이터 -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2">ESG 주요 지표 데이터</h3>
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">Scope 1 (tCO2e)</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">45,000</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">Scope 2 (tCO2e)</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">28,000</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">FEOC 원료 비중 (%)</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">12.5%</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">TRIR 산업안전율</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">0.15</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 탭 네비게이션 -->
+          <div class="flex border-b border-gray-200 bg-white rounded-t-xl px-4 pt-2">
+            <a href="partnerDetail.html"
+              class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
+              협력사 정보
+            </a>
+            <a href="partnerDetailSelf.html"
+              class="px-4 py-2.5 text-sm font-bold border-b-2 border-[#03a94d] text-[#03a94d] transition-all">
+              자가진단 정보
+            </a>
+            <a href="#"
+              class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
+              증빙 자료
+            </a>
+          </div>
+
+          <!-- 자가진단 문항 리스트 -->
+          <div class="space-y-4 pb-6">
+            <!-- 01번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(1)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">01</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 합금 제품에서 Mn(망간) 함량이 ASTM B209 기준인 1.00~1.50% 범위 내에 있습니까? 히트별 OES/ICP-OES 성분 분석 결과를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-red-100 text-red-800 border border-red-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: Critical</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-1" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-1" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">Al 3003 합금 Mn 함량 실측</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. 당사 Al 3003 제품의 Mn 함량은 1.25%로 ASTM B209 기준(1.00~1.50%) 범위 내에 있습니다. 최근 3개월 히트별 OES 분석 성적서를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 02번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(2)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">02</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 합금 제품에서 Cu(구리) 함량이 ASTM B209 기준인 0.05~0.20% 범위 내에 있습니까? 로트별 ICP-OES/XRF 분석 결과를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-2" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-2" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">Al 3003 합금 Cu 함량 실측</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. Cu 함량은 0.12%로 ASTM B209 기준(0.05~0.20%) 범위 내에 있습니다. 로트별 ICP-OES 성적서를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(3)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">03</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 합금 제품에서 Si(규소) 함량이 ASTM 기준 최대 0.60% 이하입니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-3" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-3" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">Al 3003 Si 최대 함량</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. Si 함량은 0.28%로 기준(≤0.60%) 이내입니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 04번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(4)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">04</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 합금 제품에서 Fe(철) 함량이 ASTM 기준 최대 0.70% 이하입니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-4" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-4" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">Al 3003 Fe 최대 함량</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. Fe 함량은 0.45%로 기준(≤0.70%) 이내입니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 05번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(5)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">05</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 합금 균질화 처리 시 온도 600°C(±10°C)에서 12시간 유지 조건을 충질하고 있습니까? 열처리 로그 데이터를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-5" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-5" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">균질화 처리 조건</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. 균질화 처리 조건 600°C×12h(±10°C)를 충족하고 있습니다. 최근 배치별 열처리 로그 데이터를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 06번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(6)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">06</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 열간 압연 공정에서 시작 온도 480°C(±15°C), 종료 온도 300°C(±15°C)를 준수하고 있습니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-6" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-6" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">열간 압연 조건</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. 열간 압연 시작 478°C / 종료 305°C로 기준 범위 내입니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 07번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(7)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">07</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 H14 temper 제품의 인장강도(UTS)가 150 MPa 이상이고 경도(HB)가 40 이상입니까? UTM 시험 성적서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-7" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-7" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">H14 temper 인장강도</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. UTS 162 MPa, HB 43으로 기준(UTS≥150, HB≥40)을 충족합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 08번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(8)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">08</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 H16 temper 제품의 인장강도(UTS)가 180 MPa 이상이고 경도(HB)가 47 이상입니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: Medium</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-8" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-8" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">H16 temper 인장강도</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. UTS 195 MPa, HB 50으로 기준을 충족합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 09번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(9)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">09</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 O temper(완전소둔) 제품의 인장강도(UTS)가 110 MPa 이상입니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: Medium</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-9" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-9" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">O temper 인장강도 (완전소둔)</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. UTS 118 MPa로 기준(≥110 MPa)을 충족합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 10번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(10)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">10</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 압연 공정 에너지 원단위가 2.5 GJ/t 이하입니까? 에너지 사용 현황 보고서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-10" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-10" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">압연 공정 에너지 원단위</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. 압연 공정 에너지 원단위는 2.3 GJ/t-Al로 기준(≤2.5)을 충족합니다. 에너지 사용 현황 보고서를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 11번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(11)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">11</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Al 3003 가공 단계 Scope 1+2 GHG 배출량이 0.7 tCO₂/t 이하입니까? 온실가스 배출량 검증 보고서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-11" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-11" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">가공 단계 Scope 1+2 GHG</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. Scope 1+2 GHG 배출량 is 0.62 tCO₂/t-Al로 기준(≤0.7)을 충족합니다. 제3자 검증 보고서를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 12번 (오픈 활성 마크업) -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(12)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">12</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사 제품이 EU RoHS 지침의 10대 제한물질 기준치를 전부 충족합니까? (Pb≤1,000ppm 등) RoHS 시험 성적서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-red-100 text-red-800 border border-red-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 고위험</span>
+                  <span id="arrow-12" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▲</span>
+                </div>
+              </div>
+              <div id="content-12" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">RoHS 10대 제한물질 함유량</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">Pb 함량이 1,250ppm으로 기준(≤1,000ppm)을 초과합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 13번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(13)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">13</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사에서 사용하는 전체 화학물질이 ECHA SVHC 후보물질 리스트와 대조 완료되었습니까? SVHC 대조 현황 보고서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-red-100 text-red-800 border border-red-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 고위험</span>
+                  <span id="arrow-13" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-13" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">REACH SVHC 후보물질 관리</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">사용 물질 82종 중 35종이 SVHC 대조 미완료 상태입니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 14번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(14)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">14</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사에서 사용하는 전체 화학물질에 대한 SDS(안전보건자료)를 100% 확보하고 있습니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: Medium</span>
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 중위험</span>
+                  <span id="arrow-14" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-14" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">SDS(안전보건자료) 완비율</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">사용 물질 82종 중 Mn 분말, 압연유에 대한 SDS가 미확보 상태입니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 15번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(15)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">15</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사는 강제노동·아동노동 Zero 선언을 수행하고 연간 제3자 감사를 실시하고 있습니까? 최근 감사 보고서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-red-100 text-red-800 border border-red-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: Critical</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-15" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-15" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">강제노동·아동노동 Zero (합금)</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. 2025년 강제·아동노동 Zero 선언을 수행하였으며, SGS 제3자 사회감사를 연 1회 실시하고 있습니다. 감사 보고서를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 16번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(16)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">16</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사는 CSDDD Art.14에 따른 고충처리 메커니즘(핫라인/접수 채널)을 운영하고 있으며, 접수 건수를 공개하고 있습니까?
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-yellow-100 text-yellow-800 border border-yellow-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: High</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-16" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-16" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">고충처리 메커니즘</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-slate-600 font-bold bg-slate-100 border border-slate-200 rounded px-2.5 py-1 w-fit">
+                      증빙서류 선택 제출
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">예. 다국어 핫라인을 운영 중이며, 2025년 접수 건수 12건, 처리 완료 11건입니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 17번 -->
+            <div class="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm">
+              <div onclick="toggleCard(17)" class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/80 transition-all select-none">
+                <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                  <span class="text-sm font-black text-gray-400 bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center shrink-0">17</span>
+                  <p class="text-xs md:text-sm font-semibold text-gray-800 leading-relaxed line-clamp-2 md:line-clamp-none">
+                    귀사의 Mn(망간)·Cu(구리) 원소 공급사 중 FEOC(외국 우려 기관) 해당 기업이 있습니까? 공급사 지분 구조 확인서를 제출해 주십시오.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="bg-red-100 text-red-800 border border-red-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">우선순위: Critical</span>
+                  <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm uppercase tracking-wider px-3 py-1.5 text-xs font-black rounded-full whitespace-nowrap">평가: 저위험</span>
+                  <span id="arrow-17" class="text-gray-400 text-sm font-bold transition-all ml-1 w-4 text-center">▼</span>
+                </div>
+              </div>
+              <div id="content-17" class="border-t border-gray-150 p-5 space-y-5 bg-slate-50/40 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">지표명</span>
+                    <p class="text-sm font-bold text-gray-800 mt-0.5">FEOC Mn·Cu 원소 공급사 확인</p>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">증빙자료 필요 여부</span>
+                    <div class="flex items-center gap-1.5 mt-1 text-xs text-amber-800 font-bold bg-amber-50 border border-amber-100 rounded px-2.5 py-1 w-fit">
+                      증빙서류 필수 제출 대상
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-gray-500">협력사 답변 (Partner Answer)</label>
+                  <textarea readOnly disabled class="w-full bg-white border border-gray-200 rounded-lg p-3 text-xs text-gray-700 leading-relaxed focus:outline-none resize-none cursor-not-allowed opacity-90 shadow-inner" rows="3">아니요. 당사의 Mn·Cu 공급사 중 FEOC 해당 기업은 0%입니다. 공급사별 지분 구조 확인서를 첨부합니다.</textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <script>
+            function toggleCard(id) {
+              const content = document.getElementById('content-' + id);
+              const arrow = document.getElementById('arrow-' + id);
+              if (content && arrow) {
+                if (content.classList.contains('hidden')) {
+                  content.classList.remove('hidden');
+                  arrow.textContent = '▲';
+                } else {
+                  content.classList.add('hidden');
+                  arrow.textContent = '▼';
+                }
+              }
+            }
+          </script>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+
+</html>
