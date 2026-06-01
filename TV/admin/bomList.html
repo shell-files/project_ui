@@ -10,6 +10,7 @@
   <!-- 공통 스타일 -->
   <link rel="stylesheet" href="../assets/css/global.css">
   <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
     @theme {
       --color-primary-green: #03a94d;
       --color-primary-dark-green: #02823b;
@@ -132,7 +133,438 @@
 
       <!-- Content Body -->
       <main class="flex-1 overflow-y-auto p-6 space-y-5">
-        <!-- 중앙 콘텐츠 영역 -->
+        <div>
+          <h1 class="text-2xl font-black text-gray-900">BOM 관리</h1>
+          <p class="text-sm text-gray-400 mt-1">Al 3003 제품군별 BOM · BOM ID 클릭 → 드롭다운 트리 / 행 클릭 → 상세</p>
+        </div>
+
+        <!-- 검색 및 필터 패널 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 space-y-4">
+          <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <!-- 검색창 -->
+            <div class="w-full md:w-72 relative">
+              <input
+                type="text"
+                placeholder="협력사명 검색..."
+                class="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              />
+              <span class="absolute left-3 top-2.5 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
+            </div>
+
+            <!-- 제품군 필터 -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold text-gray-500">제품군:</span>
+              <div class="flex gap-1.5 flex-wrap">
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-slate-800 text-white border-slate-800 shadow-sm">전체</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">열차폐판</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">휠</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">파이프</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">튜브</button>
+              </div>
+            </div>
+
+            <!-- 상태 필터 -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold text-gray-500">상태:</span>
+              <div class="flex gap-1.5 flex-wrap">
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-slate-800 text-white border-slate-800 shadow-sm">전체</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">활성</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">비활성</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">등록 중</button>
+                <button class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">단종</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOM 목록 테이블 -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead>
+                <tr class="bg-slate-50 border-b border-gray-100 text-gray-500 font-bold">
+                  <th class="px-4 py-3">BOM ID</th>
+                  <th class="px-2 py-3">제품군</th>
+                  <th class="px-4 py-3">제품명</th>
+                  <th class="px-2 py-3">품번</th>
+                  <th class="px-4 py-3">품목명</th>
+                  <th class="px-2 py-3 text-emerald-700">계산 중량</th>
+                  <th class="px-2 py-3">수량</th>
+                  <th class="px-2 py-3">단위</th>
+                  <th class="px-4 py-3">협력사</th>
+                  <th class="px-4 py-3">상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- 1. BOM-001 (아코디언 오픈 상태) -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-001 <span class="text-xs text-gray-400">▲</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">열차폐판</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-H14 판재 1.5T 400x300mm</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">HSP-400-300-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-H14 판재 1.5T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">491g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">1.02</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">pcs/pcs</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-violet-50 text-violet-600 border border-violet-200">활성</span>
+                    </a>
+                  </td>
+                </tr>
+                <!-- BOM ID 드롭다운 트리 (BOM-001 하위 계층) -->
+                <tr class="bg-emerald-50/30 border-t">
+                  <td colspan="10" class="px-6 py-4">
+                    <div class="space-y-3">
+                      <p class="text-xs font-bold text-emerald-700">BOM-001 — 공급망 재료·광물 트리 (중량: 491g)</p>
+                      <div class="space-y-1.5 py-2 max-w-3xl">
+                        <!-- 1차 협력사 -->
+                        <div class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200" style="margin-left: 0px;">
+                          <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#03a94d]">1차</span>
+                          <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-gray-800">노벨리스코리아</p>
+                            <p class="text-xs text-gray-500">Al 3003-H14 판재 1.5T</p>
+                          </div>
+                          <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">0.495 kg</span>
+                        </div>
+                        <!-- 2차 협력사 -->
+                        <div class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200" style="margin-left: 16px;">
+                          <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#0ea5e9]">2차</span>
+                          <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-gray-800">케이알엠</p>
+                            <p class="text-xs text-gray-500">P1020 잉곳 + EMD</p>
+                          </div>
+                          <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">0.512 kg</span>
+                        </div>
+                        <!-- 3차 협력사 (Windalco) -->
+                        <div class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200" style="margin-left: 32px;">
+                          <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#8b5cf6]">3차</span>
+                          <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-gray-800">Windalco</p>
+                            <p class="text-xs text-gray-500">알루미나 (Al2O3)</p>
+                          </div>
+                          <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">0.956 kg</span>
+                        </div>
+                        <!-- 3차 협력사 (Comilog) -->
+                        <div class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200" style="margin-left: 32px;">
+                          <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#8b5cf6]">3차</span>
+                          <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-gray-800">Comilog</p>
+                            <p class="text-xs text-gray-500">Mn 정광 (MnO2)</p>
+                          </div>
+                          <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">0.061 kg</span>
+                        </div>
+                        <!-- 3차 협력사 (Codelco) -->
+                        <div class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200" style="margin-left: 32px;">
+                          <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#8b5cf6]">3차</span>
+                          <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-gray-800">Codelco</p>
+                            <p class="text-xs text-gray-500">황동광 (Cu)</p>
+                          </div>
+                          <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">0.006 kg</span>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 2. BOM-002 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-002 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">열차폐판</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-H14 판재 2.0T 600x400mm</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">HSP-600-400-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-H14 판재 2.0T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">1310g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">1.03</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">pcs/pcs</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-violet-50 text-violet-600 border border-violet-200">활성</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- 3. BOM-003 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-003 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">휠</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-H16 판재 3.0T 17인치(D432mm)</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">WHL-17-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-H16 판재 3.0T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">1347g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">2.15</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">pcs/pcs</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">비활성</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- 4. BOM-004 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-004 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">휠</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-H16 판재 3.5T 18인치(D457mm)</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">WHL-18-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-H16 판재 3.5T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">1596g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">2.40</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">pcs/pcs</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-cyan-50 text-cyan-600 border border-cyan-200">등록 중</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- 5. BOM-005 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-005 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">파이프</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-O 튜브 Ø12x1.5T L3000mm</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">PIP-012-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-O 튜브 Ø12mmx1.5T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">180g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">1.05</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">m/m</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-pink-50 text-pink-600 border border-pink-200">단종</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- 6. BOM-006 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-006 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">파이프</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-O 튜브 Ø25x2.0T L3000mm</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">PIP-025-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-O 튜브 Ø25mmx2.0T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">411g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">1.05</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">m/m</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-violet-50 text-violet-600 border border-violet-200">활성</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- 7. BOM-007 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-007 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">튜브</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-H14 튜브 Ø8x1.0T L2000mm</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">TUB-008-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-H14 튜브 Ø8mmx1.0T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">107g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">1.03</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">m/m</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-cyan-50 text-cyan-600 border border-cyan-200">등록 중</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- 8. BOM-008 -->
+                <tr class="border-t hover:bg-gray-50 cursor-pointer">
+                  <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline cursor-pointer">
+                    BOM-008 <span class="text-xs text-gray-400">▼</span>
+                  </td>
+                  <td class="px-2 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">튜브</span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3 font-semibold text-gray-900">
+                    <a href="bomDetail.html" class="block hover:underline">Al 3003-H14 튜브 Ø16x1.5T L2000mm</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">TUB-016-001</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">Al 3003-H14 튜브 Ø16mmx1.5T</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono font-bold text-[#03a94d]">
+                    <a href="bomDetail.html" class="block">218g</a>
+                  </td>
+                  <td class="px-2 py-3 font-mono text-gray-700">
+                    <a href="bomDetail.html" class="block">1.04</a>
+                  </td>
+                  <td class="px-2 py-3 text-gray-500 font-mono">
+                    <a href="bomDetail.html" class="block">m/m</a>
+                  </td>
+                  <td class="px-4 py-3 text-gray-700">
+                    <a href="bomDetail.html" class="block">노벨리스코리아</a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="bomDetail.html" class="block">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-50 text-slate-500 border border-slate-200">비활성</span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-xs text-gray-400 p-3 bg-slate-50/50 border-t border-gray-100">
+            BOM ID 클릭 → 공급망 트리 드롭다운 / 행 클릭 → BOM 상세
+          </div>
+        </div>
       </main>
     </div>
   </div>
