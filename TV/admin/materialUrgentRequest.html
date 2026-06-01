@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TV] ESG 공급망 관리 시스템 - 긴급 요청</title>
+  <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
+    @theme {
+      --color-primary-green: #03a94d;
+      --color-primary-dark-green: #02823b;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 overflow-hidden font-sans">
+  <div class="flex h-screen overflow-hidden">
+    <!-- SidebarNav (좌측 레이어) -->
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
+      <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
+        <div style="cursor: pointer;"
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden">
+          <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
+        </div>
+      </div>
+      <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
+        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <div class="space-y-1">
+            <!-- 메인 대시보드 -->
+            <a href="dashboard.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>메인 대시보드</span>
+            </a>
+            <!-- 협력사 정보 -->
+            <a href="partnerList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>협력사 정보</span>
+            </a>
+            <!-- BOM 관리 -->
+            <a href="bomList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>BOM 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 구매 및 자재 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
+          <div class="space-y-1">
+            <!-- PO 관리 -->
+            <a href="poList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>PO 관리</span>
+            </a>
+            <!-- 원자재 관리 (활성화 상태) -->
+            <a href="materialList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-bold transition text-left bg-primary-dark-green text-white">
+              <span>원자재 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 실사 및 평가 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
+          <div class="space-y-1">
+            <!-- 리스크 현황 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>리스크 현황</span>
+            </a>
+            <!-- 현장 실사 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>현장 실사</span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-bold bg-amber-400 text-white">3건</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area (우측 레이어) -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- HeaderNav -->
+      <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
+        <div class="flex items-center gap-3">
+          <!-- 햄버거 메뉴 버튼 -->
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-base md:text-lg font-bold text-gray-800">ESG 공급망 관리 시스템</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- 역할 전환 셀렉트 박스 -->
+          <div class="flex items-center gap-2">
+            <select
+              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer">
+              <option value="현대모비스" selected>원청사 (현대모비스)</option>
+              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              <option value="2차 협력사">2차 협력사 (케이알엠)</option>
+              <option value="3차 협력사">3차 협력사 (Comilog)</option>
+            </select>
+          </div>
+
+          <!-- 알림 센터 -->
+          <div class="relative">
+            <button class="relative p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
+            </button>
+          </div>
+
+          <!-- 역할 표시 -->
+          <span class="text-xs text-gray-600 font-semibold">원청사 관리자</span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="space-y-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-2xl font-black text-gray-900">긴급 요청</h1>
+            </div>
+            <a href="materialList.html"
+              class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm rounded-lg transition font-bold inline-block">
+              ← 목록으로
+            </a>
+          </div>
+
+          <!-- 요청 대상 정보 (읽기 전용) -->
+          <div class="bg-white rounded-xl p-4 border border-slate-200 bg-slate-50/50 shadow-sm">
+            <div class="flex items-center gap-2 mb-2.5">
+              <h3 class="font-bold text-sm text-gray-800">요청 대상 정보</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="bg-white rounded-lg p-2.5 border border-gray-150 shadow-sm flex flex-col justify-between">
+                <p class="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">PO ID</p>
+                <p class="font-mono font-bold text-gray-800 mt-1">PO-2025-3003-001</p>
+              </div>
+              <div class="bg-white rounded-lg p-2.5 border border-gray-150 shadow-sm flex flex-col justify-between">
+                <p class="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">협력사</p>
+                <p class="font-bold text-gray-800 mt-1">노벨리스코리아</p>
+              </div>
+              <div class="bg-white rounded-lg p-2.5 border border-gray-150 shadow-sm flex flex-col justify-between">
+                <p class="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">원자재명</p>
+                <p class="font-bold text-gray-800 mt-1">Al 3003 슬라브</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 요청 항목 선택 (선택 가능) -->
+          <div class="bg-white rounded-xl p-4 border border-[#03a94d]/20 shadow-sm">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-sm text-gray-800">요청 항목 선택</h3>
+            </div>
+            <p class="text-xs text-gray-500 mb-3">각 항목을 클릭하면 요청할 항목으로 선택됩니다.</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs" id="specs-selectors-grid">
+              <!-- 폭(mm) (selected by default) -->
+              <div data-label="폭(mm)" data-value="600"
+                class="spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-[#03a94d]/10 border-[#03a94d] ring-1 ring-[#03a94d]/30 shadow-sm"
+                title="클릭 시 요청 항목으로 선택됩니다">
+                <div class="text-gray-400 flex justify-between items-center text-[10px] font-semibold uppercase tracking-wider">
+                  <span>폭(mm)</span>
+                  <span class="checked-icon text-[#03a94d] font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="plus-label hidden text-gray-300 opacity-0 group-hover:opacity-100 transition duration-150 text-[10px] font-bold">+ 선택</span>
+                </div>
+                <p class="font-semibold text-gray-800 mt-1">600</p>
+              </div>
+
+              <!-- 길이(mm) -->
+              <div data-label="길이(mm)" data-value="3000"
+                class="spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-gray-50 border-gray-150 hover:bg-[#03a94d]/5 hover:border-[#03a94d]/20"
+                title="클릭 시 요청 항목으로 선택됩니다">
+                <div class="text-gray-400 flex justify-between items-center text-[10px] font-semibold uppercase tracking-wider">
+                  <span>길이(mm)</span>
+                  <span class="checked-icon hidden text-[#03a94d] font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="plus-label text-gray-300 opacity-0 group-hover:opacity-100 transition duration-150 text-[10px] font-bold">+ 선택</span>
+                </div>
+                <p class="font-semibold text-gray-800 mt-1">3000</p>
+              </div>
+
+              <!-- 지름(mm) -->
+              <div data-label="지름(mm)" data-value="-"
+                class="spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-gray-50 border-gray-150 hover:bg-[#03a94d]/5 hover:border-[#03a94d]/20"
+                title="클릭 시 요청 항목으로 선택됩니다">
+                <div class="text-gray-400 flex justify-between items-center text-[10px] font-semibold uppercase tracking-wider">
+                  <span>지름(mm)</span>
+                  <span class="checked-icon hidden text-[#03a94d] font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="plus-label text-gray-300 opacity-0 group-hover:opacity-100 transition duration-150 text-[10px] font-bold">+ 선택</span>
+                </div>
+                <p class="font-semibold text-gray-800 mt-1">-</p>
+              </div>
+
+              <!-- 중량(kg) (selected by default) -->
+              <div data-label="중량(kg)" data-value="1520"
+                class="spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-[#03a94d]/10 border-[#03a94d] ring-1 ring-[#03a94d]/30 shadow-sm"
+                title="클릭 시 요청 항목으로 선택됩니다">
+                <div class="text-gray-400 flex justify-between items-center text-[10px] font-semibold uppercase tracking-wider">
+                  <span>중량(kg)</span>
+                  <span class="checked-icon text-[#03a94d] font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="plus-label hidden text-gray-300 opacity-0 group-hover:opacity-100 transition duration-150 text-[10px] font-bold">+ 선택</span>
+                </div>
+                <p class="font-semibold text-gray-800 mt-1">1520</p>
+              </div>
+
+              <!-- 원산지 -->
+              <div data-label="원산지" data-value="대한민국 울산"
+                class="spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-gray-50 border-gray-150 hover:bg-[#03a94d]/5 hover:border-[#03a94d]/20"
+                title="클릭 시 요청 항목으로 선택됩니다">
+                <div class="text-gray-400 flex justify-between items-center text-[10px] font-semibold uppercase tracking-wider">
+                  <span>원산지</span>
+                  <span class="checked-icon hidden text-[#03a94d] font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="plus-label text-gray-300 opacity-0 group-hover:opacity-100 transition duration-150 text-[10px] font-bold">+ 선택</span>
+                </div>
+                <p class="font-semibold text-gray-800 mt-1">대한민국 울산</p>
+              </div>
+
+              <!-- 구성요소 -->
+              <div data-label="구성요소" data-value="Al 97.9%, Mn 1.25%, Cu 0.12%"
+                class="spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-gray-50 border-gray-150 hover:bg-[#03a94d]/5 hover:border-[#03a94d]/20"
+                title="클릭 시 요청 항목으로 선택됩니다">
+                <div class="text-gray-400 flex justify-between items-center text-[10px] font-semibold uppercase tracking-wider">
+                  <span>구성요소</span>
+                  <span class="checked-icon hidden text-[#03a94d] font-bold flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span class="plus-label text-gray-300 opacity-0 group-hover:opacity-100 transition duration-150 text-[10px] font-bold">+ 선택</span>
+                </div>
+                <p class="font-semibold text-gray-800 mt-1 truncate">Al 97.9%, Mn 1.25%, Cu 0.12%</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 요청 내용 입력 -->
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+            <h4 class="font-bold text-sm text-gray-800 mb-4">요청 내용 입력</h4>
+            <div class="space-y-4">
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1.5">요청 항목 <span class="text-red-500">*</span></label>
+                <!-- Chips container -->
+                <div id="chips-container" class="flex flex-wrap gap-1.5 mb-1">
+                  <!-- Chips will be rendered dynamically by JavaScript -->
+                </div>
+                <!-- Empty placeholder -->
+                <p id="empty-placeholder" class="text-xs text-gray-400 mb-1 hidden">선택된 항목이 없습니다. 상단에서 요청할 항목을 선택해주세요.</p>
+              </div>
+
+              <!-- 제출기한 -->
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1.5">제출기한 <span class="text-red-500">*</span></label>
+                <input type="date" id="input-deadline"
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30"
+                  required />
+              </div>
+
+              <!-- 요청 내용 -->
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1">요청 내용</label>
+                <textarea rows="6" id="input-content"
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30"
+                  placeholder="세부 내용을 입력해주세요."></textarea>
+              </div>
+
+              <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
+                요청 시 해당 협력사에 즉시 알림이 발송되며, RAW_MATERIAL_APPROVAL 결재선이 생성됩니다.
+              </div>
+
+              <div class="flex gap-2">
+                <a href="materialList.html" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg font-medium inline-block text-center hover:bg-gray-200 transition">취소</a>
+                <button id="btn-submit"
+                  class="px-6 py-2 text-white text-sm rounded-lg font-bold hover:opacity-90 transition shadow-sm"
+                  style="background-color: #03a94d;">요청 하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // State of selected specs
+    let selectedItems = ["폭(mm)", "중량(kg)"];
+
+    const specsGrid = document.getElementById('specs-selectors-grid');
+    const chipsContainer = document.getElementById('chips-container');
+    const emptyPlaceholder = document.getElementById('empty-placeholder');
+
+    function renderChips() {
+      chipsContainer.innerHTML = '';
+      if (selectedItems.length === 0) {
+        emptyPlaceholder.classList.remove('hidden');
+      } else {
+        emptyPlaceholder.classList.add('hidden');
+        selectedItems.forEach(item => {
+          const chip = document.createElement('span');
+          chip.className = "inline-flex items-center gap-1.5 bg-[#03a94d]/10 text-[#03a94d] border border-[#03a94d]/20 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm";
+          chip.innerHTML = `
+            <span>${item}</span>
+            <button type="button" class="btn-remove-chip hover:bg-emerald-200 hover:text-emerald-950 rounded-full p-0.5 transition duration-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          `;
+          // Remove button handler
+          chip.querySelector('.btn-remove-chip').addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleItem(item);
+          });
+          chipsContainer.appendChild(chip);
+        });
+      }
+    }
+
+    function updateGridUI() {
+      const items = specsGrid.querySelectorAll('.spec-toggle-item');
+      items.forEach(el => {
+        const label = el.getAttribute('data-label');
+        const checkedIcon = el.querySelector('.checked-icon');
+        const plusLabel = el.querySelector('.plus-label');
+
+        if (selectedItems.includes(label)) {
+          el.className = "spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-[#03a94d]/10 border-[#03a94d] ring-1 ring-[#03a94d]/30 shadow-sm";
+          checkedIcon.classList.remove('hidden');
+          plusLabel.classList.add('hidden');
+        } else {
+          el.className = "spec-toggle-item rounded p-2.5 border transition duration-150 cursor-pointer relative group flex flex-col justify-between bg-gray-50 border-gray-150 hover:bg-[#03a94d]/5 hover:border-[#03a94d]/20";
+          checkedIcon.classList.add('hidden');
+          plusLabel.classList.remove('hidden');
+        }
+      });
+    }
+
+    function toggleItem(label) {
+      const idx = selectedItems.indexOf(label);
+      if (idx !== -1) {
+        selectedItems.splice(idx, 1);
+      } else {
+        selectedItems.push(label);
+      }
+      updateGridUI();
+      renderChips();
+    }
+
+    // Grid items click handler
+    specsGrid.querySelectorAll('.spec-toggle-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const label = el.getAttribute('data-label');
+        toggleItem(label);
+      });
+    });
+
+    // Form submission handler
+    document.getElementById('btn-submit').addEventListener('click', () => {
+      if (selectedItems.length === 0) {
+        alert("요청 항목을 하나 이상 선택해주세요.");
+        return;
+      }
+      const deadline = document.getElementById('input-deadline').value;
+      if (!deadline) {
+        alert("제출기한을 입력해주세요.");
+        return;
+      }
+
+      alert("요청이 발송되었습니다.\n결재선이 생성되었습니다.");
+      window.location.href = "materialList.html";
+    });
+
+    // Initial render
+    updateGridUI();
+    renderChips();
+  </script>
+</body>
+
+</html>

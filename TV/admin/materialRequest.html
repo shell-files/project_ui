@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TV] ESG 공급망 관리 시스템 - 원자재 요청</title>
+  <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
+    @theme {
+      --color-primary-green: #03a94d;
+      --color-primary-dark-green: #02823b;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 overflow-hidden font-sans">
+  <div class="flex h-screen overflow-hidden">
+    <!-- SidebarNav (좌측 레이어) -->
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
+      <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
+        <div style="cursor: pointer;"
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden">
+          <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
+        </div>
+      </div>
+      <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
+        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <div class="space-y-1">
+            <!-- 메인 대시보드 -->
+            <a href="dashboard.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>메인 대시보드</span>
+            </a>
+            <!-- 협력사 정보 -->
+            <a href="partnerList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>협력사 정보</span>
+            </a>
+            <!-- BOM 관리 -->
+            <a href="bomList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>BOM 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 구매 및 자재 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
+          <div class="space-y-1">
+            <!-- PO 관리 -->
+            <a href="poList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>PO 관리</span>
+            </a>
+            <!-- 원자재 관리 (활성화 상태) -->
+            <a href="materialList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-bold transition text-left bg-primary-dark-green text-white">
+              <span>원자재 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 실사 및 평가 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
+          <div class="space-y-1">
+            <!-- 리스크 현황 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>리스크 현황</span>
+            </a>
+            <!-- 현장 실사 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>현장 실사</span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-bold bg-amber-400 text-white">3건</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area (우측 레이어) -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- HeaderNav -->
+      <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
+        <div class="flex items-center gap-3">
+          <!-- 햄버거 메뉴 버튼 -->
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-base md:text-lg font-bold text-gray-800">ESG 공급망 관리 시스템</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- 역할 전환 셀렉트 박스 -->
+          <div class="flex items-center gap-2">
+            <select
+              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer">
+              <option value="현대모비스" selected>원청사 (현대모비스)</option>
+              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              <option value="2차 협력사">2차 협력사 (케이알엠)</option>
+              <option value="3차 협력사">3차 협력사 (Comilog)</option>
+            </select>
+          </div>
+
+          <!-- 알림 센터 -->
+          <div class="relative">
+            <button class="relative p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
+            </button>
+          </div>
+
+          <!-- 역할 표시 -->
+          <span class="text-xs text-gray-600 font-semibold">원청사 관리자</span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="space-y-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-2xl font-black text-gray-900">원자재 요청</h1>
+            </div>
+            <a href="materialList.html"
+              class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm rounded-lg transition font-bold inline-block">
+              ← 목록으로
+            </a>
+          </div>
+
+          <!-- 1. 요청 협력사 선택 카드 -->
+          <div class="bg-white rounded-xl p-4 border border-slate-200 bg-slate-50/50 shadow-sm">
+            <div class="flex items-center gap-2 mb-2.5">
+              <h3 class="font-bold text-sm text-gray-800">요청 협력사 선택</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1">PO ID 선택 <span class="text-red-500">*</span></label>
+                <select id="select-po-id"
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30 cursor-pointer">
+                  <option value="">-- PO ID를 선택하세요 --</option>
+                  <option value="PO-2025-3003-001">PO-2025-3003-001 (Al 3003-H14 판재)</option>
+                  <option value="PO-2025-3003-002">PO-2025-3003-002 (Al 3003-H16 코일)</option>
+                  <option value="PO-2026-3003-001">PO-2026-3003-001 (Al 3003-H16 박판)</option>
+                  <option value="PO-2026-3003-002">PO-2026-3003-002 (Al 3003-H14 판재)</option>
+                  <option value="PO-2026-3003-003">PO-2026-3003-003 (Al 3003 튜브)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1">협력사</label>
+                <input type="text" id="display-partner"
+                  value="PO ID를 먼저 선택해주세요" disabled
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-100 text-gray-500 font-semibold" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 요청 항목 상세 입력 카드 -->
+          <div class="bg-white rounded-xl p-4 border border-[#03a94d]/20 shadow-sm bg-white">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-sm text-gray-800">요청 항목 상세 입력</h3>
+            </div>
+            <p class="text-xs text-gray-500 mb-3">각 협력사 원자재 스펙 정보를 입력해 주세요.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- 입력 폼 필드 -->
+              <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label class="text-xs font-bold text-gray-600 block mb-1">원산지 <span class="text-red-500">*</span></label>
+                  <input type="text" id="input-origin" placeholder="예: 대한민국 울산, 가봉 등"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-600 block mb-1">원자재명 (1차 협력사 원자재명) <span class="text-red-500">*</span></label>
+                  <input type="text" id="input-material-name" placeholder="예: Al 3003 슬라브"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-600 block mb-1">중량 (kg) <span class="text-red-500">*</span></label>
+                  <input type="number" id="input-weight" placeholder="예: 1500"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-600 block mb-1">폭 (mm)</label>
+                  <input type="number" id="input-width" placeholder="예: 600"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-600 block mb-1">길이 (mm)</label>
+                  <input type="number" id="input-length" placeholder="예: 3000"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-gray-600 block mb-1">지름 (mm)</label>
+                  <input type="number" id="input-diameter" placeholder="예: 25.4"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="text-xs font-bold text-gray-600 block mb-1">구성 요소 <span class="text-red-500">*</span></label>
+                  <input type="text" id="input-components" placeholder="예: Al 97.9%, Mn 1.25%, Cu 0.12%"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                  <p class="text-[11px] text-gray-400 mt-1">※ 협력사 측에서 상세 입력을 진행하지만, 원청사 관리 화면에서는 합산 및 전체 사양이 표출됩니다.</p>
+                </div>
+              </div>
+
+              <!-- 실시간 전체 데이터 프리뷰 카드 -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between text-xs">
+                <div>
+                  <h4 class="font-bold text-xs text-slate-700 border-b pb-2 mb-3">실시간 요청 데이터 (전체 데이터)</h4>
+                  <div class="space-y-2.5 text-xs">
+                    <div class="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
+                      <span class="text-gray-400 font-semibold">PO ID</span>
+                      <span id="preview-po-id" class="font-bold text-gray-800">-</span>
+                    </div>
+                    <div class="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
+                      <span class="text-gray-400 font-semibold">대상 협력사</span>
+                      <span id="preview-partner" class="font-bold text-gray-800">-</span>
+                    </div>
+                    <div class="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
+                      <span class="text-gray-400 font-semibold">원자재명</span>
+                      <span id="preview-material-name" class="font-bold text-gray-800 text-right max-w-[150px] truncate">-</span>
+                    </div>
+                    <div class="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
+                      <span class="text-gray-400 font-semibold">원산지</span>
+                      <span id="preview-origin" class="font-bold text-gray-800">-</span>
+                    </div>
+                    <div class="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
+                      <span class="text-gray-400 font-semibold">중량</span>
+                      <span id="preview-weight" class="font-bold text-gray-800">-</span>
+                    </div>
+                    <div class="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
+                      <span class="text-gray-400 font-semibold">규격 (폭 × 길이 × 지름)</span>
+                      <span id="preview-specs" class="font-bold text-gray-800">
+                        -mm × -mm × -mm
+                      </span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="text-gray-400 font-semibold mb-1">구성 요소 전체 내역</span>
+                      <div id="preview-components" class="bg-white border border-gray-200 rounded p-2 text-[11px] font-mono text-gray-700 min-h-[48px] break-all leading-normal">
+                        입력된 구성 요소 정보가 없습니다.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[10px] text-gray-400 mt-4 leading-normal">
+                  * 상기 입력 데이터는 승인 완료 시 ESG 공급망 맵 및 실사 등급 산출 데이터로 연동됩니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 요청 내용 입력 카드 -->
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 bg-white">
+            <h4 class="font-bold text-sm text-gray-800 mb-4">요청 내용 입력</h4>
+            <div class="space-y-4">
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1.5">제출기한 <span class="text-red-500">*</span></label>
+                <input type="date" id="input-deadline"
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30"
+                  required />
+              </div>
+              <div>
+                <label class="text-xs font-bold text-gray-600 block mb-1">요청 내용</label>
+                <textarea rows="6" id="input-content"
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30"
+                  placeholder="세부 내용을 입력해주세요."></textarea>
+              </div>
+              <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
+                원자재 정보 요청이 발송되면 대상 협력사에게 즉시 알림이 발송되며, 신규 원자재 임시 레코드가 등록되어 결재 진행 대기 상태가 됩니다.
+              </div>
+              <div class="flex gap-2">
+                <a href="materialList.html" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg font-medium inline-block text-center hover:bg-gray-200 transition">취소</a>
+                <button id="btn-submit"
+                  class="px-6 py-2 text-white text-sm rounded-lg font-bold hover:opacity-90 transition shadow-sm"
+                  style="background-color: #03a94d;">요청하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Master data mock matching react implementation
+    const companies = {
+      "NOV-001": "노벨리스코리아",
+      "KRM-001": "케이알엠",
+      "COM-001": "Comilog",
+      "NAM-001": "남성알루미늄"
+    };
+
+    const poList = {
+      "PO-2025-3003-001": {
+        id: "PO-2025-3003-001",
+        partner_id: "NOV-001",
+        partner_name: "노벨리스코리아",
+        product: "Al 3003-H14 판재",
+        width: 1000,
+        length: 2000,
+        weight: 1.2, // in tons
+        diameter: null,
+        material: "Al 97.9%, Mn 1.25%, Cu 0.12%"
+      },
+      "PO-2025-3003-002": {
+        id: "PO-2025-3003-002",
+        partner_id: "NOV-001",
+        partner_name: "노벨리스코리아",
+        product: "Al 3003-H16 코일",
+        width: 1200,
+        length: null,
+        weight: 0.6,
+        diameter: null,
+        material: "Al 97.9%, Mn 1.25%, Cu 0.12%"
+      },
+      "PO-2026-3003-001": {
+        id: "PO-2026-3003-001",
+        partner_id: "NOV-001",
+        partner_name: "노벨리스코리아",
+        product: "Al 3003-H16 박판",
+        width: 1000,
+        length: null,
+        weight: 0.5,
+        diameter: null,
+        material: "Al 97.9%, Mn 1.25%, Cu 0.12%"
+      },
+      "PO-2026-3003-002": {
+        id: "PO-2026-3003-002",
+        partner_id: "NAM-001",
+        partner_name: "남성알루미늄",
+        product: "Al 3003-H14 판재",
+        width: 1500,
+        length: 3000,
+        weight: 1.5,
+        diameter: null,
+        material: "Al 97.8%, Mn 1.3%, Cu 0.1%"
+      },
+      "PO-2026-3003-003": {
+        id: "PO-2026-3003-003",
+        partner_id: "NAM-001",
+        partner_name: "남성알루미늄",
+        product: "Al 3003 튜브",
+        width: null,
+        length: 3000,
+        weight: null,
+        diameter: 25.4,
+        material: "Al 97.9%, Mn 1.25%, Cu 0.12%"
+      }
+    };
+
+    // DOM Elements
+    const selectPO = document.getElementById('select-po-id');
+    const displayPartner = document.getElementById('display-partner');
+
+    const inputOrigin = document.getElementById('input-origin');
+    const inputMaterialName = document.getElementById('input-material-name');
+    const inputWeight = document.getElementById('input-weight');
+    const inputWidth = document.getElementById('input-width');
+    const inputLength = document.getElementById('input-length');
+    const inputDiameter = document.getElementById('input-diameter');
+    const inputComponents = document.getElementById('input-components');
+    const inputDeadline = document.getElementById('input-deadline');
+
+    // Preview DOM Elements
+    const previewPO = document.getElementById('preview-po-id');
+    const previewPartner = document.getElementById('preview-partner');
+    const previewMaterialName = document.getElementById('preview-material-name');
+    const previewOrigin = document.getElementById('preview-origin');
+    const previewWeight = document.getElementById('preview-weight');
+    const previewSpecs = document.getElementById('preview-specs');
+    const previewComponents = document.getElementById('preview-components');
+
+    // Event listener for PO selection
+    selectPO.addEventListener('change', (e) => {
+      const poId = e.target.value;
+      if (poId && poList[poId]) {
+        const po = poList[poId];
+        displayPartner.value = po.partner_name;
+        
+        // Auto fill form
+        inputMaterialName.value = po.product;
+        inputWidth.value = po.width || '';
+        inputLength.value = po.length || '';
+        inputWeight.value = po.weight ? po.weight * 1000 : '';
+        inputDiameter.value = po.diameter || '';
+        inputComponents.value = po.material || '';
+      } else {
+        displayPartner.value = "PO ID를 먼저 선택해주세요";
+        inputMaterialName.value = '';
+        inputWidth.value = '';
+        inputLength.value = '';
+        inputWeight.value = '';
+        inputDiameter.value = '';
+        inputComponents.value = '';
+      }
+      updatePreview();
+    });
+
+    // Update real-time preview card
+    function updatePreview() {
+      const poId = selectPO.value;
+      const partner = displayPartner.value;
+
+      previewPO.textContent = poId || "-";
+      previewPartner.textContent = poId ? partner : "-";
+      previewMaterialName.textContent = inputMaterialName.value || "-";
+      previewOrigin.textContent = inputOrigin.value || "-";
+      previewWeight.textContent = inputWeight.value ? Number(inputWeight.value).toLocaleString() + " kg" : "-";
+
+      const w = inputWidth.value || "-";
+      const l = inputLength.value || "-";
+      const d = inputDiameter.value || "-";
+      previewSpecs.textContent = `${w}mm × ${l}mm × ${d}mm`;
+
+      previewComponents.textContent = inputComponents.value || "입력된 구성 요소 정보가 없습니다.";
+    }
+
+    // Input fields listeners for real-time preview
+    [inputOrigin, inputMaterialName, inputWeight, inputWidth, inputLength, inputDiameter, inputComponents].forEach(input => {
+      input.addEventListener('input', updatePreview);
+    });
+
+    // Submit handler
+    document.getElementById('btn-submit').addEventListener('click', () => {
+      if (!selectPO.value) {
+        alert("PO ID를 선택해주세요.");
+        return;
+      }
+      if (!inputOrigin.value) {
+        alert("원산지를 입력해주세요.");
+        return;
+      }
+      if (!inputMaterialName.value) {
+        alert("원자재명을 입력해주세요.");
+        return;
+      }
+      if (!inputWeight.value) {
+        alert("중량을 입력해주세요.");
+        return;
+      }
+      if (!inputComponents.value) {
+        alert("구성 요소를 입력해주세요.");
+        return;
+      }
+      if (!inputDeadline.value) {
+        alert("제출기한을 입력해주세요.");
+        return;
+      }
+
+      alert("원자재 요청이 발송되었습니다.\n협력사 알림이 전송되고 신규 레코드가 생성되었습니다.");
+      window.location.href = "materialList.html";
+    });
+
+    // Initial run
+    updatePreview();
+  </script>
+</body>
+
+</html>
