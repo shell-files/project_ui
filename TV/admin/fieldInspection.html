@@ -338,12 +338,14 @@
 
         btnCancel.addEventListener('click', (e) => {
           e.stopPropagation();
+          alert("실사 보고서 작성이 취소되었습니다.");
           reportFormRow.classList.add('hidden');
         });
 
         btnTempSave.addEventListener('click', (e) => {
           e.stopPropagation();
-          alert("실사 보고서 임시저장 완료");
+          alert("실사 보고서 임시저장이 완료되었습니다.");
+          reportFormRow.classList.add('hidden');
         });
 
         btnRequestApproval.addEventListener('click', (e) => {
