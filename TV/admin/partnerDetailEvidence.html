@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TV] ESG 공급망 관리 시스템 - 협력사 증빙 자료</title>
+  <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
+    @theme {
+      --color-primary-green: #03a94d;
+      --color-primary-dark-green: #02823b;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 overflow-hidden font-sans">
+  <div class="flex h-screen overflow-hidden">
+    <!-- SidebarNav (좌측 레이어) -->
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
+      <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
+        <div style="cursor: pointer;"
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden">
+          <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
+        </div>
+      </div>
+      <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
+        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <div class="space-y-1">
+            <!-- 메인 대시보드 -->
+            <a href="dashboard.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>메인 대시보드</span>
+            </a>
+            <!-- 협력사 정보 (활성화 상태) -->
+            <a href="partnerList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-bold transition text-left bg-primary-dark-green text-white">
+              <span>협력사 정보</span>
+            </a>
+            <!-- BOM 관리 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>BOM 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 구매 및 자재 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
+          <div class="space-y-1">
+            <!-- PO 관리 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>PO 관리</span>
+            </a>
+            <!-- 원자재 관리 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>원자재 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 실사 및 평가 -->
+        <div class="space-y-2">
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
+          <div class="space-y-1">
+            <!-- 리스크 현황 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>리스크 현황</span>
+            </a>
+            <!-- 현장 실사 -->
+            <a href="#"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>현장 실사</span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-bold bg-amber-400 text-white">3건</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area (우측 레이어) -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- HeaderNav -->
+      <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
+        <div class="flex items-center gap-3">
+          <!-- 햄버거 메뉴 버튼 -->
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-base md:text-lg font-bold text-gray-800">ESG 공급망 관리 시스템</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- 역할 전환 셀렉트 박스 -->
+          <div class="flex items-center gap-2">
+            <select
+              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer">
+              <option value="현대모비스" selected>원청사 (현대모비스)</option>
+              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              <option value="2차 협력사">2차 협력사 (케이알엠)</option>
+              <option value="3차 협력사">3차 협력사 (Comilog)</option>
+            </select>
+          </div>
+
+          <!-- 알림 센터 -->
+          <div class="relative">
+            <button class="relative p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
+            </button>
+          </div>
+
+          <!-- 역할 표시 -->
+          <span class="text-xs text-gray-600 font-semibold">원청사 관리자</span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="flex-1 overflow-y-auto p-6 space-y-5">
+        <div class="space-y-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-2xl font-black text-gray-900">협력사 상세 정보</h1>
+              <p class="text-sm text-gray-400 mt-1">(주)케이알엠 (2차 협력사)</p>
+            </div>
+            <a href="partnerList.html"
+              class="px-4 py-2 bg-slate-100 text-slate-700 text-sm rounded-lg hover:bg-slate-200 transition font-bold">←
+              목록으로</a>
+          </div>
+
+          <!-- 기본 협력사 정보 & ESG 주요 지표 데이터 (2열 그리드 배치) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- 기본 협력사 정보 -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2">기본 협력사 정보</h3>
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">기업명</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">(주)케이알엠</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">대표자명</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">이성훈</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">사업자등록번호</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">402-81-45123</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">설립일</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">2003-07-20</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">대표 이메일 주소</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">-</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">기업 규모</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">중견기업</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">소재 국가</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">대한민국</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">소재지</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">인천광역시 남동구 앵고개로 490</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ESG 주요 지표 데이터 -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2">ESG 주요 지표 데이터</h3>
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">Scope 1 (tCO2e)</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">45,000</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">Scope 2 (tCO2e)</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">28,000</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">FEOC 원료 비중 (%)</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">12.5%</p>
+                </div>
+                <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                  <span class="text-xs text-gray-400 font-semibold">TRIR 산업안전율</span>
+                  <p class="text-sm font-bold text-gray-800 mt-0.5">0.15</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 탭 네비게이션 -->
+          <div class="flex border-b border-gray-200 bg-white rounded-t-xl px-4 pt-2">
+            <a href="partnerDetail.html"
+              class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
+              협력사 정보
+            </a>
+            <a href="partnerDetailSelf.html"
+              class="px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all">
+              자가진단 정보
+            </a>
+            <a href="#"
+              class="px-4 py-2.5 text-sm font-bold border-b-2 border-[#03a94d] text-[#03a94d] transition-all">
+              증빙 자료
+            </a>
+          </div>
+
+          <!-- 증빙 자료 콘텐츠 구역 -->
+          <div class="space-y-6 pb-6">
+            <!-- 1층: 자가진단 완료 문서 (단일 파일 바) -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2" style="font-size: 16px;">
+                자가진단 완료 문서
+              </h3>
+              <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
+                <span class="text-sm font-bold text-gray-800">(주)케이알엠_2차_협력사_자가진단_보고서_완료본.pdf</span>
+                <button
+                  type="button"
+                  onclick="alert('(주)케이알엠_2차_협력사_자가진단_보고서_완료본.pdf 파일을 다운로드합니다.')"
+                  class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                >
+                  다운로드
+                </button>
+              </div>
+            </div>
+
+            <!-- 2층: 자가진단 증빙 자료 (다중 리스트 바 - 8개 파일로 구성하여 스크롤 구현) -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2" style="font-size: 16px;">
+                자가진단 증빙 자료
+              </h3>
+              <div class="max-h-48 overflow-y-auto pr-1">
+                <!-- 파일 1 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">01</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_전력탄소집약도_한전조회내역.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_전력탄소집약도_한전조회내역.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 2 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">02</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_재생에너지인증서_REC.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_재생에너지인증서_REC.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 3 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">03</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_온실가스배출량_제3자검증보고서.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_온실가스배출량_제3자검증보고서.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 4 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">04</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_공정별에너지사용량측정로그.xlsx</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_공정별에너지사용량측정로그.xlsx 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 5 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">05</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_빙정석대체및REACH등록확인서.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_빙정석대체및REACH등록확인서.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 6 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">06</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_폐전해질처리위탁계약서.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_폐전해질처리위탁계약서.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 7 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">07</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_제3자강제노동감사보고서_SGS.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_제3자강제노동감사보고서_SGS.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 8 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">08</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_2026_환경경영시스템_ISO14001인증서.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_2026_환경경영시스템_ISO14001인증서.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3층: 글로벌 인증 증빙 자료 (다중 리스트 바 - 8개 파일로 구성하여 스크롤 구현) -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2" style="font-size: 16px;">
+                글로벌 인증 증빙 자료
+              </h3>
+              <div class="max-h-48 overflow-y-auto pr-1">
+                <!-- 파일 1 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">01</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_ISO_14001_Certification.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_ISO_14001_Certification.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 2 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">02</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_ISO_45001_Certification.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_ISO_45001_Certification.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 3 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">03</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_IATF_16949_Certification.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_IATF_16949_Certification.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 4 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">04</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_RBA_Code_of_Conduct_Audit.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_RBA_Code_of_Conduct_Audit.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 5 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">05</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_CMRT_Conflict_Minerals_Report.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_CMRT_Conflict_Minerals_Report.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 6 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">06</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_RMAP_Refiner_Audit_Statement.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_RMAP_Refiner_Audit_Statement.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 7 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">07</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_EMAT_Battery_Traceability_Doc.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_EMAT_Battery_Traceability_Doc.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+                <!-- 파일 8 -->
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="bg-gray-100 text-gray-400 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 text-xs font-bold font-mono">08</span>
+                    <span class="text-sm font-bold text-gray-800 truncate">KRM_Global_ESG_Initiative_Compliance_Checklist.pdf</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="alert('KRM_Global_ESG_Initiative_Compliance_Checklist.pdf 파일을 다운로드합니다.')"
+                    class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                  >
+                    다운로드
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4층: 행동강령 준수 서약서 (단일 파일 바) -->
+            <div class="bg-white rounded-xl p-6 space-y-4 shadow-sm border border-gray-100">
+              <h3 class="text-base font-bold text-gray-800 border-b pb-2" style="font-size: 16px;">
+                행동강령 준수 서약서
+              </h3>
+              <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex items-center justify-between gap-3">
+                <span class="text-sm font-bold text-gray-800">(주)케이알엠_현대모비스_행동강령_CoC_준수서약서_제출본.pdf</span>
+                <button
+                  type="button"
+                  onclick="alert('(주)케이알엠_현대모비스_행동강령_CoC_준수서약서_제출본.pdf 파일을 다운로드합니다.')"
+                  class="text-xs px-3 py-1.5 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition shrink-0"
+                >
+                  다운로드
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+
+</html>
