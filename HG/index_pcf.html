@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알루미늄 시트레일 제조 PCF & CBAM 대응 시스템</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/pcf.css">
+    <script src="./js/script.js"></script>
+    <style></style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1 class="logo-section"></h1>
+        </div>
+        <div class="header_right_area">
+            <nav>
+                <form>
+                    <div class="context_select_box">
+                        <label for="context_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">컨텍스트:</label>
+                        <select id="context_select">
+                            <option value="dashboard">전체</option>
+                            <option value="master-data">1공장</option>
+                            <option value="pcf-report">2공장</option>
+                            <option value="cbam-module">3공장</option>
+                        </select>
+                    </div>
+                    <div class="company_select_box">
+                        <label for="company_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">화주:</label>
+                        <select id="company_select">
+                            <option value="dashboard">전체</option>
+                            <option value="cbam-module">BMW</option>
+                            <option value="master-data">할로와(주)</option>
+                            <option value="pcf-report">(주)그레놀라</option>
+                        </select>
+                    </div>
+                </form>
+            </nav>
+            <div class="user-section">
+                <span>하이고/사원</span>
+                <button class="bell_icon active"></button>
+                <div class="btw_bar"></div>
+                <button class="home_icon"></button>
+                <div class="btw_bar"></div>
+                <span class="logout-btn">로그아웃</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+
+        <div class="sidebar">
+            <ul>
+                <h4 class="factory_icon">입고</h4>
+                <li><button>ASN</button></li>
+                <li><button>입고검수</button></li>
+                <li><button>입고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="released_icon">출고</h4>
+                <li><button>주문</button></li>
+                <li><button>패킹</button></li>
+                <li><button>출고/송장</button></li>
+                <li><button>출고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="carbon_icon">탄소배출량</h4>
+                <li><button>대시보드</button></li>
+                <li><button>이상치</button></li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+            <div class="dashboard-filter-bar">
+                <div class="toggle-group-wrapper">
+                    <div class="toggle-group-item id_quarter">
+                        <div class="select_label"><span>분기별 현황</span></div>
+                        <div class="toggle-content" style="display: block;">
+                            <button type="button" class="btn-filter-tab active">2026년 1분기</button>
+                            <button type="button" class="btn-filter-tab">2026년 2분기</button>
+                            <button type="button" class="btn-filter-tab">2026년 3분기</button>
+                            <button type="button" class="btn-filter-tab">2026년 4분기</button>
+                        </div>
+                    </div>
+                    <div class="toggle-group-item id_month">
+                        <div class="select_label"><span>월별 현황</span></div>
+                        <div class="toggle-content" style="display: none;">
+                            <button type="button" class="btn-filter-tab">1월</button>
+                            <button type="button" class="btn-filter-tab">2월</button>
+                            <button type="button" class="btn-filter-tab">3월</button>
+                            <button type="button" class="btn-filter-tab">4월</button>
+                            <button type="button" class="btn-filter-tab">5월</button>
+                            <button type="button" class="btn-filter-tab">6월</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-chart-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">공정별 탄소 배출량 현황 (tCO₂eq)</h3>
+                    <div class="chart-container">
+                        <canvas id="carbonChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3 class="chart-title">Scope별 배출 비율</h3>
+                    <div class="chart-container">
+                        <canvas id="scopePieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-table-card">
+                <div class="table-header-flex">
+                    <h3 class="table-title">공정별 상세 탄소 배출량 명세</h3>
+                    <button class="btn-excel-download">📊 Excel 다운로드</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="dashboard-data-table">
+                        <thead>
+                            <tr>
+                                <th>공정명</th>
+                                <th>Scope 구분</th>
+                                <th>에너지원</th>
+                                <th>활동 데이터(사용량)</th>
+                                <th>단위</th>
+                                <th>배출량 (tCO₂eq)</th>
+                                <th>비율 (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-bold">용해/성형</td>
+                                <td>Scope 2 (간접)</td>
+                                <td>전력 (LNG 컴비네이션)</td>
+                                <td class="text-center">245,310</td>
+                                <td class="text-center">kWh</td>
+                                <td class="text-center font-bold">128.55</td>
+                                <td class="text-center color-green">51.1%</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">시효경화</td>
+                                <td>Scope 1 (직접)</td>
+                                <td>도시가스 (LNG)</td>
+                                <td class="text-center">31,250</td>
+                                <td class="text-center">Nm³</td>
+                                <td class="text-center font-bold">68.91</td>
+                                <td class="text-center color-green">27.4%</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">인장/절단</td>
+                                <td>Scope 2 (간접)</td>
+                                <td>전력</td>
+                                <td class="text-center">56,770</td>
+                                <td class="text-center">kWh</td>
+                                <td class="text-center font-bold">29.75</td>
+                                <td class="text-center color-green">11.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">아노다이징</td>
+                                <td>Scope 2 (간접)</td>
+                                <td>전력</td>
+                                <td class="text-center">52,590</td>
+                                <td class="text-center">kWh</td>
+                                <td class="text-center font-bold">27.56</td>
+                                <td class="text-center color-green">10.9%</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-summary-row">
+                                <td colspan="3" class="text-center">합 계</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center total-amount">254.77</td>
+                                <td class="text-center">100.0%</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 엑셀 시트 서브 탭 전환 인터랙션 자바스크립트 제어 함수 추가
+        function switchSheet(sheetId, element) {
+            // 모든 시트 컨텐츠 비활성화
+            const contents = document.querySelectorAll('.sheet-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 모든 시트 탭 버튼 비활성화
+            const buttons = document.querySelectorAll('.sheet-tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 선택된 시트 및 탭 버튼 활성화
+            document.getElementById(sheetId).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
