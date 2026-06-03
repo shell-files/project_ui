@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[TV] ESG 공급망 관리 시스템 - 하위 협력사 정보 조회</title>
+  <title>[TV] ESG 공급망 관리 시스템 - 협력사 정보 조회</title>
   <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <!-- 공통 스타일 -->
@@ -104,7 +104,7 @@
       <main class="flex-1 overflow-y-auto p-6 space-y-5">
         <!-- 타이틀 구역 -->
         <div>
-          <h1 class="text-2xl font-black text-gray-900">하위 협력사 정보 조회</h1>
+          <h1 class="text-2xl font-black text-gray-900">협력사 정보 조회</h1>
           <p class="text-sm text-gray-400 mt-1">공급망 실사 규제 대응을 위한 하위(2차, 3차) 협력사들의 ESG 리스크 및 지표 이행 현황 모니터링</p>
         </div>
 
@@ -116,7 +116,8 @@
               <p class="text-xs text-gray-400 font-bold">고위험 협력사</p>
               <p class="text-xl font-black text-red-600 mt-1">0개사</p>
             </div>
-            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-red-50 text-red-500 border border-red-100">임계치 초과</span>
+            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-red-50 text-red-500 border border-red-100">임계치
+              초과</span>
           </div>
           <!-- 중위험 카드 -->
           <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm flex items-center justify-between">
@@ -124,7 +125,9 @@
               <p class="text-xs text-gray-400 font-bold">중위험 협력사</p>
               <p class="text-xl font-black text-amber-500 mt-1">4개사</p>
             </div>
-            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-amber-50 text-amber-500 border border-amber-100">관찰 요망</span>
+            <span
+              class="text-xs px-2 py-0.5 rounded-full font-bold bg-amber-50 text-amber-500 border border-amber-100">관찰
+              요망</span>
           </div>
           <!-- 저위험 카드 -->
           <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm flex items-center justify-between">
@@ -132,7 +135,8 @@
               <p class="text-xs text-gray-400 font-bold">저위험 협력사</p>
               <p class="text-xl font-black text-emerald-500 mt-1">0개사</p>
             </div>
-            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-500 border border-emerald-100">안정적</span>
+            <span
+              class="text-xs px-2 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-500 border border-emerald-100">안정적</span>
           </div>
         </div>
 
@@ -141,14 +145,13 @@
           <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
             <!-- 검색창 -->
             <div class="w-full md:w-72 relative">
-              <input
-                type="text"
-                placeholder="협력사명 검색..."
-                class="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#03a94d]"
-              />
+              <input type="text" placeholder="협력사명 검색..."
+                class="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#03a94d]" />
               <span class="absolute left-3 top-2 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </span>
             </div>
@@ -158,9 +161,14 @@
               <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-gray-500">계층:</span>
                 <div class="flex gap-1.5">
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800 cursor-pointer">전체</button>
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">2차 협력사 (제련)</button>
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">3차 협력사 (채굴)</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800 cursor-pointer">전체</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">2차
+                    협력사 (제련)</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">3차
+                    협력사 (채굴)</button>
                 </div>
               </div>
 
@@ -168,10 +176,14 @@
               <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-gray-500">리스크:</span>
                 <div class="flex gap-1.5">
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800 cursor-pointer">전체</button>
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">저위험</button>
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">중위험</button>
-                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">고위험</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800 cursor-pointer">전체</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">저위험</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">중위험</button>
+                  <button
+                    class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">고위험</button>
                 </div>
               </div>
             </div>
@@ -183,7 +195,8 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-gray-50 border-b border-gray-100 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                <tr
+                  class="bg-gray-50 border-b border-gray-100 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
                   <th class="py-3 px-4 text-center" rowspan="2">No.</th>
                   <th class="py-3 px-4" rowspan="2">계층</th>
                   <th class="py-3 px-4" rowspan="2">협력사명</th>
@@ -192,7 +205,8 @@
                   <th class="py-3 px-4" rowspan="2">리스크 등급</th>
                   <th class="py-2 px-4 text-center border-b border-gray-100" colspan="7">이니셔티브 준수 현황</th>
                 </tr>
-                <tr class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 text-center uppercase tracking-wider">
+                <tr
+                  class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 text-center uppercase tracking-wider">
                   <th class="py-1 px-1 border-r border-gray-100/50">ISO14001</th>
                   <th class="py-1 px-1 border-r border-gray-100/50">ISO45001</th>
                   <th class="py-1 px-1 border-r border-gray-100/50">IATF16949</th>
@@ -204,87 +218,351 @@
               </thead>
               <tbody class="divide-y divide-gray-100 text-xs">
                 <!-- 1행: (주)케이알엠 -->
-                <tr class="hover:bg-gray-50/50 transition">
+                <tr class="hover:bg-gray-50/50 transition accordion-trigger cursor-pointer"
+                  data-target="detail-accordion-krm">
                   <td class="py-3.5 px-4 text-center font-medium text-gray-400">1</td>
                   <td class="py-3.5 px-4 font-semibold text-[#0ea5e9]">2차 협력사</td>
                   <td class="py-3.5 px-4 font-bold text-gray-900">(주)케이알엠</td>
                   <td class="py-3.5 px-4 text-gray-500">대한민국</td>
                   <td class="py-3.5 px-4 text-gray-500">김도인</td>
                   <td class="py-3.5 px-4">
-                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                    <span
+                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
                       ● 중위험
                     </span>
                   </td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                </tr>
+                <tr id="detail-accordion-krm" class="hidden bg-slate-50/50">
+                  <td colspan="13" class="p-0 border-b border-gray-100">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원자재명</span>
+                        <span class="text-xs font-black text-gray-800 block">P1020 잉곳</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원산지</span>
+                        <span class="text-xs font-black text-gray-800 block">인천</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">중량</span>
+                        <span class="text-xs font-black text-gray-800 block">1,570 kg</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">폭</span>
+                        <span class="text-xs font-black text-gray-800 block">200 mm</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">길이</span>
+                        <span class="text-xs font-black text-gray-800 block">800 mm</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">지름</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 1</span>
+                        <span class="text-xs font-black text-gray-800 block">56,000 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 2</span>
+                        <span class="text-xs font-black text-gray-800 block">38,000 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">FEOC 비중</span>
+                        <span class="text-xs font-black text-gray-800 block">11.5 %</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">TRIR</span>
+                        <span class="text-xs font-black text-gray-800 block">1.02 건/백만h</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs col-span-2">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">구성 요소</span>
+                        <span class="text-xs font-black text-gray-800 block">Al 99.7%</span>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
 
                 <!-- 2행: Comilog -->
-                <tr class="hover:bg-gray-50/50 transition">
+                <tr class="hover:bg-gray-50/50 transition accordion-trigger cursor-pointer"
+                  data-target="detail-accordion-comilog">
                   <td class="py-3.5 px-4 text-center font-medium text-gray-400">2</td>
                   <td class="py-3.5 px-4 font-semibold text-[#8b5cf6]">3차 협력사</td>
                   <td class="py-3.5 px-4 font-bold text-gray-900">Comilog</td>
                   <td class="py-3.5 px-4 text-gray-500">가봉</td>
                   <td class="py-3.5 px-4 text-gray-500">Jean-Marc</td>
                   <td class="py-3.5 px-4">
-                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                    <span
+                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
                       ● 중위험
                     </span>
                   </td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                </tr>
+                <tr id="detail-accordion-comilog" class="hidden bg-slate-50/50">
+                  <td colspan="13" class="p-0 border-b border-gray-100">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원자재명</span>
+                        <span class="text-xs font-black text-gray-800 block">Mn 정광(MnO₂)</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원산지</span>
+                        <span class="text-xs font-black text-gray-800 block">가봉 Moanda</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">중량</span>
+                        <span class="text-xs font-black text-gray-800 block">62 kg</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">폭</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">길이</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">지름</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 1</span>
+                        <span class="text-xs font-black text-gray-800 block">50,000 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 2</span>
+                        <span class="text-xs font-black text-gray-800 block">0 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">FEOC 비중</span>
+                        <span class="text-xs font-black text-gray-800 block">0 %</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">TRIR</span>
+                        <span class="text-xs font-black text-gray-800 block">2.02 건/백만h</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs col-span-2">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">구성 요소</span>
+                        <span class="text-xs font-black text-gray-800 block">MnO₂ 82%</span>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
 
                 <!-- 3행: Windalco -->
-                <tr class="hover:bg-gray-50/50 transition">
+                <tr class="hover:bg-gray-50/50 transition accordion-trigger cursor-pointer"
+                  data-target="detail-accordion-windalco">
                   <td class="py-3.5 px-4 text-center font-medium text-gray-400">3</td>
                   <td class="py-3.5 px-4 font-semibold text-[#8b5cf6]">3차 협력사</td>
                   <td class="py-3.5 px-4 font-bold text-gray-900">Windalco</td>
                   <td class="py-3.5 px-4 text-gray-500">자메이카</td>
                   <td class="py-3.5 px-4 text-gray-500">Patrick</td>
                   <td class="py-3.5 px-4">
-                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                    <span
+                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
                       ● 중위험
                     </span>
                   </td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                </tr>
+                <tr id="detail-accordion-windalco" class="hidden bg-slate-50/50">
+                  <td colspan="13" class="p-0 border-b border-gray-100">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원자재명</span>
+                        <span class="text-xs font-black text-gray-800 block">알루미나(Al₂O₃)</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원산지</span>
+                        <span class="text-xs font-black text-gray-800 block">자메이카 Ewarton</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">중량</span>
+                        <span class="text-xs font-black text-gray-800 block">2,930 kg</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">폭</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">길이</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">지름</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 1</span>
+                        <span class="text-xs font-black text-gray-800 block">66,000 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 2</span>
+                        <span class="text-xs font-black text-gray-800 block">0 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">FEOC 비중</span>
+                        <span class="text-xs font-black text-gray-800 block">0 %</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">TRIR</span>
+                        <span class="text-xs font-black text-gray-800 block">1.75 건/백만h</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs col-span-2">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">구성 요소</span>
+                        <span class="text-xs font-black text-gray-800 block">Al₂O₃ 99.4%</span>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
 
                 <!-- 4행: Codelco -->
-                <tr class="hover:bg-gray-50/50 transition">
+                <tr class="hover:bg-gray-50/50 transition accordion-trigger cursor-pointer"
+                  data-target="detail-accordion-codelco">
                   <td class="py-3.5 px-4 text-center font-medium text-gray-400">4</td>
                   <td class="py-3.5 px-4 font-semibold text-[#8b5cf6]">3차 협력사</td>
                   <td class="py-3.5 px-4 font-bold text-gray-900">Codelco</td>
                   <td class="py-3.5 px-4 text-gray-500">칠레</td>
                   <td class="py-3.5 px-4 text-gray-500">Ruben</td>
                   <td class="py-3.5 px-4">
-                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                    <span
+                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
                       ● 중위험
                     </span>
                   </td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
-                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span
+                      class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span>
+                  </td>
+                </tr>
+                <tr id="detail-accordion-codelco" class="hidden bg-slate-50/50">
+                  <td colspan="13" class="p-0 border-b border-gray-100">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원자재명</span>
+                        <span class="text-xs font-black text-gray-800 block">황동광(Cu)</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">원산지</span>
+                        <span class="text-xs font-black text-gray-800 block">칠레 Calama</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">중량</span>
+                        <span class="text-xs font-black text-gray-800 block">6 kg</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">폭</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">길이</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">지름</span>
+                        <span class="text-xs font-black text-gray-800 block">-</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 1</span>
+                        <span class="text-xs font-black text-gray-800 block">109,000 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">Scope 2</span>
+                        <span class="text-xs font-black text-gray-800 block">0 tCO2eq</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">FEOC 비중</span>
+                        <span class="text-xs font-black text-gray-800 block">0 %</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">TRIR</span>
+                        <span class="text-xs font-black text-gray-800 block">1.38 건/백만h</span>
+                      </div>
+                      <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-xs col-span-2">
+                        <span class="text-[10px] text-gray-400 font-bold block mb-1">구성 요소</span>
+                        <span class="text-xs font-black text-gray-800 block">Cu 28%, Fe 30%</span>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -310,6 +588,22 @@
         }
       });
     }
+
+    // Accordion Row Toggle
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+    accordionTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        // 대화형 요소(버튼, 링크, 셀렉트 등) 클릭 시에는 토글을 방지
+        if (e.target.closest('button') || e.target.closest('a') || e.target.closest('select')) {
+          return;
+        }
+        const targetId = trigger.getAttribute('data-target');
+        const accordion = document.getElementById(targetId);
+        if (accordion) {
+          accordion.classList.toggle('hidden');
+        }
+      });
+    });
   </script>
 </body>
 
