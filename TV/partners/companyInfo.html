@@ -108,29 +108,320 @@
           <p class="text-sm text-gray-400 mt-1">플랫폼 연동을 위한 협력사 기본 정보 및 글로벌 인증 자산 마스터 관리</p>
         </div>
 
-        <!-- 정중앙 프리미엄 웰컴 카드 스크린 -->
-        <div id="company-welcome-screen" class="bg-white rounded-xl border border-gray-100 p-8 shadow-sm text-center max-w-2xl mx-auto my-12 space-y-6">
-          <div class="flex flex-col items-center justify-center">
-            <!-- 연한 그린 배경의 단정한 원형 레이어 -->
-            <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-[#03a94d] mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0V9a2 2 0 012-2h2a2 2 0 012 2v12m-6 0h6" />
-              </svg>
+        <!-- 웰컴 섹션 컨테이너 -->
+        <div id="company-welcome-section">
+          <!-- 정중앙 프리미엄 웰컴 카드 스크린 -->
+          <div id="company-welcome-screen"
+            class="bg-white rounded-xl border border-gray-100 p-8 shadow-sm text-center max-w-2xl mx-auto my-12 space-y-6">
+            <div class="flex flex-col items-center justify-center">
+              <!-- 연한 그린 배경의 단정한 원형 레이어 -->
+              <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-[#03a94d] mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0V9a2 2 0 012-2h2a2 2 0 012 2v12m-6 0h6" />
+                </svg>
+              </div>
+              <h2 class="text-xl md:text-2xl font-bold text-gray-900">ESG 공급망 플랫폼 협력사 포털 진입을 환영합니다</h2>
             </div>
-            <h2 class="text-xl md:text-2xl font-bold text-gray-900">ESG 공급망 플랫폼 협력사 포털 진입을 환영합니다</h2>
+
+            <!-- 안내 본문 단 -->
+            <p class="text-sm text-gray-600 leading-relaxed max-w-lg mx-auto">
+              ESG 플랫폼 시스템을 안전하게 이용하시기 위해 최초 1회 기업 정보 등록 및 인증 증빙 서류 제출이 필요합니다.
+            </p>
+
+            <!-- 핵심 액션 단추 배치 -->
+            <div class="pt-2">
+              <a id="btn-register-company"
+                class="px-6 py-3 text-white text-sm rounded-lg font-bold bg-[#03a94d] hover:bg-[#02823b] transition shadow-md inline-block cursor-pointer">
+                기업 정보 등록하기
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 등록 폼 섹션 컨테이너 -->
+        <div id="company-form-section" class="hidden space-y-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-gray-900">신규 기업 정보 등록</h2>
+            <button id="btn-cancel-form"
+              class="px-4 py-2 bg-slate-100 text-slate-700 text-xs rounded-lg hover:bg-slate-200 transition font-bold cursor-pointer">
+              취소
+            </button>
           </div>
 
-          <!-- 안내 본문 단 -->
-          <p class="text-sm text-gray-600 leading-relaxed max-w-lg mx-auto">
-            ESG 플랫폼 시스템을 안전하게 이용하시기 위해 최초 1회 기업 정보 등록 및 인증 증빙 서류 제출이 필요합니다.
-          </p>
+          <form id="frm-company-info" class="space-y-6" onsubmit="event.preventDefault();">
+            <!-- 1. 기본 정보 및 ESG 성과 지표 카드 -->
+            <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm space-y-5">
+              <h3 class="text-base font-bold text-gray-900 border-b border-gray-100 pb-3">기본 정보 및 ESG 성과 지표 입력</h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- 좌측: 기본 기업 정보 -->
+                <div class="space-y-4">
+                  <h4 class="text-xs font-extrabold text-[#03a94d] uppercase tracking-wider">기본 기업 정보</h4>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">기업명 *</label>
+                    <input type="text" placeholder="예: (주)노벨리스코리아" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">대표자명 *</label>
+                    <input type="text" placeholder="예: 홍길동" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">사업자등록번호 *</label>
+                    <input type="text" placeholder="예: 128-81-33210" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">설립일 *</label>
+                    <input type="date" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">소재지 *</label>
+                    <input type="text" placeholder="예: 서울시 강남구 테헤란로 123" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-xs font-bold text-gray-600 block mb-1">기업 규모 *</label>
+                      <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30 bg-white" required>
+                        <option value="" disabled selected>규모 선택</option>
+                        <option value="대기업">대기업</option>
+                        <option value="중견기업">중견기업</option>
+                        <option value="중소기업">중소기업</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="text-xs font-bold text-gray-600 block mb-1">소재 국가 *</label>
+                      <input type="text" placeholder="예: 대한민국" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 우측: 핵심 ESG 지표 -->
+                <div class="space-y-4 md:border-l md:pl-5 md:border-gray-100">
+                  <h4 class="text-xs font-extrabold text-[#03a94d] uppercase tracking-wider">핵심 ESG 지표</h4>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">Scope 1 배출량 (tCO2e) *</label>
+                    <input type="number" placeholder="예: 82000" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">Scope 2 배출량 (tCO2e) *</label>
+                    <input type="number" placeholder="예: 45000" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">FEOC 원료 비중 (%) *</label>
+                    <input type="number" step="0.1" placeholder="예: 12.5" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-gray-600 block mb-1">TRIR 산업안전율 *</label>
+                    <input type="number" step="0.01" placeholder="예: 0.15" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" required />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <!-- 핵심 액션 단추 배치 -->
-          <div class="pt-2">
-            <a id="btn-register-company" class="px-6 py-3 text-white text-sm rounded-lg font-bold bg-[#03a94d] hover:bg-[#02823b] transition shadow-md inline-block cursor-pointer">
-              기업 정보 등록하기
-            </a>
-          </div>
+            <!-- 2. 글로벌 인증 준수 현황 카드 -->
+            <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm space-y-5">
+              <h3 class="text-base font-bold text-gray-900 border-b border-gray-100 pb-3">글로벌 인증 준수 현황</h3>
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">ISO 14001 (환경경영인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="iso14001" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="iso14001" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">ISO 45001 (안전보건인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="iso45001" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="iso45001" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">IATF 16949 (품질경영인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="iatf" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="iatf" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">RBA (책임 비즈니스 인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="rba" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="rba" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">RMAP (책임 광물 보증 인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="rmap" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="rmap" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">CMRT (분쟁광물 보고 인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="cmrt" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="cmrt" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <span class="text-xs font-bold text-gray-700">EMAT (배터리, 광물 추적 보고 인증) *</span>
+                  <div class="flex gap-4 mt-2 sm:mt-0">
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="emat" value="Y" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      취득/이행 (Y)
+                    </label>
+                    <label class="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer">
+                      <input type="radio" name="emat" value="N" class="text-[#03a94d] focus:ring-[#03a94d]/30" required />
+                      미취득/미이행 (N)
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t border-gray-100 mt-5 pt-4">
+                <label class="text-xs font-bold text-gray-600 block mb-1">글로벌 인증 증빙서류 업로드 *</label>
+                <p class="text-xs text-gray-400 mb-3 leading-normal font-medium">
+                  보유하신 글로벌 인증(환경, 품질, 안전, 분쟁광물 등)의 증빙서류 파일들을 업로드해 주십시오. (다중 선택 가능)
+                </p>
+                <div class="border border-gray-200 rounded-lg p-2 bg-white flex items-center gap-3">
+                  <button type="button" class="text-xs px-3.5 py-1.5 border border-gray-300 bg-white hover:bg-gray-50 rounded-md font-bold text-gray-700 transition shrink-0 cursor-pointer" onclick="document.getElementById('cert-file-input').click()">
+                    파일 선택
+                  </button>
+                  <span id="cert-file-count" class="text-xs text-gray-500">선택된 파일 0개</span>
+                  <input id="cert-file-input" type="file" multiple class="hidden" onchange="handleCertFiles(this)" />
+                </div>
+                <div id="cert-file-list" class="mt-3 space-y-1.5 hidden">
+                  <p class="text-xs font-bold text-gray-600">선택된 증빙서류 목록:</p>
+                  <div id="cert-list-container" class="max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. 자가진단 및 증빙 자료 제출 카드 -->
+            <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm space-y-5">
+              <h3 class="text-base font-bold text-gray-900 border-b border-gray-150 pb-3">자가진단 및 증빙 자료 제출</h3>
+              <p class="text-xs text-gray-500 leading-normal font-medium">
+                공급망 내 ESG 규제 리스크 방지를 위해 협력사의 자가진단 및 증빙자료 제출을 필수로 지정하고 있습니다. 양식을 다운로드하여 작성 후 업로드해주십시오.
+              </p>
+              <div class="p-4 bg-slate-50 rounded-xl border border-gray-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <p class="text-xs font-bold text-gray-800">1차 협력사용 자가진단 파일.xlsx</p>
+                  <p class="text-[11px] text-gray-400 font-medium">Excel 양식 파일</p>
+                </div>
+                <button type="button" class="text-xs px-3.5 py-2 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition cursor-pointer" onclick="alert('1차 협력사용 자가진단 파일.xlsx 양식 파일 다운로드가 완료되었습니다.')">
+                  양식 다운로드
+                </button>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-600 block mb-1">자가진단 완료 서류 업로드 *</label>
+                <div class="border border-gray-200 rounded-lg p-2 bg-white flex items-center gap-3">
+                  <button type="button" class="text-xs px-3.5 py-1.5 border border-gray-300 bg-white hover:bg-gray-50 rounded-md font-bold text-gray-700 transition shrink-0 cursor-pointer" onclick="document.getElementById('self-assess-file-input').click()">
+                    파일 선택
+                  </button>
+                  <span id="self-assess-file-name" class="text-xs text-gray-500">선택된 파일 없음</span>
+                  <input id="self-assess-file-input" type="file" class="hidden" onchange="handleSelfAssessFile(this)" />
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-600 block mb-1">증빙자료 업로드 (다중 선택 가능) *</label>
+                <div class="border border-gray-200 rounded-lg p-2 bg-white flex items-center gap-3">
+                  <button type="button" class="text-xs px-3.5 py-1.5 border border-gray-300 bg-white hover:bg-gray-50 rounded-md font-bold text-gray-700 transition shrink-0 cursor-pointer" onclick="document.getElementById('evidence-file-input').click()">
+                    파일 선택
+                  </button>
+                  <span id="evidence-file-count" class="text-xs text-gray-500">선택된 파일 0개</span>
+                  <input id="evidence-file-input" type="file" multiple class="hidden" onchange="handleEvidenceFiles(this)" />
+                </div>
+                <div id="evidence-file-list" class="mt-3 space-y-1.5 hidden">
+                  <p class="text-xs font-bold text-gray-600">선택된 증빙서류 목록:</p>
+                  <div id="evidence-list-container" class="max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. 협력사 행동강령 준수 서약 및 동의 카드 -->
+            <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm space-y-5">
+              <h3 class="text-base font-bold text-gray-900 border-b border-gray-150 pb-3">협력사 행동강령 준수 서약 및 동의</h3>
+              <p class="text-xs text-gray-500 leading-normal font-medium">
+                공급망 내 ESG 규제 리스크 방지를 위해 협력사의 행동강령 서약 제출을 필수로 지정하고 있습니다. 양식을 다운로드하여 날인 후 업로드해주십시오.
+              </p>
+              <div class="p-4 bg-slate-50 rounded-xl border border-gray-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <p class="text-xs font-bold text-gray-800">현대모비스 협력사 행동강령 양식</p>
+                  <p class="text-[11px] text-gray-400 font-medium">CoC_Agreement_Form.pdf (1.2MB)</p>
+                </div>
+                <button type="button" class="text-xs px-3.5 py-2 border border-gray-250 bg-white hover:bg-gray-100 rounded-lg font-bold text-gray-700 transition cursor-pointer" onclick="alert('행동강령 서약서 양식 파일 다운로드가 완료되었습니다.')">
+                  양식 다운로드
+                </button>
+              </div>
+              
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-600 block mb-1">행동강령 서약서 파일 업로드 *</label>
+                <div class="border border-gray-200 rounded-lg p-2 bg-white flex items-center gap-3">
+                  <button type="button" class="text-xs px-3.5 py-1.5 border border-gray-300 bg-white hover:bg-gray-50 rounded-md font-bold text-gray-700 transition shrink-0 cursor-pointer" onclick="document.getElementById('coc-file-input').click()">
+                    파일 선택
+                  </button>
+                  <span id="coc-file-name" class="text-xs text-gray-500">선택된 파일 없음</span>
+                  <input id="coc-file-input" type="file" class="hidden" onchange="handleCocFile(this)" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 하단 취소/저장 버튼 -->
+            <div class="flex gap-2">
+              <button type="button" id="btn-cancel-form-bottom" class="px-5 py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-200 transition cursor-pointer">
+                취소
+              </button>
+              <button type="button" onclick="submitCompanyForm()" class="px-6 py-2.5 text-white text-xs font-bold rounded-lg hover:opacity-90 transition shadow-md bg-[#03a94d] cursor-pointer">
+                저장 및 제출하기
+              </button>
+            </div>
+          </form>
         </div>
       </main>
     </div>
@@ -151,6 +442,143 @@
           sidebar.classList.add('-translate-x-full');
         }
       });
+    }
+
+    // Welcome - Form switching
+    const btnRegisterCompany = document.getElementById('btn-register-company');
+    const btnCancelForm = document.getElementById('btn-cancel-form');
+    const btnCancelFormBottom = document.getElementById('btn-cancel-form-bottom');
+    const welcomeSection = document.getElementById('company-welcome-section');
+    const formSection = document.getElementById('company-form-section');
+
+    if (btnRegisterCompany && welcomeSection && formSection) {
+      btnRegisterCompany.addEventListener('click', () => {
+        welcomeSection.classList.add('hidden');
+        formSection.classList.remove('hidden');
+      });
+    }
+
+    const restoreWelcome = () => {
+      formSection.classList.add('hidden');
+      welcomeSection.classList.remove('hidden');
+    };
+
+    if (btnCancelForm) {
+      btnCancelForm.addEventListener('click', restoreWelcome);
+    }
+    if (btnCancelFormBottom) {
+      btnCancelFormBottom.addEventListener('click', restoreWelcome);
+    }
+
+    // File lists states
+    let certFiles = [];
+    let evidenceFiles = [];
+
+    window.handleCertFiles = function(input) {
+      const files = Array.from(input.files);
+      files.forEach(f => {
+        if (!certFiles.includes(f.name)) {
+          certFiles.push(f.name);
+        }
+      });
+      updateCertFileList();
+    }
+
+    window.removeCertFile = function(name) {
+      certFiles = certFiles.filter(f => f !== name);
+      updateCertFileList();
+    }
+
+    function updateCertFileList() {
+      const countEl = document.getElementById('cert-file-count');
+      const listEl = document.getElementById('cert-file-list');
+      const containerEl = document.getElementById('cert-list-container');
+      
+      countEl.innerText = `선택된 파일 ${certFiles.length}개`;
+      
+      if (certFiles.length > 0) {
+        listEl.classList.remove('hidden');
+        if (certFiles.length >= 7) {
+          containerEl.className = "max-h-48 overflow-y-auto pr-1";
+        } else {
+          containerEl.className = "";
+        }
+        containerEl.innerHTML = certFiles.map(name => `
+          <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-gray-200/60 text-xs mb-1.5 last:mb-0">
+            <span class="font-semibold text-gray-700">${name}</span>
+            <button type="button" onclick="removeCertFile('${name}')" class="text-red-500 hover:text-red-700 font-bold ml-2 text-xs cursor-pointer">삭제</button>
+          </div>
+        `).join('');
+      } else {
+        listEl.classList.add('hidden');
+        containerEl.innerHTML = '';
+      }
+    }
+
+    window.handleSelfAssessFile = function(input) {
+      const file = input.files[0];
+      const label = document.getElementById('self-assess-file-name');
+      if (file) {
+        label.innerText = file.name;
+      } else {
+        label.innerText = '선택된 파일 없음';
+      }
+    }
+
+    window.handleCocFile = function(input) {
+      const file = input.files[0];
+      const label = document.getElementById('coc-file-name');
+      if (file) {
+        label.innerText = file.name;
+      } else {
+        label.innerText = '선택된 파일 없음';
+      }
+    }
+
+    window.handleEvidenceFiles = function(input) {
+      const files = Array.from(input.files);
+      files.forEach(f => {
+        if (!evidenceFiles.includes(f.name)) {
+          evidenceFiles.push(f.name);
+        }
+      });
+      updateEvidenceFileList();
+    }
+
+    window.removeEvidenceFile = function(name) {
+      evidenceFiles = evidenceFiles.filter(f => f !== name);
+      updateEvidenceFileList();
+    }
+
+    function updateEvidenceFileList() {
+      const countEl = document.getElementById('evidence-file-count');
+      const listEl = document.getElementById('evidence-file-list');
+      const containerEl = document.getElementById('evidence-list-container');
+      
+      countEl.innerText = `선택된 파일 ${evidenceFiles.length}개`;
+      
+      if (evidenceFiles.length > 0) {
+        listEl.classList.remove('hidden');
+        if (evidenceFiles.length >= 7) {
+          containerEl.className = "max-h-48 overflow-y-auto pr-1";
+        } else {
+          containerEl.className = "";
+        }
+        containerEl.innerHTML = evidenceFiles.map(name => `
+          <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-gray-200/60 text-xs mb-1.5 last:mb-0">
+            <span class="font-semibold text-gray-700">${name}</span>
+            <button type="button" onclick="removeEvidenceFile('${name}')" class="text-red-500 hover:text-red-700 font-bold ml-2 text-xs cursor-pointer">삭제</button>
+          </div>
+        `).join('');
+      } else {
+        listEl.classList.add('hidden');
+        containerEl.innerHTML = '';
+      }
+    }
+
+    window.submitCompanyForm = function() {
+      alert('기업 정보 및 서약서/증빙서류가 성공적으로 저장되었습니다.');
+      restoreWelcome();
     }
   </script>
 </body>
