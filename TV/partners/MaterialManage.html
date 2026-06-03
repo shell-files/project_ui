@@ -135,6 +135,7 @@
                   <th class="py-3 px-4">요청 일자</th>
                   <th class="py-3 px-4 text-center">상태</th>
                   <th class="py-3 px-4 text-center">액션</th>
+                  <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">긴급요청</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-100">
@@ -160,9 +161,12 @@
                       정보 입력
                     </button>
                   </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <a href="partnerMaterialUrgentRequest.html" class="px-2.5 py-1 text-pink-700 rounded text-xs font-bold bg-pink-50 hover:bg-pink-100 transition border border-pink-200 shadow-sm cursor-pointer inline-block text-center">요청하기</a>
+                  </td>
                 </tr>
                 <tr id="detail-accordion-submit" class="hidden bg-slate-50/50">
-                  <td colspan="10" class="p-4 border-b border-gray-100">
+                  <td colspan="11" class="p-4 border-b border-gray-100">
                     <div class="bg-white p-5 rounded-xl border border-gray-150 shadow-xs space-y-4">
                       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- [좌측 패널: 마스터 정보 및 6대 기본 자재 스펙 창] -->
@@ -292,6 +296,9 @@
                   <td class="py-3.5 px-4 text-center">
                     <span class="text-gray-400 italic">완료됨</span>
                   </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <a href="partnerMaterialUrgentRequest.html" class="px-2.5 py-1 text-pink-700 rounded text-xs font-bold bg-pink-50 hover:bg-pink-100 transition border border-pink-200 shadow-sm cursor-pointer inline-block text-center">요청하기</a>
+                  </td>
                 </tr>
 
                 <!-- 3행: PO-2025-3003-003 -->
@@ -313,6 +320,9 @@
                   </td>
                   <td class="py-3.5 px-4 text-center">
                     <span class="text-gray-400 italic">완료됨</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="text-gray-400 font-medium text-xs">-</span>
                   </td>
                 </tr>
               </tbody>
