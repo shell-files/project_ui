@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[TV] ESG 공급망 관리 시스템 - 원자재 관리</title>
+  <title>[TV] ESG 공급망 관리 시스템 - 원자재 요청 관리</title>
   <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <!-- 공통 스타일 -->
@@ -25,62 +25,30 @@
       class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
       <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
         <div style="cursor: pointer;"
-          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden">
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden"
+          onclick="location.href='../admin/dashboard.html'">
           <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
         </div>
       </div>
       <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
-        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <!-- 카테고리: 협력사 파트너 포털 -->
         <div class="space-y-2">
-          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 협력사 파트너 포털</p>
           <div class="space-y-1">
-            <!-- 메인 대시보드 -->
-            <a href="dashboard.html"
+            <!-- 기업 정보 관리 -->
+            <a href="companyInfo.html"
               class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
-              <span>메인 대시보드</span>
+              <span>기업 정보 관리</span>
             </a>
             <!-- 협력사 정보 -->
-            <a href="partnerList.html"
+            <a href="partnerSubList.html"
               class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
               <span>협력사 정보</span>
             </a>
-            <!-- BOM 관리 -->
-            <a href="bomList.html"
-              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
-              <span>BOM 관리</span>
-            </a>
-          </div>
-        </div>
-        <!-- 카테고리: 구매 및 자재 관리 -->
-        <div class="space-y-2">
-          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
-          <div class="space-y-1">
-            <!-- PO 관리 -->
-            <a href="poList.html"
-              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
-              <span>PO 관리</span>
-            </a>
             <!-- 원자재 관리 (활성화 상태) -->
-            <a href="materialList.html"
+            <a href="MaterialManage.html"
               class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-bold transition text-left bg-primary-dark-green text-white">
               <span>원자재 관리</span>
-            </a>
-          </div>
-        </div>
-        <!-- 카테고리: 실사 및 평가 -->
-        <div class="space-y-2">
-          <p class="px-3 text-xs font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
-          <div class="space-y-1">
-            <!-- 리스크 현황 -->
-            <a href="#"
-              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
-              <span>리스크 현황</span>
-            </a>
-            <!-- 현장 실사 -->
-            <a href="#"
-              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
-              <span>현장 실사</span>
-              <span class="text-xs px-1.5 py-0.5 rounded-full font-bold bg-amber-400 text-white">3건</span>
             </a>
           </div>
         </div>
@@ -93,7 +61,7 @@
       <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
         <div class="flex items-center gap-3">
           <!-- 햄버거 메뉴 버튼 -->
-          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden" id="btn-sidebar-toggle">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -105,9 +73,10 @@
           <!-- 역할 전환 셀렉트 박스 -->
           <div class="flex items-center gap-2">
             <select
-              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer">
-              <option value="현대모비스" selected>원청사 (현대모비스)</option>
-              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer"
+              onchange="location.href=(this.value === '현대모비스' ? '../admin/dashboard.html' : 'companyInfo.html')">
+              <option value="현대모비스">원청사 (현대모비스)</option>
+              <option value="1차 협력사" selected>1차 협력사 (노벨리스코리아)</option>
               <option value="2차 협력사">2차 협력사 (케이알엠)</option>
               <option value="3차 협력사">3차 협력사 (Comilog)</option>
             </select>
@@ -127,326 +96,289 @@
           </div>
 
           <!-- 역할 표시 -->
-          <span class="text-xs text-gray-600 font-semibold">원청사 관리자</span>
+          <span class="text-xs text-gray-600 font-semibold">1차 협력사 관리자</span>
         </div>
       </header>
 
       <!-- Content Body -->
-      <main class="flex-1 overflow-y-auto p-6">
-        <!-- 원자재 목록 구역 전체 -->
-        <div id="material-list-section" class="space-y-5">
-          <div class="flex items-center justify-between">
-            <div>
-              <h1 class="text-2xl font-black text-gray-900">원자재 관리</h1>
-              <p class="text-sm text-gray-400 mt-1">PO ID 클릭 → 공급망 트리 드롭다운 / 행 클릭 → 상세</p>
-            </div>
-            <a href="materialRequest.html" class="px-4 py-2 text-white text-sm rounded-lg font-bold bg-[#03a94d] shadow-sm hover:bg-[#02823b] transition duration-150 inline-block">
-              + 원자재 요청
-            </a>
+      <main class="flex-1 overflow-y-auto p-6 space-y-5">
+        <!-- 타이틀 구역 -->
+        <div>
+          <h1 class="text-2xl font-black text-gray-900">원자재 요청 관리</h1>
+          <p class="text-sm text-gray-400 mt-1">원청사(현대모비스) 발주와 연동된 원자재 정보 보완 요청 내역을 확인하고 필수 ESG 사양 데이터를 입력 및 제출하는 통제 공간
+          </p>
+        </div>
+
+        <!-- 원자재 목록 카드 -->
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-gray-50">
+            <h3 class="font-bold text-gray-800 text-sm">요청 및 등록 원자재 목록</h3>
           </div>
-
-          <!-- 검색 및 필터 패널 -->
-          <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 space-y-4">
-            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-              <!-- 검색창 -->
-              <div class="w-full md:w-72 relative">
-                <input type="text" placeholder="협력사명 검색..."
-                  class="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#03a94d]" />
-                <span class="absolute left-3 top-2.5 text-gray-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </span>
-              </div>
-
-              <!-- 상태 필터 -->
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-xs font-bold text-gray-500">상태:</span>
-                <div class="flex gap-1.5 flex-wrap">
-                  <button
-                    class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-slate-800 text-white border-slate-800 shadow-sm">전체</button>
-                  <button
-                    class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">승인
-                    완료</button>
-                  <button
-                    class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">승인
-                    대기</button>
-                  <button
-                    class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">진행중</button>
-                  <button
-                    class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">반려</button>
-                  <button
-                    class="px-2.5 py-1 text-xs rounded-lg border font-medium transition duration-150 bg-white text-gray-700 border-gray-200 hover:bg-gray-50">요청중</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 원자재 목록 테이블 -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="overflow-x-auto">
-              <table class="w-full text-xs text-left">
-                <thead>
-                  <tr class="bg-slate-50 border-b border-gray-100 text-gray-500 font-bold">
-                    <th class="px-4 py-3">PO ID</th>
-                    <th class="px-4 py-3">협력사</th>
-                    <th class="px-4 py-3">원자재명</th>
-                    <th class="px-3 py-3 text-right">폭(mm)</th>
-                    <th class="px-3 py-3 text-right">길이(mm)</th>
-                    <th class="px-3 py-3 text-right">중량(kg)</th>
-                    <th class="px-3 py-3 text-right">지름(mm)</th>
-                    <th class="px-4 py-3">구성 요소</th>
-                    <th class="px-4 py-3">원산지</th>
-                    <th class="px-4 py-3 text-center">상태</th>
-                    <th class="px-4 py-3 text-center">긴급 요청</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Row 1 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2025-3003-001 <span class="text-xs text-gray-400">▲</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">노벨리스코리아</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">Al 3003 슬라브</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">600</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">3000</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">1520</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">KRM-001</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-emerald-50 text-emerald-700 border border-emerald-100">승인
-                        완료</span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="materialUrgentRequest.html"
-                        class="px-2.5 py-1 text-xs text-white bg-[#03a94d] hover:bg-[#02823b] rounded-lg font-medium shadow-sm transition inline-block">요청하기</a>
-                    </td>
-                  </tr>
-
-                  <!-- 공급망 재료·광물 트리 아코디언 드롭다운 패널 (1행 연동) -->
-                  <tr class="bg-emerald-50/30 border-t">
-                    <td colspan="11" class="px-6 py-4">
-                      <div class="space-y-3">
-                        <p class="text-xs font-bold text-emerald-700">공급망 재료·광물 트리 (중량: 1520kg)</p>
-                        <div class="space-y-1.5 py-2 max-w-3xl">
-                          <!-- 1차 협력사 -->
-                          <div
-                            class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200"
-                            style="margin-left: 0px;">
-                            <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#03a94d]">1차</span>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-xs font-bold text-gray-800">노벨리스코리아</p>
-                              <p class="text-xs text-gray-500">Al 3003 슬라브 (Al 97.9%+Mn 1.25%)</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr
+                  class="bg-slate-50 border-b border-gray-100 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                  <th class="py-3 px-4">발주 ID</th>
+                  <th class="py-3 px-4">원자재명</th>
+                  <th class="py-3 px-4">폭(mm)</th>
+                  <th class="py-3 px-4">길이(mm)</th>
+                  <th class="py-3 px-4">중량(kg)</th>
+                  <th class="py-3 px-4">지름(mm)</th>
+                  <th class="py-3 px-4">구성 요소</th>
+                  <th class="py-3 px-4">요청 일자</th>
+                  <th class="py-3 px-4 text-center">상태</th>
+                  <th class="py-3 px-4 text-center">액션</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <!-- 1행: PO-2025-3003-001 -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 font-mono font-bold text-gray-500">PO-2025-3003-001</td>
+                  <td class="py-3.5 px-4 font-medium text-gray-900">Al 3003 슬라브</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">600</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">1200</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">2,500</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">-</td>
+                  <td class="py-3.5 px-4 text-gray-400">-</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-500">2026-05-10</td>
+                  <td id="status-krm" class="py-3.5 px-4 text-center">
+                    <span
+                      class="inline-block text-[10px] px-2 py-0.5 rounded-full font-bold border bg-pink-50 text-pink-700 border-pink-100">
+                      반려
+                    </span>
+                  </td>
+                  <td id="action-krm" class="py-3.5 px-4 text-center">
+                    <button id="btn-info-input"
+                      class="px-2.5 py-1 text-white rounded text-xs font-bold bg-[#03a94d] hover:bg-[#02823b] transition shadow-sm cursor-pointer">
+                      정보 입력
+                    </button>
+                  </td>
+                </tr>
+                <tr id="detail-accordion-submit" class="hidden bg-slate-50/50">
+                  <td colspan="10" class="p-4 border-b border-gray-100">
+                    <div class="bg-white p-5 rounded-xl border border-gray-150 shadow-xs space-y-4">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- [좌측 패널: 마스터 정보 및 6대 기본 자재 스펙 창] -->
+                        <div class="space-y-4">
+                          <!-- 수정 불가 영역 -->
+                          <div class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider border-b pb-1">마스터 정보
+                              (수정 불가)</h4>
+                            <div class="grid grid-cols-3 gap-3 text-xs">
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-400 block mb-1">PO ID</label>
+                                <input type="text" value="PO-2025-3003-001" readonly
+                                  class="w-full bg-gray-50 text-gray-500 font-semibold cursor-not-allowed border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-400 block mb-1">협력사명</label>
+                                <input type="text" value="노벨리스코리아" readonly
+                                  class="w-full bg-gray-50 text-gray-500 font-semibold cursor-not-allowed border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-400 block mb-1">원자재명</label>
+                                <input type="text" value="Al 3003 슬라브" readonly
+                                  class="w-full bg-gray-50 text-gray-500 font-semibold cursor-not-allowed border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none" />
+                              </div>
                             </div>
-                            <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">1520 kg</span>
                           </div>
-                          <!-- 2차 협력사 -->
-                          <div
-                            class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200"
-                            style="margin-left: 16px;">
-                            <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#0ea5e9]">2차</span>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-xs font-bold text-gray-800">케이알엠</p>
-                              <p class="text-xs text-gray-500">P1020 잉곳 (Al 99.7%)</p>
+
+                          <!-- 원자재 입력 사항 (6대 필드) -->
+                          <div class="space-y-3">
+                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider border-b pb-1">원자재 사양
+                              입력 (6대 스펙)</h4>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-500 block mb-1">폭 (mm)</label>
+                                <input type="number" id="input-width" value="600"
+                                  class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-500 block mb-1">길이 (mm)</label>
+                                <input type="number" id="input-length" value="1200"
+                                  class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-500 block mb-1">중량 (kg)</label>
+                                <input type="number" id="input-weight" value="2500"
+                                  class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-500 block mb-1">지름 (mm)</label>
+                                <input type="text" id="input-diameter" value="-"
+                                  class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-500 block mb-1">원산지</label>
+                                <input type="text" id="input-origin" value="대한민국 울산"
+                                  class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                              </div>
+                              <div>
+                                <label class="text-[10px] font-bold text-gray-500 block mb-1">구성 요소</label>
+                                <input type="text" id="input-components" value="Al 97.9%, Mn 1.25%, Cu 0.12%"
+                                  class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                              </div>
                             </div>
-                            <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">1570 kg</span>
                           </div>
-                          <!-- 3차 협력사 (Windalco) -->
-                          <div
-                            class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200"
-                            style="margin-left: 32px;">
-                            <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#8b5cf6]">3차</span>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-xs font-bold text-gray-800">Windalco</p>
-                              <p class="text-xs text-gray-500">알루미나(Al₂O₃)</p>
+                        </div>
+
+                        <!-- [우측 패널: 4대 핵심 ESG 지표 입력 창] -->
+                        <div class="space-y-3">
+                          <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider border-b pb-1">핵심 ESG 지표
+                            입력 (4대 지표)</h4>
+                          <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div>
+                              <label class="text-[10px] font-bold text-gray-500 block mb-1">Scope 1 배출량 (tCO2eq)</label>
+                              <input type="number" id="input-scope1" placeholder="예: 56000"
+                                class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
                             </div>
-                            <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">2930 kg</span>
-                          </div>
-                          <!-- 3차 협력사 (Comilog) -->
-                          <div
-                            class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200"
-                            style="margin-left: 32px;">
-                            <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#8b5cf6]">3차</span>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-xs font-bold text-gray-800">Comilog</p>
-                              <p class="text-xs text-gray-500">Mn 정광(MnO₂)</p>
+                            <div>
+                              <label class="text-[10px] font-bold text-gray-500 block mb-1">Scope 2 배출량 (tCO2eq)</label>
+                              <input type="number" id="input-scope2" placeholder="예: 38000"
+                                class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
                             </div>
-                            <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">62 kg</span>
-                          </div>
-                          <!-- 3차 협력사 (Codelco) -->
-                          <div
-                            class="flex items-center gap-2 p-2 rounded-lg bg-white border border-dashed border-slate-200"
-                            style="margin-left: 32px;">
-                            <span class="text-white text-xs font-bold px-1.5 py-0.5 rounded bg-[#8b5cf6]">3차</span>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-xs font-bold text-gray-800">Codelco</p>
-                              <p class="text-xs text-gray-500">황동광(Cu)</p>
+                            <div>
+                              <label class="text-[10px] font-bold text-gray-500 block mb-1">FEOC 원료 비중 (%)</label>
+                              <input type="number" id="input-feoc" step="0.1" placeholder="예: 11.5"
+                                class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
                             </div>
-                            <span class="text-xs font-mono font-bold text-[#03a94d] shrink-0">6 kg</span>
+                            <div>
+                              <label class="text-[10px] font-bold text-gray-500 block mb-1">TRIR 산업안전율</label>
+                              <input type="number" id="input-trir" step="0.01" placeholder="예: 1.02"
+                                class="w-full bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#03a94d]/30" />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </td>
-                  </tr>
 
-                  <!-- Row 2 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2025-3003-001 <span class="text-xs text-gray-400">▼</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">케이알엠</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">전기동(Cu) 캐소드</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">900</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">125</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">COD-001</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-emerald-50 text-emerald-700 border border-emerald-100">승인
-                        완료</span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="materialUrgentRequest.html"
-                        class="px-2.5 py-1 text-xs text-white bg-[#03a94d] hover:bg-[#02823b] rounded-lg font-medium shadow-sm transition inline-block">요청하기</a>
-                    </td>
-                  </tr>
+                      <!-- 하단 액션 버튼 세트 -->
+                      <div class="flex justify-end gap-2 border-t pt-4">
+                        <button type="button" id="btn-material-cancel"
+                          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition cursor-pointer">
+                          취소
+                        </button>
+                        <button type="button" id="btn-material-submit"
+                          class="bg-[#03a94d] hover:bg-[#02823b] text-white font-bold rounded-lg text-sm px-6 py-2 shadow-md transition cursor-pointer">
+                          제출하기
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
 
-                  <!-- Row 3 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2025-3003-001 <span class="text-xs text-gray-400">▼</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">케이알엠</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">전해망간(EMD) - 긴급</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">5</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">COM-001</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-pink-50 text-pink-700 border border-pink-100">요청중</span>
-                    </td>
-                    <td class="px-4 py-3 text-center text-gray-400">-</td>
-                  </tr>
+                <!-- 2행: PO-2025-3003-002 -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 font-mono font-bold text-gray-500">PO-2025-3003-002</td>
+                  <td class="py-3.5 px-4 font-medium text-gray-900">Al 5052 코일</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">1000</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">-</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">3,100</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">-</td>
+                  <td class="py-3.5 px-4 text-gray-400">-</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-500">2026-05-12</td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span
+                      class="inline-block text-[10px] px-2 py-0.5 rounded-full font-bold border bg-amber-50 text-amber-700 border-amber-100">
+                      승인 대기
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="text-gray-400 italic">완료됨</span>
+                  </td>
+                </tr>
 
-                  <!-- Row 4 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2026-3003-001 <span class="text-xs text-gray-400">▼</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">노벨리스코리아</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">Al 3003-H16 코일 슬라브</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">1200</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">4000</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">2100</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">KRM-001</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200">승인
-                        대기</span>
-                    </td>
-                    <td class="px-4 py-3 text-center text-gray-400">-</td>
-                  </tr>
-
-                  <!-- Row 5 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2026-3003-002 <span class="text-xs text-gray-400">▼</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">남성알루미늄</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">Al 3003-H14 빌렛</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">200</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">6000</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">980</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">HMC-002</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-emerald-50 text-emerald-700 border border-emerald-100">승인
-                        완료</span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="materialUrgentRequest.html"
-                        class="px-2.5 py-1 text-xs text-white bg-[#03a94d] hover:bg-[#02823b] rounded-lg font-medium shadow-sm transition inline-block">요청하기</a>
-                    </td>
-                  </tr>
-
-                  <!-- Row 6 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2026-3003-003 <span class="text-xs text-gray-400">▼</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">남성알루미늄</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">Al 3003-H18 빌렛</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">220</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">5000</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">850</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">HMC-002</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200">진행중</span>
-                    </td>
-                    <td class="px-4 py-3 text-center text-gray-400">-</td>
-                  </tr>
-
-                  <!-- Row 7 -->
-                  <tr class="border-t hover:bg-gray-50 cursor-pointer">
-                    <td class="px-4 py-3 font-mono text-[#03a94d] font-bold underline">
-                      PO-2026-3003-003 <span class="text-xs text-gray-400">▼</span>
-                    </td>
-                    <td class="px-4 py-3 text-gray-700 font-semibold">노벨리스코리아</td>
-                    <td class="px-4 py-3 text-gray-900 font-semibold">Al 3003 코일 슬라브</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">1100</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">3500</td>
-                    <td class="px-3 py-3 font-mono text-gray-700 text-right">1900</td>
-                    <td class="px-3 py-3 font-mono text-gray-400 text-right">-</td>
-                    <td class="px-4 py-3 text-gray-500 font-semibold">-</td>
-                    <td class="px-4 py-3 text-gray-700 font-mono">KRM-001</td>
-                    <td class="px-4 py-3 text-center">
-                      <span
-                        class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap bg-red-50 text-red-700 border border-red-100">반려</span>
-                    </td>
-                    <td class="px-4 py-3 text-center text-gray-400">-</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="text-xs text-gray-400 p-3 bg-slate-50/50 border-t border-gray-100">
-              PO ID 클릭 → 공급망 트리 드롭다운 / 행 클릭 → 상세
-            </div>
+                <!-- 3행: PO-2025-3003-003 -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 font-mono font-bold text-gray-500">PO-2025-3003-003</td>
+                  <td class="py-3.5 px-4 font-medium text-gray-900">Al 6061 빌릿</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">-</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">3000</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">1,850</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-600">200</td>
+                  <td class="py-3.5 px-4 text-gray-700 max-w-[150px] truncate" title="Al 98.2%, Mg 1.0%, Si 0.6%">Al
+                    98.2%, Mg 1.0%, Si 0.6%</td>
+                  <td class="py-3.5 px-4 font-mono text-gray-500">2026-05-14</td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span
+                      class="inline-block text-[10px] px-2 py-0.5 rounded-full font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">
+                      승인 완료
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="text-gray-400 italic">완료됨</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div> <!-- End of material-list-section -->
+        </div>
       </main>
     </div>
   </div>
 
   <script>
-    // Row click redirection to materialDetail.html (ignoring PO ID cell at index 0 and action button cell at index 10)
-    document.querySelector('table tbody').addEventListener('click', function (e) {
-      const td = e.target.closest('td');
-      if (!td) return;
+    // Sidebar Mobile Toggle
+    const btnSidebarToggle = document.getElementById('btn-sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
 
-      const cellIndex = td.cellIndex;
-      if (cellIndex === 0 || cellIndex === 10) {
-        return; // Ignore PO ID click and Action button clicks
-      }
+    if (btnSidebarToggle && sidebar) {
+      btnSidebarToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('-translate-x-full');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !btnSidebarToggle.contains(e.target)) {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    }
 
-      window.location.href = "materialDetail.html";
-    });
+    // Material Specification Submission Accordion Toggle & Workflow
+    const btnInfoInput = document.getElementById('btn-info-input');
+    const btnMaterialCancel = document.getElementById('btn-material-cancel');
+    const btnMaterialSubmit = document.getElementById('btn-material-submit');
+    const accordionSubmit = document.getElementById('detail-accordion-submit');
+    const statusKrm = document.getElementById('status-krm');
+    const actionKrm = document.getElementById('action-krm');
+
+    if (btnInfoInput && accordionSubmit) {
+      btnInfoInput.addEventListener('click', () => {
+        accordionSubmit.classList.remove('hidden');
+      });
+    }
+
+    if (btnMaterialCancel && accordionSubmit) {
+      btnMaterialCancel.addEventListener('click', () => {
+        accordionSubmit.classList.add('hidden');
+        // 입력값 초기화
+        document.getElementById('input-width').value = '600';
+        document.getElementById('input-length').value = '1200';
+        document.getElementById('input-weight').value = '2500';
+        document.getElementById('input-diameter').value = '-';
+        document.getElementById('input-origin').value = '대한민국 울산';
+        document.getElementById('input-components').value = 'Al 97.9%, Mn 1.25%, Cu 0.12%';
+        document.getElementById('input-scope1').value = '';
+        document.getElementById('input-scope2').value = '';
+        document.getElementById('input-feoc').value = '';
+        document.getElementById('input-trir').value = '';
+      });
+    }
+
+    if (btnMaterialSubmit && accordionSubmit && statusKrm && actionKrm) {
+      btnMaterialSubmit.addEventListener('click', () => {
+        alert("원자재 보완 사양 정보가 원청사(현대모비스)로 성공적으로 제출되었습니다. 결재선 검토 및 승인 대기 상태로 전환됩니다.");
+        accordionSubmit.classList.add('hidden');
+        statusKrm.innerHTML = `
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded-full font-bold border bg-amber-50 text-amber-700 border-amber-100">
+            승인 대기
+          </span>
+        `;
+        actionKrm.innerHTML = `
+          <span class="text-gray-400 italic">완료됨</span>
+        `;
+      });
+    }
   </script>
 </body>
 
