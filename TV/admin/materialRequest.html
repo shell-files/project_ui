@@ -104,8 +104,9 @@
         <div class="flex items-center gap-4">
           <!-- 역할 전환 셀렉트 박스 -->
           <div class="flex items-center gap-2">
-            <select
-              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer">
+            <select id="role-select"
+              class="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer"
+              onchange="if(this.value === '1차 협력사') window.location.href = '../partners/companyInfo.html';">
               <option value="현대모비스" selected>원청사 (현대모비스)</option>
               <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
               <option value="2차 협력사">2차 협력사 (케이알엠)</option>
