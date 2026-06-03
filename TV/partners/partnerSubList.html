@@ -102,7 +102,194 @@
 
       <!-- Content Body -->
       <main class="flex-1 overflow-y-auto p-6 space-y-5">
-        <!-- -->
+        <!-- 타이틀 구역 -->
+        <div>
+          <h1 class="text-2xl font-black text-gray-900">하위 협력사 정보 조회</h1>
+          <p class="text-sm text-gray-400 mt-1">공급망 실사 규제 대응을 위한 하위(2차, 3차) 협력사들의 ESG 리스크 및 지표 이행 현황 모니터링</p>
+        </div>
+
+        <!-- 리스크 요약 카드 3종 -->
+        <div class="grid grid-cols-3 gap-4">
+          <!-- 고위험 카드 -->
+          <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs text-gray-400 font-bold">고위험 협력사</p>
+              <p class="text-xl font-black text-red-600 mt-1">0개사</p>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-red-50 text-red-500 border border-red-100">임계치 초과</span>
+          </div>
+          <!-- 중위험 카드 -->
+          <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs text-gray-400 font-bold">중위험 협력사</p>
+              <p class="text-xl font-black text-amber-500 mt-1">4개사</p>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-amber-50 text-amber-500 border border-amber-100">관찰 요망</span>
+          </div>
+          <!-- 저위험 카드 -->
+          <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs text-gray-400 font-bold">저위험 협력사</p>
+              <p class="text-xl font-black text-emerald-500 mt-1">0개사</p>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-500 border border-emerald-100">안정적</span>
+          </div>
+        </div>
+
+        <!-- 검색 및 필터 패널 -->
+        <div class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm space-y-4">
+          <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            <!-- 검색창 -->
+            <div class="w-full md:w-72 relative">
+              <input
+                type="text"
+                placeholder="협력사명 검색..."
+                class="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#03a94d]"
+              />
+              <span class="absolute left-3 top-2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
+            </div>
+
+            <div class="flex flex-wrap gap-4 items-center">
+              <!-- 계층 필터 -->
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-gray-500">계층:</span>
+                <div class="flex gap-1.5">
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800 cursor-pointer">전체</button>
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">2차 협력사 (제련)</button>
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">3차 협력사 (채굴)</button>
+                </div>
+              </div>
+
+              <!-- 리스크 필터 -->
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-gray-500">리스크:</span>
+                <div class="flex gap-1.5">
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-slate-800 text-white border-slate-800 cursor-pointer">전체</button>
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">저위험</button>
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">중위험</button>
+                  <button class="px-2.5 py-1 text-xs rounded-lg border font-medium bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer">고위험</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 협력사 현황 마스터 테이블 -->
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-50 border-b border-gray-100 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                  <th class="py-3 px-4 text-center" rowspan="2">No.</th>
+                  <th class="py-3 px-4" rowspan="2">계층</th>
+                  <th class="py-3 px-4" rowspan="2">협력사명</th>
+                  <th class="py-3 px-4" rowspan="2">소재국가</th>
+                  <th class="py-3 px-4" rowspan="2">대표자명</th>
+                  <th class="py-3 px-4" rowspan="2">리스크 등급</th>
+                  <th class="py-2 px-4 text-center border-b border-gray-100" colspan="7">이니셔티브 준수 현황</th>
+                </tr>
+                <tr class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 text-center uppercase tracking-wider">
+                  <th class="py-1 px-1 border-r border-gray-100/50">ISO14001</th>
+                  <th class="py-1 px-1 border-r border-gray-100/50">ISO45001</th>
+                  <th class="py-1 px-1 border-r border-gray-100/50">IATF16949</th>
+                  <th class="py-1 px-1 border-r border-gray-100/50">RBA</th>
+                  <th class="py-1 px-1 border-r border-gray-100/50">RMAP</th>
+                  <th class="py-1 px-1 border-r border-gray-100/50">CMRT</th>
+                  <th class="py-1 px-1">EMAT</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 text-xs">
+                <!-- 1행: (주)케이알엠 -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 text-center font-medium text-gray-400">1</td>
+                  <td class="py-3.5 px-4 font-semibold text-[#0ea5e9]">2차 협력사</td>
+                  <td class="py-3.5 px-4 font-bold text-gray-900">(주)케이알엠</td>
+                  <td class="py-3.5 px-4 text-gray-500">대한민국</td>
+                  <td class="py-3.5 px-4 text-gray-500">김도인</td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                      ● 중위험
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                </tr>
+
+                <!-- 2행: Comilog -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 text-center font-medium text-gray-400">2</td>
+                  <td class="py-3.5 px-4 font-semibold text-[#8b5cf6]">3차 협력사</td>
+                  <td class="py-3.5 px-4 font-bold text-gray-900">Comilog</td>
+                  <td class="py-3.5 px-4 text-gray-500">가봉</td>
+                  <td class="py-3.5 px-4 text-gray-500">Jean-Marc</td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                      ● 중위험
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                </tr>
+
+                <!-- 3행: Windalco -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 text-center font-medium text-gray-400">3</td>
+                  <td class="py-3.5 px-4 font-semibold text-[#8b5cf6]">3차 협력사</td>
+                  <td class="py-3.5 px-4 font-bold text-gray-900">Windalco</td>
+                  <td class="py-3.5 px-4 text-gray-500">자메이카</td>
+                  <td class="py-3.5 px-4 text-gray-500">Patrick</td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                      ● 중위험
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                </tr>
+
+                <!-- 4행: Codelco -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="py-3.5 px-4 text-center font-medium text-gray-400">4</td>
+                  <td class="py-3.5 px-4 font-semibold text-[#8b5cf6]">3차 협력사</td>
+                  <td class="py-3.5 px-4 font-bold text-gray-900">Codelco</td>
+                  <td class="py-3.5 px-4 text-gray-500">칠레</td>
+                  <td class="py-3.5 px-4 text-gray-500">Ruben</td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                      ● 중위험
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-slate-100 text-slate-500 border-slate-200">N</span></td>
+                  <td class="py-3.5 px-1 text-center"><span class="inline-block text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-50 text-emerald-700 border-emerald-100">Y</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </main>
     </div>
   </div>
