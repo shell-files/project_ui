@@ -196,6 +196,208 @@
             </div>
 
             <div class="content-card">
+                <div class="modal-overlay" id="invoiceModal">
+
+                    <div class="modal-container" style="width:1100px; max-width:95%;">
+
+                        <div class="modal-header">
+                            <h3>송장 발급</h3>
+                            <button class="modal-close-btn" onclick="closeInvoiceModal()">
+                                &times;
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="modal-split-layout">
+
+                                <!-- 좌측 -->
+                                <div class="modal-split-left">
+
+                                    <div class="modal-section-title" style="margin-top:0;">
+                                        <h4>송장 정보 입력</h4>
+                                    </div>
+
+                                    <div class="modal-form-grid">
+
+                                        <div class="form-group">
+                                            <label>운송장 번호</label>
+                                            <input type="text" id="invoice_no" class="modal-input"
+                                                value="INV-20260604-001">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>도착지 코드</label>
+                                            <input type="text" id="dest_code" class="modal-input" value="SEOUL-001">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-section-title">
+                                        <h4>보내는 사람 (발송인)</h4>
+                                    </div>
+
+                                    <div class="modal-form-grid">
+
+                                        <div class="form-group">
+                                            <label>업체명(또는 성명)</label>
+                                            <input type="text" id="sender_name" class="modal-input" value="하이고 물류센터">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>연락처</label>
+                                            <input type="text" id="sender_phone" class="modal-input"
+                                                value="02-1234-5678">
+                                        </div>
+
+                                        <div class="form-group" style="grid-column:span 2;">
+                                            <label>반품 / 교환 주소</label>
+                                            <input type="text" id="sender_address" class="modal-input"
+                                                value="서울특별시 금천구 가산동 123-45">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-section-title">
+                                        <h4>받는 사람 (수취인)</h4>
+                                    </div>
+
+                                    <div class="modal-form-grid">
+
+                                        <div class="form-group">
+                                            <label>성명</label>
+                                            <input type="text" id="receiver_name" class="modal-input">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>연락처</label>
+                                            <input type="text" id="receiver_phone" class="modal-input">
+                                        </div>
+
+                                        <div class="form-group" style="grid-column:span 2;">
+                                            <label>배송지 주소</label>
+                                            <input type="text" id="receiver_address" class="modal-input">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-section-title">
+                                        <h4>배송 정보</h4>
+                                    </div>
+
+                                    <div class="modal-form-grid">
+
+                                        <div class="form-group">
+                                            <label>무게(kg)</label>
+                                            <input type="number" step="0.1" id="invoice_weight" class="modal-input"
+                                                value="5.0">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- 우측 -->
+                                <div class="modal-split-right">
+
+                                    <div class="modal-section-title" style="margin-top:0;">
+                                        <h4>송장 미리보기</h4>
+                                    </div>
+
+                                    <div class="invoice-preview-card" id="invoiceImagePreview">
+
+                                        <div class="invoice-box-inner">
+
+                                            <div class="invoice-header-title">
+                                                택배 송장
+                                            </div>
+
+                                            <table class="invoice-mini-table">
+
+                                                <tr>
+                                                    <th>운송장번호</th>
+                                                    <td id="previewInvoiceNo">
+                                                        INV-20260604-001
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>도착지코드</th>
+                                                    <td id="previewDestCode">
+                                                        SEOUL-001
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>발송인</th>
+                                                    <td id="previewSender">
+                                                        하이고 물류센터
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>수취인</th>
+                                                    <td id="previewReceiver">
+                                                        -
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>중량</th>
+                                                    <td id="previewWeight">
+                                                        5kg
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                            <div class="barcode-wrapper">
+
+                                                <div class="barcode-lines">
+                                                    <span class="b-w-1"></span>
+                                                    <span class="b-w-2"></span>
+                                                    <span class="b-w-3"></span>
+                                                    <span class="b-w-4"></span>
+                                                    <span class="b-w-1"></span>
+                                                    <span class="b-w-2"></span>
+                                                    <span class="b-w-4"></span>
+                                                    <span class="b-w-1"></span>
+                                                    <span class="b-w-3"></span>
+                                                    <span class="b-w-2"></span>
+                                                    <span class="b-w-1"></span>
+                                                </div>
+
+                                                <div class="barcode-text" id="previewBarcode">
+                                                    *INV-20260604-001*
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button class="btn-pop-cancel" onclick="closeInvoiceModal()">
+                                취소
+                            </button>
+
+                            <button class="btn-pop-submit" onclick="saveInvoiceIssue()">
+                                송장 발급
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
                 <div class="modal-overlay" id="vehicleAssignModal">
 
                     <div class="modal-container" style="width:700px;">
@@ -331,7 +533,7 @@
                                     <td>LG전자</td>
                                     <td>경동택배</td>
                                     <td class="text-center">
-                                        <span class="table-badge badge-pending">적재중</span>
+                                        <span class="table-badge badge-pending">차량배정</span>
                                     </td>
                                     <td class="text-center">IVC-20260604-002</td>
                                     <td class="text-center">16:20</td>
@@ -375,7 +577,7 @@
                                     <td>11가 1234 (1톤 탑차)</td>
                                     <td class="text-center">17 BOX</td>
                                     <td class="text-center">
-                                        <span class="table-badge text-blue bg-blue-light">적재준비</span>
+                                        <span class="table-badge text-blue bg-blue-light">송장발급</span>
                                     </td>
                                     <td class="text-center">16:30</td>
                                 </tr>
@@ -387,7 +589,7 @@
                                     <td>22나 5678 (5톤 카고)</td>
                                     <td class="text-center">21 BOX</td>
                                     <td class="text-center">
-                                        <span class="table-badge text-red bg-red-light">적재중</span>
+                                        <span class="table-badge text-red bg-red-light">차량배정</span>
                                     </td>
                                     <td class="text-center">16:00</td>
                                 </tr>
@@ -799,9 +1001,26 @@
                 return;
             }
 
+            document
+                .getElementById('invoiceModal')
+                .classList.add('active');
+        }
+
+
+        function closeInvoiceModal() {
+
+            document
+                .getElementById('invoiceModal')
+                .classList.remove('active');
+        }
+
+        function saveInvoiceIssue() {
+
             invoiceIssued = true;
 
-            alert('송장이 발급되었습니다.');
+            alert('송장이 정상 발급되었습니다.');
+
+            closeInvoiceModal();
         }
 
         function confirmShipment() {
@@ -815,6 +1034,42 @@
 
             alert('출고가 확정되었습니다.');
         }
+        document.addEventListener('input', function () {
+
+            const invoiceNo =
+                document.getElementById('invoice_no');
+
+            if (!invoiceNo) return;
+
+            document.getElementById(
+                'previewInvoiceNo'
+            ).innerText = invoiceNo.value;
+
+            document.getElementById(
+                'previewBarcode'
+            ).innerText = `*${invoiceNo.value}*`;
+
+            document.getElementById(
+                'previewDestCode'
+            ).innerText =
+                document.getElementById('dest_code').value;
+
+            document.getElementById(
+                'previewSender'
+            ).innerText =
+                document.getElementById('sender_name').value;
+
+            document.getElementById(
+                'previewReceiver'
+            ).innerText =
+                document.getElementById('receiver_name').value;
+
+            document.getElementById(
+                'previewWeight'
+            ).innerText =
+                document.getElementById('invoice_weight').value + 'kg';
+
+        });
     </script>
 
 

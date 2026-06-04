@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알루미늄 시트레일 제조 PCF & CBAM 대응 시스템 - 입고이력</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/outhistory.css">
+    <script src="./js/script.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1 class="logo-section"></h1>
+        </div>
+        <div class="header_right_area">
+            <!-- <nav>
+                <form>
+                    <div class="context_select_box">
+                        <label for="context_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">컨텍스트:</label>
+                        <select id="context_select">
+                            <option value="dashboard">전체</option>
+                            <option value="master-data">1공장</option>
+                            <option value="pcf-report">2공장</option>
+                            <option value="cbam-module">3공장</option>
+                        </select>
+                    </div>
+                    <div class="company_select_box">
+                        <label for="company_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">화주:</label>
+                        <select id="company_select">
+                            <option value="dashboard">전체</option>
+                            <option value="cbam-module">BMW</option>
+                            <option value="master-data">할로와(주)</option>
+                            <option value="pcf-report">(주)그레놀라</option>
+                        </select>
+                    </div>
+                </form>
+            </nav> -->
+            <div class="user-section">
+                <span>하이고/사원</span>
+                <button class="bell_icon active"></button>
+                <div class="btw_bar"></div>
+                <button class="home_icon"></button>
+                <div class="btw_bar"></div>
+                <span class="logout-btn">로그아웃</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <div class="sidebar">
+            <ul>
+                <h4 class="factory_icon">입고</h4>
+                <li><button>ASN</button></li>
+                <li><button>입고검수</button></li>
+                <li><button>입고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="released_icon">출고</h4>
+                <li><button>주문</button></li>
+                <li><button>패킹</button></li>
+                <li><button>출고/송장</button></li>
+                <li><button>출고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="carbon_icon">탄소배출량</h4>
+                <li><button>대시보드</button></li>
+                <li><button>이상치</button></li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+
+            <div class="page-header-flex">
+                <h2 class="page-title">출고이력</h2>
+                <div class="history-actions">
+                    <button type="button" class="btn-action-gray">CSV 내보내기</button>
+                    <button type="button" class="btn-action-green">엑셀 다운로드</button>
+                </div>
+            </div>
+            <div class="order-summary-grid">
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">출고 확정</span>
+                        <span class="summary-value text-green">34<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-green-light text-green">당월</span>
+                    </div>
+                </div>
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">기한 달성률</span>
+                        <span class="summary-value text-blue">5<small>%</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-blue-light text-blue">당월</span>
+                    </div>
+                </div>
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">기한 임박 발생률</span>
+                        <span class="summary-value text-orange">5<small>%</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-orange-light text-orange">당월</span>
+                    </div>
+                </div>
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">기한 초과 발생률</span>
+                        <span class="summary-value text-red">3<small>%</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-red-light text-red">당월</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="filter-wrapper-card">
+                <form class="search-filter-grid">
+                    <div class="filter-group group-date-range">
+                        <label>주문 기간</label>
+                        <div class="date-range-container">
+                            <input type="date" id="search_start_date" class="filter-control">
+                            <span class="date-separator">~</span>
+                            <input type="date" id="search_end_date" class="filter-control">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>주문번호 검색</label>
+                        <div class="date-range-container">
+                            <input type="text" id="search_order_number" class="filter-control">
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="filter-btn-group">
+                        <button type="reset" class="btn-filter-reset">초기화</button>
+                        <button type="submit" class="btn-filter-search">조회하기</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <div class="table-responsive">
+                    <button type="submit" class="btn-filter-search refresh">새로고침</button>
+                    <table class="history-data-table">
+                        <thead>
+                            <tr>
+                                <th>입고일자</th>
+                                <th>ASN 번호</th>
+                                <th>공급사</th>
+                                <th>입고 창고</th>
+                                <th>품명 (규격)</th>
+                                <th>요청 수량</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td class="text-center">2026-05-28</td>
+                                <td class="font-bold text-link" onclick="openAsnDetailModal('ASN-20260602-001')">
+                                    ASN-20260602-001</td>
+                                <td>알루코 글로비스</td>
+                                <td class="text-center">제 1 자재창고</td>
+                                <td>Al 시트레일 압출재 (6063-T5)</td>
+                                <td class="text-center">5,000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2026-05-26</td>
+                                <td class="font-bold text-link" onclick="openAsnDetailModal('ASN-20260602-002')">
+                                    ASN-20260602-002</td>
+                                <td>남선알루미늄</td>
+                                <td class="text-center">제 2 자재창고</td>
+                                <td>알루미늄 플레이트 (5052)</td>
+                                <td class="text-center">2,500</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2026-05-22</td>
+                                <td class="text-center font-bold text-link">ASN-20260522-002</td>
+                                <td>한결금속</td>
+                                <td class="text-center">제 3 자재창고</td>
+                                <td>조립용 고정 볼트 (M6)</td>
+                                <td class="text-center">10,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        조회 결과: 총 <span>3</span>건 중 <span>1-3</span> 표시
+                    </div>
+
+                    <div class="pagination-buttons">
+                        <button type="button" class="btn-page" title="처음 페이지" disabled>&lt;&lt;</button>
+                        <button type="button" class="btn-page" title="이전 블록" disabled>&lt;</button>
+
+                        <button type="button" class="btn-page-num active">1</button>
+                        <button type="button" class="btn-page-num">2</button>
+                        <button type="button" class="btn-page-num">3</button>
+                        <button type="button" class="btn-page-num">4</button>
+                        <button type="button" class="btn-page-num">5</button>
+
+                        <button type="button" class="btn-page" title="다음 블록">&gt;</button>
+                        <button type="button" class="btn-page" title="끝 페이지">&gt;&gt;</button>
+                    </div>
+
+                    <div class="pagination-size-selector">
+                        <select id="page_size_select">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20" selected>20개씩 보기</option>
+                            <option value="50">50개씩 보기</option>
+                            <option value="100">100개씩 보기</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-overlay" id="asnDetailModal">
+            <div class="modal-container modal-window" style="max-width: 1000px; width: 90%;">
+                <div class="modal-header">
+                    <h3>ASN 상세 명세 조회</h3>
+                    <button class="modal-close-btn" onclick="closeAsnDetailModal()">&times;</button>
+                </div>
+
+                <div class="modal-body" style="padding: 1.5rem;">
+                    <div class="modal-form-inline-grid"
+                        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                        <div class="form-group-item">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; text-align: left;">ASN
+                                번호</label>
+                            <input type="text" id="detail_asn_number" class="table-inner-input" readonly
+                                style="background-color: #e2e8f0; color: #4a5568; cursor: not-allowed; width: 100%; height: 38px; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div class="form-group-item">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; text-align: left;">공급사명</label>
+                            <input type="text" id="detail_supplier" class="table-inner-input" readonly
+                                style="background-color: #e2e8f0; color: #4a5568; cursor: not-allowed; width: 100%; height: 38px; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div class="form-group-item">
+                            <label
+                                style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; text-align: left;">진행상태</label>
+                            <select id="detail_asn_status" class="table-inner-input" disabled
+                                style="width: 100%; height: 38px; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; background-color: #e2e8f0; color: #4a5568; cursor: not-allowed; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                                <option value="출고완료">출고완료</option>
+                                <option value="입고대기">입고대기</option>
+                                <option value="입고중">입고중</option>
+                                <option value="입고완료">입고완료</option>
+                                <option value="취소">취소</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sheet-tab-content active" style="border-top: none;">
+                        <div class="excel-table-wrapper"
+                            style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-top: none;">
+                            <table class="excel-styled-table" style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            style="width: 80px; background-color: #f1f5f9; border: 1px solid var(--border-color); padding: 0.5rem; font-size: 0.85rem; text-align: center;">
+                                            No</th>
+                                        <th
+                                            style="width: 25%; background-color: #f1f5f9; border: 1px solid var(--border-color); padding: 0.5rem; font-size: 0.85rem; text-align: left;">
+                                            품목코드</th>
+                                        <th
+                                            style="background-color: #f1f5f9; border: 1px solid var(--border-color); padding: 0.5rem; font-size: 0.85rem; text-align: left;">
+                                            품목명</th>
+                                        <th
+                                            style="width: 25%; background-color: #f1f5f9; border: 1px solid var(--border-color); padding: 0.5rem; font-size: 0.85rem; text-align: right;">
+                                            입고수량 (kg)</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="detailAsnTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer"
+                    style="padding: 1rem 1.5rem; background-color: #f8fafc; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end;">
+                    <button type="button" class="btn-pop-cancel" onclick="closeAsnDetailModal()"
+                        style="min-width: 120px; background-color: #64748b; color: white; border: none; padding: 0.6rem; border-radius: 4px; font-weight: 600; cursor: pointer;">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 상세 내역 조회를 위한 모의 데이터 풀(Pool)
+        const mockAsnDetails = {
+            'ASN-20260602-001': {
+                supplier: '대한알루미늄공업',
+                status: '입고완료',
+                items: [
+                    { code: 'ITM-AL-6063', name: 'Al 시트레일 압출재 (6063-T5)', qty: 1000 },
+                    { code: 'ITM-BLT-M6', name: '조립용 고정 볼트 (M6)', qty: 5000 }
+                ]
+            },
+            'ASN-20260602-002': {
+                supplier: '(주)한성자재마트',
+                status: '출고완료',
+                items: [
+                    { code: 'ITM-AL-6063', name: 'Al 시트레일 압출재 (6063-T5)', qty: 1200 },
+                    { code: 'ITM-PL-5052', name: '알루미늄 플레이트 (5052)', qty: 450 }
+                ]
+            }
+        };
+
+        // ASN 상세 모달 열기 및 값 바인딩
+        function openAsnDetailModal(asnNo) {
+            const modal = document.getElementById('asnDetailModal');
+            const asnData = mockAsnDetails[asnNo];
+
+            if (!asnData) {
+                alert('해당 ASN 상세 정보를 찾을 수 없습니다.');
+                return;
+            }
+
+            // 기본 헤더 데이터 바인딩
+            document.getElementById('detail_asn_number').value = asnNo;
+            document.getElementById('detail_supplier').value = asnData.supplier;
+            document.getElementById('detail_asn_status').value = asnData.status;
+
+            // 테이블 품목 출력 호출
+            renderAsnItems(asnData.items);
+
+            // 모달 활성화 클래스 추가
+            modal.classList.add('active');
+        }
+
+        // 엑셀 양식 테이블에 아이템을 정적으로 추가해 주는 빌더 함수
+        function renderAsnItems(items) {
+            const tbody = document.getElementById('detailAsnTableBody');
+            tbody.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+            <td style="text-align: center; border: 1px solid var(--border-color); background-color: #f8fafc; padding: 0.6rem; font-size: 0.85rem; color: #666;">${index + 1}</td>
+            <td style="text-align: left; border: 1px solid var(--border-color); padding: 0.6rem; font-size: 0.85rem; color: #4a5568; font-family: monospace;">${item.code}</td>
+            <td style="text-align: left; border: 1px solid var(--border-color); padding: 0.6rem; font-size: 0.85rem; color: var(--text-dark);">${item.name}</td>
+            <td style="text-align: right; border: 1px solid var(--border-color); padding: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">${item.qty.toLocaleString()}</td>
+        `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 모달 레이어 비활성화 닫기 함수
+        function closeAsnDetailModal() {
+            document.getElementById('asnDetailModal').classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>
