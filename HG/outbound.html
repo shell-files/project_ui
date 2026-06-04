@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알루미늄 시트레일 제조 PCF & CBAM 대응 시스템</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/outbound.css">
+    <script src="./js/script.js"></script>
+    <style></style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1 class="logo-section"></h1>
+        </div>
+        <div class="header_right_area">
+            <!-- <nav>
+                <form>
+                    <div class="context_select_box">
+                        <label for="context_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">컨텍스트:</label>
+                        <select id="context_select">
+                            <option value="dashboard">전체</option>
+                            <option value="master-data">1공장</option>
+                            <option value="pcf-report">2공장</option>
+                            <option value="cbam-module">3공장</option>
+                        </select>
+                    </div>
+                    <div class="company_select_box">
+                        <label for="company_select"
+                            style="font-size: 0.9rem; color: var(--text-muted); margin-right: 0.5rem;">화주:</label>
+                        <select id="company_select">
+                            <option value="dashboard">전체</option>
+                            <option value="cbam-module">BMW</option>
+                            <option value="master-data">할로와(주)</option>
+                            <option value="pcf-report">(주)그레놀라</option>
+                        </select>
+                    </div>
+                </form>
+            </nav> -->
+            <div class="user-section">
+                <span>하이고/사원</span>
+                <button class="bell_icon active"></button>
+                <div class="btw_bar"></div>
+                <button class="home_icon"></button>
+                <div class="btw_bar"></div>
+                <span class="logout-btn">로그아웃</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+
+        <div class="sidebar">
+            <ul>
+                <h4 class="factory_icon">입고</h4>
+                <li><button>ASN</button></li>
+                <li><button>입고검수</button></li>
+                <li><button>입고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="released_icon">출고</h4>
+                <li><button>주문</button></li>
+                <li><button>패킹</button></li>
+                <li><button>출고/송장</button></li>
+                <li><button>출고이력</button></li>
+            </ul>
+            <ul>
+                <h4 class="carbon_icon">탄소배출량</h4>
+                <li><button>대시보드</button></li>
+                <li><button>이상치</button></li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+
+            <div class="page-header-flex">
+                <h2 class="page-title">출고/송장</h2>
+                <div class="header-action-group">
+                    <!-- <button class="btn-secondary-action">엑셀 내보내기</button> -->
+                    <!-- <button class="btn-main-action" onclick="openOrderModal()">+ 신규 주문 등록</button> -->
+                </div>
+            </div>
+
+            <div class="order-summary-grid">
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">출고 예정</span>
+                        <span class="summary-value">42<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-all-light text-muted">당일</span>
+                    </div>
+                </div>
+
+
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">출고 확정</span>
+                        <span class="summary-value text-green">34<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-green-light text-green">당일</span>
+                    </div>
+                </div>
+
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">기한 임박</span>
+                        <span class="summary-value text-orange">5<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-orange-light text-orange">당일</span>
+                    </div>
+                </div>
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">기한 초과</span>
+                        <span class="summary-value text-red">3<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-red-light text-red">당일</span>
+                    </div>
+                </div>
+
+                <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">미배정</span>
+                        <span class="summary-value text-dark">3<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge table-badge badge-dark">당일</span>
+                    </div>
+                </div>
+
+                <!-- <div class="summary-card-item">
+                    <div class="card-info-left">
+                        <span class="summary-label">반려</span>
+                        <span class="summary-value text-red">5<small>건</small></span>
+                    </div>
+                    <div class="card-trend-right">
+                        <span class="status-badge bg-red-light text-red">계약 파기</span>
+                    </div>
+                </div> -->
+
+
+            </div>
+
+            <div class="filter-wrapper-card">
+                <form class="search-filter-grid">
+                    <div class="filter-group group-date-range">
+                        <label>주문 기간</label>
+                        <div class="date-range-container">
+                            <input type="date" id="search_start_date" class="filter-control">
+                            <span class="date-separator">~</span>
+                            <input type="date" id="search_end_date" class="filter-control">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>주문번호 검색</label>
+                        <div class="date-range-container">
+                            <input type="text" id="search_order_number" class="filter-control">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>고객사 검색</label>
+                        <div class="date-range-container">
+                            <input type="text" id="search_order_number" class="filter-control">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="search_status">진행 상태</label>
+                        <select id="search_status" class="filter-control">
+                            <option value="">전체 상태</option>
+                            <option value="approved">신규</option>
+                            <option value="pending">처리중</option>
+                            <option value="rejected">완료</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-btn-group">
+                        <button type="reset" class="btn-filter-reset">초기화</button>
+                        <button type="submit" class="btn-filter-search">조회하기</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <div class="modal-overlay" id="vehicleAssignModal">
+
+                    <div class="modal-container" style="width:700px;">
+
+                        <div class="modal-header">
+                            <h3>차량 배정</h3>
+                            <button class="modal-close-btn" onclick="closeVehicleAssignModal()">
+                                &times;
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="modal-form-grid">
+
+                                <div class="form-group">
+                                    <label>운송사</label>
+                                    <select class="modal-input">
+                                        <option>CJ대한통운</option>
+                                        <option>경동택배</option>
+                                        <option>한진택배</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>차량</label>
+                                    <select class="modal-input">
+                                        <option>1톤 탑차</option>
+                                        <option>5톤 카고</option>
+                                        <option>11톤 윙바디</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>기사명</label>
+                                    <input type="text" class="modal-input">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>연락처</label>
+                                    <input type="text" class="modal-input">
+                                </div>
+
+                                <div class="form-group" style="grid-column:span 2;">
+                                    <label>예상 출발 일시</label>
+                                    <input type="datetime-local" class="modal-input">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn-pop-cancel" onclick="closeVehicleAssignModal()">
+                                취소
+                            </button>
+
+                            <button class="btn-pop-submit" onclick="saveVehicleAssign()">
+                                저장
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="view-toggle-container">
+
+                    <div class="toggle-left">
+                        <button class="btn-toggle-view active" onclick="switchView('box')">
+                            박스
+                        </button>
+
+                        <button class="btn-toggle-view" onclick="switchView('manifest')">
+                            매니페스트
+                        </button>
+                    </div>
+
+                    <div class="toggle-right">
+                        <button class="btn-action-gray" onclick="openVehicleAssignModal()">
+                            차량 배정
+                        </button>
+
+                        <button class="btn-action-blue" onclick="issueInvoice()">
+                            송장 발급
+                        </button>
+
+                        <button class="btn-action-green" onclick="confirmShipment()">
+                            출고 확정
+                        </button>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <div id="boxView" class="table-view-content active">
+                        <table class="order-data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px;"></th>
+                                    <th>기한</th>
+                                    <th>박스번호</th>
+                                    <th>주문번호</th>
+                                    <th>발주처</th>
+                                    <th>운송사</th>
+                                    <th>상태</th>
+                                    <th>송장번호</th>
+                                    <th>예상출발시간</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" disabled>
+                                    </td>
+                                    <td class="text-center">17분 남음</td>
+                                    <td class="text-center font-bold text-link">BOX-20260604-001</td>
+                                    <td class="text-center">ASN-20260604-001</td>
+                                    <td>삼성전자</td>
+                                    <td>CJ대한통운</td>
+                                    <td class="text-center">
+                                        <span class="table-badge badge-success">출고대기</span>
+                                    </td>
+                                    <td class="text-center">IVC-20260604-001</td>
+                                    <td class="text-center">16:30</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" disabled>
+                                    </td>
+                                    <td class="text-center text-red">5분 남음</td>
+                                    <td class="text-center font-bold text-link">BOX-20260604-002</td>
+                                    <td class="text-center">ASN-20260604-002</td>
+                                    <td>LG전자</td>
+                                    <td>경동택배</td>
+                                    <td class="text-center">
+                                        <span class="table-badge badge-pending">적재중</span>
+                                    </td>
+                                    <td class="text-center">IVC-20260604-002</td>
+                                    <td class="text-center">16:20</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" class="box-check">
+                                    </td>
+                                    <td class="text-center text-red">5분 남음</td>
+                                    <td class="text-center font-bold text-link">BOX-20260604-002</td>
+                                    <td class="text-center">ASN-20260604-002</td>
+                                    <td>LG전자</td>
+                                    <td>경동택배</td>
+                                    <td class="text-center">
+                                        <span class="table-badge badge-dark">미배정</span>
+                                    </td>
+                                    <td class="text-center">IVC-20260604-002</td>
+                                    <td class="text-center">16:20</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="manifestView" class="table-view-content">
+                        <table class="order-data-table">
+                            <thead>
+                                <tr>
+                                    <th>기한</th>
+                                    <th>매니페스트번호</th>
+                                    <th>운송사</th>
+                                    <th>차량</th>
+                                    <th>박스</th>
+                                    <th>상태</th>
+                                    <th>예상출발시간</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">17분 남음</td>
+                                    <td class="text-center font-bold text-link">MNF-20260604-001</td>
+                                    <td>CJ대한통운</td>
+                                    <td>11가 1234 (1톤 탑차)</td>
+                                    <td class="text-center">17 BOX</td>
+                                    <td class="text-center">
+                                        <span class="table-badge text-blue bg-blue-light">적재준비</span>
+                                    </td>
+                                    <td class="text-center">16:30</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center text-red">15분 초과</td>
+                                    <td class="text-center font-bold text-link">MNF-20260604-002</td>
+                                    <td>경동택배</td>
+                                    <td>22나 5678 (5톤 카고)</td>
+                                    <td class="text-center">21 BOX</td>
+                                    <td class="text-center">
+                                        <span class="table-badge text-red bg-red-light">적재중</span>
+                                    </td>
+                                    <td class="text-center">16:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-overlay" id="orderDetailModal">
+                        <div class="modal-container" style="width: 980px; max-width: 95%;">
+                            <div class="modal-header">
+                                <h3>주문 계약 상세 내역</h3>
+                                <button class="modal-close-btn" onclick="closeOrderDetailModal()">&times;</button>
+                            </div>
+
+                            <div class="modal-body" style="padding: 1rem;">
+                                <div class="modal-form-grid"
+                                    style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1rem; padding: 0 0.5rem;">
+                                    <div class="form-group">
+                                        <label>주문번호(ASN)</label>
+                                        <input type="text" id="detail_order_number" class="modal-input" readonly
+                                            style="background-color: #f8fafc; cursor: default;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>발주처 (고객사)</label>
+                                        <input type="text" id="detail_customer" class="modal-input" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>진행상태</label>
+                                        <select id="detail_status" class="modal-input" disabled
+                                            style="height: 38px; padding: 0.5rem;">
+                                            <option value="신규">신규</option>
+                                            <option value="처리중">처리중</option>
+                                            <option value="완료">완료</option>
+                                            <option value="취소">취소</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-split-layout">
+
+                                    <div class="modal-split-left">
+                                        <div class="modal-section-title" style="margin-top: 0;">
+                                            <h4>1. 주문 제품 선택 <small
+                                                    style="color:var(--text-muted); font-weight:normal;">(출고할 품목을
+                                                    선택하세요)</small></h4>
+                                        </div>
+                                        <div class="modal-table-responsive"
+                                            style="max-height: 180px; margin-bottom: 1rem;">
+                                            <table class="modal-product-table clickable-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 55%;">제품명</th>
+                                                        <th style="width: 20%; text-align: right;">수량(세트)</th>
+                                                        <th style="width: 25%; text-align: right;">가격(원)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="detailProductTableBody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="delivery-config-zone">
+                                            <div class="modal-section-title"
+                                                style="margin-top: 0; margin-bottom: 0.75rem;">
+                                                <h4>2. 배송 및 차량 정보 설정</h4>
+                                            </div>
+                                            <div class="config-form-row">
+                                                <div class="form-group">
+                                                    <label for="select_carrier">택배사/물류업체</label>
+                                                    <select id="select_carrier" class="modal-input select-styled">
+                                                        <option value="">-- 택배사 선택 --</option>
+                                                        <option value="CJ대한통운">CJ대한통운</option>
+                                                        <option value="경동택배">경동택배 (대형물류)</option>
+                                                        <option value="한진택배">한진택배</option>
+                                                        <option value="용달화물">자체 배송 (용달화물)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="select_vehicle">출고 차량 선택</label>
+                                                    <select id="select_vehicle" class="modal-input select-styled">
+                                                        <option value="">-- 차량 선택 --</option>
+                                                        <option value="1톤 탑차 (서울88바 1234)">1톤 탑차 (서울88바 1234)</option>
+                                                        <option value="5톤 카고 (경기99사 5678)">5톤 카고 (경기99사 5678)</option>
+                                                        <option value="11톤 트럭 (인천11가 9012)">11톤 트럭 (인천11가 9012)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="action-btn-wrap">
+                                                <button type="button" class="btn-generate-invoice"
+                                                    onclick="generateInvoiceProcess()">
+                                                    송장 생성
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-split-right">
+                                        <div class="modal-section-title" style="margin-top: 0;">
+                                            <h4>3. 출고 송장 및 바코드 발행 결과</h4>
+                                        </div>
+                                        <div class="invoice-preview-card" id="invoicePreviewArea">
+                                            <div class="empty-invoice-msg">
+                                                왼쪽에서 제품 선택 및 배송 설정을 마친 후<br><strong>[송장 생성]</strong> 버튼을 클릭해 주세요.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn-pop-cancel"
+                                    onclick="closeOrderDetailModal()">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // [제어] 신규 등록 모달 팝업 열기/닫기 제어
+        function openOrderModal() {
+            document.getElementById('orderModal').classList.add('active');
+            const today = new Date().toISOString().substring(0, 10);
+            document.getElementById('modal_order_date').value = today;
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.getElementById('orderForm').reset();
+
+            const tbody = document.getElementById('productTableBody');
+            while (tbody.rows.length > 1) {
+                tbody.deleteRow(1);
+            }
+        }
+
+        // [제어] 품목 가변 입력을 위한 새로운 동적 행(Row) 추가
+        function addProductRow() {
+            const tbody = document.getElementById('productTableBody');
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>
+                    <select class="modal-select" required>
+                        <option value="">-- 품목 선택 --</option>
+                        <option value="RM-AL-S01">Al 시트레일 압출재 (6063-T5)</option>
+                        <option value="RM-AL-P02">알루미늄 플레이트 (5052)</option>
+                        <option value="RM-ST-B01">조립용 고정 볼트 (M6)</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="modal-input text-right" placeholder="0" min="1" required>
+                </td>
+                <td>
+                    <input type="number" class="modal-input text-right" placeholder="0" min="0" required>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn-delete-row" onclick="deleteProductRow(this)">&times;</button>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function deleteProductRow(button) {
+            const tbody = document.getElementById('productTableBody');
+            if (tbody.rows.length > 1) {
+                const row = button.closest('tr');
+                row.remove();
+            } else {
+                alert('최소 1개 이상의 제품 등록 항목이 구성되어야 합니다.');
+            }
+        }
+
+        // 신규 입력 제출 처리
+        if (document.getElementById('orderForm')) {
+            document.getElementById('orderForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('신규 주문서 정보가 안전하게 시스템에 업로드되었습니다.');
+                closeOrderModal();
+            });
+        }
+
+
+        // 🎯 [정리완료] 테스트용 가상 주문 데이터 상세 내역 리포지토리 (송장 일련번호 매핑 포함)
+        const mockOrderDetails = {
+            'PO-20260602-X01': {
+                customer: '(주)한성자재마트',
+                status: '처리중',
+                products: [
+                    { name: 'Al 시트레일 압출재 (6063-T5)', qty: 1200, price: 15000000, invoiceNo: 'IVC-20260602-001A', boxQty: 12 },
+                    { name: '알루미늄 플레이트 (5052)', qty: 450, price: 6000000, invoiceNo: 'IVC-20260602-001B', boxQty: 5 }
+                ]
+            },
+            'PO-20260601-M04': {
+                customer: '대한알루미늄공업',
+                status: '신규',
+                products: [
+                    { name: 'Al 시트레일 압출재 (6063-T5)', qty: 1000, price: 12500000, invoiceNo: 'IVC-20260601-004A', boxQty: 10 },
+                    { name: '조립용 고정 볼트 (M6)', qty: 5000, price: 5350000, invoiceNo: 'IVC-20260601-004B', boxQty: 2 }
+                ]
+            }
+        };
+
+        // 전역변수: 현재 모달에서 선택한 제품 데이터를 보관할 컨텍스트 객체
+        let selectedProductData = null;
+
+        // 🎯 [수정완료] 중복을 제거하고 단일화한 상세 내역 팝업 오픈 함수
+        function openOrderDetailModal(orderNo) {
+            const detailModal = document.getElementById('orderDetailModal');
+            const orderData = mockOrderDetails[orderNo];
+
+            if (!orderData) {
+                alert('해당 주문의 상세 내역 정보를 찾을 수 없습니다.');
+                return;
+            }
+
+            // 1. 기본 마스터 정보 바인딩
+            document.getElementById('detail_order_number').value = orderNo;
+            document.getElementById('detail_customer').value = orderData.customer;
+            document.getElementById('detail_status').value = orderData.status || '신규';
+
+            // 2. 폼 입력 요소 및 우측 미리보기 영역 초기화
+            selectedProductData = null;
+            document.getElementById('select_carrier').value = "";
+            document.getElementById('select_vehicle').value = "";
+
+            document.getElementById('invoicePreviewArea').innerHTML = `
+                <div class="empty-invoice-msg">
+                    왼쪽에서 제품 선택 및 배송 설정을 마친 후<br><strong>[송장 생성]</strong> 버튼을 클릭해 주세요.
+                </div>
+            `;
+
+            // 3. 제품 목록 테이블 동적 로우 구성
+            const tbody = document.getElementById('detailProductTableBody');
+            tbody.innerHTML = '';
+
+            orderData.products.forEach((product, index) => {
+                const row = document.createElement('tr');
+                row.style.cursor = 'pointer';
+                row.className = 'product-item-row';
+
+                row.onclick = function () {
+                    // 행 클릭 시 스타일 활성화 효과
+                    document.querySelectorAll('.product-item-row').forEach(r => r.classList.remove('selected-row'));
+                    this.classList.add('selected-row');
+
+                    // 메모리에 현재 클릭한 제품 데이터 적재 (송장 생성용)
+                    selectedProductData = product;
+                };
+
+                row.innerHTML = `
+                    <td class="text-left" style="padding: 0.75rem 0.5rem; text-align:left !important; color: var(--text-dark);">${product.name}</td>
+                    <td class="text-right" style="padding: 0.75rem 0.5rem; font-weight: 600;">${product.qty.toLocaleString()}</td>
+                    <td class="text-right text-green" style="padding: 0.75rem 0.5rem; font-weight: 600;">${product.price.toLocaleString()} 원</td>
+                `;
+                tbody.appendChild(row);
+
+                // 사용자 경험 최적화: 첫 번째 품목 자동 선택 트리거
+                if (index === 0) {
+                    row.click();
+                }
+            });
+
+            // 모달 화면 노출
+            detailModal.classList.add('active');
+        }
+
+        // [제어] 상세 주문 내역 모달 닫기
+        function closeOrderDetailModal() {
+            document.getElementById('orderDetailModal').classList.remove('active');
+        }
+
+        // 🎯 [안정화] 송장 생성 프로세스 유효성 검사 및 렌더링 기능
+        function generateInvoiceProcess() {
+            const orderNo = document.getElementById('detail_order_number').value;
+            const customer = document.getElementById('detail_customer').value;
+            const carrier = document.getElementById('select_carrier').value;
+            const vehicle = document.getElementById('select_vehicle').value;
+            const previewArea = document.getElementById('invoicePreviewArea');
+
+            // 필수 선택 값 밸리데이션 검증
+            if (!selectedProductData) {
+                alert('목록에서 출고할 주문 제품을 먼저 선택해 주세요.');
+                return;
+            }
+            if (!carrier) {
+                alert('배송을 담당할 택배사/물류업체를 선택해 주세요.');
+                return;
+            }
+            if (!vehicle) {
+                alert('배송 화물 차량을 선택해 주세요.');
+                return;
+            }
+
+            // 우측 영역에 최종 송장 명세 레이아웃 컴포넌트 동적 주입
+            previewArea.innerHTML = `
+                <div class="invoice-box-inner">
+                    <div class="invoice-header-title">출고 거래 송장 (PACKING SLIP)</div>
+                    <table class="invoice-mini-table">
+                        <tr>
+                            <th>송장 번호</th>
+                            <td><strong style="color:var(--primary-green);">${selectedProductData.invoiceNo || 'IVC-TEMP-999'}</strong></td>
+                        </tr>
+                        <tr>
+                            <th>연동 ASN</th>
+                            <td>${orderNo}</td>
+                        </tr>
+                        <tr>
+                            <th>인도처(고객)</th>
+                            <td>${customer}</td>
+                        </tr>
+                        <tr>
+                            <th>출고 물품</th>
+                            <td style="font-size:0.85rem; font-weight:600; color:#1a202c;">${selectedProductData.name}</td>
+                        </tr>
+                        <tr>
+                            <th>확정 수량</th>
+                            <td>${selectedProductData.qty.toLocaleString()} 세트 (${selectedProductData.boxQty || 0} Box)</td>
+                        </tr>
+                        <tr>
+                            <th>배송 업체</th>
+                            <td>${carrier}</td>
+                        </tr>
+                        <tr>
+                            <th>배차 정보</th>
+                            <td style="font-size:0.8rem;">${vehicle}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="barcode-wrapper">
+                        <div class="barcode-lines">
+                            <span class="b-w-3"></span><span class="b-w-1"></span><span class="b-w-2"></span><span class="b-w-4"></span>
+                            <span class="b-w-1"></span><span class="b-w-3"></span><span class="b-w-2"></span><span class="b-w-1"></span>
+                            <span class="b-w-4"></span><span class="b-w-2"></span><span class="b-w-1"></span><span class="b-w-3"></span>
+                            <span class="b-w-2"></span><span class="b-w-4"></span><span class="b-w-1"></span><span class="b-w-2"></span>
+                        </div>
+                        <div class="barcode-text">*${selectedProductData.invoiceNo || 'IVC-TEMP-999'}*</div>
+                    </div>
+                    
+                    <div class="invoice-footer-action">
+                        <button type="button" class="btn-secondary-sm" onclick="alert('바코드 라벨 인쇄 명령이 시스템으로 전송되었습니다.')">송장 인쇄</button>
+                    </div>
+                </div>
+            `;
+        }
+        function switchView(type) {
+
+            document
+                .querySelectorAll('.btn-toggle-view')
+                .forEach(btn => btn.classList.remove('active'));
+
+            document
+                .querySelectorAll('.table-view-content')
+                .forEach(view => view.classList.remove('active'));
+
+            if (type === 'box') {
+                document.getElementById('boxView').classList.add('active');
+                document.querySelectorAll('.btn-toggle-view')[0].classList.add('active');
+            } else {
+                document.getElementById('manifestView').classList.add('active');
+                document.querySelectorAll('.btn-toggle-view')[1].classList.add('active');
+            }
+        }
+        let vehicleAssigned = false;
+        let invoiceIssued = false;
+
+        function openVehicleAssignModal() {
+
+            const checked =
+                document.querySelectorAll(
+                    '.box-check:checked'
+                );
+
+            if (checked.length === 0) {
+                alert('미배정 박스를 선택해주세요.');
+                return;
+            }
+
+            document
+                .getElementById('vehicleAssignModal')
+                .classList.add('active');
+        }
+
+        function closeVehicleAssignModal() {
+            document
+                .getElementById('vehicleAssignModal')
+                .classList.remove('active');
+        }
+
+        function saveVehicleAssign() {
+
+            vehicleAssigned = true;
+
+            alert('차량 배정이 완료되었습니다.');
+
+            closeVehicleAssignModal();
+        }
+
+        function issueInvoice() {
+
+            if (!vehicleAssigned) {
+                alert(
+                    '차량 배정 완료 후 송장 발급이 가능합니다.'
+                );
+                return;
+            }
+
+            invoiceIssued = true;
+
+            alert('송장이 발급되었습니다.');
+        }
+
+        function confirmShipment() {
+
+            if (!invoiceIssued) {
+                alert(
+                    '송장 발급 완료 후 출고 확정이 가능합니다.'
+                );
+                return;
+            }
+
+            alert('출고가 확정되었습니다.');
+        }
+    </script>
+
+
+</body>
+
+</html>
