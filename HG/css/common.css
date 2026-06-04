@@ -290,9 +290,10 @@ nav button.active::after {
     border-radius: 4px;
 }
 
-.sidebar ul li button{
+.sidebar ul li a{
     background: none;
     border: none;
+    font-size: 14px;
     padding: 0.5rem 1rem;
     text-align: left;
     height: 50px;
@@ -300,6 +301,7 @@ nav button.active::after {
     color: white;
     cursor: pointer;
     transition: color 0.2s;
+    display: inline-block;
 }
 
 
