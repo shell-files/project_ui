@@ -1,0 +1,315 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   대시보드 콘텐츠 영역 레이아웃 (Dashboard Content Area)
+   ========================================================================== */
+
+.dashboard-filter-bar {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.toggle-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.toggle-group-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border-bottom: 1px dashed #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+
+.toggle-group-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.toggle-group-item .select_label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    min-width: 90px;
+    cursor: pointer;
+}
+
+.toggle-group-item .select_label span:hover {
+    color: var(--primary-green);
+}
+
+.toggle-content {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-filter-tab {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-filter-tab:hover {
+    background-color: #edf2f7;
+    color: var(--text-dark);
+}
+
+.btn-filter-tab.active {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border-color: var(--primary-green);
+}
+
+/* ==========================================================================
+   차트 카드 레이아웃 및 높이 제어
+   ========================================================================== */
+
+.dashboard-chart-grid {
+    display: block; /* WeasyPrint 및 레이아웃 안정성을 위해 display:block 처리 */
+    margin-bottom: 1.25rem;
+}
+
+.dashboard-chart-grid.full-width-grid {
+    width: 100%;
+}
+
+.chart-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.25rem;
+}
+
+.chart-title {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+}
+
+/* 차트별 높이 명시적 제어 */
+.chart-container.chart-height-trend {
+    height: 300px;
+}
+
+.chart-container.chart-height-machine {
+    height: 340px;
+}
+
+/* ==========================================================================
+   데이터 테이블 영역 및 텍스트 서식
+   ========================================================================== */
+
+.dashboard-table-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.25rem;
+}
+
+.table-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.table-title {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.btn-excel-download {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e0;
+    color: #4a5568;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-excel-download:hover {
+    background-color: #f7fafc;
+    border-color: #a0aec0;
+}
+
+.dashboard-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.dashboard-data-table th,
+.dashboard-data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-data-table th {
+    background-color: #f8fafc;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.dashboard-data-table tbody tr:hover {
+    background-color: #fcfdfd;
+}
+
+.table-summary-row {
+    background-color: #f8fafc;
+    font-weight: 700;
+}
+
+.table-summary-row td {
+    border-top: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.total-amount {
+    color: var(--accent-red);
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.anomaly-value-hint {
+    color: #999999;
+    font-weight: normal;
+}
+
+/* 위험 등급 색상 배지 */
+.status-badge-critical {
+    color: var(--accent-red);
+    font-weight: 600;
+}
+
+.status-badge-warning {
+    color: var(--accent-orange);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   조치 상태 컨트롤 버튼 (인터랙션용)
+   ========================================================================== */
+
+.btn-status-badge {
+    border: none;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+}
+
+.btn-status-badge.unprocessed {
+    background-color: var(--accent-red);
+    color: #ffffff;
+}
+
+.btn-status-badge.processed {
+    background-color: #edf2f7;
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   이상치 관리 미니 모달 팝업 레이아웃
+   ========================================================================== */
+
+.anomaly-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.anomaly-modal.active {
+    display: flex;
+}
+
+.anomaly-modal-content {
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    padding: 1.25rem;
+    border: 1px solid var(--border-color);
+}
+
+.anomaly-modal-header {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.anomaly-modal-body {
+    margin-bottom: 1.25rem;
+}
+
+.anomaly-select-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    outline: none;
+}
+
+.anomaly-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.btn-modal-action {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #cbd5e0;
+    background-color: #ffffff;
+    color: #4a5568;
+}
+
+.btn-modal-action.save {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #ffffff;
+}
+
+.btn-modal-action:hover {
+    opacity: 0.9;
+}

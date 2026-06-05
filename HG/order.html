@@ -48,7 +48,7 @@
             <ul>
                 <h4 class="carbon_icon">탄소배출량</h4>
                 <li><a href="./pcf.html">대시보드</a></li>
-                <li><a href="#">이상치</a></li>
+                <li><a href="./anomaly.html">이상치탐지</a></li>
             </ul>
         </div>
 
@@ -57,7 +57,6 @@
             <div class="page-header-flex">
                 <h2 class="page-title">주문 계약 및 접수 현황 관리</h2>
                 <div class="header-action-group">
-                    <button class="btn-secondary-action">엑셀 내보내기</button>
                     <button class="btn-main-action" onclick="openOrderModal()">+ 신규 주문 등록</button>
                 </div>
             </div>
@@ -69,7 +68,7 @@
                         <span class="summary-value">42<small>건</small></span>
                     </div>
                     <div class="card-trend-right">
-                        <span class="status-badge bg-all-light text-muted">당월 누적</span>
+                        <span class="status-badge bg-all-light text-muted">당월</span>
                     </div>
                 </div>
 
@@ -79,7 +78,7 @@
                         <span class="summary-value text-green">34<small>건</small></span>
                     </div>
                     <div class="card-trend-right">
-                        <span class="status-badge bg-green-light text-green">계약 완료</span>
+                        <span class="status-badge bg-green-light text-green">당월</span>
                     </div>
                 </div>
 
@@ -89,7 +88,7 @@
                         <span class="summary-value text-orange">5<small>건</small></span>
                     </div>
                     <div class="card-trend-right">
-                        <span class="status-badge bg-orange-light text-orange">제작 및 출고 준비</span>
+                        <span class="status-badge bg-orange-light text-orange">당월</span>
                     </div>
                 </div>
 
@@ -99,7 +98,7 @@
                         <span class="summary-value text-blue">3<small>건</small></span>
                     </div>
                     <div class="card-trend-right">
-                        <span class="status-badge bg-blue-light text-blue">출고완료</span>
+                        <span class="status-badge bg-blue-light text-blue">당월</span>
                     </div>
                 </div>
 
@@ -163,10 +162,10 @@
                         <thead>
                             <tr>
                                 <th>주문번호</th>
-                                <th>발주처(고객사)</th>
+                                <th>고객사(고객사)</th>
                                 <th>총 공급가액</th>
                                 <th>주문일자</th>
-                                <th>납기요청일</th>
+                                <th>출고마감</th>
                                 <th>진행상태</th>
                             </tr>
                         </thead>
@@ -200,25 +199,15 @@
                             </div>
 
                             <div class="modal-body">
-                                <div class="modal-form-grid" style="grid-template-columns: repeat(3, 1fr);">
+                                <div class="modal-form-grid">
                                     <div class="form-group">
                                         <label>주문번호</label>
                                         <input type="text" id="detail_order_number" class="modal-input" readonly
                                             style="background-color: #f8fafc; cursor: default;">
                                     </div>
                                     <div class="form-group">
-                                        <label>발주처 (고객사)</label>
+                                        <label>고객사</label>
                                         <input type="text" id="detail_customer" class="modal-input" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>진행상태</label>
-                                        <select id="detail_status" class="modal-input" disabled
-                                            style="height: 42px; padding: 0.5rem;">
-                                            <option value="신규">신규</option>
-                                            <option value="처리중">처리중</option>
-                                            <option value="완료">완료</option>
-                                            <option value="취소">취소</option>
-                                        </select>
                                     </div>
                                 </div>
 
@@ -253,7 +242,7 @@
 
                 <div class="pagination-container">
                     <div class="pagination-info">
-                        조회 결과: 총 <span>4</span>건 중 <span>1-4</span> 표시
+                        전체 <span>4</span>건
                     </div>
                     <div class="pagination-buttons">
                         <button type="button" class="btn-page" disabled>&lt;&lt;</button>
@@ -262,12 +251,6 @@
                         <button type="button" class="btn-page-num">2</button>
                         <button type="button" class="btn-page" disabled>&gt;</button>
                         <button type="button" class="btn-page" disabled>&gt;&gt;</button>
-                    </div>
-                    <div class="pagination-size-selector">
-                        <select id="order_page_size">
-                            <option value="10">10개씩 보기</option>
-                            <option value="20" selected>20개씩 보기</option>
-                        </select>
                     </div>
                 </div>
 
@@ -289,8 +272,17 @@
                             <input type="date" id="modal_order_date" class="modal-input" required>
                         </div>
                         <div class="form-group">
-                            <label for="modal_customer">발주처 <span class="required">*</span></label>
-                            <input type="text" id="modal_customer" class="modal-input" placeholder="발주처(고객사명) 입력"
+                            <label for="modal_customer">고객사 <span class="required">*</span></label>
+                            <input type="text" id="modal_customer" class="modal-input" placeholder="고객사명 입력" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_customer">주문마감일자 <span class="required">*</span></label>
+                            <input type="datetime-local" id="modal_customer" class="modal-input" placeholder="고객사명 입력"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_customer">출고마감일자 <span class="required">*</span></label>
+                            <input type="datetime-local" id="modal_customer" class="modal-input" placeholder="고객사명 입력"
                                 required>
                         </div>
                     </div>
@@ -441,7 +433,7 @@
                 return;
             }
 
-            // 1. 기본 인포메이션 필드 바인딩 (주문번호, 발주처)
+            // 1. 기본 인포메이션 필드 바인딩 (주문번호, 고객사)
             document.getElementById('detail_order_number').value = orderNo;
             document.getElementById('detail_customer').value = orderData.customer;
 
@@ -470,7 +462,7 @@
 
 
     </script>
-    
+
 
 </body>
 

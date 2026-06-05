@@ -302,6 +302,7 @@ nav button.active::after {
     cursor: pointer;
     transition: color 0.2s;
     display: inline-block;
+    align-content: center;
 }
 
 
@@ -556,8 +557,8 @@ nav button.active::after {
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    margin-left: auto; /* 우측 끝으로 밀착 정렬 */
     transition: background-color 0.2s;
+    height: 40px;
 }
 
 .btn-filter-search:hover {
@@ -588,11 +589,11 @@ nav button.active::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
     flex-wrap: wrap;
     gap: 1rem;
+    position: relative;
+    height: 50px;
 }
 
 /* 좌측 건수 표시 데이터 */
@@ -611,6 +612,9 @@ nav button.active::after {
     display: flex;
     align-items: center;
     gap: 4px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%)
 }
 
 .btn-page, .btn-page-num {
@@ -653,13 +657,7 @@ nav button.active::after {
 
 /* 우측 목록 개수 선택 박스 */
 .pagination-size-selector select {
-    padding: 0.35rem 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: var(--text-dark);
-    outline: none;
-    background-color: #ffffff;
+    width: 50px;
 }
 
 .pagination-size-selector select:focus {
@@ -721,6 +719,15 @@ nav button.active::after {
     height: 38px;
 }
 
+.inhistory-btn-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+
 .btn-filter-reset {
     background-color: #edf2f7;
     color: #4a5568;
@@ -730,6 +737,7 @@ nav button.active::after {
     font-weight: 600;
     border-radius: 4px;
     cursor: pointer;
+    height: 40px;
 }
 
 .btn-filter-reset:hover {
@@ -802,4 +810,17 @@ nav button.active::after {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
+}
+
+.btn-filter-tab {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    width: 80px;
 }

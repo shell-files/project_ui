@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알루미늄 시트레일 제조 PCF & CBAM 대응 시스템</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/anomaly.css">
+    <script src="./js/script.js"></script>
+    <style></style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1 class="logo-section"></h1>
+        </div>
+        <div class="header_right_area">
+            <div class="user-section">
+                <span>하이고/사원</span>
+                <button class="bell_icon active"></button>
+                <div class="btw_bar"></div>
+                <button class="home_icon"></button>
+                <div class="btw_bar"></div>
+                <span class="logout-btn">로그아웃</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+
+        <div class="sidebar">
+            <ul>
+                <h4 class="factory_icon">입고</h4>
+                <li><a href="./asn.html">ASN</a></li>
+                <li><a href="./inhistory.html">입고이력</a></li>
+            </ul>
+            <ul>
+                <h4 class="released_icon">출고</h4>
+                <li><a href="./order.html">주문</a></li>
+                <li><a href="./packing.html">패킹</a></li>
+                <li><a href="./outbound.html">출고/송장</a></li>
+                <li><a href="./outhistory.html">출고이력</a></li>
+            </ul>
+            <ul>
+                <h4 class="carbon_icon">탄소배출량</h4>
+                <li><a href="./pcf.html">대시보드</a></li>
+                <li><a href="./anomaly.html">이상치탐지</a></li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+            <div class="page-header-flex">
+                <h2 class="page-title">이상치 탐지</h2>
+            </div>
+
+            <div class="dashboard-filter-bar">
+                <div class="toggle-group-wrapper">
+                    <div class="toggle-group-item id_quarter">
+                        <div class="select_label"><span>연도 선택</span></div>
+                        <div class="toggle-content" style="display: block;">
+                            <select class="year-select btn-filter-tab">
+                                <option value="2026" selected>2026년</option>
+                                <option value="2025">2025년</option>
+                                <option value="2024">2024년</option>
+                                <option value="2023">2023년</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="toggle-group-item id_quarter">
+                        <div class="select_label"><span>분기 선택</span></div>
+                        <div class="toggle-content" style="display: block;">
+                            <button type="button" class="btn-filter-tab active">전체</button>
+                            <button type="button" class="btn-filter-tab"> 1분기</button>
+                            <button type="button" class="btn-filter-tab">2분기</button>
+                            <button type="button" class="btn-filter-tab">3분기</button>
+                            <button type="button" class="btn-filter-tab">4분기</button>
+                        </div>
+                    </div>
+                    <div class="toggle-group-item id_quarter">
+                        <div class="select_label"><span>월 선택</span></div>
+                        <div class="toggle-content" style="display: block;">
+                            <select class="year-select btn-filter-tab">
+                                <option value="none" selected>선택</option>
+                                <option value="1">1월</option>
+                                <option value="2">2월</option>
+                                <option value="3">3월</option>
+                                <option value="4">4월</option>
+                                <option value="5">5월</option>
+                                <option value="6">6월</option>
+                                <option value="7">7월</option>
+                                <option value="8">8월</option>
+                                <option value="9">9월</option>
+                                <option value="10">10월</option>
+                                <option value="11">11월</option>
+                                <option value="12">12월</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="dashboard-chart-grid full-width-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">설비별 이상치 발생 횟수 현황 (총 18개 기계)</h3>
+                    <div class="chart-container chart-height-machine">
+                        <canvas id="anomalyMachineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-table-card">
+                <div class="table-header-flex">
+                    <h3 class="table-title">실시간 이상치 탐지 및 발생 로그 이력</h3>
+                    <button class="btn-excel-download">액셀 다운로드</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="dashboard-data-table">
+                        <thead>
+                            <tr>
+                                <th>발생 일시</th>
+                                <th>설비명 (ID)</th>
+                                <th>SCOPE</th>
+                                <th>측정값 (기준치)</th>
+                                <th>위험 등급</th>
+                                <th>조치 상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">2026-06-05 14:15:22</td>
+                                <td class="font-bold text-center">용해로 #02 (MC-002)</td>
+                                <td class="text-center font-bold">1 </td>
+                                <td class="text-center">342.173(67.5456)</td>
+                                <td class="text-center"><span style="color: #e53e3e; font-weight: 600;">Critical</span></td>
+                                <td class="text-center"><button onclick="openStatusModal(this)" class="btn-filter-tab active" style="background-color: #e53e3e; border-color: #e53e3e; padding: 2px 6px; font-size: 11px;">미조치</button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2026-06-05 11:02:45</td>
+                                <td class="font-bold text-center">CNC 가공기 #05 (MC-011)</td>
+                                <td class="text-center font-bold">2</td>
+                                <td class="text-center">101.4179(84.6399)</td>
+                                <td class="text-center"><span style="color: #dd6b20; font-weight: 600;">Warning</span></td>
+                                <td class="text-center"><button onclick="openStatusModal(this)" class="btn-filter-tab" style="padding: 2px 6px; font-size: 11px; color:#333;">조치완료</button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2026-06-04 18:22:10</td>
+                                <td class="font-bold text-center">압출 인장기 #01 (MC-004)</td>
+                                <td class="text-center font-bold">1</td>
+                                <td class="text-center">59.0811(58.4357)</td>
+                                <td class="text-center"><span style="color: #dd6b20; font-weight: 600;">Warning</span></td>
+                                <td class="text-center"><button onclick="openStatusModal(this)"  class="btn-filter-tab" style="padding: 2px 6px; font-size: 11px; color:#333;">조치완료</button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2026-06-04 09:40:15</td>
+                                <td class="font-bold text-center">아노다이징 수조 #03 (MC-015)</td>
+                                <td class="text-center font-bold">2 </td>
+                                <td class="text-center">2.667(2.6048)</td>
+                                <td class="text-center"><span style="color: #e53e3e; font-weight: 600;">Critical</span></td>
+                                <td class="text-center"><button onclick="openStatusModal(this)" class="btn-filter-tab" style="padding: 2px 6px; font-size: 11px; color:#333;">조치완료</button></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-summary-row">
+                                <td colspan="3" class="text-center">선택기간 총 이상 발생 건수</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center total-amount">74 건</td>
+                                <td class="text-center" style="color: #e53e3e;">미조치 1건</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="anomalyStatusModal" class="anomaly-modal">
+        <div class="anomaly-modal-content">
+            <div class="anomaly-modal-header">조치 상태 변경</div>
+            <div class="anomaly-modal-body">
+                <select id="statusSelect" class="anomaly-select-control">
+                    <option value="미조치">미조치</option>
+                    <option value="조치완료">조치완료</option>
+                </select>
+            </div>
+            <div class="anomaly-modal-footer">
+                <button type="button" class="btn-modal-action" onclick="closeStatusModal()">취소</button>
+                <button type="button" class="btn-modal-action save" onclick="saveStatus()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 팝업 컨트롤 상태 관리 변수
+        let targetTargetButton = null;
+
+        // 팝업 열기 매핑 함수
+        function openStatusModal(buttonElement) {
+            targetTargetButton = buttonElement;
+            const currentStatus = buttonElement.innerText.trim();
+
+            // 현재 상태 selectbox에 초기 바인딩
+            const selectBox = document.getElementById('statusSelect');
+            selectBox.value = currentStatus === '미조치' ? '미조치' : '조치완료';
+
+            // 모달 열기
+            document.getElementById('anomalyStatusModal').classList.add('active');
+        }
+
+        // 팝업 닫기 함수
+        function closeStatusModal() {
+            document.getElementById('anomalyStatusModal').classList.remove('active');
+            targetTargetButton = null;
+        }
+
+        // 선택값 저장 및 UI 상태 동적 반영
+        function saveStatus() {
+            if (!targetTargetButton) return;
+
+            const selectBox = document.getElementById('statusSelect');
+            const selectedValue = selectBox.value;
+
+            // 텍스트 교체
+            targetTargetButton.innerText = selectedValue;
+
+            // 스타일에 따른 클래스 토글 분기 가이드 구현
+            if (selectedValue === '미조치') {
+                targetTargetButton.className = 'btn-status-badge unprocessed';
+            } else {
+                targetTargetButton.className = 'btn-status-badge processed';
+            }
+
+            // 저장 완료 후 하단 푸터 요약행 리카운팅 인터랙션 스크립트 실행
+            updateSummaryCount();
+
+            // 모달 닫기
+            closeStatusModal();
+        }
+
+        // 테이블 내 미조치 건수를 동적으로 계산하여 푸터에 반영하는 함수
+        function updateSummaryCount() {
+            const table = document.getElementById('anomalyLogTable');
+            const unprocessedButtons = table.querySelectorAll('tbody .btn-status-badge.unprocessed');
+            const summaryCell = document.getElementById('unprocessedSummary');
+
+            if (summaryCell) {
+                if (unprocessedButtons.length > 0) {
+                    summaryCell.innerText = `미조치 ${unprocessedButtons.length}건`;
+                    summaryCell.style.color = 'var(--accent-red)';
+                } else {
+                    summaryCell.innerText = '미조치 없음';
+                    summaryCell.style.color = 'var(--primary-green)';
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. 최상단: 선택기간별 탄소 배출량 추이 꺾은선 차트
+            const ctxTrend = document.getElementById('carbonTrendChart');
+            if (ctxTrend) {
+                new Chart(ctxTrend, {
+                    type: 'line',
+                    data: {
+                        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                        datasets: [{
+                            label: '총 배출량 추이',
+                            data: [18.2, 22.4, 19.8, 25.1, 28.6, 21.3, 24.7, 26.2, 20.1, 23.5, 21.8, 24.77],
+                            borderColor: '#03a94d',
+                            backgroundColor: 'rgba(3, 169, 77, 0.08)',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            fill: true,
+                            pointBackgroundColor: '#03a94d',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: '#e2e8f0' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            // 2. 중간: 18개 기계별 이상치 발생 횟수 막대그래프
+            const ctxAnomaly = document.getElementById('anomalyMachineChart');
+            if (ctxAnomaly) {
+                new Chart(ctxAnomaly, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            '설비 01', '설비 02', '설비 03', '설비 04', '설비 05', '설비 06',
+                            '설비 07', '설비 08', '설비 09', '설비 10', '설비 11', '설비 12',
+                            '설비 13', '설비 14', '설비 15', '설비 16', '설비 17', '설비 18'
+                        ],
+                        datasets: [{
+                            label: '이상치 발생 횟수 (건)',
+                            data: [4, 12, 2, 5, 8, 1, 0, 3, 7, 11, 4, 2, 6, 1, 5, 0, 2, 0],
+                            backgroundColor: '#dd6b20',
+                            borderRadius: 4,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) { return `발생 횟수: ${context.raw} 건`; }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, title: { display: true, text: '발생 건수' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

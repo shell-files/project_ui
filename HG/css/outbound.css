@@ -900,3 +900,181 @@
 .btn-action-green {
     background: #16a34a;
 }
+
+.invoice-split-container {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-top: 1px solid var(--border-color);
+    margin-top: 0.5rem;
+}
+
+.invoice-left-pane {
+    display: table-cell;
+    width: 240px;
+    vertical-align: top;
+    border-right: 1px solid var(--border-color);
+    background-color: #f8fafc;
+    padding: 1rem 0.75rem;
+}
+
+.invoice-right-pane {
+    display: table-cell;
+    vertical-align: top;
+    padding: 1rem 1.5rem;
+    background-color: #ffffff;
+}
+
+/* 2. 좌측 박스 리스트 컴포넌트 */
+.box-list-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+}
+
+.box-item-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.box-item-li {
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.box-item-li:hover {
+    background-color: #edf2f7;
+    color: var(--text-dark);
+}
+
+.box-item-li.active {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border-color: var(--primary-green);
+    box-shadow: 0 2px 6px rgba(3, 169, 77, 0.2);
+}
+
+/* 3. 모달 크기 확장 조정 (2분할 대응 구조) */
+#invoice-modal .modal-content {
+    width: 820px !important;
+    max-width: 90%;
+    padding: 0 !important;
+    /* 샌드위치 패널 구조 레이아웃화 */
+}
+
+#invoice-modal .modal-header {
+    padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+}
+
+#invoice-modal .modal-footer {
+    padding: 1rem 1.5rem 1.25rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    background-color: #f8fafc;
+}
+
+/* 4. 버튼 3종 세트 정형화 */
+.btn-invoice-print {
+    background-color: #3182ce;
+    color: #ffffff;
+    border: 1px solid #3182ce;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-invoice-print:hover {
+    background-color: #2b6cb0;
+}
+
+.btn-invoice-print-all {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border: 1px solid var(--primary-green);
+    padding: 0.55rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-invoice-print-all:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-invoice-cancel {
+    background-color: #ffffff;
+    color: #4a5568;
+    border: 1px solid #cbd5e0;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-invoice-cancel:hover {
+    background-color: #f7fafc;
+}
+
+.invoice-manager-layout{
+    display:flex;
+    gap:20px;
+    height:600px;
+}
+
+.invoice-box-list{
+    width:260px;
+    border:1px solid var(--border-color);
+    border-radius:6px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.invoice-list-title{
+    padding:15px;
+    font-weight:700;
+    border-bottom:1px solid var(--border-color);
+    background:#f8fafc;
+}
+
+#invoiceBoxList{
+    list-style:none;
+    margin:0;
+    padding:0;
+    max-height:540px;
+    overflow-y:auto;
+}
+
+.invoice-list-item{
+    padding:12px 16px;
+    cursor:pointer;
+    border-bottom:1px solid #f1f5f9;
+    transition:.2s;
+}
+
+.invoice-list-item:hover{
+    background:#f8fafc;
+}
+
+.invoice-list-item.active{
+    background:#e6f7ee;
+    color:var(--primary-green);
+    font-weight:700;
+}
+
+.invoice-preview-panel{
+    flex:1;
+}

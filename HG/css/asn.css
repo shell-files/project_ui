@@ -19,7 +19,9 @@
 
 
 
-
+.btn-filter-search{
+    margin-left: auto;
+}
 
 /* 테이블 공통 서식 */
 .table-responsive {

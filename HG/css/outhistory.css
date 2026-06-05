@@ -1232,3 +1232,7 @@
 .btn-action-green {
     background: #16a34a;
 }
+
+.btn-filter-search {
+    margin-left: auto;
+}

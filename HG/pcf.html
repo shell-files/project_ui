@@ -48,32 +48,66 @@
             <ul>
                 <h4 class="carbon_icon">탄소배출량</h4>
                 <li><a href="./pcf.html">대시보드</a></li>
-                <li><a href="#">이상치</a></li>
+                <li><a href="./anomaly.html">이상치탐지</a></li>
             </ul>
         </div>
 
         <div class="content-area">
+            <div class="page-header-flex">
+                <h2 class="page-title">탄소배출량 대시보드</h2>
+            </div>
+            
             <div class="dashboard-filter-bar">
                 <div class="toggle-group-wrapper">
                     <div class="toggle-group-item id_quarter">
-                        <div class="select_label"><span>분기별 현황</span></div>
+                        <div class="select_label"><span>연도 선택</span></div>
                         <div class="toggle-content" style="display: block;">
-                            <button type="button" class="btn-filter-tab active">2026년 1분기</button>
-                            <button type="button" class="btn-filter-tab">2026년 2분기</button>
-                            <button type="button" class="btn-filter-tab">2026년 3분기</button>
-                            <button type="button" class="btn-filter-tab">2026년 4분기</button>
+                            <select class="year-select btn-filter-tab">
+                                <option value="2026" selected>2026년</option>
+                                <option value="2025">2025년</option>
+                                <option value="2024">2024년</option>
+                                <option value="2023">2023년</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="toggle-group-item id_month">
-                        <div class="select_label"><span>월별 현황</span></div>
-                        <div class="toggle-content" style="display: none;">
-                            <button type="button" class="btn-filter-tab">1월</button>
-                            <button type="button" class="btn-filter-tab">2월</button>
-                            <button type="button" class="btn-filter-tab">3월</button>
-                            <button type="button" class="btn-filter-tab">4월</button>
-                            <button type="button" class="btn-filter-tab">5월</button>
-                            <button type="button" class="btn-filter-tab">6월</button>
+                    <div class="toggle-group-item id_quarter">
+                        <div class="select_label"><span>분기 선택</span></div>
+                        <div class="toggle-content" style="display: block;">
+                            <button type="button" class="btn-filter-tab active">전체</button>
+                            <button type="button" class="btn-filter-tab"> 1분기</button>
+                            <button type="button" class="btn-filter-tab">2분기</button>
+                            <button type="button" class="btn-filter-tab">3분기</button>
+                            <button type="button" class="btn-filter-tab">4분기</button>
                         </div>
+                    </div>
+                    <div class="toggle-group-item id_quarter">
+                        <div class="select_label"><span>월 선택</span></div>
+                        <div class="toggle-content" style="display: block;">
+                            <select class="year-select btn-filter-tab">
+                                <option value="none" selected>선택</option>
+                                <option value="1" >1월</option>
+                                <option value="2">2월</option>
+                                <option value="3">3월</option>
+                                <option value="4">4월</option>
+                                <option value="5">5월</option>
+                                <option value="6">6월</option>
+                                <option value="7">7월</option>
+                                <option value="8">8월</option>
+                                <option value="9">9월</option>
+                                <option value="10">10월</option>
+                                <option value="11">11월</option>
+                                <option value="12">12월</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-chart-grid" style="grid-template-columns: 1fr; margin-bottom: 1.25rem;">
+                <div class="chart-card">
+                    <h3 class="chart-title">선택기간별 탄소 배출량 변경 추이 (tCO₂eq)</h3>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="carbonTrendChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -97,7 +131,7 @@
             <div class="dashboard-table-card">
                 <div class="table-header-flex">
                     <h3 class="table-title">공정별 상세 탄소 배출량 명세</h3>
-                    <button class="btn-excel-download">📊 Excel 다운로드</button>
+                    <button class="btn-excel-download">액셀 다운로드</button>
                 </div>
                 <div class="table-responsive">
                     <table class="dashboard-data-table">
@@ -185,6 +219,55 @@
             document.getElementById(sheetId).classList.add('active');
             element.classList.add('active');
         }
+        // 0. 최상단: 선택기간별 탄소 배출량 추이 꺾은선 차트 (신규 추가)
+    const ctxTrend = document.getElementById('carbonTrendChart');
+    if (ctxTrend) {
+        new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                // 상단 연도/분기/월 선택에 매칭될 기간별 기본 레이블 샘플 (예: 월별 추이)
+                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                datasets: [{
+                    label: '총 배출량 추이',
+                    data: [18.2, 22.4, 19.8, 25.1, 28.6, 21.3, 24.7, 26.2, 20.1, 23.5, 21.8, 24.77],
+                    borderColor: '#03a94d',      // 시스템 공통 그린 테마 컬러 사용
+                    backgroundColor: 'rgba(3, 169, 77, 0.08)', // 하단 영역 투명 채우기
+                    borderWidth: 3,
+                    tension: 0.3,                 // 부드러운 곡선 효과
+                    fill: true,                   // 라인 밑면 색상 채우기 활성화
+                    pointBackgroundColor: '#03a94d',
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }   // 단일 데이터이므로 범례는 생략하여 깔끔하게 처리
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#e2e8f0'      // 연한 그리드 선
+                        },
+                        ticks: {
+                            font: { size: 11 }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false        // x축 세로 격자선은 제거하여 가독성 확보
+                        },
+                        ticks: {
+                            font: { size: 11 }
+                        }
+                    }
+                }
+            }
+        });
+    }
     </script>
 </body>
 
