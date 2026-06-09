@@ -51,12 +51,274 @@
                 <li><a href="./anomaly.html">이상치탐지</a></li>
             </ul>
         </div>
-
         <div class="content-area">
             <div class="page-header-flex">
                 <h2 class="page-title">이상치 탐지</h2>
-            </div>
+            </div>   
+            <div class="pipeline-section-wrapper">
+                <div class="pipeline-header-flex">
+                    <h2>작일 공정 파이프라인 이상치 현황</h2>
+                </div>
 
+                <div class="pipeline-flex-container">
+                    
+                    <div class="pipeline-step-card" onclick="toggleStepDetail(1)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 1</span>
+                            <span class="step-title"><span class="dot green"></span> 빌릿 가열 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value">67.5456 tCO₂e/h</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">64.2560 tCO₂e/h</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value">0건</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card critical" onclick="toggleStepDetail(2)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 2</span>
+                            <span class="step-title"><span class="dot red"></span> 간접 압출 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value highlight">33.7705 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">53.6 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value highlight">2건 (미조치 1)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card" onclick="toggleStepDetail(3)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 3</span>
+                            <span class="step-title"><span class="dot green"></span> 인발 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value">13.3272 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">15.1180 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value">1건 (조치완료)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card" onclick="toggleStepDetail(3)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 3</span>
+                            <span class="step-title"><span class="dot green"></span> 인발 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value">13.3272 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">15.1180 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value">1건 (조치완료)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card" onclick="toggleStepDetail(3)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 3</span>
+                            <span class="step-title"><span class="dot green"></span> 인발 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value">13.3272 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">15.1180 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value">1건 (조치완료)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card" onclick="toggleStepDetail(3)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 3</span>
+                            <span class="step-title"><span class="dot green"></span> 인발 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value">13.3272 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">15.1180 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value">1건 (조치완료)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card critical" onclick="toggleStepDetail(2)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 2</span>
+                            <span class="step-title"><span class="dot red"></span> 간접 압출 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value highlight">33.7705 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">53.6 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value highlight">2건 (미조치 1)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                    <div class="arrow-icon">➔</div>
+
+                    <div class="pipeline-step-card" onclick="toggleStepDetail(3)">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 3</span>
+                            <span class="step-title"><span class="dot green"></span> 인발 공정</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">적정 간접 탄소 배출량</span>
+                            <span class="value">13.3272 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">간접 탄소 배출량</span>
+                            <span class="value">15.1180 tCO₂e</span>
+                        </div>
+                        <div class="step-info-row">
+                            <span class="label">이상치 건수</span>
+                            <span class="value">1건 (조치완료)</span>
+                        </div>
+                        <div class="detail-link">▾ 클릭하여 상세 보기</div>
+                    </div>
+
+                </div>
+
+                <div class="pipeline-detail-box" id="step1-detail" style="display: none;">
+                    <div class="detail-header text-success">
+                        <span>✓ STEP 1 · 빌릿 가열 공정</span>
+                        <button type="button" class="close-btn" onclick="hideAllDetails(event)">✕</button>
+                    </div>
+                    <div class="detail-content">
+                        <table class="status-table">
+                            <thead>
+                                <tr><th>측정 항목</th><th>기준치 (표준)</th><th>실측값</th><th>편차율</th><th>상태</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>전력 사용량 (kWh)</td><td>147.03</td><td class="status-text normal">139.8389</td><td class="status-text normal">-4.89%</td><td class="status-text normal">정상</td></tr>
+                                <!-- <tr><td>연료 사용량 (Nm³/h)</td><td>15.0 ~ 20.0</td><td class="status-text normal">18.4</td><td class="status-text normal">-1.1%</td><td class="status-text normal">정상</td></tr>
+                                <tr><td>설비 진동 (mm/s)</td><td>0.0 ~ 2.5</td><td class="status-text normal">1.1</td><td class="status-text normal">0.0%</td><td class="status-text normal">정상</td></tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pipeline-detail-box" id="step2-detail" style="display: none;">
+                    <div class="detail-header text-critical">
+                        <span>⚠ STEP 2 · 간접 압출 공정 </span>
+                        <button type="button" class="close-btn" onclick="hideAllDetails(event)">✕</button>
+                    </div>
+                    <div class="detail-content">
+                        <table class="status-table">
+                            <thead>
+                                <tr><th>측정 항목</th><th>기준치 (표준)</th><th>실측값</th><th>편차율</th><th>상태</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row-critical">
+                                    <td><strong>전력 사용량 (kWh)</strong></td>
+                                    <td>73.51</td>
+                                    <td class="status-text critical">121.001</td>
+                                    <td class="status-text critical">+64.60%</td>
+                                    <td class="status-text critical">Critical</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>압출 압력 (MPa)</td>
+                                    <td>85 ~ 110</td>
+                                    <td>98.4</td>
+                                    <td>+0.4%</td>
+                                    <td class="status-text normal">정상</td>
+                                </tr>
+                                <tr class="row-warning">
+                                    <td>CO₂ 배출 — 압출 인장기 #01</td>
+                                    <td>55.0 ~ 62.0 tCO₂e</td>
+                                    <td class="status-text warning">59.1 tCO₂e</td>
+                                    <td class="status-text warning">+1.1%</td>
+                                    <td class="status-text warning">Warning</td>
+                                </tr>
+                                <tr>
+                                    <td>전력 소비 (kWh/ton)</td>
+                                    <td>280 ~ 330</td>
+                                    <td>305</td>
+                                    <td>-0.9%</td>
+                                    <td class="status-text normal">정상</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pipeline-detail-box" id="step3-detail" style="display: none;">
+                    <div class="detail-header text-success">
+                        <span>✓ STEP 3 · 인발 공정</span>
+                        <button type="button" class="close-btn" onclick="hideAllDetails(event)">✕</button>
+                    </div>
+                    <div class="detail-content">
+                        <table class="status-table">
+                            <thead>
+                                <tr><th>측정 항목</th><th>기준치 (표준)</th><th>실측값</th><th>편차율</th><th>상태</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>전력 사용량 (kWh)</td><td>29.01</td><td class="status-text normal">32.9081</td><td class="status-text normal">+3.8981%</td><td class="status-text normal">정상</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    <h2 class="period-section-title">기간 별 공정 이상치 현황</h2>
+            </div>
             <div class="dashboard-filter-bar">
                 <div class="toggle-group-wrapper">
                     <div class="toggle-group-item id_quarter">
@@ -176,8 +438,26 @@
                     
                 </div>
             </div>
+            <div class="pagination-container">
+                                <div class="pagination-info">
+                                    전체 <span>74</span>건
+                                </div>
+                                <div class="pagination-buttons">
+                                    <button type="button" class="btn-page first" title="첫 페이지" disabled>&laquo;</button>
+                                    <button type="button" class="btn-page prev" title="이전 페이지" disabled>&lsaquo;</button>
+        
+                                    <button type="button" class="btn-page-num active">1</button>
+                                    <button type="button" class="btn-page-num">2</button>
+                                    <button type="button" class="btn-page-num">3</button>
+                                    <button type="button" class="btn-page-num">4</button>
+                                    <button type="button" class="btn-page-num">5</button>
+        
+                                    <button type="button" class="btn-page next" title="다음 페이지">&rsaquo;</button>
+                                    <button type="button" class="btn-page last" title="마지막 페이지">&raquo;</button>
+                                </div>
+                                <div class="pagination-size-selector">
         </div>
-
+        
     </div>
 
     <div id="anomalyStatusModal" class="anomaly-modal">
@@ -195,6 +475,7 @@
             </div>
         </div>
     </div>
+
 
     <script>
         // 팝업 컨트롤 상태 관리 변수
