@@ -190,10 +190,8 @@
             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
               <span class="text-sm font-bold text-gray-500 w-24 shrink-0">제품 카테고리</span>
               <div class="flex flex-wrap gap-2" id="category-filter-container">
-                <button onclick="setCategoryFilter('ALL')" data-category="ALL"
-                  class="filter-tag-btn px-4 py-1.5 rounded-full text-sm font-bold transition-colors bg-gray-900 text-white cursor-pointer">전체</button>
                 <button onclick="setCategoryFilter('열차폐판')" data-category="열차폐판"
-                  class="filter-tag-btn px-4 py-1.5 rounded-full text-sm font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer">열차폐판</button>
+                  class="filter-tag-btn px-4 py-1.5 rounded-full text-sm font-bold transition-colors bg-gray-900 text-white cursor-pointer">열차폐판</button>
                 <button onclick="setCategoryFilter('휠')" data-category="휠"
                   class="filter-tag-btn px-4 py-1.5 rounded-full text-sm font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer">휠</button>
                 <button onclick="setCategoryFilter('파이프')" data-category="파이프"
@@ -233,6 +231,7 @@
                 <tr class="border-b border-gray-100 text-gray-500 font-bold bg-slate-50/50">
                   <th class="px-6 py-3.5 w-32 text-sm">제품 ID</th>
                   <th class="px-6 py-3.5 text-sm">제품 분류명</th>
+                  <th class="px-6 py-3.5 text-sm">제품명</th>
                   <th class="px-6 py-3.5 text-sm">BOM 이력 차수</th>
                   <th class="px-6 py-3.5 text-sm">연계 협력사 총합</th>
                   <th class="px-6 py-3.5 text-sm">상태</th>
@@ -249,6 +248,7 @@
                       class="font-bold text-gray-900 text-sm md:text-base group-hover:text-emerald-600 transition-colors">
                       열차폐판</div>
                   </td>
+                  <td class="px-6 py-4 text-gray-700 font-semibold text-sm">Al 3003-H14 판재 1.5T 400×300mm</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">v3.4 (최신 2026-06-01 개정)</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">8개사 (1차 2, 2차 4, 3차 2)</td>
                   <td class="px-6 py-4">
@@ -271,6 +271,7 @@
                       class="font-bold text-gray-900 text-sm md:text-base group-hover:text-emerald-600 transition-colors">
                       휠</div>
                   </td>
+                  <td class="px-6 py-4 text-gray-700 font-semibold text-sm">Al 3003-H16 판재 3.0T 17인치(D432mm)</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">v2.1 (최신 2026-04-12 개정)</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">12개사 (1차 3, 2차 6, 3차 3)</td>
                   <td class="px-6 py-4">
@@ -293,6 +294,7 @@
                       class="font-bold text-gray-900 text-sm md:text-base group-hover:text-emerald-600 transition-colors">
                       파이프</div>
                   </td>
+                  <td class="px-6 py-4 text-gray-700 font-semibold text-sm">Al 3003-O 튜브 Ø12×1.5T L3000mm</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">v1.9 (최신 2025-11-20 개정)</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">5개사 (1차 1, 2차 3, 3차 1)</td>
                   <td class="px-6 py-4">
@@ -315,6 +317,7 @@
                       class="font-bold text-gray-900 text-sm md:text-base group-hover:text-emerald-600 transition-colors">
                       튜브</div>
                   </td>
+                  <td class="px-6 py-4 text-gray-700 font-semibold text-sm">Al 3003-H14 튜브 Ø8×1.0T L2000mm</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">v4.0 (최신 2026-05-15 개정)</td>
                   <td class="px-6 py-4 text-gray-600 font-semibold text-sm">14개사 (1차 4, 2차 7, 3차 3)</td>
                   <td class="px-6 py-4">
@@ -343,6 +346,7 @@
       {
         id: 'PRD-001',
         name: '열차폐판',
+        detailName: 'Al 3003-H14 판재 1.5T 400×300mm',
         category: '열차폐판',
         bom: 'v3.4 (최신 2026-06-01 개정)',
         partners: '8개사 (1차 2, 2차 4, 3차 2)',
@@ -352,6 +356,7 @@
       {
         id: 'PRD-002',
         name: '휠',
+        detailName: 'Al 3003-H16 판재 3.0T 17인치(D432mm)',
         category: '휠',
         bom: 'v2.1 (최신 2026-04-12 개정)',
         partners: '12개사 (1차 3, 2차 6, 3차 3)',
@@ -361,6 +366,7 @@
       {
         id: 'PRD-003',
         name: '파이프',
+        detailName: 'Al 3003-O 튜브 Ø12×1.5T L3000mm',
         category: '파이프',
         bom: 'v1.9 (최신 2025-11-20 개정)',
         partners: '5개사 (1차 1, 2차 3, 3차 1)',
@@ -370,6 +376,7 @@
       {
         id: 'PRD-004',
         name: '튜브',
+        detailName: 'Al 3003-H14 튜브 Ø8×1.0T L2000mm',
         category: '튜브',
         bom: 'v4.0 (최신 2026-05-15 개정)',
         partners: '14개사 (1차 4, 2차 7, 3차 3)',
@@ -378,7 +385,7 @@
       }
     ];
 
-    let currentCategory = 'ALL';
+    let currentCategory = '열차폐판';
     let currentStatus = 'ALL';
     let searchQuery = '';
 
@@ -430,8 +437,8 @@
       searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
 
       const filtered = products.filter(item => {
-        // 1. 제품명 검색 매칭
-        const matchesSearch = item.name.toLowerCase().includes(searchQuery);
+        // 1. 제품명 혹은 제품 분류명 검색 매칭
+        const matchesSearch = item.name.toLowerCase().includes(searchQuery) || item.detailName.toLowerCase().includes(searchQuery);
         // 2. 카테고리 매칭
         const matchesCategory = currentCategory === 'ALL' || item.category === currentCategory;
         // 3. 상태 매칭
@@ -446,11 +453,11 @@
     // 초기화 처리
     function resetFilters() {
       document.getElementById('search-input').value = '';
-      currentCategory = 'ALL';
+      currentCategory = '열차폐판';
       currentStatus = 'ALL';
       searchQuery = '';
       updateFilterButtons();
-      renderTable(products);
+      applyFilters();
     }
 
     // 동적 테이블 렌더링
@@ -464,7 +471,7 @@
       if (data.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="6" class="px-6 py-8 text-center text-gray-400 font-semibold text-sm">
+            <td colspan="7" class="px-6 py-8 text-center text-gray-400 font-semibold text-sm">
               조회된 제품 정보가 없습니다.
             </td>
           </tr>
@@ -494,6 +501,7 @@
           <td class="px-6 py-4">
             <div class="font-bold text-gray-900 text-sm md:text-base group-hover:text-emerald-600 transition-colors">${item.name}</div>
           </td>
+          <td class="px-6 py-4 text-gray-700 font-semibold text-sm">${item.detailName}</td>
           <td class="px-6 py-4 text-gray-600 font-semibold text-sm">${item.bom}</td>
           <td class="px-6 py-4 text-gray-600 font-semibold text-sm">${item.partners}</td>
           <td class="px-6 py-4">${statusBadge}</td>
@@ -508,6 +516,7 @@
     // 초기 바인딩 실행
     window.addEventListener('DOMContentLoaded', () => {
       updateFilterButtons();
+      applyFilters();
     });
   </script>
 </body>
