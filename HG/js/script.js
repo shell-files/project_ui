@@ -154,3 +154,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// ==========================================
+// 공정 파이프라인 대시보드 UI 전환 로직 (정적 HTML 제어용)
+// ==========================================
+
+// 지정한 스텝의 상세 내역 화면만 토글(노출)하는 함수
+function toggleStepDetail(stepNumber) {
+    // 1. 모든 상세 섹션을 우선 일괄 숨김 처리
+    for (let i = 1; i <= 3; i++) {
+        const detailZone = document.getElementById(`step${i}-detail`);
+        if (detailZone) {
+            detailZone.style.display = 'none';
+        }
+    }
+
+    // 2. 선택한 스텝의 상세 영역만 화면에 표시
+    const activeDetail = document.getElementById(`step${stepNumber}-detail`);
+    if (activeDetail) {
+        activeDetail.style.display = 'block';
+    }
+}
+
+// 모든 상세 내역 화면을 보이지 않게 숨기는 함수 (X 버튼 기능)
+function hideAllDetails(event) {
+    if (event) event.stopPropagation(); // 이벤트 버블링 차단
+    
+    for (let i = 1; i <= 3; i++) {
+        const detailZone = document.getElementById(`step${i}-detail`);
+        if (detailZone) {
+            detailZone.style.display = 'none';
+        }
+    }
+}
+
+// DOM 생성이 완료되면 최초에 STEP 2 상세 화면을 기본값으로 표출
+document.addEventListener('DOMContentLoaded', () => {
+    // 해당 섹션 엘리먼트들이 존재할 때만 실행
+    if (document.getElementById('step2-detail')) {
+        toggleStepDetail(2);
+    }
+});
