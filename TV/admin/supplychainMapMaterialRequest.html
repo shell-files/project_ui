@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TV] ESG 공급망 관리 시스템 - 원자재 요청</title>
+  <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
+    @theme {
+      --color-primary-green: #03a94d;
+      --color-primary-dark-green: #02823b;
+    }
+  </style>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 overflow-hidden font-sans text-sm md:text-base">
+  <div class="flex h-screen overflow-hidden">
+    <!-- SidebarNav (좌측 레이어) -->
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
+      <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
+        <div style="cursor: pointer;"
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden"
+          onclick="window.location.href='dashboard.html'">
+          <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
+        </div>
+      </div>
+      <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
+        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <div class="space-y-1">
+            <!-- 메인 대시보드 -->
+            <a href="dashboard.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>메인 대시보드</span>
+            </a>
+            <!-- 협력사 정보 -->
+            <a href="partnerList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>협력사 정보</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 공급망 추적 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 공급망 추적 관리</p>
+          <div class="space-y-1">
+            <!-- 공급망 맵 (활성화 상태) -->
+            <a href="supplychainMapList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-bold transition text-left bg-primary-dark-green text-white">
+              <span>공급망 맵</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 구매 및 자재 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
+          <div class="space-y-1">
+            <!-- PO 관리 -->
+            <a href="poList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>PO 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 실사 및 평가 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
+          <div class="space-y-1">
+            <!-- 리스크 현황 -->
+            <a href="riskList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>리스크 현황</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <div class="p-3 border-t border-emerald-600/30 text-xs text-emerald-200 text-center font-medium">
+        © 2026 TripleValues Inc.
+      </div>
+    </aside>
+
+    <!-- Main Content Area (우측 레이어) -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- HeaderNav -->
+      <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
+        <div class="flex items-center gap-3">
+          <!-- 햄버거 메뉴 버튼 -->
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-lg md:text-xl font-bold text-gray-800">ESG 공급망 관리 시스템</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- 역할 전환 셀렉트 박스 -->
+          <div class="flex items-center gap-2">
+            <select id="role-select"
+              class="text-sm border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer"
+              onchange="if(this.value === '1차 협력사') window.location.href = '../partners/companyInfo.html';">
+              <option value="현대모비스" selected>원청사 (현대모비스)</option>
+              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              <option value="2차 협력사">2차 협력사 (케이알엠)</option>
+              <option value="3차 협력사">3차 협력사 (Comilog)</option>
+            </select>
+          </div>
+
+          <!-- 알림 센터 -->
+          <div class="relative">
+            <button class="relative p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">3</span>
+            </button>
+          </div>
+
+          <!-- 역할 표시 -->
+          <span class="text-sm text-gray-600 font-semibold">원청사 관리자</span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="flex-1 overflow-y-auto p-6 space-y-5">
+
+        <!-- 상단 정보 헤딩 및 목록 이동 인터페이스 -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">원자재 요청</h1>
+          </div>
+
+          <div>
+            <button
+              class="px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg text-sm font-bold text-gray-700 transition cursor-pointer"
+              onclick="window.location.href='supplychainMapList.html'">
+              ← 목록으로 돌아가기
+            </button>
+          </div>
+        </div>
+
+        <!-- 메인 입력 카드 -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 space-y-6">
+
+          <!-- 요청 대상 및 매핑 패널 (d-2 사양) -->
+          <div class="space-y-4">
+            <h3 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">요청 대상 정보</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-bold text-gray-600">대상 제품 선택</label>
+                <select id="product-select"
+                  class="w-full bg-slate-50 border border-gray-200 text-sm px-4 py-3 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold transition-colors cursor-pointer">
+                  <option value="열차폐판">열차폐판</option>
+                  <option value="휠">휠</option>
+                  <option value="파이프">파이프</option>
+                  <option value="튜브">튜브</option>
+                </select>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-bold text-gray-600">PO ID 선택</label>
+                <select id="po-select"
+                  class="w-full bg-slate-50 border border-gray-200 text-sm px-4 py-3 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold transition-colors cursor-pointer"
+                  onchange="updateMappingInfo()">
+                  <option value="PO-2026-0089">PO-2026-0089</option>
+                  <option value="PO-2026-0102">PO-2026-0102</option>
+                  <option value="PO-2026-0115">PO-2026-0115</option>
+                </select>
+              </div>
+              <!-- 요청 분류 설정 추가 -->
+              <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-bold text-gray-600">요청 분류</label>
+                <select id="category-select" onchange="onCategoryChange()"
+                  class="w-full bg-slate-50 border border-gray-200 text-sm px-4 py-3 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold transition-colors cursor-pointer">
+                  <option value="NEW" selected>신규 등록 요청</option>
+                  <option value="RETRY">재검토 요청</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 자동 매핑 알림 패널 -->
+            <div class="bg-slate-50 rounded-lg p-4 border border-gray-200/60 text-sm space-y-2">
+              <p class="font-bold text-gray-700">발주 정보</p>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <span class="text-xs md:text-sm text-gray-400 font-semibold">협력사명</span>
+                  <p id="mapped-company" class="text-sm md:text-base font-bold text-gray-900 mt-0.5">노벨리스코리아(주)</p>
+                </div>
+                <div>
+                  <span class="text-xs md:text-sm text-gray-400 font-semibold">원자재명</span>
+                  <p id="mapped-material" class="text-sm md:text-base font-bold text-gray-900 mt-0.5">알루미늄 코일</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 요청 항목 토글 인터페이스 (d-3 사양) -->
+          <div class="space-y-3">
+            <h3 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">요청 항목</h3>
+            <p class="text-xs md:text-sm text-gray-400 font-medium">* 긴급 규제 실사를 위해 파트너사에 요청할 세부 규격 제원 항목을 선택하세요.</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+              <button type="button" id="spec-width" onclick="toggleSpec('spec-width', '폭(mm)')"
+                class="border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center">
+                폭(mm)
+              </button>
+              <button type="button" id="spec-length" onclick="toggleSpec('spec-length', '길이(mm)')"
+                class="border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center">
+                길이(mm)
+              </button>
+              <button type="button" id="spec-diameter" onclick="toggleSpec('spec-diameter', '지름(mm)')"
+                class="border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center">
+                지름(mm)
+              </button>
+              <button type="button" id="spec-weight" onclick="toggleSpec('spec-weight', '중량(kg)')"
+                class="border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center">
+                중량(kg)
+              </button>
+              <button type="button" id="spec-origin" onclick="toggleSpec('spec-origin', '원산지')"
+                class="border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center">
+                원산지
+              </button>
+              <button type="button" id="spec-components" onclick="toggleSpec('spec-components', '구성요소')"
+                class="border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center">
+                구성요소
+              </button>
+            </div>
+          </div>
+
+          <!-- 공문 명세 및 자동 배지 출력 패널 (d-4 사양) -->
+          <div class="space-y-4">
+            <h3 class="text-base font-bold text-gray-900 pb-2 border-b border-gray-100">긴급 요청 정보</h3>
+
+            <div class="space-y-1.5">
+              <label class="text-sm font-bold text-gray-600">선택된 요청 항목</label>
+              <!-- 배지 출력 구역 -->
+              <div id="selected-items-container"
+                class="min-h-12 border border-gray-200 rounded-lg p-3 bg-slate-50/50 flex flex-wrap gap-2 items-center">
+                <span id="no-items-placeholder" class="text-sm text-gray-400 font-medium pl-1">위의 제원 항목을 선택하면 이곳에 자동으로
+                  추가됩니다.</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-bold text-gray-600">제출기한 설정</label>
+                <input type="date" id="due-date"
+                  class="w-full bg-slate-50 border border-gray-200 text-sm px-4 py-3 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold transition-colors">
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label class="text-sm font-bold text-gray-600">요청 상세 내용</label>
+              <textarea id="request-content" rows="4" placeholder="세부 내용을 입력해주세요."
+                class="w-full bg-slate-50 border border-gray-200 text-sm px-4 py-3 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 font-semibold transition-colors resize-none"></textarea>
+            </div>
+          </div>
+
+          <!-- 최종 액션 컨트롤 바 (d-5 사양) -->
+          <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+            <button type="button" onclick="window.location.href='supplychainMapList.html'"
+              class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-sm py-3.5 rounded-lg transition-colors cursor-pointer text-center">
+              취소
+            </button>
+            <button type="button" onclick="submitRequest()"
+              class="flex-1 bg-[#03a94d] hover:bg-[#02823b] text-white font-bold text-sm py-3.5 rounded-lg transition-colors cursor-pointer text-center">
+              요청
+            </button>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // PO ID별 협력사 및 원자재 자동 매핑 데이터
+    const poMappingData = {
+      'PO-2026-0089': {
+        company: '노벨리스코리아(주)',
+        material: '알루미늄 코일'
+      },
+      'PO-2026-0102': {
+        company: '(주)케이알엠',
+        material: 'P1020 잉곳'
+      },
+      'PO-2026-0115': {
+        company: '삼우강업',
+        material: 'Mn 정광'
+      }
+    };
+
+    // PO ID 변경 시 매핑 정보 업데이트
+    function updateMappingInfo() {
+      const select = document.getElementById('po-select');
+      const companyP = document.getElementById('mapped-company');
+      const materialP = document.getElementById('mapped-material');
+
+      const selectedPO = select.value;
+      if (poMappingData[selectedPO]) {
+        companyP.innerText = poMappingData[selectedPO].company;
+        materialP.innerText = poMappingData[selectedPO].material;
+      }
+    }
+
+    // 선택된 스펙 상태 보관 객체
+    let activeSpecs = {};
+    let isNewRequest = true; // 디폴트가 '신규 등록 요청'
+
+    // 스펙 토글 핸들러
+    function toggleSpec(id, name) {
+      if (isNewRequest) return; // 신규 등록 요청일 때는 토글 불가 (락 상태)
+
+      const btn = document.getElementById(id);
+      if (!activeSpecs[id]) {
+        // 활성화
+        activeSpecs[id] = name;
+        btn.className = "border border-emerald-600 bg-emerald-50 text-emerald-800 font-bold text-sm py-3.5 px-4 rounded-lg transition cursor-pointer text-center";
+      } else {
+        // 비활성화
+        delete activeSpecs[id];
+        btn.className = "border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center";
+      }
+      renderSelectedSpecs();
+    }
+
+    // 요청 분류 변경 핸들러
+    function onCategoryChange() {
+      const categorySelect = document.getElementById('category-select');
+      const category = categorySelect.value;
+      
+      if (category === 'NEW') {
+        isNewRequest = true;
+        // 모든 항목 강제 선택 및 락 처리
+        const specItems = {
+          'spec-width': '폭(mm)',
+          'spec-length': '길이(mm)',
+          'spec-diameter': '지름(mm)',
+          'spec-weight': '중량(kg)',
+          'spec-origin': '원산지',
+          'spec-components': '구성요소'
+        };
+        
+        // activeSpecs 채우기
+        activeSpecs = { ...specItems };
+        
+        // 버튼 스타일 업데이트 및 락 스타일(pointer-events-none) 추가
+        for (const id in specItems) {
+          const btn = document.getElementById(id);
+          if (btn) {
+            btn.className = "border border-emerald-600 bg-emerald-50 text-emerald-800 font-bold text-sm py-3.5 px-4 rounded-lg transition text-center cursor-default pointer-events-none opacity-80";
+          }
+        }
+      } else {
+        isNewRequest = false;
+        // '재검토 요청' 시 락 해제 및 초기 상태로 환원 (원래대로)
+        activeSpecs = {};
+        const specIds = ['spec-width', 'spec-length', 'spec-diameter', 'spec-weight', 'spec-origin', 'spec-components'];
+        specIds.forEach(id => {
+          const btn = document.getElementById(id);
+          if (btn) {
+            btn.className = "border border-gray-200 bg-white hover:bg-gray-50 text-sm text-gray-700 py-3.5 px-4 rounded-lg font-semibold transition cursor-pointer text-center";
+          }
+        });
+      }
+      renderSelectedSpecs();
+    }
+
+    // 선택된 스펙 배지 렌더러
+    function renderSelectedSpecs() {
+      const container = document.getElementById('selected-items-container');
+      const placeholder = document.getElementById('no-items-placeholder');
+
+      // 기존 뱃지 목록 제거
+      const badges = container.querySelectorAll('.spec-badge');
+      badges.forEach(b => b.remove());
+
+      const keys = Object.keys(activeSpecs);
+      if (keys.length === 0) {
+        if (placeholder) placeholder.style.display = 'block';
+      } else {
+        if (placeholder) placeholder.style.display = 'none';
+
+        keys.forEach(key => {
+          const specName = activeSpecs[key];
+
+          const badgeSpan = document.createElement('span');
+          badgeSpan.className = "spec-badge inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-2 rounded-lg text-sm font-bold";
+          
+          // 신규 등록 요청일 때는 삭제(x) 버튼 무효화/숨김 처리
+          if (isNewRequest) {
+            badgeSpan.innerHTML = `
+              <span>${specName}</span>
+              <span class="text-emerald-500/50 ml-1 select-none pointer-events-none opacity-50">×</span>
+            `;
+          } else {
+            badgeSpan.innerHTML = `
+              <span>${specName}</span>
+              <button type="button" onclick="removeSpec('${key}')" class="text-emerald-500 hover:text-emerald-800 ml-1 focus:outline-none cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            `;
+          }
+          container.appendChild(badgeSpan);
+        });
+      }
+    }
+
+    // 배지 개별 삭제 핸들러
+    function removeSpec(key) {
+      if (isNewRequest) return; // 신규 등록 요청일 때는 개별 삭제 불가
+      if (activeSpecs[key]) {
+        toggleSpec(key, activeSpecs[key]);
+      }
+    }
+
+    // 기본 날짜 세팅 (오늘로부터 7일 뒤)
+    function initDefaultDate() {
+      const dateInput = document.getElementById('due-date');
+      const today = new Date();
+      today.setDate(today.getDate() + 7);
+
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      let day = today.getDate();
+
+      if (month < 10) month = '0' + month;
+      if (day < 10) day = '0' + day;
+
+      dateInput.value = `${year}-${month}-${day}`;
+    }
+
+    // 요청 제출
+    function submitRequest() {
+      const keys = Object.keys(activeSpecs);
+      if (keys.length === 0) {
+        alert("최소 1개 이상의 요청 항목을 선택해야 합니다.");
+        return;
+      }
+
+      const requestContent = document.getElementById('request-content').value.trim();
+      if (!requestContent) {
+        alert("요청 상세 내용을 입력해주세요.");
+        return;
+      }
+
+      alert("긴급 요청이 성공적으로 전송되었습니다.");
+      window.location.href = 'supplychainMapList.html';
+    }
+
+    // 초기화 함수 실행
+    window.onload = function () {
+      initDefaultDate();
+      onCategoryChange(); // 신규 등록 요청 락 상태 초기화
+    };
+  </script>
+</body>
+
+</html>

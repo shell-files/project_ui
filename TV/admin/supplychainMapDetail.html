@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TV] ESG 공급망 관리 시스템 - 공급망 맵 상세</title>
+  <!-- Tailwind CSS 4.0 브라우저 빌드 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <!-- Tailwind 커스텀 테마 설정 -->
+  <style type="tailwindcss">
+    @theme {
+      --color-primary-green: #03a94d;
+      --color-primary-dark-green: #02823b;
+    }
+  </style>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 overflow-hidden font-sans text-sm md:text-base">
+  <div class="flex h-screen overflow-hidden">
+    <!-- SidebarNav (좌측 레이어) -->
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-56 bg-primary-green text-emerald-100 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:relative md:translate-x-0 sidebar">
+      <div class="p-4 border-b border-emerald-600/30 flex items-center justify-between">
+        <div style="cursor: pointer;"
+          class="w-full flex items-center justify-center bg-white h-16 rounded-lg shadow-sm overflow-hidden"
+          onclick="window.location.href='dashboard.html'">
+          <img src="../assets/logos/TVLogo.png" alt="Triple Values" class="w-full h-full object-contain scale-[1.35]" />
+        </div>
+      </div>
+      <nav class="flex-1 p-2 space-y-6 overflow-y-auto">
+        <!-- 카테고리: 기준 및 협력사 정보 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 기준 및 협력사 정보</p>
+          <div class="space-y-1">
+            <!-- 메인 대시보드 -->
+            <a href="dashboard.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>메인 대시보드</span>
+            </a>
+            <!-- 협력사 정보 -->
+            <a href="partnerList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>협력사 정보</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 공급망 추적 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 공급망 추적 관리</p>
+          <div class="space-y-1">
+            <!-- 공급망 맵 (활성화 상태) -->
+            <a href="supplychainMapList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-bold transition text-left bg-primary-dark-green text-white">
+              <span>공급망 맵</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 구매 및 자재 관리 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 구매 및 자재 관리</p>
+          <div class="space-y-1">
+            <!-- PO 관리 -->
+            <a href="poList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>PO 관리</span>
+            </a>
+          </div>
+        </div>
+        <!-- 카테고리: 실사 및 평가 -->
+        <div class="space-y-2">
+          <p class="px-3 text-sm font-bold text-emerald-200 tracking-wide">■ 실사 및 평가</p>
+          <div class="space-y-1">
+            <!-- 리스크 현황 -->
+            <a href="riskList.html"
+              class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium transition text-left text-emerald-100 hover:bg-emerald-600/50 hover:text-white">
+              <span>리스크 현황</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <div class="p-3 border-t border-emerald-600/30 text-xs text-emerald-200 text-center font-medium">
+        © 2026 TripleValues Inc.
+      </div>
+    </aside>
+
+    <!-- Main Content Area (우측 레이어) -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- HeaderNav -->
+      <header class="bg-white border-b border-gray-100 flex items-center justify-between px-6 py-3 shrink-0 relative">
+        <div class="flex items-center gap-3">
+          <!-- 햄버거 메뉴 버튼 -->
+          <button class="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-lg md:text-xl font-bold text-gray-800">ESG 공급망 관리 시스템</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- 역할 전환 셀렉트 박스 -->
+          <div class="flex items-center gap-2">
+            <select id="role-select"
+              class="text-sm border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-gray-700 font-semibold focus:ring-1 focus:ring-[#03a94d] focus:border-[#03a94d] cursor-pointer"
+              onchange="if(this.value === '1차 협력사') window.location.href = '../partners/companyInfo.html';">
+              <option value="현대모비스" selected>원청사 (현대모비스)</option>
+              <option value="1차 협력사">1차 협력사 (노벨리스코리아)</option>
+              <option value="2차 협력사">2차 협력사 (케이알엠)</option>
+              <option value="3차 협력사">3차 협력사 (Comilog)</option>
+            </select>
+          </div>
+
+          <!-- 알림 센터 -->
+          <div class="relative">
+            <button class="relative p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">3</span>
+            </button>
+          </div>
+
+          <!-- 역할 표시 -->
+          <span class="text-sm text-gray-600 font-semibold">원청사 관리자</span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <main class="flex-1 overflow-y-auto p-6 space-y-5">
+
+        <!-- 상단 정보 헤딩 및 목록 이동 인터페이스 -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">공급망 맵 상세</h1>
+          </div>
+
+          <div>
+            <button
+              class="px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg text-sm font-bold text-gray-700 transition cursor-pointer"
+              onclick="window.location.href='supplychainMapList.html'">
+              &larr; 목록으로 돌아가기
+            </button>
+          </div>
+        </div>
+
+        <!-- 제품 개요 및 버전 관리 인터페이스 (b-1 사양) -->
+        <div
+          class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div>
+              <span class="text-sm text-gray-400 font-medium">대상 제품군</span>
+              <p class="text-lg font-bold text-gray-900 mt-0.5">열차폐판</p>
+            </div>
+            <div class="w-px h-8 bg-gray-200"></div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-bold text-gray-500">버전 히스토리 선택:</span>
+            <select id="version-select" onchange="onVersionChange(this.value)"
+              class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-bold bg-white text-gray-700 cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              <option value="v2.0" selected>v2.0 (2026-05-15 부터 2026-12-31) [최신]</option>
+              <option value="v1.0">v1.0 (2025-01-01 부터 2026-05-14)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 2분할 레이아웃 (좌측 8 / 우측 4) - Flex-Stretch 정렬 적용 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+          <!-- 좌측 영역 (8열) -->
+          <div class="lg:col-span-8 flex flex-col space-y-5">
+
+            <!-- 공급망 정보 요청 및 응답 진행 현황 원장 테이블 (c-1, c-2 사양 / 피드백 조치 열 삭제 및 재정렬) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-4 bg-slate-50/50 border-b border-gray-100 flex justify-between items-center">
+                <h3 class="text-sm md:text-base font-bold text-gray-700">공급망 정보 요청 및 응답 진행 현황 (PO-2026-0049)</h3>
+                <span
+                  class="text-xs text-rose-600 font-bold bg-rose-50 border border-rose-100 px-2 py-0.5 rounded animate-pulse">긴급조사
+                  진행중</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm text-gray-700 table-fixed">
+                  <thead>
+                    <tr class="border-b border-gray-100 bg-slate-50/30 text-gray-500 font-bold">
+                      <th class="px-4 py-3 w-[32%]">요청 분류 항목</th>
+                      <th class="px-4 py-3 w-[17%]">대상 공급 협력사</th>
+                      <th class="px-4 py-3 w-[17%]">연결 투입 자재명</th>
+                      <th class="px-4 py-3 w-[17%]">요청 및 발송일자</th>
+                      <th class="px-4 py-3 w-[17%]">현재 진척 상태</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100 bg-white">
+                    <tr>
+                      <td class="px-4 py-3 font-medium text-gray-900 truncate">원산지, 구성요소</td>
+                      <td class="px-4 py-3 font-semibold truncate">노벨리스 코리아</td>
+                      <td class="px-4 py-3 truncate">알루미늄 코일</td>
+                      <td class="px-4 py-3 font-mono">2026-06-02</td>
+                      <td class="px-4 py-3">
+                        <span
+                          class="inline-flex items-center gap-1 bg-amber-50 border border-amber-200 text-amber-700 px-2 py-0.5 rounded text-xs font-bold">
+                          협력사 확인중
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-medium text-gray-900 truncate">폭(mm), 길이(mm), 중량(kg)</td>
+                      <td class="px-4 py-3 font-semibold truncate">케이알엠(주)</td>
+                      <td class="px-4 py-3 truncate">P1020 잉곳</td>
+                      <td class="px-4 py-3 font-mono">2026-06-03</td>
+                      <td class="px-4 py-3">
+                        <span
+                          class="inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200 text-emerald-700 px-2 py-0.5 rounded text-xs font-bold">
+                          회신 완료 (검증중)
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 공급망 맵 다단계 계층 트리 전개 (b-1 사양 / 종합 리스크 평가 테마 색상 적용) -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 space-y-4 flex-1 flex flex-col">
+              <div>
+                <h3 class="text-sm md:text-base font-bold text-gray-700">공급망 맵</h3>
+                <p class="text-xs text-gray-400 mt-1">* 협력사를 클릭하시면 해당 협력사의 BOM 및 원자재 정보가 우측 패널에 표시됩니다.</p>
+              </div>
+
+              <!-- 가로/세로 트리 시각화 패널 -->
+              <div
+                class="relative py-4 px-2 bg-slate-50/50 rounded-xl border border-gray-200/50 flex flex-col items-center justify-center gap-8 flex-1 min-h-[360px]">
+
+                <!-- 1차 협력사 레벨 (저위험: 초록 테마) -->
+                <div class="w-full flex justify-center">
+                  <button type="button" id="node-novelis" onclick="selectNode('novelis')"
+                    class="node-btn w-64 bg-emerald-50/40 border-2 border-emerald-500 ring-2 ring-slate-800 ring-offset-2 shadow-md rounded-xl p-4 text-left transition cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-xs font-bold text-white bg-emerald-600 px-1.5 py-0.5 rounded">1차 가공</span>
+                      <span class="text-xs font-mono text-emerald-700 font-bold">저위험</span>
+                    </div>
+                    <p class="text-base font-bold text-gray-900">노벨리스 코리아</p>
+                    <p class="text-sm text-emerald-800 mt-1 font-semibold">압연 및 합금 가공 플레이트</p>
+                  </button>
+                </div>
+
+                <!-- 연결선 (수직) -->
+                <div class="w-0.5 h-8 bg-gray-300 relative">
+                  <div
+                    class="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-r-2 border-b-2 border-gray-300 transform rotate-45">
+                  </div>
+                </div>
+
+                <!-- 2차 제련소 레벨 (중위험: 노란 테마) -->
+                <div class="w-full flex justify-center">
+                  <button type="button" id="node-krm" onclick="selectNode('krm')"
+                    class="node-btn w-64 bg-amber-50/40 border-2 border-amber-400 shadow-sm rounded-xl p-4 text-left transition cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-xs font-bold text-white bg-amber-500 px-1.5 py-0.5 rounded">2차 제련</span>
+                      <span class="text-xs font-mono text-amber-700 font-bold">중위험</span>
+                    </div>
+                    <p class="text-base font-bold text-gray-900">케이알엠(주)</p>
+                    <p class="text-sm text-amber-800 mt-1 font-semibold">재생 알루미늄 용해/제련</p>
+                  </button>
+                </div>
+
+                <!-- 연결선 (수직 분기선) -->
+                <div class="relative w-full max-w-lg flex flex-col items-center">
+                  <!-- 가로 들보선 -->
+                  <div class="w-full h-0.5 bg-gray-300"></div>
+                  <!-- 두 갈래 수직선 -->
+                  <div class="w-full flex justify-between px-0">
+                    <div class="w-0.5 h-8 bg-gray-300 relative ml-[25%]">
+                      <div
+                        class="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-r-2 border-b-2 border-gray-300 transform rotate-45">
+                      </div>
+                    </div>
+                    <div class="w-0.5 h-8 bg-gray-300 relative mr-[25%]">
+                      <div
+                        class="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-r-2 border-b-2 border-gray-300 transform rotate-45">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3차 채굴사 레벨 (2개 노드) -->
+                <div class="w-full max-w-xl flex justify-between gap-4">
+                  <!-- Comilog 가봉 (중위험: 노란 테마) -->
+                  <button type="button" id="node-comilog" onclick="selectNode('comilog')"
+                    class="node-btn flex-1 bg-amber-50/40 border-2 border-amber-400 shadow-sm rounded-xl p-4 text-left transition cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-xs font-bold text-white bg-amber-500 px-1.5 py-0.5 rounded">3차 채굴</span>
+                      <span class="text-xs font-mono text-amber-700 font-bold">중위험</span>
+                    </div>
+                    <p class="text-base font-bold text-gray-900">Comilog 가봉 광산 자산</p>
+                    <p class="text-sm text-amber-800 mt-1 font-semibold">망간 광석 채굴 및 파쇄 공정</p>
+                  </button>
+
+                  <!-- Rio Tinto (고위험: 붉은 테마) -->
+                  <button type="button" id="node-riotinto" onclick="selectNode('riotinto')"
+                    class="node-btn flex-1 bg-red-50/40 border-2 border-red-500 shadow-sm rounded-xl p-4 text-left transition cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-xs font-bold text-white bg-red-600 px-1.5 py-0.5 rounded">3차 채굴</span>
+                      <span class="text-xs font-mono text-red-700 font-bold">고위험</span>
+                    </div>
+                    <p class="text-base font-bold text-gray-900">Rio Tinto 보크사이트 인프라</p>
+                    <p class="text-sm text-red-800 mt-1 font-semibold">보크사이트(알루미늄 원광) 수급</p>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 우측 영역 - 명세서 패널 (4열 / h-full flex flex-col 설정으로 좌측과 높이 매칭) -->
+          <div class="lg:col-span-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col">
+              <!-- 명세서 헤더 및 매핑 스탬프 버전 표기 -->
+              <div class="p-4 bg-slate-900 text-white flex justify-between items-center shrink-0">
+                <div>
+                  <h3 class="text-sm md:text-base font-bold">선택 협력사 명세</h3>
+                  <p id="selected-company-title" class="text-xs md:text-sm text-emerald-400 font-bold mt-0.5">노벨리스 코리아
+                  </p>
+                </div>
+              </div>
+
+              <!-- justify-start 및 tight spacing 조율을 통해 공백 제거 및 꽉 찬 레이아웃 구성 -->
+              <div class="p-5 space-y-6 flex-1 flex flex-col justify-start overflow-y-auto">
+
+                <div class="space-y-5">
+                  <!-- BOM 정보 영역 -->
+                  <div class="space-y-3">
+                    <h4
+                      class="text-xs md:text-sm font-bold text-emerald-600 uppercase tracking-wider pb-1.5 border-b border-gray-100">
+                      BOM 정보</h4>
+                    <div class="grid grid-cols-1 gap-2.5 text-sm">
+                      <div class="flex justify-between py-2 border-b border-slate-50">
+                        <span class="text-gray-400">투입 부품명</span>
+                        <span id="bom-part" class="font-bold text-gray-800">Al 3003-H14 판재</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-slate-50">
+                        <span class="text-gray-400">BOM 단위 중량</span>
+                        <span id="bom-weight" class="font-bold text-gray-800">1,250 kg</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-slate-50">
+                        <span class="text-gray-400">BOM 소요 수량</span>
+                        <span id="bom-qty" class="font-bold text-gray-800">1.02 pcs/pcs</span>
+                      </div>
+                      <div class="flex justify-between py-2">
+                        <span class="text-gray-400">공정내 리드타임</span>
+                        <span id="bom-leadtime" class="font-bold text-gray-800">5일</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 원자재 정보 영역 -->
+                  <div class="space-y-3">
+                    <h4
+                      class="text-xs md:text-sm font-bold text-emerald-600 uppercase tracking-wider pb-1.5 border-b border-gray-100">
+                      원자재 정보</h4>
+                    <div class="grid grid-cols-1 gap-2.5 text-sm">
+                      <div class="flex justify-between py-2 border-b border-slate-50">
+                        <span class="text-gray-400">원자재 스펙명</span>
+                        <span id="mat-spec" class="font-bold text-gray-800">알루미늄 코일</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-slate-50">
+                        <span class="text-gray-400">소재지/원산지</span>
+                        <span id="mat-origin" class="font-bold text-gray-800">대한민국 / 호주</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-slate-50">
+                        <span class="text-gray-400">자재 치수 사양</span>
+                        <span id="mat-dim" class="font-bold text-gray-800">폭 400mm, 길이 300mm, 두께 1.5mm</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 화학 구성요소 비율 -->
+                <div class="pt-4 border-t border-gray-100 space-y-3">
+                  <p class="text-xs md:text-sm font-bold text-gray-500">주요 화학 구성요소 비율 명세</p>
+                  <div id="chemical-container" class="space-y-3 text-xs md:text-sm">
+
+                    <!-- Mn -->
+                    <div>
+                      <div class="flex justify-between mb-1 text-gray-600 font-semibold text-xs md:text-sm">
+                        <span>Mn (망간)</span>
+                        <span id="chem-mn-val" class="font-bold">1.25%</span>
+                      </div>
+                      <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="chem-mn-bar" class="bg-emerald-500 h-full rounded-full" style="width: 1.25%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Cu -->
+                    <div>
+                      <div class="flex justify-between mb-1 text-gray-600 font-semibold text-xs md:text-sm">
+                        <span>Cu (구리)</span>
+                        <span id="chem-cu-val" class="font-bold">0.15%</span>
+                      </div>
+                      <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="chem-cu-bar" class="bg-emerald-500 h-full rounded-full" style="width: 1.5%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Si -->
+                    <div>
+                      <div class="flex justify-between mb-1 text-gray-600 font-semibold text-xs md:text-sm">
+                        <span>Si (규소)</span>
+                        <span id="chem-si-val" class="font-bold">0.60%</span>
+                      </div>
+                      <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="chem-si-bar" class="bg-emerald-500 h-full rounded-full" style="width: 6.0%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Fe -->
+                    <div>
+                      <div class="flex justify-between mb-1 text-gray-600 font-semibold text-xs md:text-sm">
+                        <span>Fe (철)</span>
+                        <span id="chem-fe-val" class="font-bold">0.70%</span>
+                      </div>
+                      <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="chem-fe-bar" class="bg-emerald-500 h-full rounded-full" style="width: 7.0%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Al -->
+                    <div>
+                      <div class="flex justify-between mb-1 text-gray-600 font-semibold text-xs md:text-sm">
+                        <span>Al (알루미늄)</span>
+                        <span id="chem-al-val" class="font-bold">97.30%</span>
+                      </div>
+                      <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="chem-al-bar" class="bg-emerald-500 h-full rounded-full" style="width: 97.3%"></div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // 버전별 + 기업별 목업 상세 데이터
+    const versionNodeData = {
+      'v2.0': {
+        novelis: {
+          title: '노벨리스코리아',
+          part: 'Al 3003-H14 판재',
+          weight: '1,250 kg',
+          qty: '1.02 pcs/pcs',
+          leadtime: '5일',
+          spec: '알루미늄 코일',
+          origin: '대한민국 / 호주',
+          dim: '폭 400mm, 길이 300mm, 두께 1.5mm',
+          chem: { mn: '1.25', cu: '0.15', si: '0.60', fe: '0.70', al: '97.30' }
+        },
+        krm: {
+          title: '케이알엠(주)',
+          part: 'P1020 재생 잉곳',
+          weight: '1,120 kg',
+          qty: '1.00 pcs/pcs',
+          leadtime: '3일',
+          spec: '알루미늄 잉곳 99.7%',
+          origin: '대한민국 / 러시아',
+          dim: '가로 700mm, 세로 200mm, 높이 150mm',
+          chem: { mn: '0.05', cu: '0.01', si: '0.10', fe: '0.15', al: '99.69' }
+        },
+        comilog: {
+          title: 'Comilog',
+          part: 'Mn 정광 분말',
+          weight: '0.062 kg',
+          qty: '0.06 pcs/pcs',
+          leadtime: '14일',
+          spec: '망간 원광석',
+          origin: '가봉 / 가봉',
+          dim: '입도 0.1-5.0mm 파쇄 형태',
+          chem: { mn: '48.50', cu: '0.05', si: '6.20', fe: '4.80', al: '3.50' }
+        },
+        riotinto: {
+          title: 'Rio Tinto',
+          part: '보크사회트 원광',
+          weight: '0.950 kg',
+          qty: '0.92 pcs/pcs',
+          leadtime: '20일',
+          spec: 'Al2O3 보크사이트 광석',
+          origin: '호주 / 호주',
+          dim: '벌크 광석 형태',
+          chem: { mn: '0.10', cu: '0.02', si: '4.50', fe: '12.50', al: '55.20' }
+        }
+      },
+      'v1.0': {
+        novelis: {
+          title: '노벨리스 코리아',
+          part: 'Al 3003-H14 판재',
+          weight: '1,300 kg',
+          qty: '1.05 pcs/pcs',
+          leadtime: '7일',
+          spec: '알루미늄 슬랩',
+          origin: '대한민국 / 인도네시아',
+          dim: '폭 380mm, 길이 280mm, 두께 1.5mm',
+          chem: { mn: '1.10', cu: '0.20', si: '0.70', fe: '0.85', al: '97.15' }
+        },
+        krm: {
+          title: '케이알엠(주)',
+          part: 'P1020 잉곳',
+          weight: '1,150 kg',
+          qty: '1.02 pcs/pcs',
+          leadtime: '4일',
+          spec: '알루미늄 잉곳 99.5%',
+          origin: '대한민국 / 러시아',
+          dim: '가로 700mm, 세로 200mm, 높이 150mm',
+          chem: { mn: '0.06', cu: '0.02', si: '0.12', fe: '0.20', al: '99.60' }
+        },
+        comilog: {
+          title: 'Comilog 가봉 광산 자산',
+          part: 'Mn 정광 분말',
+          weight: '0.065 kg',
+          qty: '0.07 pcs/pcs',
+          leadtime: '15일',
+          spec: '망간 광석',
+          origin: '가봉 / 가봉',
+          dim: '입도 0.5-8.0mm 파쇄 형태',
+          chem: { mn: '46.20', cu: '0.06', si: '7.10', fe: '5.20', al: '4.10' }
+        },
+        riotinto: {
+          title: 'Rio Tinto 보크사이트 인프라',
+          part: '보크사이트 원광',
+          weight: '0.980 kg',
+          qty: '0.95 pcs/pcs',
+          leadtime: '22일',
+          spec: '보크사이트 벌크 원석',
+          origin: '호주 / 호주',
+          dim: '벌크 광석 형태',
+          chem: { mn: '0.12', cu: '0.03', si: '5.10', fe: '13.80', al: '53.50' }
+        }
+      }
+    };
+
+    let selectedVersion = 'v2.0';
+    let selectedNode = 'novelis';
+
+    // 버전 선택박스 변경 핸들러
+    function onVersionChange(val) {
+      selectedVersion = val;
+
+      // 매핑 스탬프 텍스트 동기화 (존재할 경우에만 갱신)
+      const versionStamp = document.getElementById('version-stamp');
+      if (versionStamp) {
+        versionStamp.innerText = `매핑 스탬프 버전: ${val}`;
+      }
+
+      // 상세 데이터 재조회
+      updateDetailPanel();
+    }
+
+    // 트리 노드 선택 핸들러
+    function selectNode(nodeId) {
+      selectedNode = nodeId;
+
+      // 모든 노드에서 활성화 스타일(ring) 및 shadow 제거
+      const nodes = document.querySelectorAll('.node-btn');
+      nodes.forEach(n => {
+        n.classList.remove('ring-2', 'ring-slate-800', 'ring-offset-2', 'shadow-md');
+        n.classList.add('shadow-sm');
+      });
+
+      // 선택된 노드에 ring 추가
+      const activeBtn = document.getElementById(`node-${nodeId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('shadow-sm');
+        activeBtn.classList.add('ring-2', 'ring-slate-800', 'ring-offset-2', 'shadow-md');
+      }
+
+      // 우측 패널 내용 동기화 업데이트
+      updateDetailPanel();
+    }
+
+    // 상세 패널 렌더링 동기화 함수
+    function updateDetailPanel() {
+      const data = versionNodeData[selectedVersion][selectedNode];
+
+      document.getElementById('selected-company-title').innerText = data.title;
+      document.getElementById('bom-part').innerText = data.part;
+      document.getElementById('bom-weight').innerText = data.weight;
+      document.getElementById('bom-qty').innerText = data.qty;
+      document.getElementById('bom-leadtime').innerText = data.leadtime;
+
+      document.getElementById('mat-spec').innerText = data.spec;
+      document.getElementById('mat-origin').innerText = data.origin;
+      document.getElementById('mat-dim').innerText = data.dim;
+
+      // 화학 성분 업데이트
+      document.getElementById('chem-mn-val').innerText = `${data.chem.mn}%`;
+      document.getElementById('chem-mn-bar').style.width = `${parseFloat(data.chem.mn)}%`;
+
+      document.getElementById('chem-cu-val').innerText = `${data.chem.cu}%`;
+      document.getElementById('chem-cu-bar').style.width = `${parseFloat(data.chem.cu) * 10}%`; // 스케일링 보정
+
+      document.getElementById('chem-si-val').innerText = `${data.chem.si}%`;
+      document.getElementById('chem-si-bar').style.width = `${parseFloat(data.chem.si) * 10}%`; // 스케일링 보정
+
+      document.getElementById('chem-fe-val').innerText = `${data.chem.fe}%`;
+      document.getElementById('chem-fe-bar').style.width = `${parseFloat(data.chem.fe) * 5}%`; // 스케일링 보정
+
+      document.getElementById('chem-al-val').innerText = `${data.chem.al}%`;
+      document.getElementById('chem-al-bar').style.width = `${parseFloat(data.chem.al)}%`;
+    }
+  </script>
+</body>
+
+</html>
